@@ -76,6 +76,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
+    setResourcesOpen(false)
+    mobileMenuTriggerRef.current?.focus()
+  }
+
   const PREMIUM_HREFS = new Set([
     '/chat',
     '/listening',
@@ -484,7 +490,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                   className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
                   aria-current={active ? 'page' : undefined}
                 >
@@ -631,7 +637,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </p>
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false)
+                  closeMobileMenu()
                   setContactOpen(true)
                 }}
                 className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
@@ -640,7 +646,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </button>
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false)
+                  closeMobileMenu()
                   setLogoutConfirm(true)
                 }}
                 className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-xs tracking-widest uppercase transition-colors"
