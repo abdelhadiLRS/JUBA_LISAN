@@ -361,32 +361,28 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Busuu reference editorial awards/app section */}
+      {/* Busuu reference: New languages editorial banner */}
       <ScrollReveal>
-        <section className="juba-busuu-awards-section" aria-label={t('navFeatures')}>
-          <div className="juba-busuu-awards-inner">
-            <div className="juba-busuu-awards-art" aria-hidden="true">
-              <img
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
-                alt=""
-              />
-            </div>
-            <div className="juba-busuu-awards-copy">
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2>{t('navFeatures')}</h2>
-              <p>{t('heroSub')}</p>
-              <div className="juba-busuu-awards-badges" aria-hidden="true">
-                <span>✓ {t('feature1Title')}</span>
-                <span>✓ {t('feature2Title')}</span>
-                <span>✓ {t('feature3Title')}</span>
+        <section className="juba-busuu-new-languages" aria-label={t('languagesTitle')}>
+          <div className="juba-busuu-new-languages-track">
+            {[0, 1].map((group) => (
+              <div
+                className="juba-busuu-new-languages-group"
+                aria-hidden={group === 1}
+                key={group}
+              >
+                <span>{t('languagesTitle')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
+                <span>{t('languagesSubtitle')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
               </div>
-            </div>
-            <div className="juba-busuu-awards-art juba-busuu-awards-art-right" aria-hidden="true">
-              <img
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
-                alt=""
-              />
-            </div>
+            ))}
           </div>
         </section>
       </ScrollReveal>
@@ -431,33 +427,6 @@ export default async function Home() {
             {t('faqTitle')}
           </h2>
           <LandingFAQ dir={dir} />
-        </section>
-      </ScrollReveal>
-
-      {/* Busuu-style moving editorial ticker */}
-      <ScrollReveal>
-        <section className="juba-busuu-language-ticker" aria-label={t('navLanguages')}>
-          <div className="juba-busuu-language-ticker-track">
-            {[0, 1].map((group) => (
-              <div className="juba-busuu-language-ticker-group" aria-hidden={group === 1} key={group}>
-                <span>{t('navLanguages')}</span>
-                <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
-                  alt=""
-                />
-                <span>{t('feature1Title')}</span>
-                <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
-                  alt=""
-                />
-                <span>{t('feature2Title')}</span>
-                <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
-                  alt=""
-                />
-              </div>
-            ))}
-          </div>
         </section>
       </ScrollReveal>
 
