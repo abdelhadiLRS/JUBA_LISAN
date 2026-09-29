@@ -12299,3 +12299,35 @@ html[data-theme='light'] {
     padding-bottom: 56px !important;
   }
 }
+
+
+/* === Landing accessibility pass: motion controls and keyboard focus === */
+.juba-busuu-page .juba-busuu-new-languages-track {
+  backface-visibility: hidden;
+}
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
+.juba-busuu-page .juba-busuu-reference-primary:focus-visible,
+.juba-busuu-page .juba-busuu-nav a:focus-visible,
+.juba-busuu-page .juba-busuu-footer a:focus-visible {
+  outline: 3px solid #f3b63f;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-reference-primary,
+  .juba-busuu-page .juba-busuu-nav a,
+  .juba-busuu-page .juba-busuu-footer a {
+    transition: none !important;
+  }
+}
