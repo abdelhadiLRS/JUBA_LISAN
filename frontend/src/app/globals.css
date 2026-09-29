@@ -12699,3 +12699,38 @@ html[data-theme='light'] {
     transition: none !important;
   }
 }
+
+
+/* === Landing accessibility pass: motion and focus behavior === */
+.juba-busuu-page .juba-busuu-new-languages-track {
+  will-change: transform;
+}
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  overflow-wrap: normal;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    width: 100%;
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+    padding: 24px;
+    gap: 18px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group span {
+    font-size: clamp(24px, 5vw, 42px);
+    text-align: center;
+  }
+}
