@@ -11348,3 +11348,68 @@ html[data-theme='light'] {
     height: 44px;
   }
 }
+
+/* === Busuu landing: editorial language ticker === */
+.juba-busuu-page .juba-busuu-language-ticker {
+  position: relative;
+  overflow: hidden;
+  min-height: 132px;
+  display: flex;
+  align-items: center;
+  background: var(--busuu-green);
+  color: #fff;
+  border-top: 1px solid rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.juba-busuu-page .juba-busuu-language-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: juba-busuu-ticker 30s linear infinite;
+}
+.juba-busuu-page .juba-busuu-language-ticker-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+  padding-inline: clamp(28px, 4vw, 64px);
+  white-space: nowrap;
+}
+.juba-busuu-page .juba-busuu-language-ticker-group span {
+  font-size: clamp(30px, 4.2vw, 58px);
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-language-ticker-group img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+@keyframes juba-busuu-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-ticker-track {
+    animation: none;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-language-ticker {
+    min-height: 104px;
+  }
+  .juba-busuu-page .juba-busuu-language-ticker-group {
+    gap: 24px;
+    padding-inline: 24px;
+  }
+  .juba-busuu-page .juba-busuu-language-ticker-group span {
+    font-size: 31px;
+  }
+  .juba-busuu-page .juba-busuu-language-ticker-group img {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+}
