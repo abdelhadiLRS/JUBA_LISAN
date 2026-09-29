@@ -40,6 +40,8 @@ export function LandingReviewsCarousel({
     if (!scroller || reviews.length <= 1) return
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return
+
     const interval = window.setInterval(() => {
       const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       const maxLeft = scroller.scrollWidth - scroller.clientWidth
@@ -48,7 +50,7 @@ export function LandingReviewsCarousel({
         const atStart = Math.abs(scroller.scrollLeft) >= maxLeft - 1
         scroller.scrollTo({
           left: atStart ? 0 : Math.max(scroller.scrollLeft - 320, -maxLeft),
-          behavior: reduceMotion ? 'auto' : 'smooth',
+          behavior: 'smooth',
         })
         return
       }
