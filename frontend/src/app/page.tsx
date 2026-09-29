@@ -16,7 +16,7 @@ import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { ContactButton } from '@/components/ui/contact-button'
-import { LanguageBubbles } from '@/components/LanguageBubbles'
+import { LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
 import { LandingReviewsCarousel } from '@/components/reviews/LandingReviewsCarousel'
 import type { ReviewPublic } from '@/types/api'
 import { normalizeLocale } from '@/lib/locales'
@@ -179,6 +179,31 @@ export default async function Home() {
               <span aria-hidden="true">✦</span>
               <span>{tCommon('tagline')}</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Busuu-style trust strip: concise proof points between hero and lesson preview */}
+      <section className="juba-busuu-proof-strip" aria-label={t('navFeatures')}>
+        <div className="juba-busuu-proof-inner">
+          <div className="juba-busuu-proof-stat">
+            <strong>{SUPPORTED_LANGUAGE_COUNT}+</strong>
+            <span>{t('navLanguages')}</span>
+          </div>
+          <div className="juba-busuu-proof-divider" aria-hidden="true" />
+          <div className="juba-busuu-proof-item">
+            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+            <span>{t('feature1Title')}</span>
+          </div>
+          <div className="juba-busuu-proof-divider" aria-hidden="true" />
+          <div className="juba-busuu-proof-item">
+            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+            <span>{t('feature2Title')}</span>
+          </div>
+          <div className="juba-busuu-proof-divider" aria-hidden="true" />
+          <div className="juba-busuu-proof-item">
+            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+            <span>{t('feature3Title')}</span>
           </div>
         </div>
       </section>
