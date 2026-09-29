@@ -9577,3 +9577,60 @@ html[data-theme='light'] {
 @media (max-width: 640px) {
   .juba-busuu-page .juba-busuu-nav-inner { min-height: 64px !important; }
 }
+
+
+/* === Landing testimonials: Busuu-style editorial cards === */
+.juba-busuu-page .juba-busuu-testimonials {
+  padding-block: clamp(62px, 8vw, 104px);
+}
+.juba-busuu-page .juba-ff-reviews {
+  max-width: 1120px;
+  padding-inline: 0;
+  padding-bottom: 0;
+}
+.juba-busuu-page .juba-ff-reviews > .mb-8 {
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: clamp(30px, 4vw, 44px);
+}
+.juba-busuu-page .juba-ff-reviews > .mb-8 h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -.035em;
+  font-weight: 800;
+}
+.juba-busuu-page .juba-ff-reviews > .mb-8 p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.juba-busuu-page .juba-ff-reviews > .mb-8 > div:last-child {
+  border: 1px solid #dce5df;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 0 #e5ebe8;
+}
+.juba-busuu-page .juba-ff-reviews > div:last-child {
+  gap: 18px;
+  padding: 4px 4px 10px;
+  scrollbar-width: thin;
+}
+.juba-busuu-page .juba-ff-review-card {
+  width: min(350px, calc(100vw - 56px));
+  min-height: 230px;
+  padding: 24px;
+  border: 1px solid #dce5df;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 4px 0 #e5ebe8;
+}
+.juba-busuu-page .juba-ff-review-card h3 {
+  font-size: 15px;
+  font-weight: 800;
+}
+.juba-busuu-page .juba-ff-review-card p {
+  line-height: 1.7;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-ff-reviews { padding-inline: 0; }
+  .juba-busuu-page .juba-ff-review-card { padding: 20px; }
+}
