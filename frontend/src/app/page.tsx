@@ -275,8 +275,8 @@ export default async function Home() {
 
       {/* Open Source */}
       <ScrollReveal>
-        <section className="juba-busuu-section mx-auto w-full max-w-5xl px-6 pb-16">
-          <div className="juba-busuu-open-source flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
+        <section className="juba-busuu-open-source-section">
+          <div className="juba-busuu-open-source flex flex-col items-center justify-between gap-5 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
                 src="/github.svg"
@@ -308,10 +308,7 @@ export default async function Home() {
 
       {/* FAQ */}
       <ScrollReveal>
-        <section
-          id="faq"
-          className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-16"
-        >
+        <section id="faq" className="juba-busuu-faq-section scroll-mt-16">
           <h2 className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
             {t('faqTitle')}
           </h2>
