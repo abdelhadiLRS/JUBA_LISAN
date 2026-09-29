@@ -98,16 +98,15 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                 <ChevronDown className="h-4 w-4 text-[var(--busuu-ink)]" />
               </span>
             </button>
-            {isOpen && (
-              <div
-                id={`landing-faq-answer-${key}`}
-                role="region"
-                aria-labelledby={`landing-faq-question-${key}`}
-                className="juba-landing-faq-answer border-t px-5 pt-4 pb-6 text-sm font-medium leading-7 animate-in fade-in duration-150"
-              >
-                {renderAnswer(key)}
-              </div>
-            )}
+            <div
+              id={`landing-faq-answer-${key}`}
+              role="region"
+              aria-labelledby={`landing-faq-question-${key}`}
+              hidden={!isOpen}
+              className="juba-landing-faq-answer border-t px-5 pt-4 pb-6 text-sm font-medium leading-7 animate-in fade-in duration-150"
+            >
+              {renderAnswer(key)}
+            </div>
           </div>
         )
       })}
