@@ -10908,96 +10908,6 @@ html[data-theme='light'] {
   }
 }
 
-/* === Busuu landing: editorial recognition band === */
-.juba-busuu-page .juba-busuu-awards-section {
-  overflow: hidden;
-  padding: clamp(62px, 8vw, 94px) 24px;
-  background: var(--busuu-cream);
-  border-top: 1px solid #edf1ee;
-  border-bottom: 1px solid #e4ebe6;
-}
-.juba-busuu-page .juba-busuu-awards-inner {
-  width: min(1120px, 100%);
-  min-height: 240px;
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 150px;
-  align-items: center;
-  gap: 24px;
-}
-.juba-busuu-page .juba-busuu-awards-art {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.juba-busuu-page .juba-busuu-awards-art img {
-  width: 150px;
-  height: auto;
-}
-.juba-busuu-page .juba-busuu-awards-art-right {
-  justify-content: flex-end;
-}
-.juba-busuu-page .juba-busuu-awards-copy {
-  text-align: center;
-}
-.juba-busuu-page .juba-busuu-awards-copy .juba-busuu-eyebrow {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--busuu-green-dark);
-  font-size: 11px;
-  font-weight: 850;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-.juba-busuu-page .juba-busuu-awards-copy h2 {
-  margin: 0;
-  color: var(--busuu-ink);
-  font-size: clamp(32px, 4.2vw, 50px);
-  line-height: 1.04;
-  font-weight: 850;
-  letter-spacing: -.045em;
-}
-.juba-busuu-page .juba-busuu-awards-copy p {
-  max-width: 620px;
-  margin: 14px auto 0;
-  color: var(--busuu-muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.juba-busuu-page .juba-busuu-awards-badges {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 9px;
-  margin-top: 22px;
-}
-.juba-busuu-page .juba-busuu-awards-badges span {
-  padding: 8px 12px;
-  border: 1px solid #cfe0d6;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--busuu-green-dark);
-  font-size: 11px;
-  font-weight: 800;
-}
-@media (max-width: 720px) {
-  .juba-busuu-page .juba-busuu-awards-inner {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .juba-busuu-page .juba-busuu-awards-art {
-    display: none;
-  }
-}
-@media (max-width: 560px) {
-  .juba-busuu-page .juba-busuu-awards-section {
-    padding-inline: 16px;
-  }
-  .juba-busuu-page .juba-busuu-awards-copy p {
-    font-size: 14px;
-  }
-}
-
 /* === Busuu landing: section architecture + decorative language rhythm === */
 .juba-busuu-page .juba-busuu-reference-languages {
   position: relative;
@@ -11349,67 +11259,72 @@ html[data-theme='light'] {
   }
 }
 
-/* === Busuu landing: editorial language ticker === */
-.juba-busuu-page .juba-busuu-language-ticker {
+
+
+/* === Busuu landing: new-languages editorial banner === */
+.juba-busuu-page .juba-busuu-new-languages {
   position: relative;
   overflow: hidden;
-  min-height: 132px;
+  min-height: 184px;
   display: flex;
   align-items: center;
-  background: var(--busuu-green);
-  color: #fff;
-  border-top: 1px solid rgba(0,0,0,.06);
-  border-bottom: 1px solid rgba(0,0,0,.06);
+  background: #fff;
+  border-top: 1px solid #e5ece7;
+  border-bottom: 1px solid #e5ece7;
 }
-.juba-busuu-page .juba-busuu-language-ticker-track {
+.juba-busuu-page .juba-busuu-new-languages-track {
   display: flex;
   width: max-content;
-  animation: juba-busuu-ticker 30s linear infinite;
+  animation: juba-busuu-new-languages 30s linear infinite;
 }
-.juba-busuu-page .juba-busuu-language-ticker-group {
+.juba-busuu-page .juba-busuu-new-languages-group {
   display: flex;
   align-items: center;
-  gap: clamp(28px, 4vw, 64px);
-  padding-inline: clamp(28px, 4vw, 64px);
+  gap: clamp(34px, 5vw, 72px);
+  padding-inline: clamp(34px, 5vw, 72px);
   white-space: nowrap;
 }
-.juba-busuu-page .juba-busuu-language-ticker-group span {
-  font-size: clamp(30px, 4.2vw, 58px);
-  line-height: 1;
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  color: var(--busuu-ink);
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: .98;
   font-weight: 850;
-  letter-spacing: -.045em;
+  letter-spacing: -.055em;
 }
-.juba-busuu-page .juba-busuu-language-ticker-group img {
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(2) {
+  max-width: 760px;
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
   display: block;
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
 }
-@keyframes juba-busuu-ticker {
+@keyframes juba-busuu-new-languages {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-language-ticker-track {
+  .juba-busuu-page .juba-busuu-new-languages-track {
     animation: none;
   }
 }
-@media (max-width: 560px) {
-  .juba-busuu-page .juba-busuu-language-ticker {
-    min-height: 104px;
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 144px;
   }
-  .juba-busuu-page .juba-busuu-language-ticker-group {
-    gap: 24px;
-    padding-inline: 24px;
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 28px;
+    padding-inline: 28px;
   }
-  .juba-busuu-page .juba-busuu-language-ticker-group span {
-    font-size: 31px;
+  .juba-busuu-page .juba-busuu-new-languages-group span {
+    font-size: 34px;
   }
-  .juba-busuu-page .juba-busuu-language-ticker-group img {
-    width: 30px;
-    height: 30px;
-    flex-basis: 30px;
+  .juba-busuu-page .juba-busuu-new-languages-group img {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
   }
 }
