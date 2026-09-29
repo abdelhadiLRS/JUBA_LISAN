@@ -4602,3 +4602,230 @@ html[data-theme='light'] {
   color: #fff;
 }
 
+
+
+/* ── Busuu-inspired public landing: final coherent component system ─────── */
+.juba-busuu-page {
+  --busuu-shadow: 0 16px 44px color-mix(in srgb, var(--busuu-ink) 8%, transparent);
+  --busuu-shadow-soft: 0 5px 0 color-mix(in srgb, var(--busuu-green) 11%, var(--busuu-line));
+  overflow: clip;
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(14px, 2.5vw, 32px);
+}
+.juba-busuu-page .juba-busuu-brand {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+.juba-busuu-page .juba-busuu-nav-links a {
+  color: var(--busuu-muted);
+  font-size: 14px;
+  font-weight: 650;
+  transition: color .18s ease;
+}
+.juba-busuu-page .juba-busuu-nav-links a:hover,
+.juba-busuu-page .juba-busuu-login:hover {
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.7vw, 24px);
+}
+.juba-busuu-page .juba-busuu-locale {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 999px;
+  background: white;
+  color: var(--busuu-ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+.juba-busuu-page .juba-busuu-hero-inner {
+  max-width: 1240px;
+  padding-inline: clamp(22px, 4vw, 48px);
+}
+.juba-busuu-page .juba-busuu-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 13px;
+  border: 1px solid color-mix(in srgb, var(--busuu-green) 20%, var(--busuu-line));
+  border-radius: 999px;
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+.juba-busuu-page .juba-busuu-hero-copy h1 {
+  margin-top: 20px;
+  font-size: clamp(42px, 5.4vw, 72px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-hero-copy p {
+  margin-top: 20px;
+  color: var(--busuu-muted);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.85;
+}
+.juba-busuu-page .juba-busuu-hero-visual {
+  border: 1px solid color-mix(in srgb, var(--busuu-green) 12%, var(--busuu-line));
+  box-shadow: 0 22px 70px color-mix(in srgb, var(--busuu-green) 8%, transparent);
+}
+.juba-busuu-page .juba-busuu-lesson-preview {
+  overflow: hidden;
+  border: 1px solid var(--busuu-line);
+  border-radius: 24px;
+  background: var(--busuu-card);
+  box-shadow: var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-lesson-preview-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--busuu-line);
+}
+.juba-busuu-page .juba-busuu-lesson-preview-body {
+  padding: 22px;
+}
+.juba-busuu-page .juba-busuu-language-panel {
+  box-shadow: var(--busuu-shadow-soft);
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 22px;
+  padding: 20px clamp(18px, 3vw, 34px);
+}
+.juba-busuu-page .juba-busuu-proof-stat strong {
+  color: var(--busuu-green-dark);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 850;
+}
+.juba-busuu-page .juba-busuu-proof-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--busuu-muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  font-weight: 900;
+}
+.juba-busuu-page .juba-busuu-demo-card {
+  overflow: hidden;
+  border: 1px solid var(--busuu-line);
+  border-radius: 26px;
+  background: white;
+  box-shadow: var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-feature-card {
+  border-radius: 22px;
+  box-shadow: var(--busuu-shadow-soft);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.juba-busuu-page .juba-busuu-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 0 color-mix(in srgb, var(--busuu-green) 16%, var(--busuu-line));
+}
+.juba-busuu-page .juba-ff-reviews {
+  padding-top: clamp(48px, 7vw, 88px);
+}
+.juba-busuu-page .juba-ff-review-card {
+  border-radius: 22px;
+  box-shadow: var(--busuu-shadow-soft);
+}
+.juba-busuu-page .juba-ff-pricing {
+  padding: clamp(48px, 7vw, 88px) clamp(20px, 4vw, 48px);
+}
+.juba-busuu-page .juba-ff-pricing-title {
+  color: var(--busuu-ink);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 850;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+}
+.juba-busuu-page .juba-ff-plan-card {
+  border: 1px solid var(--busuu-line);
+  border-radius: 24px;
+  background: var(--busuu-card);
+  box-shadow: var(--busuu-shadow-soft);
+  padding: clamp(20px, 2.5vw, 30px);
+}
+.juba-busuu-page .juba-ff-plan-yearly {
+  border-color: color-mix(in srgb, var(--busuu-green) 50%, var(--busuu-line));
+  box-shadow: 0 6px 0 color-mix(in srgb, var(--busuu-green) 18%, var(--busuu-line)), var(--busuu-shadow);
+}
+.juba-busuu-page .juba-ff-comparison {
+  border-radius: 20px;
+  box-shadow: var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-open-source {
+  gap: 22px;
+}
+.juba-busuu-page .juba-busuu-footer {
+  margin-top: auto;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .juba-busuu-page .juba-busuu-proof-divider {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-nav-actions {
+    gap: 8px;
+  }
+  .juba-busuu-page .juba-busuu-nav-actions .juba-busuu-login {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-proof-inner {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 18px;
+  }
+  .juba-busuu-page .juba-busuu-proof-stat {
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--busuu-line);
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    width: 100%;
+    font-size: 12px;
+  }
+  .juba-busuu-page .juba-ff-pricing {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-ff-plan-card {
+    padding: 20px;
+  }
+}
