@@ -259,7 +259,7 @@ export default async function Home() {
               </p>
             </div>
             <div className="juba-busuu-demo-answer border-s-2 ps-4">
-              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+              <p className="juba-busuu-demo-label mb-2">
                 {t('microDemo.answerLabel')}
               </p>
               <p
@@ -275,7 +275,7 @@ export default async function Home() {
               </p>
               <p
                 lang="en-GB"
-                className="text-fl-fg font-mono text-sm leading-relaxed"
+                className="juba-busuu-demo-copy text-sm leading-relaxed"
               >
                 Yesterday I{' '}
                 <strong className="font-bold underline underline-offset-4">
