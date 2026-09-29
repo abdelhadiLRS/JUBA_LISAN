@@ -286,7 +286,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
-    <div className="juba-duo-shell" dir={dir}>
+    <div className="juba-duo-shell juba-busuu-app" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
       </a>
