@@ -161,7 +161,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-subject" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelSubject')}</label>
+                <label htmlFor="contact-subject" className="text-xs font-semibold text-[var(--busuu-muted)]">{t('labelSubject')}</label>
                 <input
                   id="contact-subject"
                   type="text"
@@ -177,8 +177,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between gap-3">
-                  <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelDescription')}</label>
-                  <span className="text-[10px] font-medium tabular-nums text-[var(--duo-muted)]">{description.length}/5000</span>
+                  <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--busuu-muted)]">{t('labelDescription')}</label>
+                  <span className="text-[10px] font-medium tabular-nums text-[var(--busuu-muted)]">{description.length}/5000</span>
                 </div>
                 <textarea
                   id="contact-description"
@@ -194,7 +194,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               {status === 'error' && (
-                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,var(--busuu-green)_8%,white)] px-3 py-2.5 text-sm leading-relaxed text-[var(--busuu-green-dark)]">
+                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,#b42318_7%,white)] px-3 py-2.5 text-sm leading-relaxed text-[#b42318]">
                   <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
                   <span>{errorMsg}</span>
                 </p>
@@ -217,7 +217,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               >
                 {isLoading ? (
                   <span className="inline-flex items-center">
-                    <LoaderCircle className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                    <LoaderCircle className="me-2 h-4 w-4 animate-spin" aria-hidden="true" />
                     {t('sending')}
                   </span>
                 ) : (
