@@ -500,6 +500,22 @@ export default async function Home() {
           </div>
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
+              {t('footerLearning')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navLanguages')}
+              </a>
+              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navFeatures')}
+              </a>
+              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navReviews')}
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerLegal')}
             </h4>
             <div className="flex flex-col gap-2">
