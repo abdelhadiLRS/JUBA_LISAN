@@ -12734,3 +12734,83 @@ html[data-theme='light'] {
     text-align: center;
   }
 }
+
+
+/* === Landing fidelity pass: accessible editorial ticker === */
+.juba-busuu-page .juba-busuu-new-languages {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+.juba-busuu-page[dir="rtl"] .juba-busuu-new-languages {
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+  }
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages {
+    -webkit-mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track,
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
