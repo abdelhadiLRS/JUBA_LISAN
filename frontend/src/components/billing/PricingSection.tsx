@@ -162,7 +162,13 @@ export default function PricingSection({
   ]
 
   return (
-    <section aria-label={tBilling('pricingTitle')} className="juba-ff-pricing w-full">
+    <section aria-labelledby="juba-landing-pricing-title" className="juba-ff-pricing w-full">
+      <div className="juba-ff-pricing-intro mx-auto mb-10 max-w-3xl px-5 text-center">
+        <span className="juba-ff-pricing-eyebrow">{tBilling('planFreeBadge')}</span>
+        <h2 id="juba-landing-pricing-title" className="juba-ff-pricing-title">
+          {tBilling('pricingTitle')}
+        </h2>
+      </div>
       {/* Plan cards */}
       <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-3">
         {plans.map((plan) => {
