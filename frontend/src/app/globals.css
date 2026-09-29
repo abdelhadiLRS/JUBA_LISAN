@@ -4267,3 +4267,129 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-hero-primary,
   .juba-busuu-page .juba-busuu-hero-secondary { min-height: 52px; }
 }
+
+
+/* ── Busuu-inspired landing redesign: clearer navigation, hero and learning preview ── */
+.juba-busuu-page .juba-busuu-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid color-mix(in srgb, var(--busuu-line) 75%, transparent);
+  background: color-mix(in srgb, #fff 92%, transparent);
+  backdrop-filter: blur(16px);
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  width: min(1240px, calc(100% - 64px));
+  min-height: 76px;
+}
+.juba-busuu-page .juba-busuu-nav-cta {
+  min-height: 46px;
+  padding: 0 23px;
+  border: 1px solid var(--busuu-green);
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+  font-weight: 800;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-nav-cta:hover {
+  transform: translateY(1px);
+  background: var(--busuu-green-dark);
+  box-shadow: 0 2px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-login {
+  color: var(--busuu-ink);
+  font-weight: 750;
+}
+.juba-busuu-page > .juba-busuu-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.juba-busuu-page > .juba-busuu-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: -140px;
+  top: 6%;
+  width: clamp(300px, 42vw, 620px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--busuu-green) 13%, transparent);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 0 36px color-mix(in srgb, var(--busuu-green) 3%, transparent),
+    0 0 0 84px color-mix(in srgb, var(--busuu-green) 2%, transparent);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-hero-copy h1 {
+  color: var(--busuu-ink);
+  font-weight: 850;
+  letter-spacing: -.055em;
+}
+.juba-busuu-page .juba-busuu-hero-copy p {
+  color: var(--busuu-muted);
+}
+.juba-busuu-page .juba-busuu-hero-primary {
+  border: 1px solid var(--busuu-green);
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-hero-primary:hover {
+  background: var(--busuu-green-dark);
+  box-shadow: 0 2px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-hero-secondary {
+  border: 1.5px solid var(--busuu-line);
+  background: #fff;
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-lesson-preview {
+  transform: rotate(0);
+  border-radius: 26px;
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--busuu-ink) 13%, transparent);
+}
+.juba-busuu-page .juba-busuu-lesson-preview-top {
+  background: linear-gradient(115deg, var(--busuu-mint), #fff 90%);
+}
+.juba-busuu-page .juba-busuu-language-panel {
+  border: 1px solid color-mix(in srgb, var(--busuu-green) 18%, var(--busuu-line));
+  border-radius: 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-floating-note {
+  border: 1px solid var(--busuu-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding: 0 clamp(20px, 5vw, 64px);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  width: min(1160px, 100%);
+  border: 1px solid var(--busuu-line);
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-demo-card,
+.juba-busuu-page .juba-busuu-feature-card,
+.juba-busuu-page .juba-ff-review-card {
+  border-radius: 22px;
+  background: #fff;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-nav-inner {
+    width: calc(100% - 28px);
+    min-height: 68px;
+  }
+  .juba-busuu-page > .juba-busuu-hero::before {
+    inset-inline-end: -180px;
+    top: 30%;
+    width: 360px;
+  }
+  .juba-busuu-page .juba-busuu-nav-cta {
+    min-height: 42px;
+    padding-inline: 16px;
+  }
+}
