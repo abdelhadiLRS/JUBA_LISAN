@@ -186,6 +186,14 @@ export default async function Home() {
         <div className="juba-busuu-reference-languages-inner">
           <h2 id="language-title">{t('navLanguages')}</h2>
           <LanguageBubbles dir={dir} />
+          <div className="juba-busuu-language-cta">
+            <Link
+              href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+              className="juba-busuu-language-cta-link"
+            >
+              {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+            </Link>
+          </div>
         </div>
       </section>
 
