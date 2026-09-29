@@ -9050,3 +9050,70 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-proof-inner { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .juba-busuu-page .juba-busuu-proof-divider { display:none; }
 }
+
+
+/* ── JUBA LISAN landing: unified Busuu-style page composition ───────────── */
+.juba-busuu-page {
+  --busuu-ink: #17211b;
+  --busuu-muted: #53615a;
+  --busuu-green: #00a86b;
+  --busuu-green-dark: #008957;
+  --busuu-mint: #e8f8f0;
+  --busuu-cream: #fbfaf6;
+  --busuu-card: #fff;
+  --busuu-line: #dce5df;
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-busuu-page #features,
+.juba-busuu-page #faq {
+  width: min(1160px, 100%);
+  padding-inline: clamp(18px, 4vw, 42px);
+}
+.juba-busuu-page #features { padding-top: clamp(54px, 7vw, 88px); }
+.juba-busuu-page .juba-busuu-feature-card {
+  min-height: 208px;
+  border-radius: 20px !important;
+  padding: clamp(20px, 2.4vw, 30px) !important;
+  box-shadow: 0 4px 0 var(--busuu-line);
+}
+.juba-busuu-page .juba-busuu-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 color-mix(in srgb, var(--busuu-green) 18%, var(--busuu-line));
+}
+.juba-busuu-page .juba-busuu-open-source {
+  border-color: var(--busuu-line);
+  border-radius: 22px;
+  background: linear-gradient(110deg, #fff 0%, var(--busuu-mint) 100%);
+  box-shadow: 0 5px 0 var(--busuu-line);
+}
+.juba-busuu-page .juba-busuu-open-source-cta {
+  border: 0;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-open-source-cta:hover {
+  background: var(--busuu-green-dark);
+}
+.juba-busuu-page #faq { padding-top: 30px; }
+.juba-busuu-page .juba-busuu-faq-title {
+  color: var(--busuu-ink);
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -.035em;
+}
+.juba-busuu-page .juba-busuu-footer {
+  border-color: var(--busuu-line);
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-footer-brand,
+.juba-busuu-page .juba-busuu-footer-heading { color: var(--busuu-ink); }
+.juba-busuu-page .juba-busuu-footer-link,
+.juba-busuu-page .juba-busuu-footer-copyright { color: var(--busuu-muted); }
+.juba-busuu-page .juba-busuu-footer-link:hover { color: var(--busuu-green-dark); }
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-feature-card { min-height: 0; }
+  .juba-busuu-page .juba-busuu-open-source { padding: 20px !important; }
+  .juba-busuu-page .juba-busuu-open-source-cta { width: 100%; text-align: center; }
+}
