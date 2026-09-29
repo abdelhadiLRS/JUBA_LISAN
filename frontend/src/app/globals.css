@@ -11749,3 +11749,82 @@ html[data-theme='light'] {
     height: 210px;
   }
 }
+
+
+/* === Landing fidelity pass: horizontal language chooser === */
+.juba-busuu-page .juba-busuu-reference-languages {
+  padding-block: clamp(54px, 6vw, 78px) clamp(58px, 7vw, 88px);
+}
+.juba-busuu-page .juba-busuu-reference-languages h2 {
+  margin-bottom: 28px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(190px, 1fr);
+  grid-template-columns: none;
+  grid-template-rows: 1fr;
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 4px 4px 16px;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--busuu-line) transparent;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-height: 132px;
+  scroll-snap-align: start;
+  border: 1px solid #dfe7e3;
+  border-radius: 18px;
+  box-shadow: 0 2px 0 #e7ece9;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover {
+  border-color: #c8d9d0;
+  box-shadow: 0 8px 20px rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img {
+  width: 52px;
+  height: 52px !important;
+  border-radius: 50%;
+}
+.juba-busuu-page .juba-busuu-language-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding-inline: 26px;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 5px 0 #008957;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #008957;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+    grid-auto-columns: minmax(164px, 46vw);
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+    grid-auto-columns: minmax(148px, 72vw);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+}
