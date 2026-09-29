@@ -12413,3 +12413,32 @@ html[data-theme='light'] {
   outline-offset: 5px;
   border-radius: 12px;
 }
+
+
+/* === Landing accessibility: keyboard skip navigation === */
+.juba-busuu-page .juba-busuu-skip-link {
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  inset-inline-start: 10px;
+  transform: translateY(-160%);
+  padding: 12px 18px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--busuu-green-dark);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+.juba-busuu-page .juba-busuu-skip-link:focus,
+.juba-busuu-page .juba-busuu-skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+.juba-busuu-page #main-content {
+  scroll-margin-top: 84px;
+}
