@@ -168,7 +168,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="juba-busuu-hero-visual" aria-label={t('navLanguages')}>
-            <div className="juba-busuu-language-panel">
+            <div id="languages" className="juba-busuu-language-panel scroll-mt-24">
               <div id="language-title" className="juba-busuu-language-panel-heading">
                 <span className="juba-busuu-language-panel-dot" aria-hidden="true" />
                 <span>{t('navLanguages')}</span>
