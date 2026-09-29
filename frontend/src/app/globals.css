@@ -12359,3 +12359,49 @@ html[data-theme='light'] {
     min-height: 230px;
   }
 }
+
+
+/* === Final landing pass: keep the language rail horizontal across breakpoints === */
+.juba-busuu-page #languages .juba-busuu-language-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(190px, 1fr);
+  grid-template-columns: none;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding: 4px 4px 16px;
+}
+.juba-busuu-page #languages .juba-busuu-language-item {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.juba-busuu-page #languages .juba-busuu-language-item:focus-within {
+  outline: 3px solid #f3b63f;
+  outline-offset: 3px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  min-width: 180px;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page #languages .juba-busuu-language-list {
+    grid-auto-columns: minmax(164px, 46vw);
+    gap: 12px;
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page #languages .juba-busuu-language-list {
+    grid-auto-columns: minmax(148px, 72vw);
+  }
+  .juba-busuu-page .juba-busuu-language-cta {
+    margin-top: 20px;
+  }
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    width: 100%;
+    max-width: 320px;
+  }
+}
