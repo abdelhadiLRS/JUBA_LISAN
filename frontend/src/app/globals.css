@@ -8656,3 +8656,220 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-lesson-preview { transform: none; }
   .juba-busuu-page .juba-busuu-feature-card { padding: 20px !important; }
 }
+
+
+/* JUBA LISAN — Busuu-inspired dashboard visual pass (scoped to dashboard only). */
+.juba-busuu-dashboard.juba-duo-home {
+  width: min(1240px, 100%);
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 42px) clamp(16px, 3vw, 36px) 48px;
+  color: var(--busuu-ink);
+}
+.juba-busuu-dashboard .juba-duo-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  max-width: none;
+  margin-bottom: 28px;
+  padding: clamp(24px, 3.5vw, 42px);
+  border: 1px solid var(--busuu-line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 90% 12%, color-mix(in srgb, var(--busuu-green) 11%, transparent), transparent 38%),
+    linear-gradient(135deg, #fff 0%, var(--busuu-mint) 100%);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--busuu-green) 10%, var(--busuu-line));
+}
+.juba-busuu-dashboard .juba-duo-welcome h1 {
+  margin: 8px 0 10px;
+  color: var(--busuu-ink);
+  font-size: clamp(27px, 3vw, 40px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+.juba-busuu-dashboard .juba-duo-welcome p {
+  color: var(--busuu-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.juba-busuu-dashboard .juba-duo-eyebrow,
+.juba-busuu-dashboard .juba-duo-unit-kicker {
+  color: var(--busuu-green-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.juba-busuu-dashboard .juba-duo-top-stats {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+}
+.juba-busuu-dashboard .juba-duo-top-stats > div {
+  display: grid;
+  min-width: 112px;
+  justify-items: center;
+  gap: 6px;
+  padding: 18px 20px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-dashboard .juba-duo-top-stats strong {
+  color: var(--busuu-ink);
+  font-size: 26px;
+  font-weight: 800;
+}
+.juba-busuu-dashboard .juba-duo-top-stats span {
+  color: var(--busuu-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.juba-busuu-dashboard .juba-duo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(270px, .85fr);
+  align-items: start;
+  gap: 24px;
+  max-width: none;
+}
+.juba-busuu-dashboard .juba-duo-course,
+.juba-busuu-dashboard .juba-duo-side { min-width: 0; }
+.juba-busuu-dashboard .juba-duo-unit,
+.juba-busuu-dashboard .juba-duo-card {
+  border: 1px solid var(--busuu-line);
+  border-radius: 20px;
+  background: var(--busuu-card);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--busuu-green) 7%, var(--busuu-line));
+}
+.juba-busuu-dashboard .juba-duo-unit { padding: clamp(20px, 3vw, 32px); }
+.juba-busuu-dashboard .juba-duo-unit-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.juba-busuu-dashboard .juba-duo-unit-head h2 {
+  margin-top: 8px;
+  color: var(--busuu-ink);
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.35;
+  font-weight: 800;
+}
+.juba-busuu-dashboard .juba-duo-guide {
+  flex-shrink: 0;
+  color: var(--busuu-green-dark);
+  font-size: 13px;
+  font-weight: 750;
+}
+.juba-busuu-dashboard .juba-duo-progress,
+.juba-busuu-dashboard .juba-duo-meter {
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8eee9;
+}
+.juba-busuu-dashboard .juba-duo-progress { height: 10px; }
+.juba-busuu-dashboard .juba-duo-progress > span,
+.juba-busuu-dashboard .juba-duo-meter > span {
+  border-radius: inherit;
+  background: var(--busuu-green);
+}
+.juba-busuu-dashboard .juba-duo-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: var(--busuu-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.juba-busuu-dashboard .juba-duo-node-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-block: 18px;
+  padding: 16px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: var(--busuu-card);
+}
+.juba-busuu-dashboard .juba-duo-node-row.is-offset { margin-inline-start: 34px; }
+.juba-busuu-dashboard .juba-duo-node {
+  display: grid;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 2px solid var(--busuu-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--busuu-muted);
+  box-shadow: 0 3px 0 var(--busuu-line);
+}
+.juba-busuu-dashboard .juba-duo-node.is-current {
+  border-color: var(--busuu-green);
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--busuu-green-dark);
+}
+.juba-busuu-dashboard .juba-duo-node.is-done {
+  border-color: var(--busuu-green);
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  box-shadow: none;
+}
+.juba-busuu-dashboard .juba-duo-node-copy { display: grid; min-width: 0; gap: 6px; }
+.juba-busuu-dashboard .juba-duo-node-copy strong { color: var(--busuu-ink); font-size: 15px; font-weight: 750; }
+.juba-busuu-dashboard .juba-duo-node-copy > span { color: var(--busuu-muted); font-size: 12px; }
+.juba-busuu-dashboard .juba-duo-cta {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+  transition: background .15s ease, transform .15s ease;
+}
+.juba-busuu-dashboard .juba-duo-cta:hover { background: var(--busuu-green-dark); transform: translateY(-1px); }
+.juba-busuu-dashboard .juba-duo-side { display: grid; gap: 16px; }
+.juba-busuu-dashboard .juba-duo-card { padding: 22px; }
+.juba-busuu-dashboard .juba-duo-card-head h3 { color: var(--busuu-ink); font-size: 14px; font-weight: 750; }
+.juba-busuu-dashboard .juba-duo-card-head span { color: var(--busuu-green-dark); font-size: 18px; font-weight: 800; }
+.juba-busuu-dashboard .juba-duo-card p { color: var(--busuu-muted); font-size: 12px; line-height: 1.7; }
+.juba-busuu-dashboard .juba-duo-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.juba-busuu-dashboard .juba-duo-links a {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 14px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+.juba-busuu-dashboard .juba-duo-links a:hover { border-color: var(--busuu-green); background: var(--busuu-mint); color: var(--busuu-green-dark); }
+@media (max-width: 900px) {
+  .juba-busuu-dashboard.juba-duo-home { padding: 88px 18px 32px; }
+  .juba-busuu-dashboard .juba-duo-grid { grid-template-columns: minmax(0,1fr); }
+  .juba-busuu-dashboard .juba-duo-welcome { align-items: stretch; flex-direction: column; }
+  .juba-busuu-dashboard .juba-duo-top-stats > div { flex: 1; }
+}
+@media (max-width: 560px) {
+  .juba-busuu-dashboard .juba-duo-welcome { padding: 20px; border-radius: 18px; }
+  .juba-busuu-dashboard .juba-duo-top-stats > div { min-width: 0; padding: 14px 10px; }
+  .juba-busuu-dashboard .juba-duo-unit-head { flex-direction: column; }
+  .juba-busuu-dashboard .juba-duo-node-row { gap: 12px; padding: 12px; }
+  .juba-busuu-dashboard .juba-duo-node-row.is-offset { margin-inline-start: 12px; }
+  .juba-busuu-dashboard .juba-duo-node { flex-basis: 48px; width: 48px; height: 48px; }
+  .juba-busuu-dashboard .juba-duo-links { grid-template-columns: minmax(0,1fr); }
+}
