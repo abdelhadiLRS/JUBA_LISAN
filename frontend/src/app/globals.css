@@ -12024,3 +12024,42 @@ html[data-theme='light'] {
     max-width: 210px;
   }
 }
+
+
+/* === Landing fidelity pass: editorial footer grid === */
+.juba-busuu-page .juba-busuu-footer {
+  padding-block: 72px 58px;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  width: min(1180px, 100%);
+}
+.juba-busuu-page .juba-busuu-footer > div > div {
+  min-width: 0;
+}
+.juba-busuu-page .juba-busuu-footer-heading {
+  margin-bottom: 14px !important;
+  font-size: 11px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-footer-link {
+  line-height: 1.45;
+}
+.juba-busuu-page .juba-busuu-footer-contact {
+  display: inline-flex;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-footer > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-footer {
+    padding-block: 58px 44px;
+  }
+  .juba-busuu-page .juba-busuu-footer > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px 22px;
+  }
+}
