@@ -12868,3 +12868,14 @@ html[data-theme='light'] {
     display: none;
   }
 }
+
+
+/* === Landing refinement: smooth touch scrolling for language rail === */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-width: 0;
+}
