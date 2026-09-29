@@ -13115,3 +13115,33 @@ html[data-theme='light'] {
     will-change: auto;
   }
 }
+
+
+/* === Landing accessibility: pause the editorial ticker for reading === */
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track,
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 140px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group span {
+    white-space: normal;
+    text-align: center;
+  }
+}
