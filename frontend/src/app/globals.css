@@ -11865,3 +11865,50 @@ html[data-theme='light'] {
     gap: 30px 18px;
   }
 }
+
+
+/* === Landing fidelity pass: Busuu editorial ticker rhythm === */
+.juba-busuu-page .juba-busuu-new-languages {
+  min-height: 156px;
+  border-top: 0;
+  border-bottom: 0;
+  background: #f7faf8;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  gap: clamp(28px, 4.5vw, 64px);
+  padding-inline: clamp(28px, 4.5vw, 64px);
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  font-size: clamp(42px, 6vw, 76px);
+  font-weight: 850;
+  letter-spacing: -.065em;
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  width: 58px;
+  height: 58px;
+  flex-basis: 58px;
+}
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(2) {
+  max-width: none;
+  color: var(--busuu-green-dark);
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 126px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 24px;
+    padding-inline: 24px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group img {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track,
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none;
+  }
+}
