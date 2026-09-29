@@ -221,45 +221,27 @@ export default async function Home() {
                 {
                   title: t('feature1Title'),
                   desc: t('feature1Desc'),
-                  Icon: BookOpen,
-                  tone: 'blue',
+                  image:
+                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-1-real_people__1_.png',
                 },
                 {
                   title: t('feature2Title'),
                   desc: t('feature2Desc'),
-                  Icon: MessageSquare,
-                  tone: 'green',
+                  image:
+                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-2-supportive-community.png',
                 },
                 {
                   title: t('feature3Title'),
                   desc: t('feature3Desc'),
-                  Icon: Mic,
-                  tone: 'yellow',
+                  image:
+                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-3-express-yourself__1_.png',
                 },
-                {
-                  title: t('feature4Title'),
-                  desc: t('feature4Desc'),
-                  Icon: Headphones,
-                  tone: 'violet',
-                },
-                {
-                  title: t('feature5Title'),
-                  desc: t('feature5Desc'),
-                  Icon: Layers,
-                  tone: 'lime',
-                },
-                {
-                  title: t('feature6Title'),
-                  desc: t('feature6Desc'),
-                  Icon: TrendingUp,
-                  tone: 'orange',
-                },
-              ].map(({ title, desc, Icon, tone }) => (
-                <article key={title} className={`juba-busuu-different-card tone-${tone}`}>
-                  <div className="juba-busuu-different-icon">
-                    <Icon aria-hidden="true" />
+              ].map(({ title, desc, image }) => (
+                <article key={title} className="juba-busuu-different-card">
+                  <div className="juba-busuu-different-media">
+                    <img src={image} alt="" aria-hidden="true" loading="lazy" />
                   </div>
-                  <div>
+                  <div className="juba-busuu-different-copy">
                     <h3>{title}</h3>
                     <p>{desc}</p>
                   </div>
