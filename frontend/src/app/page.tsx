@@ -275,6 +275,10 @@ export default async function Home() {
           id="features"
           className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24"
         >
+          <div className="juba-busuu-features-heading">
+            <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+            <h2>{t('navFeatures')}</h2>
+          </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {[
               {
