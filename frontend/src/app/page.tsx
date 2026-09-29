@@ -159,7 +159,7 @@ export default async function Home() {
 
           <div className="juba-busuu-reference-hero-art">
             <img
-              src="https://images.ctfassets.net/kk1deufhixqq/7AjKs6Fhf6bF3pYazcGb2S/27a511b93771f6aecdc43409243fd86f/en-paid-landing.avif"
+              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
               alt=""
               aria-hidden="true"
             />
