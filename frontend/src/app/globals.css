@@ -13095,3 +13095,23 @@ html[data-theme='light'] {
     outline: 2px solid Highlight;
   }
 }
+
+
+/* === Landing accessibility refinement: ticker motion and RTL edge fades === */
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+.juba-busuu-page[dir="rtl"] .juba-busuu-new-languages::before {
+  background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+}
+.juba-busuu-page[dir="rtl"] .juba-busuu-new-languages::after {
+  background: linear-gradient(to right, #fff, rgba(255,255,255,0));
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
