@@ -13071,3 +13071,27 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* === Landing accessibility pass: visible keyboard focus === */
+.juba-busuu-page :where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 3px solid #f4b942;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+.juba-busuu-page .juba-busuu-reference-primary:focus-visible,
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
+.juba-busuu-page .juba-busuu-nav-cta:focus-visible,
+.juba-busuu-page .juba-busuu-open-source-cta:focus-visible {
+  outline-color: #f4b942;
+  outline-offset: 5px;
+}
+.juba-busuu-page .juba-busuu-language-list:focus-visible {
+  outline: 3px solid #f4b942;
+  outline-offset: 5px;
+}
+@media (forced-colors: active) {
+  .juba-busuu-page :where(a, button, [role="button"], input, select, textarea):focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
