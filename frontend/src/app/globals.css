@@ -7765,3 +7765,97 @@ html[data-theme='light'] {
   border-radius: 50%;
   box-shadow: none;
 }
+
+
+/* ── Busuu landing: unify pricing, reviews and FAQ surfaces ─────────────── */
+.juba-busuu-page .juba-ff-pricing {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+  padding: clamp(48px, 7vw, 88px) 0;
+}
+.juba-busuu-page .juba-ff-pricing-title {
+  color: var(--busuu-ink);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 850;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+}
+.juba-busuu-page .juba-ff-plan-card {
+  min-width: 0;
+  border-radius: 24px;
+  border-width: 1px;
+  padding: clamp(20px, 2.5vw, 30px);
+  box-shadow: 0 5px 0 var(--busuu-line);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-ff-plan-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 color-mix(in srgb, var(--busuu-green) 20%, var(--busuu-line));
+}
+.juba-busuu-page .juba-ff-plan-yearly {
+  border-color: color-mix(in srgb, var(--busuu-green) 48%, var(--busuu-line));
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--busuu-green) 30%, var(--busuu-line));
+}
+.juba-busuu-page .juba-ff-plan-head { border-color: var(--busuu-line); }
+.juba-busuu-page .juba-ff-plan-cta,
+.juba-busuu-page .juba-ff-plan-free-link {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-ff-plan-cta:hover,
+.juba-busuu-page .juba-ff-plan-free-link:hover {
+  background: var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-ff-comparison {
+  border-radius: 20px;
+  box-shadow: 0 4px 0 var(--busuu-line);
+}
+.juba-busuu-page .juba-ff-comparison-head { background: var(--busuu-mint); }
+.juba-busuu-page .juba-ff-reviews { padding-top: clamp(38px, 6vw, 72px); }
+.juba-busuu-page .juba-ff-review-card {
+  border-radius: 22px;
+  box-shadow: 0 4px 0 var(--busuu-line);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-ff-review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 color-mix(in srgb, var(--busuu-green) 14%, var(--busuu-line));
+}
+.juba-busuu-page .juba-landing-faq-item {
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 3px 0 var(--busuu-line);
+}
+.juba-busuu-page .juba-landing-faq-question {
+  min-height: 68px;
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-landing-faq-icon {
+  border-radius: 50%;
+  background: var(--busuu-mint);
+}
+.juba-busuu-page .juba-landing-faq-answer {
+  border-color: var(--busuu-line);
+  color: var(--busuu-muted);
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-ff-pricing {
+    width: calc(100% - 28px);
+    padding-block: 42px;
+  }
+  .juba-busuu-page .juba-ff-plan-card { border-radius: 20px; }
+  .juba-busuu-page .juba-landing-faq-question { min-height: 60px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-ff-plan-card,
+  .juba-busuu-page .juba-ff-review-card { transition: none; }
+}
