@@ -12564,3 +12564,23 @@ html[data-theme='light'] {
     transition: none !important;
   }
 }
+
+
+/* === Landing accessibility: visible keyboard focus === */
+.juba-busuu-page :is(
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea
+):focus-visible {
+  outline: 3px solid #1769e0;
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list:focus-visible {
+  outline-offset: 2px;
+}
+.juba-busuu-page .juba-busuu-new-languages {
+  scroll-margin-block: 80px;
+}
