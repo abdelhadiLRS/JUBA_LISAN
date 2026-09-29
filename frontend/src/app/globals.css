@@ -9482,3 +9482,55 @@ html[data-theme='light'] {
     font-size: 18px;
   }
 }
+
+/* === Final Busuu-style landing rhythm: open-source, FAQ, footer === */
+.juba-busuu-page .juba-busuu-open-source-section {
+  width: 100%;
+  padding: clamp(34px, 5vw, 58px) 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-open-source-section > .juba-busuu-open-source {
+  width: min(920px, 100%);
+  margin-inline: auto;
+  padding: 22px 26px !important;
+  border: 1px solid #dce5df;
+  border-radius: 18px;
+  background: #f7faf8;
+  box-shadow: 0 3px 0 #e5ebe8;
+}
+.juba-busuu-page .juba-busuu-faq-section {
+  width: 100%;
+  padding: clamp(58px, 7vw, 88px) 24px clamp(68px, 8vw, 100px);
+  background: #f7f8f3;
+}
+.juba-busuu-page .juba-busuu-faq-section > .juba-busuu-faq-title {
+  width: min(760px, 100%);
+  margin-inline: auto;
+  margin-bottom: 34px;
+}
+.juba-busuu-page .juba-busuu-footer {
+  background: #17211b;
+  border-top: 0;
+}
+.juba-busuu-page .juba-busuu-footer-brand,
+.juba-busuu-page .juba-busuu-footer-heading {
+  color: #fff;
+}
+.juba-busuu-page .juba-busuu-footer-link,
+.juba-busuu-page .juba-busuu-footer-copyright {
+  color: #cbd6cf;
+}
+.juba-busuu-page .juba-busuu-footer-link:hover {
+  color: #fff;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-open-source-section {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-busuu-open-source-section > .juba-busuu-open-source {
+    padding: 20px !important;
+  }
+  .juba-busuu-page .juba-busuu-faq-section {
+    padding-inline: 16px;
+  }
+}
