@@ -11642,3 +11642,76 @@ html[data-theme='light'] {
     margin-inline: auto;
   }
 }
+
+
+/* === Landing fidelity pass: testimonial editorial layout === */
+.juba-busuu-page .juba-busuu-testimonials {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(78px, 9vw, 112px) 24px 8px;
+  background: #f7faf8;
+}
+.juba-busuu-page .juba-busuu-testimonials-inner {
+  width: min(1120px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-ff-reviews {
+  position: relative;
+  max-width: 1120px;
+  padding-inline: 0;
+  padding-bottom: 76px;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 34px;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child > span {
+  color: var(--busuu-green-dark) !important;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child h2 {
+  font-size: clamp(36px, 4.8vw, 58px) !important;
+  line-height: 1.02;
+  letter-spacing: -.05em;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child p {
+  max-width: 600px;
+  line-height: 1.65;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child > div:last-child {
+  border-radius: 999px;
+  box-shadow: 0 2px 0 rgba(23,33,27,.04);
+}
+.juba-busuu-page .juba-ff-reviews > div:last-child {
+  scrollbar-width: thin;
+  scrollbar-color: var(--busuu-line) transparent;
+  padding: 8px 4px 18px;
+  margin-inline: -4px;
+}
+.juba-busuu-page .juba-ff-review-card {
+  min-height: 258px !important;
+  border-radius: 18px;
+  box-shadow: 0 2px 0 rgba(23,33,27,.04), 0 12px 30px rgba(23,33,27,.055);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-ff-review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 0 rgba(23,33,27,.04), 0 18px 36px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-review-avatar {
+  background: #dff5e9;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-testimonials {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-ff-reviews {
+    padding-bottom: 60px;
+  }
+  .juba-busuu-page .juba-ff-review-card {
+    min-height: 230px !important;
+  }
+}
