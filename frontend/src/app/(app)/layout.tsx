@@ -526,6 +526,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={closeMobileMenu}
+                      aria-current={active ? 'page' : undefined}
                       className={`flex min-h-11 items-center gap-3 py-2.5 pe-5 ps-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                         active
                           ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
@@ -578,6 +579,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 href="/admin"
                 onClick={closeMobileMenu}
+                aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
                 className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
                     ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
