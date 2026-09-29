@@ -343,7 +343,6 @@ export default async function Home() {
                   />
                 </span>
               </div>
-              <p className="juba-busuu-app-note" aria-live="polite">{t('heroSub')}</p>
             </div>
             <div className="juba-busuu-app-art" aria-hidden="true">
               <img
