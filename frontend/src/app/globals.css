@@ -10640,3 +10640,143 @@ html[data-theme='light'] {
     font-size: 21px;
   }
 }
+
+/* === Busuu landing hero final composition === */
+.juba-busuu-page .juba-busuu-reference-hero {
+  min-height: 690px;
+  padding: 58px 24px 0;
+  background: #1688c8;
+}
+.juba-busuu-page .juba-busuu-reference-hero-inner {
+  width: min(1160px, 100%);
+  min-height: 632px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.juba-busuu-page .juba-busuu-reference-kicker {
+  margin-bottom: 12px;
+  color: rgba(255,255,255,.82);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+  max-width: 820px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: .98;
+  font-weight: 850;
+  letter-spacing: -.055em;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy p {
+  max-width: 650px;
+  margin: 18px auto 0;
+  color: rgba(255,255,255,.9);
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.6;
+}
+.juba-busuu-page .juba-busuu-reference-actions {
+  display: inline-flex;
+  margin-top: 24px;
+}
+.juba-busuu-page .juba-busuu-reference-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: #fff;
+  color: #1371a7;
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: .01em;
+  text-decoration: none;
+  box-shadow: 0 4px 0 rgba(7,76,118,.26);
+  transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.juba-busuu-page .juba-busuu-reference-primary:hover {
+  transform: translateY(-2px);
+  background: #f4fbff;
+  box-shadow: 0 6px 0 rgba(7,76,118,.24);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  align-self: end;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  min-height: 390px;
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art img {
+  display: block;
+  width: min(900px, 90vw);
+  max-width: 100%;
+  height: auto;
+  max-height: 430px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-hero {
+    min-height: 620px;
+    padding: 44px 18px 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-inner {
+    min-height: 576px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+    font-size: clamp(38px, 11vw, 56px);
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    min-height: 300px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art img {
+    width: min(700px, 108vw);
+    max-height: 340px;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-reference-hero {
+    min-height: 590px;
+    padding-top: 38px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-inner {
+    min-height: 552px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+    font-size: 39px;
+    letter-spacing: -.045em;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy p {
+    max-width: 350px;
+    font-size: 14px;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions {
+    margin-top: 20px;
+  }
+  .juba-busuu-page .juba-busuu-reference-primary {
+    min-height: 46px;
+    padding-inline: 22px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    min-height: 260px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art img {
+    width: 120vw;
+    max-width: none;
+    max-height: 300px;
+  }
+}
