@@ -10121,3 +10121,44 @@ html[data-theme='light'] {
     padding-inline: 22px;
   }
 }
+
+
+/* === Final landing polish: Busuu section rhythm === */
+.juba-busuu-page .juba-busuu-reference-languages {
+  padding-top: clamp(56px, 7vw, 88px);
+  padding-bottom: clamp(60px, 7vw, 92px);
+}
+.juba-busuu-page .juba-busuu-reference-languages h2 {
+  margin-bottom: 34px;
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding-block: 26px;
+  background: #f8faf8;
+}
+.juba-busuu-page .juba-busuu-different-heading h2 {
+  max-width: 680px;
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-different-heading .juba-busuu-eyebrow {
+  color: var(--busuu-green-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-different {
+  padding-top: clamp(72px, 9vw, 116px);
+  padding-bottom: clamp(72px, 9vw, 116px);
+}
+.juba-busuu-page .juba-busuu-testimonials {
+  background: #f7f8f3;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-proof-strip {
+    padding-block: 20px;
+  }
+  .juba-busuu-page .juba-busuu-different {
+    padding-top: 58px;
+    padding-bottom: 58px;
+  }
+}
