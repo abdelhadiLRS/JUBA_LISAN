@@ -559,6 +559,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
                       : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
                   }`}
+                  aria-current={active ? 'page' : undefined}
                 >
                   <span
                     className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
