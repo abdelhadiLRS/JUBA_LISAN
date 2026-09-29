@@ -177,7 +177,10 @@
     "onlineLanguagesTitle": "Learn languages online",
     "onlineLanguagePrefix": "Learn",
     "onlineLanguagesDescription": "Choose a language and explore the learning experience available in JUBA LISAN.",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "newLanguagesLabel": "New languages",
+    "newOpportunitiesLabel": "New opportunities",
+    "newYouLabel": "New you"
   },
   "common": {
     "loading": "Loading...",
