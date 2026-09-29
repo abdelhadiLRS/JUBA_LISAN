@@ -480,6 +480,17 @@ export default async function Home() {
               <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
                 {t('faqTitle')}
               </a>
+              <a href="#pricing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navPricing')}
+              </a>
+              <a
+                href="https://github.com/abdelhadiLRS/JUBA_LISAN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
+              >
+                {t('github')}
+              </a>
             </div>
           </div>
           <div>
