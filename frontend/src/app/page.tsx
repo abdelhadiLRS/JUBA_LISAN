@@ -121,6 +121,7 @@ export default async function Home() {
       {/* Nav */}
       <LandingNav
         hasSession={hasSession}
+        allowRegistration={allowRegistration}
         dir={dir}
         navFeatures={t('navFeatures')}
         primaryNavigation={tCommon('menu')}
@@ -367,7 +368,7 @@ export default async function Home() {
           <h2 className="text-fl-label text-fl-muted-2 mb-8 text-center font-mono tracking-widest uppercase">
             {t('faqTitle')}
           </h2>
-          <LandingFAQ />
+          <LandingFAQ dir={dir} />
         </section>
       </ScrollReveal>
 
