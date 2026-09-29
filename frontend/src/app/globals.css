@@ -7926,3 +7926,45 @@ html[data-theme='light'] {
     box-shadow: none;
   }
 }
+
+
+/* Busuu-style finishing layer for the authenticated app: soft surfaces,
+   restrained borders, green actions, and editorial typography. */
+.juba-duo-shell .juba-duo-user,
+.juba-duo-shell .juba-duo-language {
+  background: transparent;
+  border-color: var(--duo-line);
+}
+.juba-duo-shell .juba-duo-user-action {
+  min-height: 38px;
+  padding-inline: 12px;
+  border-radius: 10px;
+}
+.juba-duo-shell .juba-duo-user-action:hover {
+  background: var(--busuu-mint, #e8f8f0);
+  color: var(--duo-green-dark);
+}
+.juba-duo-shell .juba-duo-page-frame :is(h1,h2,h3) {
+  color: var(--duo-ink);
+  letter-spacing: -0.025em;
+}
+.juba-duo-shell .juba-duo-page-frame :is(input,select,textarea):focus {
+  outline: 3px solid color-mix(in srgb, var(--duo-green) 18%, transparent);
+  outline-offset: 1px;
+  border-color: var(--duo-green);
+}
+.juba-duo-shell .juba-duo-page-frame :is(button,[role="button"]) {
+  transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.juba-duo-shell .juba-duo-page-frame :is(button,[role="button"]):active {
+  transform: translateY(1px);
+}
+.juba-duo-shell .juba-duo-mobile-trigger {
+  border: 1px solid var(--duo-line);
+  border-radius: 12px;
+  background: var(--duo-card);
+}
+.juba-duo-shell .juba-duo-mobile-trigger:hover {
+  background: var(--busuu-mint, #e8f8f0);
+  color: var(--duo-green-dark);
+}
