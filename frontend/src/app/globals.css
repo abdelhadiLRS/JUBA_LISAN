@@ -12924,3 +12924,25 @@ html[data-theme='light'] {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* === Landing accessibility pass: language chooser focus states === */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list:focus-visible {
+  outline: 3px solid var(--busuu-green);
+  outline-offset: 5px;
+  border-radius: 12px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible {
+  outline: 3px solid var(--busuu-ink);
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:focus-within {
+  outline: 2px solid var(--busuu-green);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+}
