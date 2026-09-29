@@ -11828,3 +11828,40 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* === Landing fidelity pass: structured footer rhythm === */
+.juba-busuu-page .juba-busuu-footer {
+  padding-block: 76px 54px;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  width: min(1180px, 100%);
+  max-width: 1180px;
+  gap: 42px;
+}
+.juba-busuu-page .juba-busuu-footer > div > div {
+  min-width: 0;
+}
+.juba-busuu-page .juba-busuu-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: .12em !important;
+  font-size: 14px !important;
+}
+.juba-busuu-page .juba-busuu-footer-heading {
+  margin-bottom: 14px !important;
+  font-size: 11px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-footer-link {
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-footer {
+    padding-block: 58px 42px;
+  }
+  .juba-busuu-page .juba-busuu-footer > div {
+    gap: 30px 18px;
+  }
+}
