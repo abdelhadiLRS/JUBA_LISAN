@@ -167,8 +167,8 @@
     "appCtaDescription": "Halte dein Sprachtraining griffbereit. Setze Lektionen, KI-Gespräche, Hörübungen und deinen Lernfortschritt überall fort.",
     "appCtaNote": "Web-Erlebnis · Für mobile Bildschirme entwickelt",
     "onlineLanguagesTitle": "Sprachen online lernen",
-
-    "onlineLanguagePrefix": "Lerne",    "onlineLanguagesDescription": "Wähle eine Sprache und entdecke die Lernerfahrung von JUBA LISAN."
+    "onlineLanguagePrefix": "Lerne",
+    "onlineLanguagesDescription": "Wähle eine Sprache und entdecke die Lernerfahrung von JUBA LISAN."
   },
   "common": {
     "loading": "Laden...",
@@ -259,7 +259,8 @@
     "coach": "Coach",
     "courses": "Kurse",
     "review": "Wiederholen",
-    "translator": "Übersetzer"
+    "translator": "Übersetzer",
+    "navigation": "Navigation"
   },
   "auth": {
     "login": {
