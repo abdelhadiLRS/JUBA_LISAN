@@ -291,7 +291,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
       </a>
       {/* Sidebar */}
-      <aside className="juba-duo-sidebar" aria-label={tNav('navigation')}>
+      <aside className="juba-duo-sidebar" aria-label={tNav('primaryNavigation')}>
         {/* Logo area */}
         <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
@@ -304,7 +304,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="juba-duo-language"><LanguageSwitcher /></div>
 
         {/* Nav */}
-        <nav className="juba-duo-nav" aria-label={tNav('navigation')}>
+        <nav className="juba-duo-nav" aria-label={tNav('primaryNavigation')}>
           {/* Main items */}
           {mainNavItems.map((item) => {
             const active =
@@ -477,7 +477,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           id="juba-duo-mobile-menu"
           ref={mobileMenuPanelRef}
           hidden={!mobileMenuOpen}
-          aria-label={tNav('navigation')}
+          aria-label={tNav('primaryNavigation')}
           className="juba-duo-mobile-menu max-h-[calc(100dvh-66px)] overflow-y-auto overscroll-contain"
         >
             <div className="border-[var(--duo-line)] border-b">
