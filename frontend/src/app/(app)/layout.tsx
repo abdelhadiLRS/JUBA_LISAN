@@ -304,7 +304,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="juba-duo-language"><LanguageSwitcher /></div>
 
         {/* Nav */}
-        <nav className="juba-duo-nav">
+        <nav className="juba-duo-nav" aria-label={tNav('navigation')}>
           {/* Main items */}
           {mainNavItems.map((item) => {
             const active =
