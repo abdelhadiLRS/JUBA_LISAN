@@ -9534,3 +9534,46 @@ html[data-theme='light'] {
     padding-inline: 16px;
   }
 }
+
+
+/* === Landing-only Busuu header refinement === */
+.juba-busuu-page .juba-busuu-nav {
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid #e4e9e6;
+  box-shadow: 0 1px 0 rgba(23,33,27,.02);
+  backdrop-filter: blur(14px);
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  min-height: 72px !important;
+}
+.juba-busuu-page .juba-busuu-nav-links {
+  gap: clamp(20px, 2.8vw, 34px);
+}
+.juba-busuu-page .juba-busuu-nav-links a,
+.juba-busuu-page .juba-busuu-login {
+  color: #26342d;
+  font-size: 14px;
+  font-weight: 700;
+}
+.juba-busuu-page .juba-busuu-nav-links a:hover,
+.juba-busuu-page .juba-busuu-login:hover {
+  color: #008957;
+}
+.juba-busuu-page .juba-busuu-nav-cta {
+  min-height: 44px;
+  padding-inline: 22px;
+  box-shadow: 0 2px 0 #008957;
+}
+.juba-busuu-page .juba-busuu-locale {
+  min-height: 40px;
+  padding-inline: 10px;
+  border: 1px solid #dce5df;
+  border-radius: 999px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-locale:hover {
+  background: #f7faf8;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-nav-inner { min-height: 64px !important; }
+}
