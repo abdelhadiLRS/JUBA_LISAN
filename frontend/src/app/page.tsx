@@ -174,6 +174,8 @@ export default async function Home() {
               src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
               alt=""
               aria-hidden="true"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
         </div>
@@ -269,6 +271,8 @@ export default async function Home() {
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <Link
                   href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
