@@ -134,8 +134,9 @@ export default async function Home() {
         locale={locale}
       />
 
+      <main id="main-content">
       {/* Busuu reference hero: centered blue composition with the visual anchored below the CTA */}
-      <section id="main-content" className="juba-busuu-reference-hero">
+      <section className="juba-busuu-reference-hero">
         <div className="juba-busuu-reference-hero-inner">
           <div className="juba-busuu-reference-hero-copy">
             <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
@@ -460,6 +461,8 @@ export default async function Home() {
           <LandingFAQ dir={dir} />
         </section>
       </ScrollReveal>
+
+      </main>
 
       {/* Footer */}
       <footer className="juba-busuu-footer border-t px-6 py-10">
