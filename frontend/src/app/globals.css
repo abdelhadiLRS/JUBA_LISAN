@@ -2575,3 +2575,98 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-language-item img { width:46px; height:34px; }
   .juba-busuu-page .juba-busuu-floating-note { inset-inline-start:8px; bottom:-18px; padding:11px 14px; }
 }
+
+/* ── Landing page: complete Busuu visual system for every public section ── */
+.juba-busuu-page {
+  --busuu-soft:#f1f8f3;
+  --busuu-shadow:0 12px 34px color-mix(in srgb,var(--busuu-ink) 7%,transparent);
+  font-family:var(--font-geist-sans),system-ui,sans-serif;
+}
+.juba-busuu-page .bg-fl-bg,
+.juba-busuu-page .bg-fl-bg-alt { background:var(--busuu-cream)!important; color:var(--busuu-ink)!important; }
+.juba-busuu-page .bg-fl-surface,
+.juba-busuu-page .bg-fl-surface-2 { background:var(--busuu-card)!important; }
+.juba-busuu-page .text-fl-fg,
+.juba-busuu-page .text-fl-fg-2,
+.juba-busuu-page .text-fl-fg-bright { color:var(--busuu-ink)!important; }
+.juba-busuu-page .text-fl-muted,
+.juba-busuu-page .text-fl-muted-0,
+.juba-busuu-page .text-fl-muted-1,
+.juba-busuu-page .text-fl-muted-2,
+.juba-busuu-page .text-fl-muted-3,
+.juba-busuu-page .text-fl-muted-4 { color:var(--busuu-muted)!important; }
+.juba-busuu-page .border-fl-border,
+.juba-busuu-page .border-fl-border-2,
+.juba-busuu-page .border-t,
+.juba-busuu-page .border-b { border-color:var(--busuu-line)!important; }
+.juba-busuu-page .text-fl-accent { color:var(--busuu-green-dark)!important; }
+.juba-busuu-page .bg-fl-accent { background:var(--busuu-green)!important; }
+.juba-busuu-page .juba-busuu-demo-card,
+.juba-busuu-page .juba-ff-plan-card,
+.juba-busuu-page .juba-ff-comparison,
+.juba-busuu-page .juba-ff-review-card,
+.juba-busuu-page .juba-landing-faq-item {
+  border:1px solid var(--busuu-line)!important;
+  border-radius:22px!important;
+  background:var(--busuu-card)!important;
+  color:var(--busuu-ink)!important;
+  box-shadow:var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-demo-card > div:first-child,
+.juba-busuu-page .juba-ff-plan-head,
+.juba-busuu-page .juba-ff-comparison-head { background:var(--busuu-soft); }
+.juba-busuu-page .juba-busuu-feature-card {
+  border:1px solid var(--busuu-line)!important;
+  background:var(--busuu-card)!important;
+  color:var(--busuu-ink)!important;
+  box-shadow:var(--busuu-shadow);
+}
+.juba-busuu-page .juba-ff-plan-card { padding:26px; }
+.juba-busuu-page .juba-ff-plan-yearly {
+  border:2px solid color-mix(in srgb,var(--busuu-green) 55%,var(--busuu-line))!important;
+  box-shadow:0 14px 38px color-mix(in srgb,var(--busuu-green) 11%,transparent);
+}
+.juba-busuu-page .juba-ff-plan-cta,
+.juba-busuu-page .juba-ff-plan-free-link {
+  display:inline-flex;
+  min-height:46px;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--busuu-green-dark);
+  border-radius:999px;
+  background:var(--busuu-green);
+  color:#fff!important;
+  font-weight:800;
+  text-decoration:none;
+  box-shadow:0 3px 0 var(--busuu-green-dark);
+  transition:background .18s ease,transform .18s ease;
+}
+.juba-busuu-page .juba-ff-plan-free-link { background:var(--busuu-mint); color:var(--busuu-green-dark)!important; }
+.juba-busuu-page .juba-ff-plan-cta:hover,
+.juba-busuu-page .juba-ff-plan-free-link:hover { background:var(--busuu-green-dark); color:#fff!important; transform:translateY(1px); }
+.juba-busuu-page .juba-ff-plan-badge { border-radius:999px; border-color:var(--busuu-line); background:var(--busuu-mint); color:var(--busuu-green-dark); }
+.juba-busuu-page .juba-ff-plan-price { color:var(--busuu-ink); }
+.juba-busuu-page .juba-ff-plan-old,
+.juba-busuu-page .juba-ff-period,
+.juba-busuu-page .juba-ff-plan-desc { color:var(--busuu-muted); }
+.juba-busuu-page .juba-ff-check { color:var(--busuu-green-dark); }
+.juba-busuu-page .juba-ff-minus,
+.juba-busuu-page .juba-ff-limited { color:var(--busuu-muted); }
+.juba-busuu-page .juba-ff-comparison { overflow:hidden; }
+.juba-busuu-page .juba-ff-comparison th,
+.juba-busuu-page .juba-ff-comparison td { border-color:var(--busuu-line); color:var(--busuu-ink); }
+.juba-busuu-page .juba-ff-comparison tbody tr:nth-child(even) { background:var(--busuu-cream); }
+.juba-busuu-page .juba-ff-review-card { border-radius:20px!important; }
+.juba-busuu-page .juba-landing-faq-item { overflow:hidden; margin-bottom:12px; box-shadow:none; }
+.juba-busuu-page .juba-landing-faq-item.is-open { border-color:color-mix(in srgb,var(--busuu-green) 42%,var(--busuu-line))!important; }
+.juba-busuu-page .juba-landing-faq-question { color:var(--busuu-ink); background:var(--busuu-card); }
+.juba-busuu-page .juba-landing-faq-icon { border-radius:50%; background:var(--busuu-mint); }
+.juba-busuu-page .juba-landing-faq-answer { border-color:var(--busuu-line); color:var(--busuu-muted); }
+.juba-busuu-page .juba-busuu-open-source { border-color:var(--busuu-line)!important; background:var(--busuu-card)!important; color:var(--busuu-ink); }
+.juba-busuu-page .juba-busuu-open-source a { border-radius:999px; }
+.juba-busuu-page .juba-busuu-footer { background:#15211b; }
+@media(max-width:640px) {
+  .juba-busuu-page .juba-ff-plan-card { padding:20px; }
+  .juba-busuu-page .juba-ff-comparison { border-radius:16px!important; }
+}
+
