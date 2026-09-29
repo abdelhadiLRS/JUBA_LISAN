@@ -434,6 +434,33 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      {/* Busuu-style moving editorial ticker */}
+      <ScrollReveal>
+        <section className="juba-busuu-language-ticker" aria-label={t('navLanguages')}>
+          <div className="juba-busuu-language-ticker-track">
+            {[0, 1].map((group) => (
+              <div className="juba-busuu-language-ticker-group" aria-hidden={group === 1} key={group}>
+                <span>{t('navLanguages')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
+                <span>{t('feature1Title')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
+                <span>{t('feature2Title')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Footer */}
       <footer className="juba-busuu-footer border-t px-6 py-10">
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
