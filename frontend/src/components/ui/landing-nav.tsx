@@ -8,6 +8,7 @@ import { normalizeLocale, type Locale } from '@/lib/locales'
 
 interface LandingNavProps {
   hasSession: boolean
+  allowRegistration: boolean
   dir: 'ltr' | 'rtl'
   navFeatures: string
   primaryNavigation: string
@@ -26,6 +27,7 @@ interface LandingNavProps {
 
 export function LandingNav({
   hasSession,
+  allowRegistration,
   dir,
   navFeatures,
   primaryNavigation,
@@ -189,8 +191,8 @@ export function LandingNav({
               {signIn}
             </Link>
           )}
-          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-nav-cta">
-            {hasSession ? dashboard : getStarted}
+          <Link href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'} className="juba-busuu-nav-cta">
+            {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
           </Link>
           <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
             <summary
@@ -252,10 +254,10 @@ export function LandingNav({
             )}
             <Link
               className="juba-busuu-mobile-cta"
-              href={hasSession ? '/dashboard' : '/register'}
+              href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               onClick={() => close()}
             >
-              {hasSession ? dashboard : getStarted}
+              {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
             </Link>
             <nav className="juba-busuu-mobile-locales" aria-label={interfaceLanguages}>
               {localeOptions.map(([code, label]) => (
