@@ -138,6 +138,12 @@ export default async function Home() {
             <h1>{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
             <div className="juba-busuu-reference-actions">
+              <img
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/left-wing.png"
+                alt=""
+                aria-hidden="true"
+                className="juba-busuu-reference-wing juba-busuu-reference-wing-left"
+              />
               <Link
                 href={
                   hasSession
@@ -154,6 +160,12 @@ export default async function Home() {
                     ? tCommon('start')
                     : t('signIn')}
               </Link>
+              <img
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/right-wing.png"
+                alt=""
+                aria-hidden="true"
+                className="juba-busuu-reference-wing juba-busuu-reference-wing-right"
+              />
             </div>
           </div>
 
