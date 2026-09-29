@@ -210,7 +210,7 @@ export default async function Home() {
                 What did you do yesterday?
               </p>
             </div>
-            <div className="border-fl-border border-l-2 pl-4">
+            <div className="border-fl-border border-s-2 ps-4">
               <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
                 {t('microDemo.answerLabel')}
               </p>
@@ -221,7 +221,7 @@ export default async function Home() {
                 Yesterday I go to the park.
               </p>
             </div>
-            <div className="border-fl-accent/40 border-l-2 pl-4">
+            <div className="border-fl-accent/40 border-s-2 ps-4">
               <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
                 {t('microDemo.correctionLabel')}
               </p>
@@ -337,7 +337,7 @@ export default async function Home() {
                 height={20}
                 className="hidden opacity-80 dark:block"
               />
-              <div className="text-left">
+              <div className="text-start">
                 <p className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
                   {tBilling('openSourceTitle')}
                 </p>
@@ -376,7 +376,7 @@ export default async function Home() {
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
           <div>
             <span className="text-fl-hint text-fl-muted-3 font-code block tracking-widest uppercase">
-              FreeLingo
+              JUBA LISAN
             </span>
             <span className="text-fl-hint text-fl-muted-4 mt-2 block font-mono leading-relaxed">
               © {new Date().getFullYear()}
@@ -388,7 +388,7 @@ export default async function Home() {
             </h4>
             <div className="flex flex-col gap-2">
               <a
-                href="https://github.com/artcc/freelingo"
+                href="https://github.com/abdelhadiLRS/JUBA_LISAN"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
