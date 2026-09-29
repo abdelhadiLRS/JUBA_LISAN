@@ -257,7 +257,6 @@ export default async function Home() {
       <ScrollReveal>
         <div id="pricing" className="juba-busuu-pricing scroll-mt-16">
           <PricingSection
-            allowRegistration={allowRegistration}
             stripeEnabled={stripeEnabled}
             trialDays={trialDays}
             hasSession={hasSession}
