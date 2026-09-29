@@ -11317,3 +11317,34 @@ html[data-theme='light'] {
     min-height: 220px;
   }
 }
+
+/* === Busuu landing: real store badge treatment === */
+.juba-busuu-page .juba-busuu-app-badges {
+  align-items: center;
+}
+.juba-busuu-page .juba-busuu-app-store-badge {
+  display: inline-flex;
+  width: 119px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #000;
+  transition: transform .16s ease, opacity .16s ease;
+}
+.juba-busuu-page .juba-busuu-app-store-badge:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+.juba-busuu-page .juba-busuu-app-store-badge img {
+  display: block;
+  width: 119px;
+  height: 40px;
+  object-fit: contain;
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-app-store-badge,
+  .juba-busuu-page .juba-busuu-app-store-badge img {
+    width: 132px;
+    height: 44px;
+  }
+}
