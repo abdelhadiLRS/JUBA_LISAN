@@ -12879,3 +12879,20 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
   min-width: 0;
 }
+
+
+/* === Landing accessibility pass: editorial ticker motion controls === */
+.juba-busuu-page .juba-busuu-new-languages-track:hover,
+.juba-busuu-page .juba-busuu-new-languages-track:focus-within {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track,
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group:nth-child(2) {
+    display: none;
+  }
+}
