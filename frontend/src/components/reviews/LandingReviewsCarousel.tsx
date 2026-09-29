@@ -12,7 +12,7 @@ function Stars({ rating, label }: { rating: number; label: string }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`size-4 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-[var(--landing-muted)]'}`}
+          className={`size-4 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-[var(--busuu-muted)]'}`}
           aria-hidden="true"
         />
       ))}
@@ -61,23 +61,23 @@ export function LandingReviewsCarousel({
 
   return (
     <section
-      className="juba-ff-reviews mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24"
+      className="juba-ff-reviews mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24 text-[var(--busuu-ink)]"
       aria-labelledby="reviews-title"
     >
       <div className="mb-8 flex flex-col gap-3 text-center">
-        <span className="text-[var(--landing-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[var(--busuu-muted)] font-sans text-xs font-bold tracking-wide">
           {t('eyebrow')}
         </span>
         <h2
           id="reviews-title"
-          className="text-[var(--landing-ink)] font-sans text-2xl font-bold tracking-tight md:text-4xl"
+          className="text-[var(--busuu-ink)] font-sans text-2xl font-bold tracking-tight md:text-4xl"
         >
           {t('title')}
         </h2>
-        <p className="text-[var(--landing-muted)] mx-auto max-w-2xl font-mono text-xs leading-relaxed">
+        <p className="text-[var(--busuu-muted)] mx-auto max-w-2xl font-sans text-sm leading-7">
           {t('subtitle')}
         </p>
-        <div className="border-[var(--landing-border)] bg-[var(--landing-surface)]/60 text-[var(--landing-muted)] mx-auto inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase">
+        <div className="border-[var(--busuu-line)] bg-[var(--busuu-card)]/60 text-[var(--busuu-muted)] mx-auto inline-flex items-center gap-2 border px-3 py-2 font-sans text-xs font-bold tracking-wide">
           <Star
             className="size-3.5 fill-yellow-400 text-yellow-400"
             aria-hidden="true"
@@ -98,14 +98,14 @@ export function LandingReviewsCarousel({
         {reviews.map((review) => (
           <article
             key={review.id}
-            className="juba-ff-review-card border-[var(--landing-border)] bg-[var(--landing-surface)] flex min-h-52 w-[280px] flex-none snap-start flex-col border p-5 sm:w-[340px]"
+            className="juba-ff-review-card border-[var(--busuu-line)] bg-[var(--busuu-card)] flex min-h-52 w-[280px] flex-none snap-start flex-col border p-5 sm:w-[340px]"
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-[var(--landing-ink)] font-sans text-sm font-semibold tracking-tight">
+                <h3 className="text-[var(--busuu-ink)] font-sans text-sm font-semibold tracking-tight">
                   {review.user_display_name}
                 </h3>
-                <p className="text-[var(--landing-muted)] mt-1 font-mono tracking-widest uppercase">
+                <p className="text-[var(--busuu-muted)] mt-1 font-sans text-xs font-bold tracking-wide">
                   {t('learningLanguage', {
                     language: languageLabel(review.target_language),
                   })}
@@ -116,7 +116,7 @@ export function LandingReviewsCarousel({
                 label={t('starsLabel', { rating: review.rating })}
               />
             </div>
-            <p className="text-[var(--landing-muted)] line-clamp-6 font-mono text-xs leading-relaxed">
+            <p className="text-[var(--busuu-muted)] line-clamp-6 font-sans text-sm leading-7">
               {review.comment || t('ratingOnly')}
             </p>
           </article>
