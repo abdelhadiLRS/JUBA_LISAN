@@ -325,27 +325,19 @@ export default async function Home() {
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2>{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
-              <div className="juba-busuu-app-badges">
-                <a
-                  href="/"
-                  className="juba-busuu-app-store-badge"
-                  aria-label="App Store"
-                >
+              <div className="juba-busuu-app-badges" aria-label={t('ctaStart')}>
+                <span className="juba-busuu-app-store-badge" aria-label="App Store">
                   <img
                     src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
                     alt="App Store"
                   />
-                </a>
-                <a
-                  href="/"
-                  className="juba-busuu-app-store-badge"
-                  aria-label="Google Play"
-                >
+                </span>
+                <span className="juba-busuu-app-store-badge" aria-label="Google Play">
                   <img
                     src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/GetItOnGooglePlay_Badge_Web_color_English.png"
                     alt="Google Play"
                   />
-                </a>
+                </span>
               </div>
             </div>
             <div className="juba-busuu-app-art" aria-hidden="true">
