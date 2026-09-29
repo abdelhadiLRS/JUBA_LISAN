@@ -11493,3 +11493,35 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-footer::before {
   border-color: #2b3b32;
 }
+
+
+/* === Landing fidelity pass: restore the full Busuu hero artwork scale === */
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  min-height: 0;
+  width: min(985px, 100%);
+  margin-top: clamp(38px, 5vw, 52px);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art img {
+  width: 100%;
+  max-height: 720px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    min-height: 0;
+    margin-top: 32px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art img {
+    width: 100%;
+    max-height: 520px;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-reference-hero-art img {
+    width: 108%;
+    max-width: none;
+    max-height: 430px;
+    margin-inline: -4%;
+  }
+}
