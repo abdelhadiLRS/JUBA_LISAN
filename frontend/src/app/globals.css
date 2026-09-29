@@ -6029,6 +6029,14 @@ html[data-theme='light'] {
    Scoped to .juba-busuu-app so the public landing and other surfaces remain isolated.
 */
 .juba-busuu-app {
+  --busuu-ink: #17211b;
+  --busuu-muted: #53615a;
+  --busuu-green: #00a86b;
+  --busuu-green-dark: #008957;
+  --busuu-mint: #e8f8f0;
+  --busuu-cream: #fbfaf6;
+  --busuu-card: #ffffff;
+  --busuu-line: #dce5df;
   --duo-green: var(--busuu-green);
   --duo-green-dark: var(--busuu-green-dark);
   --duo-blue: #2f80ed;
