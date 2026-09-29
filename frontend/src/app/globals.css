@@ -3281,3 +3281,37 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-proof-inner { grid-template-columns:1fr; }
   .juba-busuu-page .juba-busuu-proof-item { min-height:34px; }
 }
+
+
+/* ── Busuu landing: clear section hierarchy above the feature grid ── */
+.juba-busuu-page .juba-busuu-features-heading {
+  display:grid;
+  justify-items:center;
+  gap:14px;
+  max-width:760px;
+  margin:0 auto 42px;
+  text-align:center;
+}
+.juba-busuu-page .juba-busuu-features-heading .juba-busuu-eyebrow {
+  display:inline-flex;
+  align-items:center;
+  border:1px solid color-mix(in srgb,var(--busuu-green) 22%,var(--busuu-line));
+  border-radius:999px;
+  padding:8px 15px;
+  background:var(--busuu-mint);
+  color:var(--busuu-green-dark);
+  font-size:12px;
+  font-weight:800;
+}
+.juba-busuu-page .juba-busuu-features-heading h2 {
+  margin:0;
+  color:var(--busuu-ink);
+  font-size:clamp(30px,4vw,48px);
+  font-weight:850;
+  line-height:1.12;
+  letter-spacing:-.04em;
+  text-wrap:balance;
+}
+@media(max-width:600px) {
+  .juba-busuu-page .juba-busuu-features-heading { gap:12px; margin-bottom:28px; }
+}
