@@ -5195,7 +5195,7 @@ html[data-theme='light'] {
   border-color: var(--duo-line);
   background: rgba(255,255,255,.96);
 }
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
   .juba-duo-shell .juba-duo-sidebar {
     inset-block: 0;
     inset-inline-start: 0;
