@@ -12814,3 +12814,34 @@ html[data-theme='light'] {
     transform: none !important;
   }
 }
+
+
+/* === Landing accessibility: motion controls and visible keyboard focus === */
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+.juba-busuu-page a:focus-visible,
+.juba-busuu-page button:focus-visible,
+.juba-busuu-page [role="button"]:focus-visible {
+  outline: 3px solid #116eee;
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-reference-hero a:focus-visible,
+.juba-busuu-page .juba-busuu-footer a:focus-visible {
+  outline-color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page *,
+  .juba-busuu-page *::before,
+  .juba-busuu-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
