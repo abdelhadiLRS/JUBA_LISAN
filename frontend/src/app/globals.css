@@ -12405,3 +12405,11 @@ html[data-theme='light'] {
     max-width: 320px;
   }
 }
+
+
+/* === Landing accessibility: keyboard focus for horizontal language rail === */
+.juba-busuu-page #languages .juba-busuu-language-list:focus-visible {
+  outline: 3px solid #f3b63f;
+  outline-offset: 5px;
+  border-radius: 12px;
+}
