@@ -138,14 +138,14 @@ export default async function Home() {
         locale={locale}
       />
 
-      {/* Hero */}
-      <section className="juba-busuu-hero">
-        <div className="juba-busuu-hero-inner">
-          <div className="juba-busuu-hero-copy">
-            <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+      {/* Busuu reference hero: centered blue composition with the visual anchored below the CTA */}
+      <section className="juba-busuu-reference-hero">
+        <div className="juba-busuu-reference-hero-inner">
+          <div className="juba-busuu-reference-hero-copy">
+            <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
             <h1>{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
-            <div className="juba-busuu-hero-actions">
+            <div className="juba-busuu-reference-actions">
               <Link
                 href={
                   hasSession
@@ -154,7 +154,7 @@ export default async function Home() {
                       ? '/register'
                       : '/login'
                 }
-                className="juba-busuu-hero-primary"
+                className="juba-busuu-reference-primary"
               >
                 {hasSession
                   ? t('dashboard')
@@ -162,50 +162,27 @@ export default async function Home() {
                     ? tCommon('start')
                     : t('signIn')}
               </Link>
-              <a href="#features" className="juba-busuu-hero-secondary">
-                {t('howItWorks')} <span aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
-          <div className="juba-busuu-hero-visual" aria-label={t('navLanguages')}>
-            <div className="juba-busuu-lesson-preview" aria-label={t('microDemo.title')}>
-              <div className="juba-busuu-lesson-preview-top">
-                <span className="juba-busuu-lesson-preview-mark" aria-hidden="true">✓</span>
-                <div>
-                  <strong>{t('microDemo.title')}</strong>
-                  <span>{t('microDemo.exampleLabel')}</span>
-                </div>
-                <span className="juba-busuu-lesson-preview-level">B1</span>
-              </div>
-              <div className="juba-busuu-lesson-preview-progress" aria-hidden="true"><span /></div>
-              <div className="juba-busuu-lesson-preview-body">
-                <span className="juba-busuu-lesson-preview-label">{t('microDemo.questionLabel')}</span>
-                <p lang="en-GB">What did you do yesterday?</p>
-                <span className="juba-busuu-lesson-preview-label">{t('microDemo.answerLabel')}</span>
-                <p className="juba-busuu-lesson-preview-answer" lang="en-GB">Yesterday I go to the park.</p>
-                <div className="juba-busuu-lesson-preview-correction">
-                  <span className="juba-busuu-lesson-preview-label">{t('microDemo.correctionLabel')}</span>
-                  <p lang="en-GB">Yesterday I <strong> went </strong> to the park.</p>
-                  <span>{t('microDemo.explanation')}</span>
-                </div>
-              </div>
-            </div>
-            <div id="languages" className="juba-busuu-language-panel scroll-mt-24">
-              <div id="language-title" className="juba-busuu-language-panel-heading">
-                <span className="juba-busuu-language-panel-dot" aria-hidden="true" />
-                <span>{t('navLanguages')}</span>
-              </div>
-              <LanguageBubbles dir={dir} />
-            </div>
-            <div className="juba-busuu-floating-note">
-              <span aria-hidden="true">✦</span>
-              <span>{tCommon('tagline')}</span>
-            </div>
+
+          <div className="juba-busuu-reference-hero-art">
+            <img
+              src="https://images.ctfassets.net/kk1deufhixqq/7AjKs6Fhf6bF3pYazcGb2S/27a511b93771f6aecdc43409243fd86f/en-paid-landing.avif"
+              alt=""
+              aria-hidden="true"
+            />
           </div>
         </div>
       </section>
 
-      {/* Busuu-style trust strip: concise proof points between hero and lesson preview */}
+      {/* Busuu reference language chooser */}
+      <section id="languages" className="juba-busuu-reference-languages scroll-mt-24">
+        <div className="juba-busuu-reference-languages-inner">
+          <h2>{t('navLanguages')}</h2>
+          <LanguageBubbles dir={dir} />
+        </div>
+      </section>
+
       <section className="juba-busuu-proof-strip" aria-label={t('navFeatures')}>
         <div className="juba-busuu-proof-inner">
           <div className="juba-busuu-proof-stat">
@@ -229,7 +206,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
 
       {/* Features */}
       <ScrollReveal>
