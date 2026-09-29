@@ -270,7 +270,7 @@ export default async function Home() {
               </p>
             </div>
             <div className="juba-busuu-demo-correction border-s-2 ps-4">
-              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+              <p className="juba-busuu-demo-label mb-2">
                 {t('microDemo.correctionLabel')}
               </p>
               <p
@@ -332,15 +332,15 @@ export default async function Home() {
             ].map(({ title, desc, Icon }) => (
               <div
                 key={title}
-                className="juba-busuu-feature-card border-fl-border bg-fl-surface border p-6"
+                className="juba-busuu-feature-card border p-6"
               >
-                <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-3">
-                  <Icon className="text-fl-muted-2 h-4 w-4" />
-                  <span className="text-fl-label text-fl-muted-2 font-sans text-sm font-semibold tracking-tight">
+                <div className="juba-busuu-feature-card-heading mb-4 flex items-center gap-3 border-b pb-3">
+                  <Icon className="juba-busuu-feature-icon h-5 w-5" />
+                  <span className="juba-busuu-feature-title font-sans text-sm font-bold tracking-tight">
                     {title}
                   </span>
                 </div>
-                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                <p className="juba-busuu-feature-description text-sm leading-relaxed">
                   {desc}
                 </p>
               </div>
@@ -373,7 +373,7 @@ export default async function Home() {
       {/* Open Source */}
       <ScrollReveal>
         <section className="juba-busuu-section mx-auto w-full max-w-5xl px-6 pb-16">
-          <div className="juba-busuu-open-source border-fl-border bg-fl-surface flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
+          <div className="juba-busuu-open-source flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
                 src="/github.svg"
@@ -383,10 +383,10 @@ export default async function Home() {
                 className="block opacity-80"
               />
               <div className="text-start">
-                <p className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
+                <p className="juba-busuu-open-source-title font-sans text-sm font-bold tracking-tight">
                   {tBilling('openSourceTitle')}
                 </p>
-                <p className="text-fl-hint text-fl-muted-2 mt-0.5 font-mono tracking-widest uppercase">
+                <p className="juba-busuu-open-source-description mt-1 text-xs font-semibold tracking-wide">
                   {tBilling('openSourceDesc')}
                 </p>
               </div>
@@ -395,7 +395,7 @@ export default async function Home() {
               href="https://github.com/abdelhadiLRS/JUBA_LISAN"
               target="_blank"
               rel="noopener noreferrer"
-              className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-6 py-2.5 font-mono text-xs font-bold tracking-widest whitespace-nowrap uppercase transition-colors"
+              className="juba-busuu-open-source-cta border px-6 py-3 text-xs font-bold tracking-wide whitespace-nowrap transition-colors"
             >
               {tBilling('openSourceCta')}
             </a>
@@ -409,7 +409,7 @@ export default async function Home() {
           id="faq"
           className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-16"
         >
-          <h2 className="text-fl-label text-fl-muted-2 mb-8 text-center font-mono tracking-widest uppercase">
+          <h2 className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
             {t('faqTitle')}
           </h2>
           <LandingFAQ dir={dir} />
@@ -420,15 +420,15 @@ export default async function Home() {
       <footer className="juba-busuu-footer border-t px-6 py-10">
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <span className="text-fl-hint text-fl-muted-3 font-code block tracking-widest uppercase">
+            <span className="juba-busuu-footer-brand block text-xs font-bold tracking-widest uppercase">
               JUBA LISAN
             </span>
-            <span className="text-fl-hint text-fl-muted-4 mt-2 block font-mono leading-relaxed">
+            <span className="juba-busuu-footer-copyright mt-2 block text-xs leading-relaxed">
               © {new Date().getFullYear()}
             </span>
           </div>
           <div>
-            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerProduct')}
             </h4>
             <div className="flex flex-col gap-2">
@@ -436,33 +436,33 @@ export default async function Home() {
                 href="https://github.com/abdelhadiLRS/JUBA_LISAN"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
               >
                 {t('github')}
               </a>
             </div>
           </div>
           <div>
-            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerLegal')}
             </h4>
             <div className="flex flex-col gap-2">
               <Link
                 href="/privacy?from=landing"
-                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
               >
                 {t('privacy')}
               </Link>
               <Link
                 href="/terms?from=landing"
-                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
               >
                 {t('terms')}
               </Link>
             </div>
           </div>
           <div>
-            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('contact')}
             </h4>
             <div className="flex flex-col gap-2">
@@ -470,7 +470,7 @@ export default async function Home() {
                 href="https://www.arturocarreterocalvo.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
               >
                 {t('aboutMe')}
               </a>
