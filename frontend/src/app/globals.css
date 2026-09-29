@@ -11525,3 +11525,41 @@ html[data-theme='light'] {
     margin-inline: -4%;
   }
 }
+
+
+/* === Landing fidelity pass: compact editorial navigation === */
+.juba-busuu-page .juba-busuu-nav-inner {
+  min-height: 72px;
+  width: min(1280px, calc(100% - 56px));
+  gap: 34px;
+}
+.juba-busuu-page .juba-busuu-brand img {
+  width: 142px;
+}
+.juba-busuu-page .juba-busuu-nav-links {
+  gap: 26px;
+  font-size: 13px;
+  letter-spacing: -.01em;
+}
+.juba-busuu-page .juba-busuu-nav-actions {
+  gap: 8px;
+}
+.juba-busuu-page .juba-busuu-login {
+  padding-inline: 9px;
+  font-size: 13px;
+}
+.juba-busuu-page .juba-busuu-nav-cta {
+  min-height: 42px;
+  padding-inline: 18px;
+  font-size: 13px;
+}
+.juba-busuu-page .juba-busuu-locale {
+  padding-inline: 7px;
+  font-size: 11px;
+}
+@media (max-width: 1000px) {
+  .juba-busuu-page .juba-busuu-nav-inner {
+    width: min(100% - 32px, 760px);
+    min-height: 68px;
+  }
+}
