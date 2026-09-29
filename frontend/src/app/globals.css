@@ -13145,3 +13145,20 @@ html[data-theme='light'] {
     text-align: center;
   }
 }
+
+
+/* === Landing refinement: accessible editorial ticker motion === */
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track,
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages {
+    overflow-x: auto;
+  }
+}
