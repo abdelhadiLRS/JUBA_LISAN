@@ -38,15 +38,28 @@ export function LandingReviewsCarousel({
   useEffect(() => {
     const scroller = scrollerRef.current
     if (!scroller || reviews.length <= 1) return
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const interval = window.setInterval(() => {
-      const nextLeft = scroller.scrollLeft + 320
+      const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       const maxLeft = scroller.scrollWidth - scroller.clientWidth
+
+      if (direction < 0) {
+        const atStart = Math.abs(scroller.scrollLeft) >= maxLeft - 1
+        scroller.scrollTo({
+          left: atStart ? 0 : Math.max(scroller.scrollLeft - 320, -maxLeft),
+          behavior: reduceMotion ? 'auto' : 'smooth',
+        })
+        return
+      }
+
       const isAtEnd = scroller.scrollLeft >= maxLeft - 1
       scroller.scrollTo({
-        left: isAtEnd ? 0 : Math.min(nextLeft, maxLeft),
-        behavior: 'smooth',
+        left: isAtEnd ? 0 : Math.min(scroller.scrollLeft + 320, maxLeft),
+        behavior: reduceMotion ? 'auto' : 'smooth',
       })
     }, 3500)
+
     return () => window.clearInterval(interval)
   }, [reviews.length])
 
