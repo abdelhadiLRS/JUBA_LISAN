@@ -11377,3 +11377,42 @@ html[data-theme='light'] {
     padding-inline: 16px;
   }
 }
+
+
+/* === Busuu landing: direction + app-art fidelity === */
+.juba-busuu-page .juba-busuu-app-branch-left,
+.juba-busuu-page .juba-busuu-app-branch-right {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  pointer-events: none;
+  opacity: .9;
+}
+.juba-busuu-page .juba-busuu-app-branch-left {
+  inset-inline-start: -8px;
+  top: 16%;
+  transform: rotate(-8deg);
+}
+.juba-busuu-page .juba-busuu-app-branch-right {
+  inset-inline-end: -8px;
+  bottom: 14%;
+  transform: rotate(8deg) scaleX(-1);
+}
+.juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+  animation-name: juba-busuu-new-languages-rtl;
+}
+@keyframes juba-busuu-new-languages-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-app-branch-left,
+  .juba-busuu-page .juba-busuu-app-branch-right {
+    width: 104px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
+    animation: none;
+  }
+}
