@@ -3,14 +3,6 @@ import Image from 'next/image'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
-import {
-  BookOpen,
-  MessageSquare,
-  Mic,
-  Headphones,
-  Layers,
-  TrendingUp,
-} from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
