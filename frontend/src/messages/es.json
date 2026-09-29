@@ -168,8 +168,8 @@
     "appCtaDescription": "Lleva tu práctica de idiomas contigo. Continúa tus lecciones, conversaciones con IA, ejercicios de escucha y progreso donde estés.",
     "appCtaNote": "Experiencia web · Diseñada para pantallas móviles",
     "onlineLanguagesTitle": "Aprende idiomas en línea",
-
-    "onlineLanguagePrefix": "Aprende",    "onlineLanguagesDescription": "Elige un idioma y explora la experiencia de aprendizaje disponible en JUBA LISAN."
+    "onlineLanguagePrefix": "Aprende",
+    "onlineLanguagesDescription": "Elige un idioma y explora la experiencia de aprendizaje disponible en JUBA LISAN."
   },
   "common": {
     "loading": "Cargando...",
@@ -260,7 +260,8 @@
     "coach": "Entrenador",
     "courses": "Cursos",
     "review": "Repaso",
-    "translator": "Traductor"
+    "translator": "Traductor",
+    "navigation": "Navegación"
   },
   "auth": {
     "login": {
