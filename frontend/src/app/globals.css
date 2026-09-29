@@ -3196,3 +3196,88 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-nav-cta,
   .juba-busuu-page .juba-busuu-mobile-cta { transition:none; }
 }
+
+
+/* ── Busuu-inspired landing proof strip ── */
+.juba-busuu-page .juba-busuu-proof-strip {
+  position:relative;
+  z-index:2;
+  padding:0 clamp(18px,4vw,48px);
+  background:var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  display:flex;
+  width:min(1120px,100%);
+  min-height:112px;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(16px,2.6vw,34px);
+  margin:-32px auto 0;
+  padding:22px clamp(22px,3vw,40px);
+  border:1px solid var(--busuu-line);
+  border-radius:24px;
+  background:var(--busuu-card);
+  box-shadow:0 10px 30px color-mix(in srgb,var(--busuu-ink) 6%,transparent);
+}
+.juba-busuu-page .juba-busuu-proof-stat,
+.juba-busuu-page .juba-busuu-proof-item {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--busuu-ink);
+  font-size:14px;
+  font-weight:700;
+  line-height:1.45;
+}
+.juba-busuu-page .juba-busuu-proof-stat {
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  white-space:nowrap;
+}
+.juba-busuu-page .juba-busuu-proof-stat strong {
+  color:var(--busuu-green-dark);
+  font-size:clamp(28px,3vw,38px);
+  font-weight:850;
+  letter-spacing:-.04em;
+  line-height:1.1;
+}
+.juba-busuu-page .juba-busuu-proof-stat span {
+  color:var(--busuu-muted);
+  font-size:12px;
+  font-weight:650;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  display:grid;
+  width:30px;
+  height:30px;
+  flex:none;
+  place-items:center;
+  border-radius:50%;
+  background:var(--busuu-mint);
+  color:var(--busuu-green-dark);
+  font-size:16px;
+  font-weight:900;
+}
+.juba-busuu-page .juba-busuu-proof-divider {
+  width:1px;
+  height:42px;
+  flex:none;
+  background:var(--busuu-line);
+}
+@media(max-width:760px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 14px;
+    margin-top:-26px;
+    padding:22px;
+  }
+  .juba-busuu-page .juba-busuu-proof-divider { display:none; }
+  .juba-busuu-page .juba-busuu-proof-stat,
+  .juba-busuu-page .juba-busuu-proof-item { font-size:12px; }
+}
+@media(max-width:420px) {
+  .juba-busuu-page .juba-busuu-proof-inner { grid-template-columns:1fr; }
+  .juba-busuu-page .juba-busuu-proof-item { min-height:34px; }
+}
