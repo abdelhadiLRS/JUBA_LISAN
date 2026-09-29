@@ -167,8 +167,8 @@
     "appCtaDescription": "Păstrează practica limbii mereu la îndemână. Continuă lecțiile, conversațiile cu AI, exercițiile de ascultare și urmărește-ți progresul oriunde te-ai afla.",
     "appCtaNote": "Experiență web · Concepută pentru ecrane mobile",
     "onlineLanguagesTitle": "Învață limbi online",
-
-    "onlineLanguagePrefix": "Învață",    "onlineLanguagesDescription": "Alege o limbă și explorează experiența de învățare disponibilă în JUBA LISAN."
+    "onlineLanguagePrefix": "Învață",
+    "onlineLanguagesDescription": "Alege o limbă și explorează experiența de învățare disponibilă în JUBA LISAN."
   },
   "common": {
     "loading": "Se încarcă...",
@@ -259,7 +259,8 @@
     "coach": "Antrenor",
     "courses": "Cursuri",
     "review": "Recapitulare",
-    "translator": "Traducător"
+    "translator": "Traducător",
+    "navigation": "Navigare"
   },
   "auth": {
     "login": {
