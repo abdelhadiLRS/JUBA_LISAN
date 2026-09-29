@@ -342,19 +342,13 @@ export default async function Home() {
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2>{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
-              <div className="juba-busuu-app-badges" aria-label={t('ctaStart')}>
-                <span className="juba-busuu-app-store-badge" aria-label="App Store">
-                  <img
-                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-                    alt="App Store"
-                  />
-                </span>
-                <span className="juba-busuu-app-store-badge" aria-label="Google Play">
-                  <img
-                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/GetItOnGooglePlay_Badge_Web_color_English.png"
-                    alt="Google Play"
-                  />
-                </span>
+              <div className="juba-busuu-app-badges">
+                <Link
+                  href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+                  className="juba-busuu-app-cta"
+                >
+                  {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+                </Link>
               </div>
             </div>
             <div className="juba-busuu-app-art" aria-hidden="true">
