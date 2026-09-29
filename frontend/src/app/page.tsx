@@ -468,13 +468,17 @@ export default async function Home() {
               {t('footerProduct')}
             </h4>
             <div className="flex flex-col gap-2">
-              <a
-                href="https://github.com/abdelhadiLRS/JUBA_LISAN"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
-              >
-                {t('github')}
+              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navFeatures')}
+              </a>
+              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navLanguages')}
+              </a>
+              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navReviews')}
+              </a>
+              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('faqTitle')}
               </a>
             </div>
           </div>
