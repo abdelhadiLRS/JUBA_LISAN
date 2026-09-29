@@ -11130,3 +11130,60 @@ html[data-theme='light'] {
     margin-bottom: 28px;
   }
 }
+
+/* === Busuu landing: testimonial + FAQ/footer finish === */
+.juba-busuu-page .juba-busuu-testimonials-inner {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-testimonials-inner::before {
+  content: '“';
+  position: absolute;
+  inset-inline-start: -12px;
+  top: -54px;
+  color: #e6f3ec;
+  font-family: Georgia, serif;
+  font-size: 170px;
+  line-height: 1;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-faq-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(72px, 9vw, 112px) 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-faq-section .juba-busuu-faq-title {
+  color: var(--busuu-ink);
+  font-size: clamp(34px, 4.6vw, 54px);
+  line-height: 1.04;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-footer {
+  position: relative;
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-footer::before {
+  content: '';
+  position: absolute;
+  inset-inline-end: -70px;
+  bottom: -100px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 1px solid #dfe8e2;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-testimonials-inner::before {
+    inset-inline-start: -6px;
+    top: -42px;
+    font-size: 120px;
+  }
+  .juba-busuu-page .juba-busuu-faq-section {
+    padding-inline: 16px;
+  }
+}
