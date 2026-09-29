@@ -7859,3 +7859,70 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-ff-plan-card,
   .juba-busuu-page .juba-ff-review-card { transition: none; }
 }
+
+
+/* ── Busuu app-wide component finish: cards, fields, and navigation ── */
+.juba-duo-shell.juba-busuu-app {
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-main {
+  border: 1px solid var(--busuu-line);
+  border-radius: 24px;
+  background: var(--busuu-card);
+  box-shadow: 0 10px 34px color-mix(in srgb, var(--busuu-ink) 5%, transparent);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame {
+  background: var(--busuu-cream);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea) {
+  border: 1px solid var(--busuu-line);
+  border-radius: 12px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--busuu-green) 24%, transparent);
+  outline-offset: 1px;
+  border-color: var(--busuu-green);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(.juba-card, .juba-duo-card) {
+  border: 1px solid var(--busuu-line);
+  border-radius: 20px;
+  background: var(--busuu-card);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--busuu-green) 8%, var(--busuu-line));
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link {
+  text-transform: none;
+  letter-spacing: 0;
+  border-radius: 13px;
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link.is-active {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  box-shadow: inset 3px 0 0 var(--busuu-green);
+}
+.juba-duo-shell.juba-busuu-app[dir="rtl"] .juba-duo-nav-link.is-active {
+  box-shadow: inset -3px 0 0 var(--busuu-green);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-mobile-trigger {
+  border: 1px solid var(--busuu-line);
+  border-radius: 12px;
+  background: var(--busuu-card);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-cta {
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: white;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-cta:hover {
+  background: var(--busuu-green-dark);
+}
+@media (max-width: 900px) {
+  .juba-duo-shell.juba-busuu-app .juba-duo-main {
+    border-radius: 0;
+    border-inline: 0;
+    box-shadow: none;
+  }
+}
