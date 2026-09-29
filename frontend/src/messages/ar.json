@@ -165,7 +165,10 @@
     "appCtaNote": "تجربة ويب محسّنة لشاشات الهاتف",
     "onlineLanguagesTitle": "تعلّم اللغات عبر الإنترنت",
     "onlineLanguagePrefix": "تعلّم",
-    "onlineLanguagesDescription": "اختر لغة واستكشف تجربة التعلّم المتاحة في JUBA LISAN."
+    "onlineLanguagesDescription": "اختر لغة واستكشف تجربة التعلّم المتاحة في JUBA LISAN.",
+    "newLanguagesLabel": "لغات جديدة",
+    "newOpportunitiesLabel": "فرص جديدة",
+    "newYouLabel": "نسخة جديدة منك"
   },
   "common": {
     "loading": "جارٍ التحميل...",
