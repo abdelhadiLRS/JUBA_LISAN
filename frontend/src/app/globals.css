@@ -11984,3 +11984,43 @@ html[data-theme='light'] {
     font-size: clamp(34px, 10vw, 52px);
   }
 }
+
+
+/* === Landing fidelity pass: footer brand hierarchy === */
+.juba-busuu-page .juba-busuu-footer {
+  padding-block: 72px 78px;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  width: min(1120px, 100%);
+  max-width: 1120px;
+  gap: 44px;
+}
+.juba-busuu-page .juba-busuu-footer-brand {
+  font-size: 15px;
+  letter-spacing: .12em;
+}
+.juba-busuu-page .juba-busuu-footer-copyright:first-of-type {
+  max-width: 250px;
+  line-height: 1.6;
+}
+.juba-busuu-page .juba-busuu-footer-heading {
+  margin-bottom: 14px !important;
+  font-size: 11px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-footer-link {
+  font-size: 13px;
+  line-height: 1.55;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-footer {
+    padding-block: 56px 60px;
+  }
+  .juba-busuu-page .juba-busuu-footer > div {
+    gap: 30px 22px;
+  }
+  .juba-busuu-page .juba-busuu-footer-copyright:first-of-type {
+    max-width: 210px;
+  }
+}
