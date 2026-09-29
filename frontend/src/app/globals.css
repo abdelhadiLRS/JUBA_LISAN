@@ -11328,3 +11328,52 @@ html[data-theme='light'] {
     flex-basis: 38px;
   }
 }
+
+
+/* === Busuu landing: final editorial polish === */
+.juba-busuu-page .juba-busuu-open-source-section {
+  padding: 0 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-open-source {
+  width: min(1120px, 100%);
+  margin-inline: auto;
+  padding: 24px 28px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: var(--busuu-mint);
+}
+.juba-busuu-page .juba-busuu-open-source-cta {
+  border-radius: 999px;
+  border-color: var(--busuu-green-dark);
+  background: #fff;
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-faq-section {
+  border-top: 1px solid #edf1ee;
+}
+.juba-busuu-page .juba-busuu-footer {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  background: #f7f8f5;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  width: min(1120px, 100%);
+  max-width: 1120px;
+}
+.juba-busuu-page .juba-busuu-footer-brand {
+  font-size: 13px;
+  letter-spacing: .12em;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-open-source-section {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-busuu-open-source {
+    padding: 22px;
+    border-radius: 16px;
+  }
+  .juba-busuu-page .juba-busuu-footer {
+    padding-inline: 16px;
+  }
+}
