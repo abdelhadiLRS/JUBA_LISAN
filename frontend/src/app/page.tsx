@@ -184,7 +184,7 @@ export default async function Home() {
       {/* Busuu reference language chooser */}
       <section id="languages" className="juba-busuu-reference-languages scroll-mt-24">
         <div className="juba-busuu-reference-languages-inner">
-          <h2>{t('navLanguages')}</h2>
+          <h2 id="language-title">{t('navLanguages')}</h2>
           <LanguageBubbles dir={dir} />
         </div>
       </section>
