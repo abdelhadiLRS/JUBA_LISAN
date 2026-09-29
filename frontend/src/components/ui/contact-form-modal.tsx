@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useId } from 'react'
+import { AlertCircle, CheckCircle2, CircleHelp, LoaderCircle, Send, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 
@@ -101,7 +102,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--duo-ink) 55%, transparent)',
+        backgroundColor: 'color-mix(in srgb, var(--busuu-ink) 55%, transparent)',
         backdropFilter: 'blur(8px)',
       }}
       onClick={() => !isLoading && onClose()}
@@ -113,14 +114,14 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="card w-full max-w-md overflow-hidden border-2 border-[var(--duo-line)] shadow-[5px_5px_0_var(--duo-line)]"
+        className="w-full max-w-md overflow-hidden rounded-3xl border border-[var(--busuu-line)] bg-[var(--busuu-card)] text-[var(--busuu-ink)] shadow-[0_24px_70px_color-mix(in_srgb,var(--busuu-ink)_18%,transparent)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]" aria-hidden="true">
-            <i className="ti ti-help-circle icon" aria-hidden="true" />
+        <div className="flex items-center gap-3 border-b border-[var(--busuu-line)] bg-[var(--busuu-mint)] px-6 py-4">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[var(--busuu-green-dark)]" aria-hidden="true">
+            <CircleHelp className="h-4 w-4" aria-hidden="true" />
           </span>
-          <span id={titleId} className="flex-1 text-sm font-semibold tracking-tight text-[var(--duo-ink)]">
+          <span id={titleId} className="flex-1 text-sm font-bold tracking-tight text-[var(--busuu-ink)]">
             {t('title')}
           </span>
           <button
@@ -128,16 +129,16 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             onClick={onClose}
             disabled={isLoading}
             aria-label={tCommon('close')}
-            className="btn btn-ghost-secondary btn-icon"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--busuu-muted)] transition hover:bg-white hover:text-[var(--busuu-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--busuu-green)] disabled:opacity-50"
           >
-            <i className="ti ti-x icon" aria-hidden="true" />
+            <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
 
         {status === 'success' ? (
           <div className="flex flex-col items-center gap-3 px-6 py-10" role="status" aria-live="polite">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[color-mix(in srgb, var(--duo-yellow) 28%, var(--duo-card))] px-4 py-2 text-sm font-semibold text-[var(--duo-green-dark)]">
-              <i className="ti ti-circle-check icon" aria-hidden="true" /> {t('sent')}
+            <span className="inline-flex items-center gap-2 rounded-full bg-[var(--busuu-mint)] px-4 py-2 text-sm font-bold text-[var(--busuu-green-dark)]">
+              <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> {t('sent')}
             </span>
           </div>
         ) : (
@@ -145,7 +146,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             <p id={descriptionId} className="sr-only">{t('description')}</p>
             <div className="flex flex-col gap-5 px-6 py-6">
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelEmail')}</label>
+                <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--busuu-muted)]">{t('labelEmail')}</label>
                 <input
                   ref={firstFieldRef}
                   id="contact-email"
@@ -154,7 +155,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="form-control rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[2px_2px_0_var(--duo-line)] px-3 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full rounded-xl border border-[var(--busuu-line)] bg-white px-3 py-2.5 text-sm text-[var(--busuu-ink)] placeholder:text-[var(--busuu-muted)] transition focus:border-[var(--busuu-green)] focus:outline-none focus:ring-2 focus:ring-[var(--busuu-green)]/20 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
@@ -169,7 +170,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={isLoading}
-                  className="form-control rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full rounded-xl border border-[var(--busuu-line)] bg-white px-3 py-2.5 text-sm text-[var(--busuu-ink)] placeholder:text-[var(--busuu-muted)] transition focus:border-[var(--busuu-green)] focus:outline-none focus:ring-2 focus:ring-[var(--busuu-green)]/20 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderSubject')}
                 />
               </div>
@@ -187,40 +188,40 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="form-control min-h-[120px] resize-y rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[2px_2px_0_var(--duo-line)] px-3 py-2.5 text-sm leading-6 text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full min-h-[120px] resize-y rounded-xl border border-[var(--busuu-line)] bg-white px-3 py-2.5 text-sm leading-6 text-[var(--busuu-ink)] placeholder:text-[var(--busuu-muted)] transition focus:border-[var(--busuu-green)] focus:outline-none focus:ring-2 focus:ring-[var(--busuu-green)]/20 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
 
               {status === 'error' && (
-                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,var(--duo-red)_10%,var(--duo-card))] px-3 py-2.5 text-sm leading-relaxed text-[var(--duo-red)]">
-                  <i className="ti ti-alert-circle icon" aria-hidden="true" />
+                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,var(--busuu-green)_8%,white)] px-3 py-2.5 text-sm leading-relaxed text-[var(--busuu-green-dark)]">
+                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
                   <span>{errorMsg}</span>
                 </p>
               )}
             </div>
 
-            <div className="flex gap-3 border-t-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-4">
+            <div className="flex gap-3 border-t border-[var(--busuu-line)] bg-[var(--busuu-cream)] px-6 py-4">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={isLoading}
-                className="btn btn-outline-secondary flex-1"
+                className="flex-1 rounded-full border border-[var(--busuu-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--busuu-ink)] transition hover:bg-[var(--busuu-mint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--busuu-green)] disabled:opacity-50"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--duo-green)] shadow-[3px_3px_0_var(--duo-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
+                className="inline-flex flex-1 items-center justify-center rounded-full border border-[var(--busuu-green-dark)] bg-[var(--busuu-green)] px-4 py-2.5 text-sm font-bold text-white shadow-[0_3px_0_var(--busuu-green-dark)] transition hover:bg-[var(--busuu-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--busuu-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
               >
                 {isLoading ? (
                   <span className="inline-flex items-center">
-                    <i className="ti ti-loader-2 icon icon-spin" aria-hidden="true" />
+                    <LoaderCircle className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
                     {t('sending')}
                   </span>
                 ) : (
-                  <><Send className="mr-2 h-4 w-4" aria-hidden="true" />{t('send')}</>
+                  <><Send className="me-2 h-4 w-4" aria-hidden="true" />{t('send')}</>
                 )}
               </button>
             </div>
