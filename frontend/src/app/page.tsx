@@ -465,6 +465,9 @@ export default async function Home() {
               JUBA LISAN
             </span>
             <span className="juba-busuu-footer-copyright mt-2 block text-xs leading-relaxed">
+              {t('footerTagline')}
+            </span>
+            <span className="juba-busuu-footer-copyright mt-3 block text-xs leading-relaxed">
               © {new Date().getFullYear()}
             </span>
           </div>
