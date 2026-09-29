@@ -6288,3 +6288,113 @@ html[data-theme='light'] {
   }
 }
 
+
+/* ── Active Busuu theme: app-wide visual system ───────────────────────────
+   Applied only to authenticated routes. Keeps the public landing independent.
+*/
+.juba-busuu-app {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+.juba-busuu-app .juba-duo-main {
+  min-height: 100dvh;
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-page-frame {
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-sidebar {
+  border-inline-end: 1px solid var(--busuu-line);
+  background: var(--busuu-card);
+  box-shadow: 5px 0 28px color-mix(in srgb, var(--busuu-ink) 4%, transparent);
+}
+.juba-busuu-app .juba-duo-nav-link {
+  min-height: 46px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  color: var(--busuu-muted);
+  font-weight: 650;
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease;
+}
+.juba-busuu-app .juba-duo-nav-link:hover {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-nav-link.is-active {
+  border-color: color-mix(in srgb, var(--busuu-green) 22%, var(--busuu-line));
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  box-shadow: none;
+}
+.juba-busuu-app .juba-duo-nav-link.is-active svg {
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-resource-toggle,
+.juba-busuu-app .juba-duo-user-action {
+  border-radius: 12px;
+  color: var(--busuu-muted);
+}
+.juba-busuu-app .juba-duo-user-action:hover {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-mobile-bar {
+  border-color: var(--busuu-line) !important;
+  background: color-mix(in srgb, var(--busuu-cream) 96%, transparent) !important;
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--busuu-ink) 6%) !important;
+}
+.juba-busuu-app .juba-duo-mobile-trigger {
+  border: 1px solid var(--busuu-line);
+  border-radius: 13px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-mobile-menu {
+  border-color: var(--busuu-line);
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-page-frame :is(.juba-card, .juba-panel, .juba-page-shell, .juba-page-hero, [data-slot="card"]) {
+  border: 1px solid var(--busuu-line) !important;
+  border-radius: 20px !important;
+  background: var(--busuu-card) !important;
+  color: var(--busuu-ink);
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--busuu-ink) 5%, transparent) !important;
+}
+.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea) {
+  border: 1px solid var(--busuu-line);
+  border-radius: 12px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea):focus-visible {
+  border-color: var(--busuu-green);
+  outline: 3px solid color-mix(in srgb, var(--busuu-green) 20%, transparent);
+  outline-offset: 1px;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"],
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button {
+  border: 1px solid var(--busuu-green) !important;
+  border-radius: 999px !important;
+  background: var(--busuu-green) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 0 var(--busuu-green-dark) !important;
+  font-weight: 750;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"]:hover,
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button:hover {
+  background: var(--busuu-green-dark) !important;
+}
+.juba-busuu-app .juba-duo-skip-link {
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+}
+.juba-busuu-app :is(a, button, input, select, textarea):focus-visible {
+  outline-color: color-mix(in srgb, var(--busuu-green) 55%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-app .juba-duo-nav-link,
+  .juba-busuu-app .juba-duo-user-action {
+    transition: none;
+  }
+}
