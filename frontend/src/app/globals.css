@@ -11888,8 +11888,10 @@ html[data-theme='light'] {
   height: 58px;
   flex-basis: 58px;
 }
-.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(2) {
+.juba-busuu-page .juba-busuu-new-languages-group span {
   max-width: none;
+}
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(even) {
   color: var(--busuu-green-dark);
 }
 @media (max-width: 640px) {
