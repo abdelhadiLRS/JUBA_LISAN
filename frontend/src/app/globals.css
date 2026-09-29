@@ -11629,21 +11629,6 @@ html[data-theme='light'] {
 }
 
 
-/* === Landing fidelity pass: app note hierarchy === */
-.juba-busuu-page .juba-busuu-app-note {
-  max-width: 520px;
-  margin-top: 12px;
-  color: #6a776f;
-  font-size: 11px;
-  line-height: 1.5;
-}
-@media (max-width: 820px) {
-  .juba-busuu-page .juba-busuu-app-note {
-    margin-inline: auto;
-  }
-}
-
-
 /* === Landing fidelity pass: testimonial editorial layout === */
 .juba-busuu-page .juba-busuu-testimonials {
   position: relative;
@@ -11713,5 +11698,54 @@ html[data-theme='light'] {
   }
   .juba-busuu-page .juba-ff-review-card {
     min-height: 230px !important;
+  }
+}
+
+
+/* === Landing fidelity pass: editorial bridge emphasis === */
+.juba-busuu-page .juba-busuu-editorial-bridge {
+  background: #f7faf8;
+  border-top: 1px solid #e6eee9;
+  border-bottom: 1px solid #e6eee9;
+}
+.juba-busuu-page .juba-busuu-editorial-bridge-inner {
+  min-height: 350px;
+}
+.juba-busuu-page .juba-busuu-editorial-copy h2 {
+  max-width: 650px;
+  font-size: clamp(40px, 5vw, 64px);
+}
+.juba-busuu-page .juba-busuu-editorial-copy p {
+  max-width: 600px;
+  font-size: 17px;
+}
+.juba-busuu-page .juba-busuu-editorial-cta-row .juba-busuu-reference-primary {
+  min-height: 50px;
+  padding-inline: 26px;
+}
+.juba-busuu-page .juba-busuu-editorial-art {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-editorial-art::before {
+  content: '';
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  background: #e4f5ec;
+  opacity: .75;
+}
+.juba-busuu-page .juba-busuu-editorial-art img {
+  position: relative;
+  z-index: 1;
+  width: min(390px, 100%);
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-editorial-bridge-inner {
+    min-height: 0;
+  }
+  .juba-busuu-page .juba-busuu-editorial-art::before {
+    width: 210px;
+    height: 210px;
   }
 }
