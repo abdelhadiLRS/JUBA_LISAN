@@ -11471,3 +11471,25 @@ html[data-theme='light'] {
     font-size: 20px;
   }
 }
+
+
+/* === Busuu landing: footer contrast correction === */
+.juba-busuu-page .juba-busuu-footer {
+  background: #15211b;
+  color: #dce9e1;
+  border-top-color: #2b3b32 !important;
+}
+.juba-busuu-page .juba-busuu-footer-brand,
+.juba-busuu-page .juba-busuu-footer-heading {
+  color: #fff !important;
+}
+.juba-busuu-page .juba-busuu-footer-copyright,
+.juba-busuu-page .juba-busuu-footer-link {
+  color: #b8c9bf !important;
+}
+.juba-busuu-page .juba-busuu-footer-link:hover {
+  color: #fff !important;
+}
+.juba-busuu-page .juba-busuu-footer::before {
+  border-color: #2b3b32;
+}
