@@ -655,7 +655,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main
         className="juba-duo-main min-w-0 overflow-x-hidden"
         id="main-content"
-        aria-label="Main content"
+        aria-label={locale === 'ar' ? 'المحتوى الرئيسي' : 'Main content'}
         tabIndex={-1}
       >
         {/* Email verification banner */}
