@@ -357,7 +357,7 @@ export default async function Home() {
 
       {/* Reviews */}
       <ScrollReveal>
-        <section id="reviews" data-editorial-section="04" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
+        <section id="reviews" data-editorial-section="04" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="reviews-title">
           <div className="juba-busuu-testimonials-inner">
             <LandingReviewsCarousel reviews={reviews} />
           </div>
