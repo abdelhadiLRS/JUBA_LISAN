@@ -114,7 +114,6 @@ export function LandingReviewsCarousel({
         role="region"
         aria-label={t('title')}
         tabIndex={0}
-        ref={scrollerRef}
         className={`juba-busuu-reviews-scroller scrollbar-thumb-[var(--busuu-line)] flex snap-x scrollbar-thin scrollbar-track-transparent gap-4 overflow-x-auto pb-3 ${reviews.length === 1 ? 'justify-center' : ''}`}
       >
         {reviews.map((review) => (
