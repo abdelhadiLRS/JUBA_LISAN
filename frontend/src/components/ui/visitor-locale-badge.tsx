@@ -21,11 +21,12 @@ const TIMEZONE_COUNTRY: Record<string, string> = {
 
 function countryFromBrowser(fallback: string) {
   try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    if (TIMEZONE_COUNTRY[timezone]) return TIMEZONE_COUNTRY[timezone]
     const language = navigator.language || ''
     const region = language.match(/[-_]([A-Za-z]{2}|\d{3})$/)?.[1]
     if (region && /^[A-Za-z]{2}$/.test(region)) return region.toLowerCase()
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    return TIMEZONE_COUNTRY[timezone] ?? fallback
+    return fallback
   } catch {
     return fallback
   }
