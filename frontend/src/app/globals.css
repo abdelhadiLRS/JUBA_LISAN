@@ -20084,3 +20084,88 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* Landing v24 — navigation and chapter framing */
+.juba-busuu-page .juba-busuu-nav-inner {
+  width: min(100% - 40px, 1240px);
+}
+.juba-busuu-page .juba-busuu-nav {
+  box-shadow: 0 1px 0 rgba(23,33,27,.025), 0 10px 28px rgba(23,33,27,.035);
+}
+.juba-busuu-page .juba-busuu-brand {
+  min-height: 44px;
+  padding-inline: 4px;
+}
+.juba-busuu-page .juba-busuu-nav-pill {
+  position: relative;
+  padding-block: 9px;
+  color: var(--busuu-muted);
+}
+.juba-busuu-page .juba-busuu-nav-pill::after {
+  content: '';
+  position: absolute;
+  inset-inline: 50%;
+  inset-block-end: 2px;
+  height: 2px;
+  width: 0;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  transform: translateX(-50%);
+  transition: width .18s ease;
+}
+.juba-busuu-page .juba-busuu-nav-pill:hover,
+.juba-busuu-page .juba-busuu-nav-pill:focus-visible {
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-nav-pill:hover::after,
+.juba-busuu-page .juba-busuu-nav-pill:focus-visible::after {
+  width: 18px;
+}
+.juba-busuu-page .juba-busuu-nav-actions {
+  flex: 0 0 auto;
+}
+.juba-busuu-page .juba-busuu-nav-cta {
+  min-height: 46px;
+  padding-inline: 22px;
+}
+.juba-busuu-page .juba-busuu-language-intro {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-language-intro::after {
+  content: '01';
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: -4px;
+  color: rgba(23,33,27,.10);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(44px, 7vw, 84px);
+  font-weight: 800;
+  letter-spacing: -.08em;
+  line-height: 1;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-stage::after {
+  opacity: .72;
+}
+.juba-busuu-page .juba-busuu-language-item:focus-within {
+  border-color: rgba(8,119,249,.28);
+  box-shadow: 0 0 0 3px rgba(8,119,249,.10), 0 14px 30px rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-language-item img {
+  display: block;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-nav-inner {
+    width: calc(100% - 24px);
+  }
+  .juba-busuu-page .juba-busuu-language-intro::after {
+    inset-block-start: 0;
+    font-size: 48px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-nav-pill::after {
+    transition: none;
+  }
+}
