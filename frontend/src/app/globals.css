@@ -24529,3 +24529,85 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* ── Landing refinement v50: give the language atlas and trust rail a stronger editorial finish ── */
+.juba-busuu-page .juba-busuu-language-stage {
+  border-color: rgba(23,33,27,.12);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 28px 72px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-language-list {
+  gap: 12px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-height: 116px;
+  position: relative;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::after {
+  content: "";
+  position: absolute;
+  inset-inline: 12px;
+  inset-block-end: 9px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(8,119,249,.0), rgba(8,119,249,.20), rgba(42,166,112,.18), rgba(42,166,112,.0));
+  opacity: .55;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: -1;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover::after {
+  opacity: 1;
+  transform: scaleX(1.08);
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  border-top: 1px solid rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-proof-item {
+  border-radius: 14px;
+  transition: background-color .18s ease, transform .18s ease;
+}
+.juba-busuu-page .juba-busuu-proof-item:hover {
+  transform: translateY(-2px);
+  background: rgba(8,119,249,.035);
+}
+.juba-busuu-page .juba-busuu-proof-stat {
+  min-height: 44px;
+  padding-inline: 10px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(8,119,249,.055), rgba(42,166,112,.055));
+}
+@media (max-width: 1000px) {
+  .juba-busuu-page .juba-busuu-language-list {
+    gap: 10px;
+  }
+}
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+    min-height: 98px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::after {
+    inset-inline: 10px;
+    inset-block-end: 7px;
+  }
+  .juba-busuu-page .juba-busuu-proof-stat,
+  .juba-busuu-page .juba-busuu-proof-item {
+    min-height: 46px;
+  }
+}
+@media (max-width: 390px) {
+  .juba-busuu-page .juba-busuu-language-list {
+    gap: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::after,
+  .juba-busuu-page .juba-busuu-proof-item {
+    transition: none;
+  }
+}
