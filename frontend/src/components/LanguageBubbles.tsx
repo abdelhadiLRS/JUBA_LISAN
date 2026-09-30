@@ -68,7 +68,12 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const featuredLanguages = FEATURED_LANGUAGES
 
   return (
-    <ul
+    <>
+      <div className="juba-busuu-language-stage-header" aria-hidden="true">
+        <span className="juba-busuu-language-stage-label">JUBA LISAN · LANGUAGES</span>
+        <span className="juba-busuu-language-stage-count">{featuredLanguages.length} featured</span>
+      </div>
+      <ul
       dir={dir}
       className="juba-busuu-language-list"
       aria-labelledby="landing-languages-title"
@@ -87,11 +92,11 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             width={80}
             height={60}
             unoptimized
-            style={{ height: 'auto' }}
           />
           <span lang={language.code} dir="auto">{language.name}</span>
         </li>
       ))}
-    </ul>
+      </ul>
+    </>
   )
 }
