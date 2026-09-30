@@ -88,7 +88,12 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               id={`landing-faq-question-${key}`}
               className="juba-landing-faq-question flex w-full items-center justify-between p-5 text-start font-black text-base"
             >
-              <span className="pe-4">{t(key)}</span>
+              <span className="juba-landing-faq-label">
+                <span className="juba-landing-faq-number" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="pe-4">{t(key)}</span>
+              </span>
               <span
                 className={`juba-landing-faq-icon flex h-8 w-8 shrink-0 items-center justify-center transition-transform duration-200 ${
                   isOpen ? 'rotate-180' : ''
