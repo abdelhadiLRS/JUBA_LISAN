@@ -197,12 +197,14 @@ export default async function Home() {
               <span>03</span>
               <strong>{t('feature3Title')}</strong>
             </div>
-            <img
+            <Image
               src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
               alt=""
               aria-hidden="true"
-              fetchPriority="high"
-              decoding="async"
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, 985px"
+              className="juba-busuu-reference-hero-image"
             />
           </div>
         </div>
@@ -342,7 +344,13 @@ export default async function Home() {
               ].map(({ title, desc, image }) => (
                 <article key={title} className="juba-busuu-different-card">
                   <div className="juba-busuu-different-media">
-                    <img src={image} alt="" aria-hidden="true" loading="lazy" />
+                    <Image
+                      src={image}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="(max-width: 820px) 100vw, 33vw"
+                    />
                   </div>
                   <div className="juba-busuu-different-copy">
                     <h3>{title}</h3>
