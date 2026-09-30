@@ -16651,3 +16651,136 @@ html[data-theme='light'] {
     font-size:8px;
   }
 }
+
+
+/* === Landing v5: hero identity + CTA grouping + section rhythm === */
+.juba-busuu-page .juba-busuu-hero-meta{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  color:rgba(255,255,255,.72);
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.juba-busuu-page .juba-busuu-hero-meta span+span{
+  padding-inline-start:12px;
+  border-inline-start:1px solid rgba(255,255,255,.3);
+}
+.juba-busuu-page .juba-busuu-reference-kicker{
+  position:relative;
+  padding-inline-start:16px;
+}
+.juba-busuu-page .juba-busuu-reference-kicker::before{
+  content:'';
+  position:absolute;
+  inset-inline-start:0;
+  top:50%;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--jl-yellow);
+  transform:translateY(-50%);
+  box-shadow:0 0 0 5px rgba(255,216,77,.12);
+}
+.juba-busuu-page .juba-busuu-reference-actions{
+  position:relative;
+  width:max-content;
+  max-width:100%;
+  padding:7px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  background:rgba(0,0,0,.08);
+  backdrop-filter:blur(8px);
+}
+.juba-busuu-page .juba-busuu-reference-actions .juba-busuu-reference-primary{
+  position:relative;
+  z-index:2;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art{
+  border:1px solid rgba(255,255,255,.22);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(7,89,201,.08),transparent 18%,transparent 82%,rgba(23,33,27,.12));
+}
+.juba-busuu-page .juba-busuu-hero-float{
+  z-index:4;
+}
+.juba-busuu-page .juba-busuu-language-intro{
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-language-intro>div:first-child::after{
+  content:'';
+  display:block;
+  width:72px;
+  height:5px;
+  margin-top:24px;
+  border-radius:999px;
+  background:var(--jl-yellow);
+}
+.juba-busuu-page .juba-busuu-real-world-heading,
+.juba-busuu-page .juba-busuu-different-heading,
+.juba-busuu-page .juba-busuu-why-learn-heading{
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-real-world-heading::after,
+.juba-busuu-page .juba-busuu-different-heading::after,
+.juba-busuu-page .juba-busuu-why-learn-heading::after{
+  content:'';
+  position:absolute;
+  inset-inline-end:0;
+  bottom:0;
+  width:clamp(90px,14vw,180px);
+  height:1px;
+  background:color-mix(in srgb,var(--jl-ink) 16%,transparent);
+}
+.juba-busuu-page .juba-busuu-testimonials{
+  position:relative;
+  overflow:hidden;
+}
+.juba-busuu-page .juba-busuu-testimonials::after{
+  content:'';
+  position:absolute;
+  inset-inline-end:-90px;
+  top:15%;
+  width:260px;
+  height:260px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+  box-shadow:0 0 0 34px rgba(255,255,255,.05),0 0 0 68px rgba(255,255,255,.035);
+  pointer-events:none;
+}
+.juba-busuu-page .juba-busuu-why-learn-cta .juba-busuu-reference-primary{
+  min-width:220px;
+  text-align:center;
+}
+@media(max-width:640px){
+  .juba-busuu-page .juba-busuu-hero-meta{
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:8px;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions{
+    width:100%;
+    justify-content:center;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions .juba-busuu-reference-primary{
+    flex:1;
+    max-width:280px;
+  }
+  .juba-busuu-page .juba-busuu-language-intro>div:first-child::after{
+    margin-top:18px;
+  }
+  .juba-busuu-page .juba-busuu-real-world-heading::after,
+  .juba-busuu-page .juba-busuu-different-heading::after,
+  .juba-busuu-page .juba-busuu-why-learn-heading::after{
+    width:72px;
+  }
+}
