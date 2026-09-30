@@ -372,12 +372,19 @@ export default function DashboardPage() {
         <section className="juba-reference-v3-grid">
           <main className="juba-reference-v3-main">
             <section className="juba-reference-v3-welcome">
-              <div>
+              <div className="juba-reference-welcome-copy">
                 <span className="juba-reference-section-label">{t('today')}</span>
                 <h2>{nextLesson?.title || t('startWithAssessment')}</h2>
                 <p>{nextLesson?.objectives?.[0] || t('goToMyPlan')}</p>
+                <div className="juba-reference-welcome-meta">
+                  <span>{cefrLevel || 'A1'}</span>
+                  <i aria-hidden="true" />
+                  <span>{currentDayDisplay}/{totalDays || 0}</span>
+                  <i aria-hidden="true" />
+                  <span>{pendingCount} {t('lessonReady')}</span>
+                </div>
               </div>
-              <div className="juba-reference-v3-level">
+              <div className="juba-reference-v3-level" aria-label={`${cefrLevel || 'A1'} ${planCompletion}%`}>
                 <span>{cefrLevel || 'A1'}</span>
                 <small>{planCompletion}%</small>
               </div>
