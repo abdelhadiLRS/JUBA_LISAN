@@ -27797,3 +27797,51 @@ html[data-theme='light'] {
     inset-inline-start:29px!important;
   }
 }
+
+/* DASHBOARD STRICT REFERENCE — CHECKPOINT / RAIL FINISH */
+.juba-reference-v3 .juba-reference-course-path{
+  --checkpoint-line:#e7eee4;
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before{
+  background:var(--checkpoint-line)!important;
+}
+.juba-reference-v3 .juba-reference-course-path::after{
+  background:#58cc02!important;
+  transform:scaleY(var(--course-path-progress,0))!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  transition:background-color .16s ease, min-height .16s ease!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:hover:not(.current){
+  background:#fbfdf9!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{
+  font-size:12px!important;
+  color:#3f4a3a!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy span{
+  color:#7d8778!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-green-button{
+  min-height:34px!important;
+  padding-inline:13px!important;
+  box-shadow:0 2px 0 #46a302!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-v3-card-head h3{
+  font-size:11px!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-section-label{
+  font-size:7px!important;
+  letter-spacing:.08em!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-profile-card{
+  border-top:3px solid #58cc02!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{
+  background:#fcfefb!important;
+}
