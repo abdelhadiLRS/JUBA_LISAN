@@ -22,10 +22,7 @@ export default function FAQPage() {
     <code className="text-[var(--duo-ink)] bg-[var(--duo-bg)] px-1">{chunks}</code>
   )
   const adminLink = (chunks: React.ReactNode) => (
-    <Link
-      href="/admin/users"
-      className="text-[var(--duo-ink)] underline underline-offset-2"
-    >
+    <Link href="/admin/users" className="text-[var(--duo-ink)] underline underline-offset-2">
       {chunks}
     </Link>
   )
@@ -41,12 +38,8 @@ export default function FAQPage() {
   )
 
   const workflowSteps = [
-    t('workflowStep1'),
-    t('workflowStep2'),
-    t('workflowStep3'),
-    t('workflowStep4'),
-    t('workflowStep5'),
-    t('workflowStep6'),
+    t('workflowStep1'), t('workflowStep2'), t('workflowStep3'),
+    t('workflowStep4'), t('workflowStep5'), t('workflowStep6'),
   ]
 
   const providers: [string, string][] = [
@@ -66,9 +59,7 @@ export default function FAQPage() {
           <ol className="list-none space-y-1">
             {workflowSteps.map((step, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="text-[var(--duo-muted)] mt-0.5 shrink-0 font-sans">
-                  {i + 1}.
-                </span>
+                <span className="text-[var(--duo-muted)] mt-0.5 shrink-0 font-sans">{i + 1}.</span>
                 <span>{step}</span>
               </li>
             ))}
@@ -86,10 +77,7 @@ export default function FAQPage() {
       { q: t('q_reading'), a: t.rich('a_reading', { strong }) },
       { q: t('q_feedback'), a: t.rich('a_feedback', { feedbackLink }) },
       { q: t('q_password'), a: t.rich('a_password', { settingsLink }) },
-      {
-        q: t('q_uiLanguage'),
-        a: t.rich('a_uiLanguage', { settingsLink, strong }),
-      },
+      { q: t('q_uiLanguage'), a: t.rich('a_uiLanguage', { settingsLink, strong }) },
     ]
 
     if (isAdmin) {
@@ -113,39 +101,27 @@ export default function FAQPage() {
         { q: t('q_invite'), a: t.rich('a_invite', { adminLink, code }) }
       )
     }
-
     return items
   })()
 
   return (
-    <div className="card">
-      {/* Header */}
-      <div className="border-[var(--duo-line)] mb-8 border-b pb-4">
-        <p className="text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
-          {t('title')}
-        </p>
-        <h1 className="text-[var(--duo-ink)] font-sans text-2xl font-bold tracking-tight">
-          {t('subtitle')}
-        </h1>
+    <div className="juba-utility-page juba-faq-shell">
+      <div className="juba-utility-header">
+        <div>
+          <p>{t('title')}</p>
+          <h1>{t('subtitle')}</h1>
+        </div>
       </div>
 
-      {/* Accordion */}
-      <div className="card">
+      <div className="juba-faq-list mt-5">
         {faqs.map((item, i) => (
-          <div
-            key={i}
-            className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}
-          >
+          <div key={i} className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
               className="juba-faq-question hover:bg-[#fff] flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
             >
-              <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">
-                {item.q}
-              </span>
-              <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">
-                {open === i ? '−' : '+'}
-              </span>
+              <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
+              <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
             </button>
             {open === i && (
               <div className="juba-faq-answer text-[var(--duo-muted)] border-[var(--duo-line)] bg-[var(--duo-bg)] border-t px-5 pt-4 pb-5 font-sans text-sm leading-relaxed">
