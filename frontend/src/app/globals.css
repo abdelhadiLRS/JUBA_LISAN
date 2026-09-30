@@ -27928,3 +27928,69 @@ html[data-theme='light'] {
   color:#c2c2c2!important;
   background:#fff!important;
 }
+
+
+/* V3 STRICT — REFERENCE PROPORTION PASS */
+.juba-reference-v3 .juba-reference-v3-grid{
+  align-items:start!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-v3-main > .juba-reference-v3-card,
+.juba-reference-v3 .juba-reference-reference-insights > .juba-reference-v3-card,
+.juba-reference-v3 .juba-reference-achievement-strip{
+  border-radius:8px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.025)!important;
+}
+.juba-reference-v3 .juba-reference-v3-main > .juba-reference-v3-card{
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{
+  padding-bottom:11px!important;
+  margin-bottom:11px!important;
+  border-bottom:1px solid #f0f0f0!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-row{
+  gap:10px!important;
+  margin-bottom:6px!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-track{
+  height:8px!important;
+  border-radius:999px!important;
+  background:#edf0eb!important;
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-track span{
+  height:100%!important;
+  border-radius:999px!important;
+  background:#58cc02!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-meta{
+  padding:0 1px 10px!important;
+  color:#9b9b9b!important;
+  font-size:8px!important;
+  font-weight:800!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail > .juba-reference-v3-card{
+  border-radius:8px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.025)!important;
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-profile-card{
+  padding:16px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-goal-card,
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-xp-card,
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{
+  padding:15px 16px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-tools-card{
+  padding:12px!important;
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-grid{padding:14px 14px 32px!important}
+}
