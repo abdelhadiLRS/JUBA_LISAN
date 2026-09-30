@@ -20466,3 +20466,44 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* Landing v28 — featured language cards as a deliberate visual grid */
+.juba-busuu-page .juba-busuu-language-item::after {
+  content: attr(data-language-index);
+  position: absolute;
+  inset-inline-end: 10px;
+  inset-block-start: 8px;
+  color: rgba(23,33,27,.20);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n + 1) {
+  background: linear-gradient(145deg, rgba(232,248,240,.88), rgba(255,255,255,.94));
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n + 2) {
+  background: linear-gradient(145deg, rgba(238,247,255,.92), rgba(255,255,255,.94));
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n + 3) {
+  background: linear-gradient(145deg, rgba(255,250,230,.92), rgba(255,255,255,.94));
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n) {
+  background: linear-gradient(145deg, rgba(247,244,255,.92), rgba(255,255,255,.94));
+}
+.juba-busuu-page .juba-busuu-language-item:hover {
+  background: #fff;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-language-item::after {
+    inset-inline-end: 8px;
+    inset-block-start: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-item:hover {
+    transform: none;
+  }
+}
