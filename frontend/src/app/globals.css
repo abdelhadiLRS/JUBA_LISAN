@@ -19282,3 +19282,238 @@ html[data-theme='light'] {
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* ==========================================================================
+   JUBA LISAN — HIFI 3 DASHBOARD POLISH
+   Final dashboard-only composition pass: stronger hierarchy, affordances,
+   and visual rhythm while preserving the existing dashboard data/logic.
+   ========================================================================== */
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-hifi-toolbar{
+  box-shadow:0 1px 0 rgba(0,0,0,.015);
+}
+
+@media (min-width:901px){
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit{
+    position:relative;
+  }
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit::before{
+    content:"";
+    position:absolute;
+    inset:0 0 auto 0;
+    height:3px;
+    background:var(--hifi-blue);
+    z-index:1;
+  }
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit-head{
+  position:relative;
+  padding:20px 22px 17px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit-kicker{
+  color:var(--hifi-blue);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit h2{
+  font-size:19px;
+  line-height:1.25;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-guide{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:0 10px;
+  border:1px solid #d9e1e7;
+  border-radius:3px;
+  background:#fff;
+  transition:background .16s ease,border-color .16s ease,color .16s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-guide:hover{
+  border-color:#b9d3eb;
+  background:#f4f9fd;
+  color:var(--hifi-blue-dark);
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-progress{
+  height:8px;
+  margin:0 22px;
+  overflow:hidden;
+  border:1px solid #e2e6e8;
+  background:#f0f1f2;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-progress span{
+  min-width:2px;
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.08);
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-progress-meta{
+  padding:7px 22px 13px;
+  color:#8a9095;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-row{
+  position:relative;
+  padding:14px 22px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-row:hover{
+  background:#f8fafb;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node{
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-row:hover .juba-duo-node{
+  transform:scale(1.035);
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-copy strong{
+  color:#333;
+  font-size:13px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-copy span{
+  line-height:1.4;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:92px;
+  min-height:34px;
+  margin-top:7px;
+  background:var(--hifi-green);
+  color:#fff;
+  font-weight:800;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-cta:hover{
+  background:#4fb500;
+  transform:translateY(-1px);
+  box-shadow:0 3px 0 #3f9200;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-side .juba-duo-card{
+  position:relative;
+  overflow:hidden;
+  transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-side .juba-duo-card:hover{
+  border-color:#ccd6dd !important;
+  transform:translateY(-1px);
+  box-shadow:0 3px 10px rgba(31,45,54,.055) !important;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-side .juba-duo-streak-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-left:3px solid var(--hifi-yellow) !important;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-streak-card .juba-duo-card-icon{
+  flex:0 0 40px;
+  width:40px;
+  height:40px;
+  background:#fff5cf;
+  color:#d99d00;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-streak-card strong{
+  display:block;
+  color:#333;
+  font-size:21px;
+  line-height:1.05;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-streak-card small{
+  display:block;
+  margin-top:3px;
+  color:#999;
+  font-size:9px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-card-head{
+  min-height:22px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-card-head h3{
+  color:#444;
+  font-size:11px;
+  letter-spacing:.01em;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-card-head > span{
+  font-size:13px;
+  font-weight:800;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-meter{
+  margin-top:11px;
+  border:1px solid #e4e7e9;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-links a{
+  position:relative;
+  transition:background .15s ease,color .15s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-links a svg{
+  color:#92999e;
+  transition:color .15s ease,transform .15s ease;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-links a:hover svg{
+  color:var(--hifi-blue);
+  transform:translateY(-1px);
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-premium{
+  position:relative;
+  overflow:hidden;
+  min-height:62px;
+}
+
+.juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-premium::after{
+  content:"";
+  position:absolute;
+  inset:auto -40px -60px auto;
+  width:150px;
+  height:150px;
+  border:24px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-unit-head{
+    padding:17px 16px 14px;
+  }
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-progress{
+    margin-inline:16px;
+  }
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-progress-meta{
+    padding-inline:16px;
+  }
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-node-row{
+    padding-inline:16px;
+  }
+  .juba-dashboard-workspace .juba-hifi-dashboard .juba-duo-side .juba-duo-card:hover{
+    transform:none;
+    box-shadow:none !important;
+  }
+}
