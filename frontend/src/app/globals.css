@@ -16173,19 +16173,6 @@ html[data-theme='light'] {
   position: relative;
   isolation: isolate;
 }
-.juba-busuu-page [data-editorial-section]::before {
-  content: attr(data-editorial-section);
-  position: absolute;
-  inset-inline-end: clamp(18px, 4vw, 64px);
-  top: clamp(18px, 3vw, 44px);
-  z-index: 3;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .18em;
-  line-height: 1;
-  opacity: .42;
-  pointer-events: none;
-}
 .juba-busuu-page .juba-busuu-reference-languages::before,
 .juba-busuu-page .juba-busuu-different::before,
 .juba-busuu-page .juba-busuu-testimonials::before,
@@ -16225,17 +16212,11 @@ html[data-theme='light'] {
   background: var(--busuu-black);
 }
 @media (max-width:700px) {
-  .juba-busuu-page [data-editorial-section]::before {
-    top: 16px;
-    inset-inline-end: 18px;
-    font-size: 9px;
-  }
   .juba-busuu-page [data-editorial-section]::after {
     inset-inline: 18px;
   }
 }
 @media (prefers-reduced-motion:reduce) {
-  .juba-busuu-page [data-editorial-section]::before,
   .juba-busuu-page [data-editorial-section]::after {
     transition: none;
   }
@@ -16491,26 +16472,7 @@ html[data-theme='light'] {
 .juba-busuu-page main > section[data-editorial-section]{
   isolation:isolate;
 }
-.juba-busuu-page main > section[data-editorial-section]::before{
-  content:attr(data-editorial-section);
-  position:absolute;
-  top:clamp(28px,3.5vw,48px);
-  inset-inline-end:24px;
-  z-index:3;
-  display:grid;
-  place-items:center;
-  width:38px;
-  height:38px;
-  border:1px solid color-mix(in srgb,var(--jl-ink) 18%,transparent);
-  border-radius:50%;
-  background:color-mix(in srgb,#fff 82%,transparent);
-  color:color-mix(in srgb,var(--jl-ink) 58%,transparent);
-  font-size:10px;
-  font-weight:950;
-  letter-spacing:.08em;
-  backdrop-filter:blur(8px);
-  pointer-events:none;
-}
+
 .juba-busuu-page main > section[data-editorial-section]::after{
   content:'';
   position:absolute;
