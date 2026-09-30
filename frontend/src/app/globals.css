@@ -15217,3 +15217,102 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-language-list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
   .juba-busuu-page .juba-busuu-language-bottom { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* ── Final landing pass: testimonial editorial spread ── */
+.juba-busuu-page .juba-busuu-testimonials {
+  padding: clamp(100px, 11vw, 156px) 24px;
+  background: #f5f4ee;
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-testimonials-inner {
+  width: min(1240px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-ff-reviews {
+  max-width: none !important;
+  padding: 0 !important;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child {
+  display: grid;
+  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr);
+  align-items: end;
+  gap: 42px;
+  margin-bottom: 48px !important;
+  text-align: start !important;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child h2 {
+  max-width: 9ch;
+  margin: 8px 0 0;
+  font-size: clamp(48px, 6vw, 82px) !important;
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child p {
+  margin: 0 !important;
+  max-width: 560px !important;
+  font-size: 16px !important;
+  line-height: 1.75 !important;
+}
+.juba-busuu-page .juba-ff-reviews > div:first-child > div:last-child {
+  grid-column: 2;
+  justify-self: start;
+  margin: 2px 0 0 !important;
+  border-color: #cfd7d0 !important;
+  background: #fff !important;
+}
+.juba-busuu-page .juba-ff-reviews > div:nth-child(2) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  overflow: visible;
+  padding: 0 0 8px !important;
+  scrollbar-width: none;
+}
+.juba-busuu-page .juba-ff-reviews > div:nth-child(2)::-webkit-scrollbar { display: none; }
+.juba-busuu-page .juba-ff-review-card {
+  width: auto !important;
+  min-height: 330px !important;
+  padding: 28px !important;
+  border: 1px solid #d7ddd7 !important;
+  background: #fff !important;
+  box-shadow: none;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.juba-busuu-page .juba-ff-review-card:hover {
+  transform: translateY(-6px);
+  border-color: #b9c7bd !important;
+  box-shadow: 0 22px 48px rgba(17,23,20,.08);
+}
+.juba-busuu-page .juba-busuu-review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--landing-lime);
+  color: var(--landing-ink);
+  font-weight: 900;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-ff-reviews > div:first-child {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .juba-busuu-page .juba-ff-reviews > div:first-child > div:last-child {
+    grid-column: auto;
+  }
+  .juba-busuu-page .juba-ff-reviews > div:nth-child(2) {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px !important;
+  }
+  .juba-busuu-page .juba-ff-review-card {
+    width: min(86vw, 360px) !important;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-testimonials { padding-inline: 18px; }
+  .juba-busuu-page .juba-ff-reviews > div:first-child h2 { font-size: 48px !important; }
+}
