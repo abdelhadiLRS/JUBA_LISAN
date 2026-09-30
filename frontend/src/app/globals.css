@@ -22010,3 +22010,55 @@ html[data-theme='light'] {
 .juba-reference-v3 .juba-reference-v3-rail .juba-reference-tools-card{background:#fff!important;}
 .juba-reference-v3 .juba-reference-v3-rail .juba-reference-profile-card .juba-reference-streak-value{color:#58a91b!important;}
 @media(max-width:900px){.juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:1fr!important;}.juba-reference-v3 .juba-reference-v3-welcome{min-height:96px!important;}}
+
+/* ==========================================================================
+   JUBA LISAN — STRICT DASHBOARD REFERENCE / PROGRESS SIGNAL PASS
+   Authenticated dashboard only. Landing page untouched.
+   ========================================================================== */
+.juba-reference-v3 .juba-reference-course-path::after{
+  background:var(--ref-green,#58cc02)!important;
+  transform:scaleY(var(--course-path-progress,0))!important;
+  transform-origin:top!important;
+  transition:transform .35s ease!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{
+  box-shadow:inset 3px 0 0 var(--ref-green,#58cc02)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current::before{
+  display:none!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.current{
+  background:#f1faeb!important;
+  border-color:var(--ref-green,#58cc02)!important;
+  color:#58a91b!important;
+  box-shadow:0 0 0 4px #f4faef,0 2px 4px rgba(0,0,0,.06)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.done{
+  background:var(--ref-green,#58cc02)!important;
+  border-color:var(--ref-green,#58cc02)!important;
+  color:#fff!important;
+}
+.juba-reference-v3 .juba-reference-v3-level{
+  --level-progress:0;
+  background:conic-gradient(var(--ref-green,#58cc02) calc(var(--level-progress) * 1%), #e8f2e3 0)!important;
+  border:0!important;
+  box-shadow:none!important;
+  position:relative!important;
+}
+.juba-reference-v3 .juba-reference-v3-level::after{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border-radius:50%;
+  background:#fff;
+}
+.juba-reference-v3 .juba-reference-v3-level > *{
+  position:relative;
+  z-index:1;
+}
+.juba-reference-v3 .juba-reference-v3-level::before{
+  display:none!important;
+}
+.juba-reference-v3 .juba-reference-v3-welcome{
+  border-inline-start:3px solid var(--ref-green,#58cc02)!important;
+}
