@@ -272,40 +272,35 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Busuu reference editorial bridge */}
+      {/* Busuu-style "why learn" editorial section */}
       <ScrollReveal>
-        <section className="juba-busuu-editorial-bridge" aria-labelledby="landing-bridge-title">
-          <div className="juba-busuu-editorial-bridge-inner">
-            <div className="juba-busuu-editorial-copy">
-              <span className="juba-busuu-editorial-kicker">{tCommon('tagline')}</span>
-              <h2 id="landing-bridge-title">{t('heroTitle')}</h2>
+        <section className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
+          <div className="juba-busuu-why-learn-inner">
+            <div className="juba-busuu-why-learn-heading">
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2 id="landing-why-learn-title">{t('navFeatures')}</h2>
               <p>{t('heroSub')}</p>
-              <div className="juba-busuu-editorial-cta-row">
-                <img
-                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <Link
-                  href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
-                  className="juba-busuu-reference-primary"
-                >
-                  {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
-                </Link>
-                <img
-                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </div>
             </div>
-            <div className="juba-busuu-editorial-art" aria-hidden="true">
-              <img
-                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
-                alt=""
-              />
+            <div className="juba-busuu-why-learn-grid">
+              {[
+                { title: t('feature1Title'), desc: t('feature1Desc') },
+                { title: t('feature2Title'), desc: t('feature2Desc') },
+                { title: t('feature3Title'), desc: t('feature3Desc') },
+              ].map(({ title, desc }) => (
+                <article key={title} className="juba-busuu-why-learn-card">
+                  <span className="juba-busuu-why-learn-number" aria-hidden="true">0</span>
+                  <h3>{title}</h3>
+                  <p>{desc}</p>
+                </article>
+              ))}
+            </div>
+            <div className="juba-busuu-why-learn-cta">
+              <Link
+                href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+                className="juba-busuu-reference-primary"
+              >
+                {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+              </Link>
             </div>
           </div>
         </section>
