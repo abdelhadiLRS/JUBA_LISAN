@@ -14272,3 +14272,388 @@ html[data-theme='light'] {
     margin-bottom: 34px;
   }
 }
+
+
+/* ── Landing-only fidelity pass: match the current Busuu editorial rhythm ── */
+.juba-busuu-page {
+  --busuu-blue: #0866e8;
+  --busuu-blue-deep: #0759cb;
+  --busuu-ink: #151c18;
+  --busuu-muted: #526057;
+  --busuu-green: #00a86b;
+  --busuu-green-dark: #008957;
+  --busuu-cream: #f7f6f1;
+  --busuu-line: #dfe5e1;
+  --busuu-card: #fff;
+  overflow-x: clip;
+}
+
+/* Hero: centered, high-impact composition rather than a generic two-column SaaS hero. */
+.juba-busuu-page .juba-busuu-reference-hero {
+  min-height: min(760px, calc(100vh - 72px));
+  padding: clamp(72px, 8vw, 112px) 24px 0;
+  background: var(--busuu-blue);
+  color: #fff;
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-reference-hero-inner {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy {
+  width: min(820px, 100%);
+  position: relative;
+  z-index: 2;
+}
+.juba-busuu-page .juba-busuu-reference-kicker {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: rgba(255,255,255,.82);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+  max-width: 13ch;
+  margin-inline: auto;
+  color: #fff;
+  font-size: clamp(52px, 7.2vw, 92px);
+  font-weight: 850;
+  line-height: .96;
+  letter-spacing: -.065em;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy p {
+  width: min(610px, 100%);
+  margin: 24px auto 0;
+  color: rgba(255,255,255,.92);
+  font-size: clamp(17px, 1.55vw, 21px);
+  line-height: 1.55;
+}
+.juba-busuu-page .juba-busuu-reference-actions {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.juba-busuu-page .juba-busuu-reference-primary {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 30px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--busuu-blue-deep);
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 850;
+  text-decoration: none;
+}
+.juba-busuu-page .juba-busuu-reference-primary:hover {
+  background: #f2f5ff;
+  color: var(--busuu-blue-deep);
+}
+.juba-busuu-page .juba-busuu-reference-wing {
+  position: absolute;
+  z-index: 1;
+  width: 112px;
+  max-width: none;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-reference-wing-left {
+  inset-inline-end: calc(100% - 18px);
+  transform: rotate(-4deg);
+}
+.juba-busuu-page .juba-busuu-reference-wing-right {
+  inset-inline-start: calc(100% - 18px);
+  transform: rotate(4deg);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  width: min(940px, 100%);
+  margin-top: clamp(52px, 6vw, 82px);
+  line-height: 0;
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art::after {
+  content: "";
+  position: absolute;
+  inset: auto 7% -10% 7%;
+  height: 22%;
+  border-radius: 50%;
+  background: rgba(0,0,0,.09);
+  filter: blur(20px);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-height: 410px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* Language chooser becomes a clean editorial rail directly below the hero. */
+.juba-busuu-page .juba-busuu-reference-languages {
+  padding: clamp(56px, 7vw, 88px) 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-reference-languages h2 {
+  margin-bottom: 28px;
+  color: var(--busuu-ink);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 850;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-language-cta {
+  margin-top: 24px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  color: var(--busuu-green-dark);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Replace the card-like proof widget with Busuu's flat metric strip. */
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding: 0 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  width: min(1180px, 100%);
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: 1.1fr 1px 1fr 1px 1fr 1px 1fr;
+  align-items: center;
+  gap: 24px;
+  border: 0;
+  border-top: 1px solid var(--busuu-line);
+  border-bottom: 1px solid var(--busuu-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.juba-busuu-page .juba-busuu-proof-stat strong {
+  display: block;
+  color: var(--busuu-ink);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -.055em;
+}
+.juba-busuu-page .juba-busuu-proof-stat span,
+.juba-busuu-page .juba-busuu-proof-item {
+  color: var(--busuu-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  color: var(--busuu-green);
+  font-weight: 900;
+}
+.juba-busuu-page .juba-busuu-proof-divider {
+  width: 1px;
+  height: 42px;
+  background: var(--busuu-line);
+}
+
+/* Editorial feature sections: generous whitespace, image-led cards, no SaaS dashboard chrome. */
+.juba-busuu-page .juba-busuu-different {
+  padding: clamp(92px, 10vw, 140px) 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-different-inner {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-different-heading {
+  width: min(780px, 100%);
+  margin-bottom: clamp(46px, 6vw, 70px);
+}
+.juba-busuu-page .juba-busuu-different-heading h2 {
+  margin-top: 12px;
+  color: var(--busuu-ink);
+  font-size: clamp(48px, 6.5vw, 78px);
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+.juba-busuu-page .juba-busuu-different-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 3vw, 34px);
+}
+.juba-busuu-page .juba-busuu-different-card {
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-different-media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-different-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+.juba-busuu-page .juba-busuu-different-card:hover .juba-busuu-different-media img {
+  transform: scale(1.035);
+}
+.juba-busuu-page .juba-busuu-different-copy {
+  padding: 26px 24px 30px;
+}
+.juba-busuu-page .juba-busuu-different-copy h3 {
+  color: var(--busuu-ink);
+  font-size: clamp(25px, 2.5vw, 34px);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-different-copy p {
+  margin-top: 14px;
+  color: var(--busuu-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* Why-learn: four compact editorial points, visually close to Busuu's second value proposition block. */
+.juba-busuu-page .juba-busuu-why-learn {
+  padding: clamp(90px, 10vw, 136px) 24px;
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-why-learn-inner {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-why-learn-heading {
+  width: min(780px, 100%);
+  margin-bottom: 56px;
+}
+.juba-busuu-page .juba-busuu-why-learn-heading h2 {
+  margin-top: 12px;
+  color: var(--busuu-ink);
+  font-size: clamp(46px, 6vw, 72px);
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+.juba-busuu-page .juba-busuu-why-learn-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--busuu-ink);
+  border-bottom: 1px solid var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-why-learn-card {
+  min-height: 250px;
+  padding: 28px 28px 34px;
+  border: 0;
+  border-inline-end: 1px solid var(--busuu-line);
+  border-radius: 0;
+  background: transparent;
+}
+.juba-busuu-page .juba-busuu-why-learn-card:last-child {
+  border-inline-end: 0;
+}
+.juba-busuu-page .juba-busuu-why-learn-number {
+  margin-bottom: 60px;
+  color: var(--busuu-green);
+}
+.juba-busuu-page .juba-busuu-why-learn-card h3 {
+  font-size: clamp(23px, 2.3vw, 31px);
+}
+.juba-busuu-page .juba-busuu-why-learn-cta {
+  margin-top: 28px;
+}
+
+/* Testimonials and pricing stay visually quiet so the editorial sections lead. */
+.juba-busuu-page .juba-busuu-testimonials {
+  background: #fff;
+  padding-block: clamp(78px, 9vw, 118px);
+}
+.juba-busuu-page .juba-busuu-pricing {
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-app-section {
+  padding: clamp(86px, 10vw, 132px) 24px;
+  background: var(--busuu-blue);
+  color: #fff;
+}
+.juba-busuu-page .juba-busuu-app-copy h2,
+.juba-busuu-page .juba-busuu-app-copy p {
+  color: #fff;
+}
+.juba-busuu-page .juba-busuu-app-cta {
+  background: #fff;
+  color: var(--busuu-blue-deep);
+  box-shadow: none;
+}
+
+/* Mobile: preserve the same centered editorial composition. */
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .juba-busuu-page .juba-busuu-proof-divider {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-different-grid,
+  .juba-busuu-page .juba-busuu-why-learn-grid {
+    grid-template-columns: 1fr;
+  }
+  .juba-busuu-page .juba-busuu-why-learn-card {
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--busuu-line);
+  }
+  .juba-busuu-page .juba-busuu-why-learn-card:last-child {
+    border-bottom: 0;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-reference-hero {
+    min-height: 0;
+    padding: 58px 18px 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+    font-size: clamp(48px, 14vw, 68px);
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy p {
+    font-size: 16px;
+  }
+  .juba-busuu-page .juba-busuu-reference-wing {
+    width: 76px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    margin-top: 42px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art img {
+    max-height: 270px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages,
+  .juba-busuu-page .juba-busuu-different,
+  .juba-busuu-page .juba-busuu-why-learn {
+    padding-inline: 18px;
+  }
+  .juba-busuu-page .juba-busuu-proof-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-different-media img {
+    transition: none;
+  }
+}
