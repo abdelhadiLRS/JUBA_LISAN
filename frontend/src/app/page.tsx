@@ -241,20 +241,20 @@ export default async function Home() {
             <span>{t('navLanguages')}</span>
           </div>
           <div className="juba-busuu-proof-divider" aria-hidden="true" />
-          <div className="juba-busuu-proof-item">
-            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
-            <span>{t('feature1Title')}</span>
-          </div>
-          <div className="juba-busuu-proof-divider" aria-hidden="true" />
-          <div className="juba-busuu-proof-item">
-            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
-            <span>{t('feature2Title')}</span>
-          </div>
-          <div className="juba-busuu-proof-divider" aria-hidden="true" />
-          <div className="juba-busuu-proof-item">
-            <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
-            <span>{t('feature3Title')}</span>
-          </div>
+          <ul className="juba-busuu-proof-list" aria-labelledby="landing-proof-title">
+            <li className="juba-busuu-proof-item">
+              <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+              <span>{t('feature1Title')}</span>
+            </li>
+            <li className="juba-busuu-proof-item">
+              <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+              <span>{t('feature2Title')}</span>
+            </li>
+            <li className="juba-busuu-proof-item">
+              <span className="juba-busuu-proof-check" aria-hidden="true">✓</span>
+              <span>{t('feature3Title')}</span>
+            </li>
+          </ul>
         </div>
       </section>
 
