@@ -20834,3 +20834,71 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v31 — turn the language showcase into a stronger editorial destination */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  position: relative;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  overflow: hidden;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,.92);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::before {
+  content: '';
+  position: absolute;
+  inset: auto 12px 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(8,119,249,.20), transparent);
+  transform: scaleX(.35);
+  transform-origin: center;
+  transition: transform .22s ease, opacity .22s ease;
+  opacity: .35;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover::before,
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:focus-within::before {
+  transform: scaleX(1);
+  opacity: 1;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-flag {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(23,33,27,.10);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item > span {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(8) {
+  border-color: rgba(0,168,107,.22);
+  box-shadow: 0 12px 26px rgba(0,168,107,.10);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(8)::after {
+  color: rgba(0,168,107,.42);
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+    gap: 7px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-flag {
+    width: 42px;
+    height: 32px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item > span {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::before {
+    transition: none;
+  }
+}
