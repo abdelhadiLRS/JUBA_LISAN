@@ -409,16 +409,19 @@ export default async function Home() {
                 <img
                   src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
+                  aria-hidden="true"
                 />
                 <span>{t('tickerNewOpportunities')}</span>
                 <img
                   src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
+                  aria-hidden="true"
                 />
                 <span>{t('tickerNewYou')}</span>
                 <img
                   src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
+                  aria-hidden="true"
                 />
               </div>
             ))}
