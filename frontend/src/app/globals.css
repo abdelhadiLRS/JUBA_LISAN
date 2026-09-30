@@ -18363,3 +18363,120 @@ html[data-theme='light'] {
     padding:22px 18px;
   }
 }
+
+
+/* Learning analytics + curriculum refinement.
+ * Dashboard-only visual layer; data, API calls and lesson behavior are unchanged.
+ */
+.juba-dashboard-workspace .juba-mobile-progress{
+  max-width:1240px;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-progress > section:first-child{
+  border-width:1px;
+  border-color:var(--jl-ui-line);
+  border-radius:14px;
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+.juba-dashboard-workspace .juba-mobile-progress .juba-panel{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-progress .rounded-\[28px\],
+.juba-dashboard-workspace .juba-mobile-progress .rounded-\[32px\]{
+  border-radius:12px;
+}
+.juba-dashboard-workspace .juba-mobile-progress .shadow-\[3px_3px_0_var\(--duo-line\)\],
+.juba-dashboard-workspace .juba-mobile-progress .shadow-\[7px_7px_0_var\(--duo-ink\)\]{
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-progress input{
+  border-width:1px;
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-progress button{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-progress a{
+  text-decoration:none;
+}
+
+.juba-dashboard-workspace .juba-mobile-courses{
+  max-width:1240px;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-courses > div{
+  max-width:1240px;
+}
+.juba-dashboard-workspace .juba-mobile-courses .juba-card{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-courses .juba-card.shadow-\[0_5px_0_var\(--duo-green-dark\)\]{
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+.juba-dashboard-workspace .juba-mobile-courses .juba-card.shadow-\[0_4px_0_var\(--duo-line\)\]{
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-courses article:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px rgba(23,33,27,.06);
+}
+.juba-dashboard-workspace .juba-mobile-courses .rounded-\[20px\]{
+  border-radius:12px;
+}
+
+.juba-dashboard-workspace .juba-mobile-grammar{
+  max-width:1240px;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-grammar .juba-card{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-grammar .rounded-\[30px\],
+.juba-dashboard-workspace .juba-mobile-grammar .rounded-\[24px\]{
+  border-radius:12px;
+}
+.juba-dashboard-workspace .juba-mobile-grammar .border-2{
+  border-width:1px;
+}
+.juba-dashboard-workspace .juba-mobile-grammar input{
+  border-width:1px;
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-grammar .juba-card.group:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px rgba(23,33,27,.06);
+}
+.juba-dashboard-workspace .juba-mobile-phrasebook{
+  max-width:1240px;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-phrasebook .juba-panel{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-phrasebook .juba-panel > .border-b{
+  min-height:54px;
+}
+.juba-dashboard-workspace .juba-mobile-phrasebook .border-b,
+.juba-dashboard-workspace .juba-mobile-phrasebook .border-t{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-mobile-phrasebook button{
+  border-radius:9px;
+}
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-mobile-progress,
+  .juba-dashboard-workspace .juba-mobile-courses,
+  .juba-dashboard-workspace .juba-mobile-grammar,
+  .juba-dashboard-workspace .juba-mobile-phrasebook{
+    padding-top:18px;
+    padding-bottom:32px;
+  }
+}
