@@ -14657,3 +14657,97 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* ── Final landing-only Busuu hierarchy: real-world learning block ── */
+.juba-busuu-page .juba-busuu-real-world {
+  padding: clamp(92px, 10vw, 140px) 24px;
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-real-world-inner {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-real-world-heading {
+  width: min(760px, 100%);
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+.juba-busuu-page .juba-busuu-real-world-heading h2 {
+  margin-top: 12px;
+  color: var(--busuu-ink);
+  font-size: clamp(48px, 6.2vw, 76px);
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+.juba-busuu-page .juba-busuu-real-world-heading p {
+  max-width: 610px;
+  margin-top: 20px;
+  color: var(--busuu-muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.juba-busuu-page .juba-busuu-real-world-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.juba-busuu-page .juba-busuu-real-world-card {
+  min-height: 330px;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.juba-busuu-page .juba-busuu-real-world-card--blue { background: var(--busuu-blue); color: #fff; }
+.juba-busuu-page .juba-busuu-real-world-card--green { background: var(--busuu-green); color: #fff; }
+.juba-busuu-page .juba-busuu-real-world-card--cream { background: #e9eee9; color: var(--busuu-ink); }
+.juba-busuu-page .juba-busuu-real-world-orb {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  top: 34px;
+  inset-inline-end: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.28);
+}
+.juba-busuu-page .juba-busuu-real-world-card--green .juba-busuu-real-world-orb {
+  background: rgba(255,255,255,.13);
+}
+.juba-busuu-page .juba-busuu-real-world-card--cream .juba-busuu-real-world-orb {
+  background: rgba(0,168,107,.12);
+  border-color: rgba(0,168,107,.18);
+}
+.juba-busuu-page .juba-busuu-real-world-card span {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(25px, 2.5vw, 34px);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-real-world-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 360px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  opacity: .9;
+}
+.juba-busuu-page .juba-busuu-pricing {
+  padding-block: clamp(76px, 9vw, 120px);
+}
+.juba-busuu-page .juba-busuu-testimonials + .juba-busuu-why-learn {
+  border-top: 1px solid var(--busuu-line);
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-real-world-grid { grid-template-columns: 1fr; }
+  .juba-busuu-page .juba-busuu-real-world-card { min-height: 270px; }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-real-world { padding-inline: 18px; }
+  .juba-busuu-page .juba-busuu-real-world-card { min-height: 245px; padding: 24px; }
+}
