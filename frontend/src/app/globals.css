@@ -20902,3 +20902,81 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v32 — strengthen the language-to-proof transition */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position: relative;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-reference-languages::after {
+  content: '';
+  position: absolute;
+  inset-inline: 8%;
+  inset-block-end: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(8,119,249,.18), rgba(0,168,107,.18), transparent);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-language-count {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--jl-muted);
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(8,119,249,.16);
+  border-radius: 999px;
+  background: rgba(255,255,255,.82);
+  color: var(--jl-blue-deep);
+  font-size: 11px;
+  font-weight: 850;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(23,33,27,.05);
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(8,119,249,.28);
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(8,119,249,.10);
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 -10px 28px rgba(23,33,27,.035);
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-language-bottom {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+  .juba-busuu-page .juba-busuu-language-cta-link:hover {
+    transform: none;
+  }
+}
