@@ -312,6 +312,9 @@ export default function DashboardPage() {
     ? planPositionComplete ? 100 : Math.min(100, Math.round((progressDay / totalDays) * 100))
     : 0
   const currentDayDisplay = planPositionComplete ? totalDays : Math.min(progressDay + 1, totalDays)
+  const coursePathProgress = todayLessons.length > 1
+    ? Math.min(1, completedLessonCount / (todayLessons.length - 1))
+    : completedLessonCount > 0 ? 1 : 0
   const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
   const paymentRecovery = needsPaymentRecovery(user)
   const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
@@ -488,7 +491,7 @@ export default function DashboardPage() {
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
               <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{completedLessonCount}/{todayLessons.length} {t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</span></div>
-              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': completedExpr} as CSSProperties}>
+              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': String(coursePathProgress)} as CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
