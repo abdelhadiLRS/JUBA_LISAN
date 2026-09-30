@@ -759,7 +759,45 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-level{width:64px!important;height:64px!important;min-width:64px!important}
           .juba-reference-v3 .juba-reference-v3-level span{font-size:14px!important}
         }
-      `      </style>
+      `              /* Reference fidelity pass 10 — dashboard screenshot geometry */
+        .juba-reference-v3{padding:0 26px 34px!important}
+        .juba-reference-v3 .juba-reference-topbar{height:68px!important;max-width:1360px!important}
+        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
+        .juba-reference-v3 .juba-reference-reference-nav a{font-size:11px!important;padding:25px 0 22px!important}
+        .juba-reference-v3 .juba-reference-v3-grid{max-width:1360px!important;grid-template-columns:minmax(0,1fr) 272px!important;gap:24px!important}
+        .juba-reference-v3 .juba-reference-v3-main>section{margin-bottom:16px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 16px 16px 104px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:28px!important;width:76px!important;height:76px!important}
+        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important}
+        .juba-reference-v3 .juba-reference-v3-level{width:86px!important;min-width:86px!important;height:86px!important}
+        .juba-reference-v3 .juba-reference-v3-level:after{inset:7px!important}
+        .juba-reference-v3 .juba-reference-v3-card{border-radius:13px!important;padding:17px!important}
+        .juba-reference-v3 .juba-reference-v3-card h3{font-size:15px!important}
+        .juba-reference-v3 .juba-reference-chart{min-height:206px!important}
+        .juba-reference-v3 .juba-reference-chart-bars{height:126px!important}
+        .juba-reference-v3 .juba-reference-insights-grid{gap:12px!important}
+        .juba-reference-v3 .juba-reference-stat-card{min-height:92px!important}
+        .juba-reference-v3 .juba-reference-achievement-strip{min-height:66px!important}
+        .juba-reference-v3 .juba-reference-v3-rail{width:272px!important;gap:14px!important}
+        .juba-reference-v3 .juba-reference-v3-rail>section{border-radius:13px!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-reference-v3{padding-inline:20px!important}
+          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 244px!important;gap:20px!important}
+          .juba-reference-v3 .juba-reference-v3-rail{width:244px!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-v3{padding:0 12px 24px!important}
+          .juba-reference-v3 .juba-reference-topbar{height:58px!important}
+          .juba-reference-v3 .juba-reference-reference-nav{gap:14px!important}
+          .juba-reference-v3 .juba-reference-reference-nav a{font-size:9px!important;padding:20px 0 18px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome{min-height:124px!important;padding:18px 12px 14px 82px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome:before{left:8px!important;top:26px!important;width:60px!important;height:60px!important}
+          .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:22px!important}
+          .juba-reference-v3 .juba-reference-v3-level{width:66px!important;min-width:66px!important;height:66px!important}
+          .juba-reference-v3 .juba-reference-v3-level:after{inset:6px!important}
+          .juba-reference-v3 .juba-reference-v3-card{padding:14px!important;border-radius:12px!important}
+        }
+</style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
