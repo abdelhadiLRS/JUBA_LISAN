@@ -3273,6 +3273,12 @@ html[data-theme='light'] {
   background:var(--busuu-card);
   box-shadow:0 10px 30px color-mix(in srgb,var(--busuu-ink) 6%,transparent);
 }
+.juba-busuu-page .juba-busuu-proof-list {
+  display: contents;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .juba-busuu-page .juba-busuu-proof-stat,
 .juba-busuu-page .juba-busuu-proof-item {
   display:flex;
