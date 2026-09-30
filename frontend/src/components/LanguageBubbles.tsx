@@ -74,7 +74,11 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
       aria-labelledby="landing-languages-title"
     >
       {featuredLanguages.map((language) => (
-        <li key={language.code} className="juba-busuu-language-item">
+        <li
+          key={language.code}
+          className="juba-busuu-language-item"
+          data-language-index={String(featuredLanguages.indexOf(language) + 1).padStart(2, '0')}
+        >
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
             alt=""
