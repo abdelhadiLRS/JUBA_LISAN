@@ -16166,3 +16166,77 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-new-languages-track { animation: none; }
   .juba-busuu-page .juba-busuu-different-media img { transition: none; }
 }
+
+
+/* FINAL EDITORIAL PASS 2 — chapter markers and section continuity */
+.juba-busuu-page [data-editorial-section] {
+  position: relative;
+  isolation: isolate;
+}
+.juba-busuu-page [data-editorial-section]::before {
+  content: attr(data-editorial-section);
+  position: absolute;
+  inset-inline-end: clamp(18px, 4vw, 64px);
+  top: clamp(18px, 3vw, 44px);
+  z-index: 3;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  line-height: 1;
+  opacity: .42;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-reference-languages::before,
+.juba-busuu-page .juba-busuu-different::before,
+.juba-busuu-page .juba-busuu-testimonials::before,
+.juba-busuu-page .juba-busuu-pricing::before,
+.juba-busuu-page .juba-busuu-faq-section::before {
+  color: var(--busuu-black);
+}
+.juba-busuu-page .juba-busuu-real-world::before,
+.juba-busuu-page .juba-busuu-app-section::before {
+  color: rgba(255,255,255,.7);
+}
+.juba-busuu-page .juba-busuu-why-learn::before {
+  color: rgba(17,23,20,.7);
+}
+.juba-busuu-page [data-editorial-section]::after {
+  content: "";
+  position: absolute;
+  inset-inline: clamp(18px, 4vw, 64px);
+  top: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .10;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-reference-languages::after,
+.juba-busuu-page .juba-busuu-different::after,
+.juba-busuu-page .juba-busuu-testimonials::after,
+.juba-busuu-page .juba-busuu-pricing::after,
+.juba-busuu-page .juba-busuu-faq-section::after {
+  background: var(--busuu-black);
+}
+.juba-busuu-page .juba-busuu-real-world::after,
+.juba-busuu-page .juba-busuu-app-section::after {
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-why-learn::after {
+  background: var(--busuu-black);
+}
+@media (max-width:700px) {
+  .juba-busuu-page [data-editorial-section]::before {
+    top: 16px;
+    inset-inline-end: 18px;
+    font-size: 9px;
+  }
+  .juba-busuu-page [data-editorial-section]::after {
+    inset-inline: 18px;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .juba-busuu-page [data-editorial-section]::before,
+  .juba-busuu-page [data-editorial-section]::after {
+    transition: none;
+  }
+}
