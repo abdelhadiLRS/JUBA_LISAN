@@ -413,6 +413,31 @@ export default function DashboardPage() {
               </div>
             </section>
 
+            <section className="juba-reference-reference-insights">
+              <div className="juba-reference-v3-card juba-reference-insight-card">
+                <div className="juba-reference-v3-card-head">
+                  <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('dailyGoal')}</h3></div>
+                  <Flame size={18} />
+                </div>
+                <div className="juba-reference-insight-value"><strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)} {t('today')}</span></div>
+                <div className="juba-reference-insight-track"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
+                <div className="juba-reference-insight-footer"><span>{t('xp')}</span><b>{xp}</b><span>{t('streak')}</span><b>{streak}</b></div>
+              </div>
+              <div className="juba-reference-v3-card juba-reference-insight-card">
+                <div className="juba-reference-v3-card-head">
+                  <div><span className="juba-reference-section-label">{t('vocabulary')}</span><h3>{t('vocabulary')}</h3></div>
+                  <Library size={18} />
+                </div>
+                <div className="juba-reference-words-value"><strong>{vocabularyMastered.toLocaleString()}</strong><span>/ {vocabularyTotal.toLocaleString()}</span></div>
+                <div className="juba-reference-word-bars" aria-hidden="true">
+                  {[20, 34, 48, 62, 76, 90].map((height, index) => (
+                    <span key={height} style={{height: Math.max(12, Math.round(height * Math.max(0.18, vocabularyProgress))) + '%'}} className={index === 5 ? 'active' : ''} />
+                  ))}
+                </div>
+                <div className="juba-reference-insight-footer"><span>{t('vocabulary')}</span><b>{vocabularyProgressPct}%</b><span>{vocabularyLevel || 'A1'}</span></div>
+              </div>
+            </section>
+
             <section className="juba-reference-reference-stats">
               <div className="juba-reference-v3-card juba-reference-stat-card">
                 <div className="juba-reference-v3-card-head">
