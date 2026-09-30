@@ -423,6 +423,36 @@ export default function ChatPage() {
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:11px!important}
         .juba-mobile-chat .max-w-\[75\%\].min-w-\[10rem\]{min-width:0!important}
         @media (max-width:1023px){.juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:20px 14px!important}}
+
+        /* Reference fidelity pass 3 — exact visual alignment */
+
+        .juba-mobile-chat{background:#fff!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:228px!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{min-height:58px!important;padding:0 15px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:46px!important;padding:9px 13px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group span{font-size:9.5px!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:58px!important;min-height:58px!important;padding-inline:18px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:920px!important;padding:22px 28px!important}
+        .juba-mobile-chat .word-selectable{border-radius:10px!important;padding:10px 13px!important;font-size:12.5px!important;line-height:1.58!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:10px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:272px!important;min-width:272px!important;padding:16px!important;gap:11px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
+        .juba-mobile-chat .juba-chat-profile-hero{padding:16px 14px 12px!important}
+        .juba-mobile-chat .juba-chat-profile-photo{width:64px!important;height:64px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{min-height:54px!important}
+        .juba-mobile-chat .juba-chat-side-card-head{min-height:40px!important;padding-inline:13px!important}
+        .juba-mobile-chat .juba-chat-friend{min-height:46px!important;padding:7px 13px!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:11px 22px 14px!important}
+        .juba-mobile-chat input{height:42px!important;padding-inline:13px!important;font-size:13px!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:42px!important;padding-inline:18px!important}
+        @media (max-width:1180px) and (min-width:1024px){
+          .juba-mobile-chat .chat-conversations-sidebar{width:200px!important}
+          .juba-mobile-chat .juba-chat-profile-rail{width:248px!important;min-width:248px!important}
+        }
+        @media (max-width:1023px){
+          .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:20px 14px!important}
+        }
+
 </style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
