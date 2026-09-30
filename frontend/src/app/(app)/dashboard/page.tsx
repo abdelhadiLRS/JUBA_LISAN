@@ -576,6 +576,19 @@ export default function DashboardPage() {
         .juba-reference-v3 .juba-reference-tools-card>a{min-height:38px!important;border-radius:8px!important}
         .juba-reference-v3 .juba-reference-friend-row{min-height:50px!important}
         @media (max-width:1100px) and (min-width:901px){.juba-reference-v3{padding-inline:18px!important}.juba-reference-v3-rail{width:272px!important}}
+
+        /* Reference fidelity pass 2 — card rhythm and rail proportions */
+        .juba-reference-v3{gap:18px!important}
+        .juba-reference-v3 .juba-reference-v3-card{border-radius:12px!important}
+        .juba-reference-v3 .juba-reference-card-header{gap:18px!important}
+        .juba-reference-v3 .juba-reference-progress-row{min-height:20px!important}
+        .juba-reference-v3 .juba-reference-lesson{min-height:68px!important}
+        .juba-reference-v3 .juba-reference-lesson-copy strong{font-size:11px!important}
+        .juba-reference-v3 .juba-reference-lesson-copy>span{font-size:8px!important}
+        .juba-reference-v3 .juba-reference-v3-rail{width:276px!important;min-width:276px!important;gap:12px!important}
+        .juba-reference-v3 .juba-reference-profile-metrics span{min-width:0!important}
+        .juba-reference-v3 .juba-reference-friends-list{gap:0!important}
+        @media (max-width:1100px) and (min-width:901px){.juba-reference-v3 .juba-reference-v3-rail{width:268px!important;min-width:268px!important}}
 </style>
       <OnboardingTour />
       <WhatsNew />
