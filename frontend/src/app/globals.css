@@ -16240,3 +16240,163 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+/* === JUBA LISAN LANDING ONLY: cohesive Busuu-inspired UI system v2 === */
+.juba-busuu-page {
+  --jl-blue:#0877f9; --jl-blue-deep:#0759c9; --jl-green:#00a86b; --jl-green-deep:#008957;
+  --jl-ink:#17211b; --jl-muted:#53615a; --jl-cream:#f7f5ee; --jl-mint:#e8f6ef;
+  --jl-yellow:#ffd84d; --jl-line:#dce5df; --jl-shadow:0 18px 50px rgba(23,33,27,.08);
+  color:var(--jl-ink); background:#fff; overflow-x:clip;
+}
+.juba-busuu-page,.juba-busuu-page *{box-sizing:border-box}
+.juba-busuu-page img{max-width:100%}
+.juba-busuu-page a{-webkit-tap-highlight-color:transparent}
+.juba-busuu-page .juba-busuu-nav{position:sticky;top:0;z-index:100;min-height:76px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--jl-line);box-shadow:0 1px 0 rgba(23,33,27,.02)}
+.juba-busuu-page .juba-busuu-nav-inner{width:min(1240px,calc(100% - 48px));min-height:76px!important;margin-inline:auto}
+.juba-busuu-page .juba-busuu-brand img{width:142px;height:auto}
+.juba-busuu-page .juba-busuu-nav-links a,.juba-busuu-page .juba-busuu-login{font-weight:750;color:var(--jl-ink);transition:color .18s ease}
+.juba-busuu-page .juba-busuu-nav-links a:hover,.juba-busuu-page .juba-busuu-login:hover{color:var(--jl-green-deep)}
+.juba-busuu-page .juba-busuu-nav-cta{min-height:46px;padding-inline:24px;border-radius:999px;background:var(--jl-green);color:#fff;box-shadow:0 3px 0 var(--jl-green-deep);font-weight:850;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+.juba-busuu-page .juba-busuu-nav-cta:hover{background:var(--jl-green-deep);transform:translateY(-1px);box-shadow:0 4px 0 #006f48}
+.juba-busuu-page .juba-busuu-locale{border-color:var(--jl-line);border-radius:999px;background:#fff}
+
+/* Hero */
+.juba-busuu-page .juba-busuu-reference-hero{background:var(--jl-blue);color:#fff;min-height:760px;padding:0}
+.juba-busuu-page .juba-busuu-reference-hero-inner{width:min(1240px,100%);padding:clamp(78px,8vw,112px) 24px 0}
+.juba-busuu-page .juba-busuu-reference-hero-copy{max-width:920px}
+.juba-busuu-page .juba-busuu-reference-kicker{padding:9px 13px;margin-bottom:20px;border:1px solid rgba(255,255,255,.34);border-radius:999px;background:rgba(255,255,255,.1);letter-spacing:.12em}
+.juba-busuu-page .juba-busuu-reference-hero h1{max-width:900px;font-size:clamp(52px,7.5vw,96px);line-height:.94;font-weight:900;letter-spacing:-.065em;text-wrap:balance}
+.juba-busuu-page .juba-busuu-reference-hero-copy>p{max-width:720px;margin-top:24px;font-size:clamp(18px,2vw,22px);line-height:1.55;color:rgba(255,255,255,.93)}
+.juba-busuu-page .juba-busuu-reference-actions{margin-top:32px}
+.juba-busuu-page .juba-busuu-reference-primary{min-height:58px;padding-inline:32px;border-radius:999px;background:#fff;color:var(--jl-ink);box-shadow:0 4px 0 rgba(4,42,91,.25);font-size:16px;font-weight:900;transition:transform .18s ease,box-shadow .18s ease}
+.juba-busuu-page .juba-busuu-reference-primary:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(4,42,91,.25)}
+.juba-busuu-page .juba-busuu-reference-hero-art{width:min(1060px,100%);margin:clamp(54px,6vw,76px) auto 0;border-radius:32px 32px 0 0;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(4,42,91,.22)}
+.juba-busuu-page .juba-busuu-reference-hero-art>img{display:block;width:100%;height:auto}
+.juba-busuu-page .juba-busuu-hero-float{z-index:2;border:2px solid rgba(255,255,255,.75);border-radius:18px;background:#fff;color:var(--jl-ink);box-shadow:0 12px 30px rgba(4,42,91,.16)}
+.juba-busuu-page .juba-busuu-hero-float span{color:var(--jl-green-deep);font-weight:900}
+.juba-busuu-page .juba-busuu-hero-float strong{font-weight:850}
+
+/* Languages */
+.juba-busuu-page .juba-busuu-reference-languages{padding:clamp(88px,10vw,132px) 24px;background:#fff}
+.juba-busuu-page .juba-busuu-language-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.65fr);align-items:end;gap:48px;margin-bottom:48px}
+.juba-busuu-page .juba-busuu-language-intro h2{margin:8px 0 0;font-size:clamp(48px,6.4vw,82px);line-height:.94;letter-spacing:-.065em;font-weight:900;text-align:start}
+.juba-busuu-page .juba-busuu-language-intro>p{margin:0;color:var(--jl-muted);font-size:17px;line-height:1.65}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item{min-height:132px;border:1px solid var(--jl-line);border-radius:20px;box-shadow:none;background:#fff;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover{transform:translateY(-5px);border-color:#b9c9c0;box-shadow:0 16px 34px rgba(23,33,27,.08)}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img{width:54px;height:54px!important;border-radius:50%}
+
+/* Proof bridge */
+.juba-busuu-page .juba-busuu-proof-strip{padding:0 24px;background:#fff}
+.juba-busuu-page .juba-busuu-proof-inner{width:min(1180px,100%);margin:-34px auto 0;padding:24px 30px;min-height:116px;border-radius:26px;border:1px solid var(--jl-line);box-shadow:var(--jl-shadow)}
+
+/* Real-world chapter */
+.juba-busuu-page .juba-busuu-real-world{padding:clamp(110px,12vw,160px) 24px;background:var(--jl-cream)}
+.juba-busuu-page .juba-busuu-real-world-heading{max-width:860px;margin-bottom:58px}
+.juba-busuu-page .juba-busuu-real-world-heading h2{margin-top:10px;font-size:clamp(50px,7vw,88px);line-height:.92;letter-spacing:-.07em;font-weight:900;text-wrap:balance}
+.juba-busuu-page .juba-busuu-real-world-heading p{max-width:650px;margin-top:24px;color:var(--jl-muted);font-size:18px;line-height:1.65}
+.juba-busuu-page .juba-busuu-real-world-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.juba-busuu-page .juba-busuu-real-world-card{min-height:410px;padding:32px;border-radius:28px;border:0;box-shadow:none;transition:transform .2s ease,box-shadow .2s ease}
+.juba-busuu-page .juba-busuu-real-world-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(23,33,27,.12)}
+.juba-busuu-page .juba-busuu-real-world-index{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.22);font-weight:900}
+.juba-busuu-page .juba-busuu-real-world-mark{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.18);font-size:20px;font-weight:900}
+.juba-busuu-page .juba-busuu-real-world-copy h3{max-width:290px;font-size:clamp(28px,3vw,40px);line-height:.98;letter-spacing:-.04em;font-weight:900}
+.juba-busuu-page .juba-busuu-real-world-copy p{margin-top:14px;max-width:310px;line-height:1.55;opacity:.86}
+
+/* Real imagery feature chapter */
+.juba-busuu-page .juba-busuu-different{padding:clamp(96px,11vw,148px) 24px;background:#fff}
+.juba-busuu-page .juba-busuu-different-heading{max-width:860px;margin-bottom:58px;text-align:start}
+.juba-busuu-page .juba-busuu-different-heading h2{margin-top:10px;font-size:clamp(48px,6vw,78px);line-height:.94;letter-spacing:-.065em;font-weight:900}
+.juba-busuu-page .juba-busuu-different-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.juba-busuu-page .juba-busuu-different-card{min-height:520px;padding:0;overflow:hidden;border:1px solid var(--jl-line);border-radius:28px;background:#fff;box-shadow:none;transition:transform .2s ease,box-shadow .2s ease}
+.juba-busuu-page .juba-busuu-different-card:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(23,33,27,.1)}
+.juba-busuu-page .juba-busuu-different-media{min-height:310px;background:var(--jl-mint);overflow:hidden}
+.juba-busuu-page .juba-busuu-different-media img{display:block;width:100%;height:310px;object-fit:cover;transition:transform .35s ease}
+.juba-busuu-page .juba-busuu-different-card:hover .juba-busuu-different-media img{transform:scale(1.035)}
+.juba-busuu-page .juba-busuu-different-copy{padding:28px 28px 32px}
+.juba-busuu-page .juba-busuu-different-copy h3{font-size:28px;line-height:1;letter-spacing:-.04em;font-weight:900}
+.juba-busuu-page .juba-busuu-different-copy p{margin-top:12px;color:var(--jl-muted);line-height:1.6}
+
+/* Testimonials */
+.juba-busuu-page .juba-busuu-testimonials{padding:clamp(92px,11vw,142px) 24px;background:var(--jl-blue);color:#fff}
+.juba-busuu-page .juba-busuu-testimonials-inner{width:min(1180px,100%)}
+.juba-busuu-page .juba-busuu-testimonials h2{color:#fff}
+
+/* Why learn */
+.juba-busuu-page .juba-busuu-why-learn{padding:clamp(104px,12vw,158px) 24px;background:var(--jl-mint);border-top:0}
+.juba-busuu-page .juba-busuu-why-learn-heading{width:min(880px,100%);margin-bottom:60px}
+.juba-busuu-page .juba-busuu-why-learn-heading h2{font-size:clamp(50px,7vw,88px);line-height:.92;letter-spacing:-.07em;font-weight:900}
+.juba-busuu-page .juba-busuu-why-learn-heading p{max-width:640px;margin-top:24px;font-size:18px;line-height:1.65}
+.juba-busuu-page .juba-busuu-why-learn-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.juba-busuu-page .juba-busuu-why-learn-card{min-height:320px;padding:30px;border-top:4px solid var(--jl-ink);border-radius:0 0 24px 24px;background:#fff;box-shadow:none;transition:transform .18s ease,box-shadow .18s ease}
+.juba-busuu-page .juba-busuu-why-learn-card:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(23,33,27,.09)}
+.juba-busuu-page .juba-busuu-why-learn-number{width:48px;height:48px;display:grid;place-items:center;margin-bottom:64px;border-radius:50%;background:var(--jl-yellow);color:var(--jl-ink);font-size:13px;font-weight:900;letter-spacing:0}
+.juba-busuu-page .juba-busuu-why-learn-card h3{font-size:clamp(28px,3vw,38px);line-height:.98;letter-spacing:-.045em;font-weight:900}
+.juba-busuu-page .juba-busuu-why-learn-card p{margin-top:14px;color:var(--jl-muted);line-height:1.58}
+
+/* Pricing */
+.juba-busuu-page .juba-busuu-pricing{padding:clamp(82px,10vw,130px) 24px;background:#fff}
+.juba-busuu-page .juba-busuu-pricing>*{width:min(1180px,100%);margin-inline:auto}
+
+/* App/product moment */
+.juba-busuu-page .juba-busuu-app-section{padding:clamp(96px,10vw,138px) 24px;background:var(--jl-yellow)}
+.juba-busuu-page .juba-busuu-app-inner{width:min(1180px,100%);min-height:440px;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;padding:clamp(34px,5vw,62px);border-radius:32px;background:#fff;box-shadow:var(--jl-shadow)}
+.juba-busuu-page .juba-busuu-app-copy h2{font-size:clamp(44px,5.8vw,72px);line-height:.94;letter-spacing:-.065em;font-weight:900}
+.juba-busuu-page .juba-busuu-app-copy p{font-size:17px}
+.juba-busuu-page .juba-busuu-app-cta{min-height:54px;padding-inline:26px;border-radius:999px;background:var(--jl-green);color:#fff;box-shadow:0 3px 0 var(--jl-green-deep);font-weight:900}
+.juba-busuu-page .juba-busuu-app-art{min-height:390px}
+.juba-busuu-page .juba-busuu-app-art img{max-height:390px}
+
+/* Ticker */
+.juba-busuu-page .juba-busuu-new-languages{min-height:210px;background:var(--jl-blue);border:0}
+.juba-busuu-page .juba-busuu-new-languages-group span{color:#fff;font-weight:900}
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(2){color:var(--jl-yellow)}
+
+/* Close */
+.juba-busuu-page .juba-busuu-open-source-section{padding:clamp(70px,9vw,110px) 24px;background:#fff}
+.juba-busuu-page .juba-busuu-open-source-section>.juba-busuu-open-source{width:min(960px,100%);padding:34px!important;border:1px solid var(--jl-line);border-radius:28px;background:var(--jl-cream);box-shadow:none}
+.juba-busuu-page .juba-busuu-open-source-title{font-size:clamp(28px,3.4vw,44px);line-height:1;font-weight:900;letter-spacing:-.045em}
+.juba-busuu-page .juba-busuu-faq-section{padding:clamp(88px,10vw,132px) 24px;background:var(--jl-cream)}
+.juba-busuu-page .juba-busuu-faq-title{font-size:clamp(46px,6vw,72px);line-height:.94;letter-spacing:-.06em;font-weight:900}
+.juba-busuu-page .juba-busuu-footer{background:var(--jl-ink);color:#dce9e1;border-top:0}
+.juba-busuu-page .juba-busuu-footer-brand{color:#fff;font-size:24px;font-weight:900;letter-spacing:-.03em}
+.juba-busuu-page .juba-busuu-footer-heading{color:#fff!important;font-weight:850}
+.juba-busuu-page .juba-busuu-footer-link,.juba-busuu-page .juba-busuu-footer-copyright{color:#b8c9bf}
+.juba-busuu-page .juba-busuu-footer-link:hover{color:#fff}
+.juba-busuu-page :is(a,button):focus-visible{outline:3px solid var(--jl-yellow);outline-offset:4px}
+
+@media (max-width:1000px){
+  .juba-busuu-page .juba-busuu-nav-inner{width:min(100% - 32px,1240px)}
+  .juba-busuu-page .juba-busuu-reference-hero{min-height:680px}
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .juba-busuu-page .juba-busuu-language-intro{grid-template-columns:1fr;gap:20px}
+  .juba-busuu-page .juba-busuu-real-world-grid,.juba-busuu-page .juba-busuu-different-grid,.juba-busuu-page .juba-busuu-why-learn-grid{grid-template-columns:1fr}
+  .juba-busuu-page .juba-busuu-real-world-card{min-height:300px}
+  .juba-busuu-page .juba-busuu-different-card{min-height:0}
+  .juba-busuu-page .juba-busuu-app-inner{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .juba-busuu-page .juba-busuu-nav-inner{width:calc(100% - 24px);min-height:68px!important}
+  .juba-busuu-page .juba-busuu-brand img{width:128px}
+  .juba-busuu-page .juba-busuu-reference-hero{min-height:0}
+  .juba-busuu-page .juba-busuu-reference-hero-inner{padding:58px 16px 0}
+  .juba-busuu-page .juba-busuu-reference-hero h1{font-size:clamp(44px,13vw,62px)}
+  .juba-busuu-page .juba-busuu-reference-hero-art{margin-top:42px;border-radius:22px 22px 0 0}
+  .juba-busuu-page .juba-busuu-reference-languages,.juba-busuu-page .juba-busuu-real-world,.juba-busuu-page .juba-busuu-different,.juba-busuu-page .juba-busuu-testimonials,.juba-busuu-page .juba-busuu-why-learn,.juba-busuu-page .juba-busuu-pricing,.juba-busuu-page .juba-busuu-faq-section,.juba-busuu-page .juba-busuu-open-source-section{padding-inline:16px}
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item{min-height:112px}
+  .juba-busuu-page .juba-busuu-proof-strip{padding-inline:12px}
+  .juba-busuu-page .juba-busuu-proof-inner{margin-top:-22px;padding:20px;border-radius:20px}
+  .juba-busuu-page .juba-busuu-real-world-card{min-height:300px;padding:24px;border-radius:22px}
+  .juba-busuu-page .juba-busuu-different-card,.juba-busuu-page .juba-busuu-different-media{border-radius:22px}
+  .juba-busuu-page .juba-busuu-different-media,.juba-busuu-page .juba-busuu-different-media img{height:250px;min-height:250px}
+  .juba-busuu-page .juba-busuu-why-learn-card{min-height:260px;padding:24px;border-radius:0 0 20px 20px}
+  .juba-busuu-page .juba-busuu-why-learn-number{margin-bottom:44px}
+  .juba-busuu-page .juba-busuu-app-section{padding-inline:12px}
+  .juba-busuu-page .juba-busuu-app-inner{min-height:0;padding:28px 22px;border-radius:24px}
+  .juba-busuu-page .juba-busuu-app-art{min-height:250px}
+  .juba-busuu-page .juba-busuu-new-languages{min-height:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  .juba-busuu-page *,.juba-busuu-page *::before,.juba-busuu-page *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
