@@ -222,7 +222,7 @@ export default async function Home() {
             <LanguageBubbles dir={dir} />
           </div>
           <div className="juba-busuu-language-bottom">
-            <span>{SUPPORTED_LANGUAGE_COUNT}+ languages</span>
+            <span className="juba-busuu-language-count"><strong>{SUPPORTED_LANGUAGE_COUNT}+</strong> languages</span>
             <Link
               href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               className="juba-busuu-language-cta-link"
@@ -235,6 +235,7 @@ export default async function Home() {
 
       <section data-editorial-section="01A" className="juba-busuu-proof-strip" aria-labelledby="landing-proof-title">
         <div className="juba-busuu-proof-inner">
+          <span className="juba-busuu-proof-label" aria-hidden="true">WHY JUBA LISAN</span>
           <h2 id="landing-proof-title" className="sr-only">{t('navFeatures')}</h2>
           <div className="juba-busuu-proof-stat">
             <strong>{SUPPORTED_LANGUAGE_COUNT}+</strong>
