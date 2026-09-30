@@ -611,6 +611,36 @@ export default function DashboardPage() {
               </div>
             </section>
 
+            <section className="juba-reference-v3-card juba-reference-daily">
+              <div className="juba-reference-v3-card-head">
+                <div>
+                  <span className="juba-reference-section-label">{t('xp')}</span>
+                  <h2>{t('recentPerformance')}</h2>
+                </div>
+                <strong>{xp} XP</strong>
+              </div>
+              <div className="juba-reference-v3-chart">
+                {(progressBars.length ? progressBars : weekDays.map(day => ({day, value:0, active:false}))).map((bar,index,bars) => {
+                  const max = Math.max(1, ...bars.map(item => item.value))
+                  return (
+                    <div key={index} className={`juba-reference-v3-chart-col ${bar.active ? 'active' : ''}`}>
+                      <span style={{height: Math.max(8, Math.round((bar.value / max) * 100)) + '%'}} />
+                      <small>{bar.day}</small>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="juba-reference-v3-chart-footer">
+                <span>{t('streak')}: <b>{streak}</b></span>
+                <span>{t('accuracy')}: <b>{accuracy}%</b></span>
+              </div>
+              <div className="juba-reference-chart-summary">
+                <span><small>{t('xp')}</small><b>{chartEntries.reduce((sum, entry) => sum + entry.xp_earned, 0)}</b></span>
+                <span><small>{t('accuracy')}</small><b>{chartAverage}%</b></span>
+                <span><small>{t('completedToday', { completed: completedLessonCount, total: Math.max(todayLessons.length, completedLessonCount) })}</small><b>{completedLessonCount}</b></span>
+              </div>
+            </section>
+
             <section className="juba-reference-reference-insights">
               <div className="juba-reference-v3-card juba-reference-insight-card">
                 <div className="juba-reference-v3-card-head">
