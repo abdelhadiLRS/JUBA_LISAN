@@ -162,7 +162,7 @@ export default function PricingSection({
   ]
 
   return (
-    <section aria-labelledby="juba-landing-pricing-title" className="juba-ff-pricing w-full">
+    <div aria-labelledby="juba-landing-pricing-title" className="juba-ff-pricing w-full">
       <div className="juba-ff-pricing-intro mx-auto mb-10 max-w-3xl px-5 text-center">
         <h2 id="juba-landing-pricing-title" className="juba-ff-pricing-title">
           {tBilling('pricingTitle')}
@@ -349,6 +349,6 @@ export default function PricingSection({
           </p>
         )}
       </div>
-    </section>
+    </div>
   )
 }
