@@ -472,7 +472,8 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="juba-busuu-footer border-t px-6 py-10">
+      <footer className="juba-busuu-footer border-t px-6 py-10" aria-labelledby="landing-footer-title">
+        <h2 id="landing-footer-title" className="sr-only">{t('footerProduct')}</h2>
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-10 gap-y-10 md:grid-cols-3 lg:grid-cols-6">
           <div>
             <span className="juba-busuu-footer-brand block text-xs font-bold tracking-widest uppercase">
