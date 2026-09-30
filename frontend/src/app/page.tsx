@@ -323,7 +323,8 @@ export default async function Home() {
 
       {/* Pricing */}
       <ScrollReveal>
-        <div id="pricing" className="juba-busuu-pricing scroll-mt-16">
+        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
+          <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
           <PricingSection
             stripeEnabled={stripeEnabled}
             trialDays={trialDays}
@@ -333,7 +334,7 @@ export default async function Home() {
             totalPriceMonthly={totalPriceMonthly}
             totalPriceYearly={totalPriceYearly}
           />
-        </div>
+        </section>
       </ScrollReveal>
 
       {/* Busuu-style app download band */}
@@ -460,8 +461,8 @@ export default async function Home() {
 
       {/* FAQ */}
       <ScrollReveal>
-        <section id="faq" className="juba-busuu-faq-section scroll-mt-16">
-          <h2 className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
+        <section id="faq" className="juba-busuu-faq-section scroll-mt-16" aria-labelledby="landing-faq-title">
+          <h2 id="landing-faq-title" className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
             {t('faqTitle')}
           </h2>
           <LandingFAQ dir={dir} />
