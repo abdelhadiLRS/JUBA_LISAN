@@ -175,6 +175,18 @@ export default async function Home() {
           </div>
 
           <div className="juba-busuu-reference-hero-art">
+            <div className="juba-busuu-hero-float juba-busuu-hero-float-left">
+              <span>01</span>
+              <strong>{t('feature1Title')}</strong>
+            </div>
+            <div className="juba-busuu-hero-float juba-busuu-hero-float-right">
+              <span>02</span>
+              <strong>{t('feature2Title')}</strong>
+            </div>
+            <div className="juba-busuu-hero-float juba-busuu-hero-float-bottom">
+              <span>03</span>
+              <strong>{t('feature3Title')}</strong>
+            </div>
             <img
               src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
               alt=""
