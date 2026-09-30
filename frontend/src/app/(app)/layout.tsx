@@ -290,7 +290,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <style>{`
         /* JUBA LISAN app shell — strict reference chrome */
         .juba-reference-shell{background:#fff!important;color:#555!important}
-        .juba-reference-shell .juba-duo-sidebar{width:220px!important;min-width:220px!important;background:#fff!important;border-right:1px solid #edf0ea!important;box-shadow:none!important}
+        .juba-reference-shell .juba-duo-sidebar{width:220px!important;min-width:220px!important;background:#fff!important;border-right:1px solid #edf0ea!important;box-shadow:none!important;position:sticky!important;top:0!important;height:100dvh!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{height:92px!important;padding:0 24px!important;border-bottom:0!important;display:flex!important;align-items:center!important;gap:10px!important}
         .juba-reference-shell .juba-duo-logo-mark{width:40px!important;height:40px!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;display:grid!important;place-items:center!important;font-weight:950!important;font-size:13px!important;box-shadow:0 3px 0 #46a302!important;flex:none!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{color:#58a91b!important;font-size:15px!important;font-weight:900!important;letter-spacing:-.03em!important;text-transform:none!important}
@@ -314,7 +314,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-user{border-top:1px solid #f0f0f0!important;background:#fff!important;padding:13px 15px!important}
         .juba-reference-shell .juba-duo-user-action{color:#999!important;font-size:10px!important}
         .juba-reference-shell .juba-duo-version{color:#c1c1c1!important;font-size:8px!important}
-        .juba-reference-shell .juba-duo-main{background:#fff!important}
+        .juba-reference-shell .juba-duo-main{background:#fff!important;min-width:0!important}
         .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
         .juba-reference-shell .juba-duo-mobile-bar{display:none!important}
         @media (max-width:900px){
