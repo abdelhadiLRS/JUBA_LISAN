@@ -17550,7 +17550,7 @@ html[data-theme='light'] {
   margin-top:18px;
   max-width:760px;
 }
-.juba-busuu-page .juba-busuu-hero-benefits span {
+.juba-busuu-page .juba-busuu-hero-benefits li {
   display:inline-flex;
   align-items:center;
   gap:7px;
@@ -17566,7 +17566,7 @@ html[data-theme='light'] {
   backdrop-filter:blur(10px);
   transition:transform .18s ease,background .18s ease,border-color .18s ease;
 }
-.juba-busuu-page .juba-busuu-hero-benefits span:hover {
+.juba-busuu-page .juba-busuu-hero-benefits li:hover {
   transform:translateY(-2px);
   background:rgba(255,255,255,.16);
   border-color:rgba(255,255,255,.38);
@@ -17598,7 +17598,7 @@ html[data-theme='light'] {
     grid-template-columns:1fr;
     margin-top:16px;
   }
-  .juba-busuu-page .juba-busuu-hero-benefits span {
+  .juba-busuu-page .juba-busuu-hero-benefits li {
     width:fit-content;
     max-width:100%;
   }
