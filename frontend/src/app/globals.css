@@ -19252,3 +19252,136 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v21 — responsive chapter spacing and mobile composition */
+.juba-busuu-page .juba-busuu-reference-languages-inner,
+.juba-busuu-page .juba-busuu-real-world-inner,
+.juba-busuu-page .juba-busuu-different-inner,
+.juba-busuu-page .juba-busuu-why-learn-inner,
+.juba-busuu-page .juba-busuu-app-inner,
+.juba-busuu-page .juba-busuu-final-cta-inner {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-open-source {
+  width: min(100% - 32px, 1180px);
+  margin-inline: auto;
+  border-radius: 24px;
+  padding: 22px 26px;
+}
+.juba-busuu-page .juba-busuu-open-source-cta {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border-color: rgba(8,119,249,.20);
+  color: var(--jl-blue-deep);
+  background: rgba(8,119,249,.06);
+}
+.juba-busuu-page .juba-busuu-open-source-cta:hover {
+  border-color: rgba(8,119,249,.38);
+  background: rgba(8,119,249,.10);
+}
+.juba-busuu-page .juba-busuu-footer-top-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid rgba(23,33,27,.10);
+  border-radius: 999px;
+  color: var(--jl-muted);
+  background: rgba(255,255,255,.72);
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease, color .18s ease, background-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-footer-top-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(8,119,249,.24);
+  color: var(--jl-blue);
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 28px;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-real-world-card:nth-child(2) {
+    transform: none;
+  }
+  .juba-busuu-page .juba-busuu-real-world .juba-busuu-real-world-grid {
+    margin-top: 46px;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-inner {
+    padding: 34px;
+    gap: 30px;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-reference-languages,
+  .juba-busuu-page .juba-busuu-real-world,
+  .juba-busuu-page .juba-busuu-different,
+  .juba-busuu-page .juba-busuu-why-learn {
+    padding-block: 72px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages-inner,
+  .juba-busuu-page .juba-busuu-real-world-inner,
+  .juba-busuu-page .juba-busuu-different-inner,
+  .juba-busuu-page .juba-busuu-why-learn-inner {
+    width: min(100% - 32px, 1180px);
+  }
+  .juba-busuu-page .juba-busuu-proof-inner {
+    width: min(100% - 32px, 1180px);
+  }
+  .juba-busuu-page .juba-busuu-open-source {
+    width: calc(100% - 32px);
+    padding: 20px;
+    border-radius: 20px;
+  }
+  .juba-busuu-page .juba-busuu-open-source-cta {
+    width: 100%;
+  }
+  .juba-busuu-page .juba-busuu-final-cta {
+    padding: 64px 16px;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 26px 20px;
+    border-radius: 26px;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-actions {
+    display: grid;
+    gap: 10px;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-actions > * {
+    width: 100%;
+    min-height: 50px;
+  }
+  .juba-busuu-page .juba-busuu-footer-bottom-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .juba-busuu-page .juba-busuu-footer-top-link {
+    width: fit-content;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-footer-top-link,
+  .juba-busuu-page .juba-busuu-open-source-cta {
+    transition: none;
+  }
+}
