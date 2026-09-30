@@ -695,9 +695,9 @@ export default function ChatPage() {
               <span>{activeLanguage ? tLang(activeLanguage.code) : tLang('en-GB')}</span>
             </div>
             <div className="juba-chat-profile-metrics">
-              <div><b>{xp}</b><small>XP</small></div>
-              <div><b>{streak}</b><small>STREAK</small></div>
-              <div><b>{accuracy}%</b><small>ACCURACY</small></div>
+              <div><b>{xp}</b><small>{t("xp")}</small></div>
+              <div><b>{streak}</b><small>{t("streak")}</small></div>
+              <div><b>{accuracy}%</b><small>{t("accuracy")}</small></div>
             </div>
 
           </section>
