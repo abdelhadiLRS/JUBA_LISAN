@@ -481,7 +481,7 @@ export default function DashboardPage() {
         .juba-reference-v3 .juba-reference-locked{color:#bbb!important}
         .juba-reference-v3 .juba-reference-empty{display:flex!important;align-items:center!important;gap:12px!important;padding:22px 0!important;color:#999!important}
 
-        .juba-reference-v3 .juba-reference-v3-rail{display:flex!important;flex-direction:column!important;gap:14px!important;align-self:start!important}
+        .juba-reference-v3 .juba-reference-v3-rail{display:flex!important;flex-direction:column!important;gap:14px!important;align-self:start!important;position:sticky!important;top:0!important}
         .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{padding:16px!important}
         .juba-reference-v3 .juba-reference-profile-card{padding:0!important;overflow:hidden!important}
         .juba-reference-v3 .juba-reference-profile-hero{display:flex!important;flex-direction:column!important;align-items:center!important;padding:18px 14px 13px!important;text-align:center!important}
