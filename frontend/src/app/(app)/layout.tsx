@@ -383,6 +383,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
         .juba-reference-shell a:focus-visible,.juba-reference-shell button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
         @media (max-width:900px){.juba-reference-shell .juba-duo-mobile-bar{box-shadow:0 1px 8px rgba(30,50,20,.035)!important}}
+              /* reference fidelity pass 7 — lock the screenshot geometry without changing behavior */
+        .juba-reference-shell .juba-duo-sidebar{flex:0 0 220px!important}
+        .juba-reference-shell .juba-duo-nav-link{position:relative!important;line-height:1.15!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active{background:#eaf8e5!important;color:#58a91b!important;font-weight:850!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active:before{width:3px!important;height:22px!important;border-radius:0 4px 4px 0!important;background:#58cc02!important}
+        .juba-reference-shell .juba-duo-user{border-top:1px solid #edf0ea!important;padding:14px 12px 16px!important}
+        .juba-reference-shell .juba-duo-main{min-height:100dvh!important}
+        .juba-reference-shell .juba-duo-page-frame{scroll-behavior:smooth!important}
+        .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar{width:8px!important}
+        .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important;border:2px solid #fff!important}
+        @media (max-width:900px){.juba-reference-shell .juba-duo-sidebar{width:0!important;min-width:0!important;flex-basis:0!important}}
+
       </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
