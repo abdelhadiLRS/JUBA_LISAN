@@ -20577,3 +20577,107 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* === Landing-only Busuu composition pass: language showcase === */
+.juba-busuu-page .juba-busuu-reference-languages {
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-language-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, .7fr);
+  gap: 34px;
+  align-items: end;
+  margin-bottom: 34px;
+}
+.juba-busuu-page .juba-busuu-language-intro h2 {
+  margin: 8px 0 0;
+  text-align: start;
+  font-size: clamp(34px, 4.4vw, 58px);
+  line-height: .98;
+  letter-spacing: -.05em;
+}
+.juba-busuu-page .juba-busuu-language-intro p {
+  max-width: 540px;
+  margin: 0;
+  color: #53615a;
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.72;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position: relative;
+  padding: 22px;
+  border: 1px solid rgba(16,36,62,.08);
+  border-radius: 28px;
+  background: linear-gradient(180deg, #fbfdfc 0%, #f4f8f5 100%);
+  box-shadow: 0 18px 46px rgba(23,33,27,.06);
+}
+.juba-busuu-page .juba-busuu-language-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(8,119,249,.12);
+  border-radius: 20px;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  position: relative;
+  z-index: 1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-height: 126px;
+  border-color: rgba(16,36,62,.09);
+  border-radius: 18px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 5px 18px rgba(16,36,62,.045);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(8,119,249,.2);
+  box-shadow: 0 16px 30px rgba(16,36,62,.1);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img {
+  width: 48px;
+  height: 48px !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px #fff, 0 5px 16px rgba(16,36,62,.13);
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  margin-top: 22px;
+}
+@media (max-width: 1099px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-language-intro {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .juba-busuu-page .juba-busuu-language-intro h2 {
+    margin-top: 6px;
+    font-size: clamp(34px, 10vw, 48px);
+  }
+  .juba-busuu-page .juba-busuu-language-stage {
+    padding: 14px;
+    border-radius: 22px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::before {
+    inset: 8px;
+    border-radius: 16px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+    min-height: 112px;
+    padding: 14px 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+    transition: none;
+  }
+}
