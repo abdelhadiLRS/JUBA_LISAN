@@ -558,7 +558,25 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-lesson-action{grid-column:2!important;justify-self:start!important}
           .juba-reference-v3 .juba-reference-achievement-strip-progress{width:70px!important}
         }
-      `}</style>
+      `}
+        /* Reference fidelity pass — dashboard composition */
+        .juba-reference-v3{background:#fff!important}
+        .juba-reference-v3 > section:first-child{max-width:1180px!important;margin-inline:auto!important}
+        .juba-reference-v3 .juba-reference-v3-card{border:1px solid #e8ece5!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-reference-v3 .juba-reference-v3-card-head{min-height:34px!important}
+        .juba-reference-v3 .juba-reference-section-label{font-size:8px!important;line-height:1.2!important;letter-spacing:.12em!important;font-weight:900!important;color:#a1a6a0!important}
+        .juba-reference-v3 .juba-reference-v3-card h2,.juba-reference-v3 .juba-reference-v3-card h3{letter-spacing:-.025em!important}
+        .juba-reference-v3 .juba-reference-profile-card{overflow:hidden!important}
+        .juba-reference-v3 .juba-reference-profile-hero{padding:20px 18px 15px!important}
+        .juba-reference-v3 .juba-reference-profile-photo{width:72px!important;height:72px!important;border-radius:50%!important}
+        .juba-reference-v3 .juba-reference-profile-metrics{min-height:58px!important;border-top:1px solid #eef1ec!important}
+        .juba-reference-v3 .juba-reference-goal-ring{width:92px!important;height:92px!important}
+        .juba-reference-v3 .juba-reference-small-progress{height:5px!important;border-radius:999px!important;background:#edf2e9!important}
+        .juba-reference-v3 .juba-reference-small-progress span{border-radius:999px!important}
+        .juba-reference-v3 .juba-reference-tools-card>a{min-height:38px!important;border-radius:8px!important}
+        .juba-reference-v3 .juba-reference-friend-row{min-height:50px!important}
+        @media (max-width:1100px) and (min-width:901px){.juba-reference-v3{padding-inline:18px!important}.juba-reference-v3-rail{width:272px!important}}
+</style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
