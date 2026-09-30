@@ -611,9 +611,15 @@ export default async function Home() {
               {hasSession ? t('dashboard') : allowRegistration ? t('ctaStart') : t('signIn')}
               <span aria-hidden="true">↗</span>
             </Link>
-            <span className="juba-busuu-footer-copyright mt-4 block text-xs leading-relaxed">
-              © {new Date().getFullYear()} JUBA LISAN
-            </span>
+            <div className="juba-busuu-footer-bottom-row">
+              <span className="juba-busuu-footer-copyright block text-xs leading-relaxed">
+                © {new Date().getFullYear()} JUBA LISAN
+              </span>
+              <a href="#main-content" className="juba-busuu-footer-top-link" aria-label={t('homeLabel')}>
+                <span aria-hidden="true">↑</span>
+                <span>{t('homeLabel')}</span>
+              </a>
+            </div>
           </div>
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
