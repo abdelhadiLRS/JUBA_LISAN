@@ -82,7 +82,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         <li
           key={language.code}
           className="juba-busuu-language-item"
-          data-language-index={String(featuredLanguages.indexOf(language) + 1).padStart(2, '0')}
+          data-language-index={String(index + 1).padStart(2, '0')}
         >
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
