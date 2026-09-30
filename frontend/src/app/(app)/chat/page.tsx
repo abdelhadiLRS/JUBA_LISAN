@@ -344,9 +344,6 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-metrics div:last-child{border-inline-end:0!important}
         .juba-mobile-chat .juba-chat-profile-metrics b{color:#58a91b!important;font-size:14px!important}
         .juba-mobile-chat .juba-chat-profile-metrics small{color:#999!important;font-size:8px!important}
-        .juba-mobile-chat .juba-chat-side-tools{display:flex!important;border-top:1px solid #edf0ea!important}
-        .juba-mobile-chat .juba-chat-side-tool{flex:1!important;height:42px!important;border:0!important;background:#fff!important;color:#888!important;display:grid!important;place-items:center!important}
-        .juba-mobile-chat .juba-chat-side-tool:hover{color:#58a91b!important;background:#f8fcf6!important}
         .juba-mobile-chat .juba-chat-side-card{border:1px solid #edf0ea!important;border-radius:12px!important;background:#fff!important;padding:16px!important;margin-bottom:14px!important}
         .juba-mobile-chat .juba-chat-side-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
         .juba-mobile-chat .juba-chat-side-card-head h3{margin:3px 0 0!important;color:#555!important;font-size:13px!important;font-weight:800!important}
