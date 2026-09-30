@@ -481,13 +481,28 @@ export default function DashboardPage() {
               </div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-league-card">
-              <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><Trophy size={19} /></div>
-              <div className="juba-reference-league-list">
-                {[0,1,2,3,4].map((_,index) => <div key={index} className={`juba-reference-league-row ${index === 2 ? 'current' : ''}`}><span>{index + 1}</span><i>{index === 2 ? (user?.displayName || user?.username || 'You').slice(0,2).toUpperCase() : 'JL'}</i><b>{Math.max(0, xp - Math.abs(index - 2) * 12)}</b></div>)}
+            <section className="juba-reference-v3-card juba-reference-goal-card">
+              <div className="juba-reference-v3-card-head">
+                <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('dailyGoal')}</h3></div>
+                <Flame size={19} />
+              </div>
+              <div className="juba-reference-goal-ring">
+                <strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)}</span>
+              </div>
+              <div className="juba-reference-goal-copy">
+                <b>{Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100))}%</b>
+                <span>{t('completedToday', { completed: completedLessonCount, total: Math.max(1, todayLessons.length) })}</span>
+              </div>
+              <div className="juba-reference-small-progress"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
+            </section>
+            <section className="juba-reference-v3-card juba-reference-xp-card">
+              <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><ChartNoAxesColumnIncreasing size={18}/></div>
+              <div className="juba-reference-xp-list">
+                <div><span>{t('today')}</span><b>{historyEntries[historyEntries.length - 1]?.xp_earned ?? 0} XP</b></div>
+                <div><span>{t('streak')}</span><b>{streak}</b></div>
+                <div><span>{t('accuracy')}</span><b>{accuracy}%</b></div>
               </div>
             </section>
-
             <section className="juba-reference-v3-card juba-reference-achievement-card">
               <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{t('nextStep')}</span><h3>{t('startWithAssessment')}</h3></div><Trophy size={19} /></div>
               <div className="juba-reference-achievement-icon"><Trophy size={29}/></div>
