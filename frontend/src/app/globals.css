@@ -13473,3 +13473,84 @@ html[data-theme='light'] {
     width: 78%;
   }
 }
+
+
+/* === Landing-only Busuu composition pass: animated editorial ticker === */
+.juba-busuu-page .juba-busuu-new-languages {
+  position: relative;
+  overflow: hidden;
+  min-height: 168px;
+  display: flex;
+  align-items: center;
+  background: #fbfaf6;
+  border-top: 1px solid #dce5df;
+  border-bottom: 1px solid #dce5df;
+}
+.juba-busuu-page .juba-busuu-new-languages-track {
+  display: flex;
+  width: max-content;
+  animation: juba-busuu-ticker 26s linear infinite;
+  will-change: transform;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 58px);
+  padding-inline: clamp(28px, 5vw, 72px);
+  white-space: nowrap;
+}
+.juba-busuu-page .juba-busuu-new-languages-group > span {
+  color: #17211b;
+  font-size: clamp(38px, 5.4vw, 72px);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.055em;
+}
+.juba-busuu-page .juba-busuu-new-languages-group > span:nth-of-type(2) {
+  color: #00a86b;
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  width: clamp(30px, 4vw, 48px);
+  height: clamp(30px, 4vw, 48px);
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+@keyframes juba-busuu-ticker {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 132px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 24px;
+    padding-inline: 24px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group > span {
+    font-size: clamp(30px, 9vw, 46px);
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 124px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 18px;
+    padding-inline: 18px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group img {
+    width: 34px;
+    height: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation: none;
+    transform: none;
+  }
+}
