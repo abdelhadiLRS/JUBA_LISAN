@@ -240,36 +240,122 @@ export default function DashboardPage() {
 
     window.addEventListener('focus', handleFocus)
     document.addEventListener('visibilitychange', handleVisibility)
-    return (
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [user, accessToken, refreshDashboardData])
+
+  useEffect(() => {
+    if (!user || !accessToken) return
+    return subscribeToLearningProgressUpdated(() => {
+      void refreshDashboardData()
+    })
+  }, [user, accessToken, refreshDashboardData])
+
+  async function changeHistoryRange(range: 'week' | 'month' | 'all') {
+    if (range === historyRange) return
+    setHistoryLoading(true)
+    setHistoryRange(range)
+    try {
+      const res = await apiFetch('/api/progress/history?range=' + range)
+      if (!res.ok) throw new Error('history')
+      const history = await res.json()
+      setHistoryEntries(Array.isArray(history.entries) ? history.entries : [])
+    } catch {
+      setHistoryEntries([])
+    } finally {
+      setHistoryLoading(false)
+    }
+  }
+
+  async function skipDay() {
+    if (skipping) return
+    setSkipping(true)
+    setSkipError(false)
+    try {
+      const res = await apiFetch('/api/study-plan/skip-day', { method: 'POST' })
+      if (!res.ok) throw new Error('skip-day')
+      await loadData()
+    } catch {
+      setSkipError(true)
+    } finally {
+      setSkipping(false)
+    }
+  }
+
+  async function handleManageSubscription() {
+    setPortalLoading(true)
+    setPortalError(null)
+    try {
+      const res = await apiFetch('/api/billing/portal', { method: 'POST' })
+      if (!res.ok) throw new Error(tBilling('portalError'))
+      const { url } = await res.json()
+      window.location.assign(url)
+    } catch (err) {
+      setPortalError(err instanceof Error ? err.message : tBilling('portalError'))
+      setPortalLoading(false)
+    }
+  }
+
+  if (loading) {
+    return <PageLoading label={t('loadingProgress')} minHeight="min-h-screen" />
+  }
+
+  const skillEntries = Object.entries(skills)
+    .map(([skill, value]) => ({ skill, value: value as number }))
+    .sort((a, b) => a.value - b.value)
+
+  const completedLessonCount = todayLessons.filter(
+    (lesson) => (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+  ).length
+
+  const nextLesson = todayLessons.find(
+    (lesson) => lesson.id && !completedToday.includes(lesson.id) && !lesson.isCompleted
+  )
+
+  const planPositionComplete = completion?.state === 'ready' || completion?.state === 'taken'
+  const planCompletion = hasPlan && totalDays > 0
+    ? planPositionComplete ? 100 : Math.min(100, Math.round((progressDay / totalDays) * 100))
+    : 0
+  const currentDayDisplay = planPositionComplete ? totalDays : Math.min(progressDay + 1, totalDays)
+  const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
+  const paymentRecovery = needsPaymentRecovery(user)
+  const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
+
+  const chartEntries = historyEntries.slice(-7)
+  const performanceValues = chartEntries.map((entry) =>
+    entry.exercises_total > 0 ? Math.round((entry.exercises_correct / entry.exercises_total) * 100) : 0
+  )
+  const chartMax = Math.max(100, ...performanceValues)
+  const chartAverage = chartEntries.length
+    ? Math.round(chartEntries.reduce((sum, entry) => sum + (entry.exercises_total > 0 ? (entry.exercises_correct / entry.exercises_total) * 100 : 0), 0) / chartEntries.length)
+    : 0
+  const progressBars = chartEntries.map((entry) => ({
+    day: new Date(entry.date + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'short' }),
+    value: entry.xp_earned,
+    active: entry.date === new Date().toISOString().slice(0, 10),
+  }))
+
+  function getPerformanceLabel(value: number) {
+    if (value < 0.5) return t('performanceNeedsPractice')
+    if (value < 0.8) return t('performanceInProgress')
+    return t('performanceStrong')
+  }
+
+  return (
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="juba-reference-dashboard" data-dashboard-version="reference-1">
+      <div className="juba-reference-dashboard" data-dashboard-version="reference-2">
         <header className="juba-reference-topbar">
-          <div className="juba-reference-topbar-title">
-            <span className="juba-reference-dot" aria-hidden="true">JL</span>
-            <div>
-              <span className="juba-reference-overline">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
-              <h1>{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
-            </div>
-          </div>
+          <div className="juba-reference-topbar-title"><span className="juba-reference-dot" aria-hidden="true">JL</span><div><span className="juba-reference-overline">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span><h1>{t('welcomeBack')}, {user?.displayName || user?.username}</h1></div></div>
           <div className="juba-reference-topbar-actions">
-            <button type="button" className="juba-reference-icon-button" onClick={refreshDashboardData} disabled={refreshing} aria-label={tError('retry')} title={tError('retry')}>
-              <RefreshCw size={17} className={refreshing ? 'animate-spin' : ''} />
-            </button>
-            <div className="juba-reference-profile">
-              <div className="juba-reference-profile-avatar">{user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={17} />}</div>
-              <div><strong>{user?.displayName || user?.username}</strong><span>{cefrLevel || 'A1'}</span></div>
-              <ChevronDown size={15} />
-            </div>
+            <button type="button" className="juba-reference-icon-button" onClick={refreshDashboardData} disabled={refreshing} aria-label={tError('retry')} title={tError('retry')}><RefreshCw size={17} className={refreshing ? 'animate-spin' : ''} /></button>
+            <div className="juba-reference-profile"><div className="juba-reference-profile-avatar">{user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={17} />}</div><div><strong>{user?.displayName || user?.username}</strong><span>{cefrLevel || 'A1'}</span></div><ChevronDown size={15} /></div>
           </div>
         </header>
-        {loadError && (
-          <div className="juba-reference-alert" role="alert">
-            <span>{tError('body')}</span>
-            <button type="button" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>{tError('retry')}</button>
-          </div>
-        )}
+        {loadError && <div className="juba-reference-alert" role="alert"><span>{tError('body')}</span><button type="button" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>{tError('retry')}</button></div>}
         <section className="juba-reference-stats" aria-label={tNav('dashboard')}>
           <article className="juba-reference-stat"><i className="green"><Flame size={19} /></i><div><span>{t('streak')}</span><strong>{streak}</strong><small>{t('today')}</small></div></article>
           <article className="juba-reference-stat"><i className="yellow"><Trophy size={19} /></i><div><span>{t('xp')}</span><strong>{xp}</strong><small>{t('recentPerformance')}</small></div></article>
@@ -279,76 +365,26 @@ export default function DashboardPage() {
         <div className="juba-reference-layout">
           <main className="juba-reference-main">
             <section className="juba-reference-card juba-reference-course">
-              <div className="juba-reference-card-header">
-                <div><span className="juba-reference-section-label">{t('nextStep')}</span><h2>{cefrLevel || 'A1'} · {nextLesson?.title || t('startWithAssessment')}</h2><p>{nextLesson?.objectives?.[0] || t('goToMyPlan')}</p></div>
-                <Link href="/plan" className="juba-reference-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
-              </div>
+              <div className="juba-reference-card-header"><div><span className="juba-reference-section-label">{t('nextStep')}</span><h2>{cefrLevel || 'A1'} · {nextLesson?.title || t('startWithAssessment')}</h2><p>{nextLesson?.objectives?.[0] || t('goToMyPlan')}</p></div><Link href="/plan" className="juba-reference-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link></div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{ width: planCompletion + '%' }} /></div><strong>{planCompletion}%</strong></div>
               <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{pendingCount} {t('lessonReady')}</span></div>
               <div className="juba-reference-lessons">
-                {todayLessons.length ? todayLessons.map((lesson, index) => {
-                  const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted;
-                  const current = !done && (!nextLesson || lesson.id === nextLesson.id);
-                  return (
-                    <div key={lesson.id ?? lesson.title} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`}>
-                      <div className={`juba-reference-lesson-number ${done ? 'done' : current ? 'current' : ''}`}>{done ? <Check size={17} strokeWidth={3} /> : current ? <Play size={17} fill="currentColor" /> : <span>{index + 1}</span>}</div>
-                      <div className="juba-reference-lesson-copy"><strong>{lesson.title}</strong><span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span></div>
-                      <div className="juba-reference-lesson-action">{current && lesson.id ? <Link href={'/lesson/' + lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link> : done ? <span className="juba-reference-completed"><Check size={14} />{t('completedToday', { completed: 1, total: 1 })}</span> : <span className="juba-reference-locked"><MoreHorizontal size={17} /></span>}</div>
-                    </div>
-                  );
-                }) : (
-                  <div className="juba-reference-empty"><BookOpen size={30} /><div><strong>{t('startWithAssessment')}</strong><span>{t('goToMyPlan')}</span></div><Link href="/assessment" className="juba-reference-green-button">{tNav('assessment')}</Link></div>
-                )}
+                {todayLessons.length ? todayLessons.map((lesson,index)=>{const done=(lesson.id&&completedToday.includes(lesson.id))||lesson.isCompleted;const current=!done&&(!nextLesson||lesson.id===nextLesson.id);return <div key={lesson.id??lesson.title} className={`juba-reference-lesson ${current?'current':''} ${done?'done':''}`}><div className={`juba-reference-lesson-number ${done?'done':current?'current':''}`}>{done?<Check size={17} strokeWidth={3}/>:current?<Play size={17} fill="currentColor"/>:<span>{index+1}</span>}</div><div className="juba-reference-lesson-copy"><strong>{lesson.title}</strong><span>{tPlan('lessonTypes.'+lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span></div><div className="juba-reference-lesson-action">{current&&lesson.id?<Link href={'/lesson/'+lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link>:done?<span className="juba-reference-completed"><Check size={14}/>{t('completedToday',{completed:1,total:1})}</span>:<span className="juba-reference-locked"><MoreHorizontal size={17}/></span>}</div></div>}) : <div className="juba-reference-empty"><BookOpen size={30}/><div><strong>{t('startWithAssessment')}</strong><span>{t('goToMyPlan')}</span></div><Link href="/assessment" className="juba-reference-green-button">{tNav('assessment')}</Link></div>}
               </div>
             </section>
             <div className="juba-reference-chart-grid">
-              <section className="juba-reference-card juba-reference-chart-card">
-                <div className="juba-reference-chart-header"><div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><b>{xp}</b></div>
-                <div className="juba-reference-bars">
-                  {(progressBars.length ? progressBars : weekDays.map(day => ({ day, value: 0, active: false }))).map((bar, index, bars) => {
-                    const max = Math.max(1, ...bars.map(item => item.value));
-                    return <div key={index} className={`juba-reference-bar-column ${bar.active ? 'active' : ''}`}><span style={{ height: Math.max(8, Math.round((bar.value / max) * 100)) + '%' }} /><small>{bar.day}</small></div>;
-                  })}
-                </div>
-              </section>
-              <section className="juba-reference-card juba-reference-chart-card">
-                <div className="juba-reference-chart-header"><div><span className="juba-reference-section-label">{t('accuracy')}</span><h3>{t('recentPerformance')}</h3></div><b>{chartAverage}%</b></div>
-                <div className="juba-reference-bars performance">
-                  {(performanceValues.length ? performanceValues : weekDays.map(() => 0)).map((value, index) => <div key={index} className="juba-reference-bar-column"><span style={{ height: Math.max(8, value) + '%' }} /><small>{chartEntries[index] ? new Date(chartEntries[index].date + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'short' }) : weekDays[index]}</small></div>)}
-                </div>
-              </section>
+              <section className="juba-reference-card juba-reference-chart-card"><div className="juba-reference-chart-header"><div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><b>{xp}</b></div><div className="juba-reference-bars">{(progressBars.length?progressBars:weekDays.map(day=>({day,value:0,active:false}))).map((bar,index,bars)=>{const max=Math.max(1,...bars.map(item=>item.value));return <div key={index} className={`juba-reference-bar-column ${bar.active?'active':''}`}><span style={{height:Math.max(8,Math.round((bar.value/max)*100))+'%'}}/><small>{bar.day}</small></div>})}</div></section>
+              <section className="juba-reference-card juba-reference-chart-card"><div className="juba-reference-chart-header"><div><span className="juba-reference-section-label">{t('accuracy')}</span><h3>{t('recentPerformance')}</h3></div><b>{chartAverage}%</b></div><div className="juba-reference-bars performance">{(performanceValues.length?performanceValues:weekDays.map(()=>0)).map((value,index)=><div key={index} className="juba-reference-bar-column"><span style={{height:Math.max(8,value)+'%'}}/><small>{chartEntries[index]?new Date(chartEntries[index].date+'T00:00:00').toLocaleDateString(undefined,{weekday:'short'}):weekDays[index]}</small></div>)}</div></section>
             </div>
           </main>
           <aside className="juba-reference-aside">
-            <section className="juba-reference-card juba-reference-goal-card">
-              <div className="juba-reference-aside-title"><h3>{t('streak')}</h3><Flame size={18} /></div>
-              <div className="juba-reference-goal-ring"><div><strong>{streak}</strong><span>{t('today')}</span></div></div>
-              <p>{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 1 })}</p>
-            </section>
-            <section className="juba-reference-card juba-reference-achievement-card">
-              <div className="juba-reference-aside-title"><h3>{t('nextStep')}</h3><Trophy size={18} /></div>
-              <div className="juba-reference-achievement-icon"><Trophy size={30} /></div>
-              <strong>{nextLesson?.title || t('startWithAssessment')}</strong><span>{cefrLevel || 'A1'} · {planCompletion}%</span>
-              <div className="juba-reference-small-progress"><span style={{ width: planCompletion + '%' }} /></div>
-            </section>
-            <section className="juba-reference-card juba-reference-tools-card">
-              <div className="juba-reference-aside-title"><h3>{tNav('courses')}</h3><LayoutDashboard size={18} /></div>
-              <Link href="/reading"><BookOpen size={17} /><span>{tNav('reading')}</span><ArrowUpRight size={14} /></Link>
-              <Link href="/listening"><Headphones size={17} /><span>{tNav('listening')}</span><ArrowUpRight size={14} /></Link>
-              <Link href="/flashcards"><Library size={17} /><span>{tNav('flashcards')}</span><ArrowUpRight size={14} /></Link>
-              <Link href="/chat"><Mic2 size={17} /><span>{tNav('tutor')}</span><ArrowUpRight size={14} /></Link>
-            </section>
-            {showPremiumBanner && (
-              <section className="juba-reference-premium">
-                <div className="juba-reference-premium-icon"><Sparkles size={20} /></div>
-                <div><strong>{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</strong><span>{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</span></div>
-                {paymentRecovery ? <button onClick={handleManageSubscription} disabled={portalLoading}>{portalLoading ? '…' : tBilling('updatePayment')}</button> : !freemiumTrialActive ? <SubscriptionPlanButtons /> : null}
-              </section>
-            )}
+            <section className="juba-reference-card juba-reference-goal-card"><div className="juba-reference-aside-title"><h3>{t('streak')}</h3><Flame size={18}/></div><div className="juba-reference-goal-ring"><div><strong>{streak}</strong><span>{t('today')}</span></div></div><p>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length||1})}</p></section>
+            <section className="juba-reference-card juba-reference-achievement-card"><div className="juba-reference-aside-title"><h3>{t('nextStep')}</h3><Trophy size={18}/></div><div className="juba-reference-achievement-icon"><Trophy size={30}/></div><strong>{nextLesson?.title||t('startWithAssessment')}</strong><span>{cefrLevel||'A1'} · {planCompletion}%</span><div className="juba-reference-small-progress"><span style={{width:planCompletion+'%'}}/></div></section>
+            <section className="juba-reference-card juba-reference-tools-card"><div className="juba-reference-aside-title"><h3>{tNav('courses')}</h3><LayoutDashboard size={18}/></div><Link href="/reading"><BookOpen size={17}/><span>{tNav('reading')}</span><ArrowUpRight size={14}/></Link><Link href="/listening"><Headphones size={17}/><span>{tNav('listening')}</span><ArrowUpRight size={14}/></Link><Link href="/flashcards"><Library size={17}/><span>{tNav('flashcards')}</span><ArrowUpRight size={14}/></Link><Link href="/chat"><Mic2 size={17}/><span>{tNav('tutor')}</span><ArrowUpRight size={14}/></Link></section>
+            {showPremiumBanner&&<section className="juba-reference-premium"><div className="juba-reference-premium-icon"><Sparkles size={20}/></div><div><strong>{freemiumTrialActive?t('freemiumTrialTitle',{days:freemiumTrialDaysLeft}):t(paymentRecovery?'premiumBannerPastDueTitle':'premiumBannerTitle')}</strong><span>{freemiumTrialActive?t('freemiumTrialDesc',{days:freemiumTrialDaysLeft}):paymentRecovery?t('premiumBannerPastDueDesc'):t(trialEligible?'premiumBannerDesc':'premiumBannerDescTrialUsed')}</span></div>{paymentRecovery?<button onClick={handleManageSubscription} disabled={portalLoading}>{portalLoading?'…':tBilling('updatePayment')}</button>:!freemiumTrialActive?<SubscriptionPlanButtons/>:null}</section>}
           </aside>
         </div>
       </div>
     </>
   )
-}
 }
