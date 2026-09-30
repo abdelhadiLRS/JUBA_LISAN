@@ -18953,3 +18953,25 @@ html[data-theme='light'] {
 .juba-reference-word-bars span{display:block;width:100%;max-width:18px;border-radius:3px 3px 0 0;background:#dfead8}
 .juba-reference-word-bars span.active{background:#58cc02}
 @media(max-width:680px){.juba-reference-reference-insights{grid-template-columns:1fr}.juba-reference-insight-card{min-height:140px}}
+
+
+/* ==========================================================================
+   V3 STRICT COMPOSITION — REFERENCE HIERARCHY
+   ========================================================================== */
+.juba-reference-v3-main>.juba-reference-v3-welcome{order:1}
+.juba-reference-v3-main>.juba-reference-course{order:2}
+.juba-reference-v3-main>.juba-reference-daily{order:3}
+.juba-reference-v3-main>.juba-reference-reference-insights{order:4}
+.juba-reference-v3-main>.juba-reference-achievement-strip{order:5}
+.juba-reference-v3-main>.juba-reference-reference-stats{display:none!important}
+.juba-reference-v3 .juba-reference-course{box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.juba-reference-v3 .juba-reference-daily{position:relative}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head{align-items:center}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head strong{font-size:15px;font-weight:900}
+.juba-reference-v3 .juba-reference-v3-chart{background:linear-gradient(to bottom,transparent 24%,#f3f3f3 25%,transparent 26%,transparent 49%,#f3f3f3 50%,transparent 51%,transparent 74%,#f3f3f3 75%,transparent 76%)}
+.juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:repeat(2,minmax(0,1fr))}
+.juba-reference-v3 .juba-reference-insight-card{min-height:142px}
+.juba-reference-v3 .juba-reference-achievement-strip{margin-top:0}
+@media(max-width:680px){
+ .juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:1fr}
+}
