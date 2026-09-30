@@ -678,6 +678,15 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr)!important}
           .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{grid-template-columns:1fr!important}
         }
+        /* Reference fidelity pass 6 — final dashboard surface polish */
+        .juba-reference-v3{background:#fff!important}
+        .juba-reference-v3 .juba-reference-topbar{border-bottom:1px solid #f0f2ed!important}
+        .juba-reference-v3 .juba-reference-v3-card{border-color:#edf0ea!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-reference-v3 .juba-reference-v3-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.045)!important}
+        .juba-reference-v3 .juba-reference-v3-welcome{border-color:#edf0ea!important}
+        .juba-reference-v3 .juba-reference-reference-nav a{transition:color .16s ease,background .16s ease!important}
+        .juba-reference-v3 button:focus-visible,.juba-reference-v3 a:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
+        @media (max-width:900px){.juba-reference-v3 .juba-reference-topbar{border-bottom:1px solid #f0f2ed!important}}
       </style>
       <OnboardingTour />
       <WhatsNew />
