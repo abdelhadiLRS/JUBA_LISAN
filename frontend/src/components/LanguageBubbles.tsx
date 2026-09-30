@@ -68,31 +68,25 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const featuredLanguages = FEATURED_LANGUAGES
 
   return (
-    <>
-      <ul
+    <ul
       dir={dir}
       className="juba-busuu-language-list"
       aria-labelledby="landing-languages-title"
     >
-      {featuredLanguages.map((language, index) => (
-        <li
-          key={language.code}
-          className={`juba-busuu-language-item juba-busuu-language-item--featured juba-busuu-language-item--${language.code}`}
-          data-language-index={String(index + 1).padStart(2, '0')}
-        >
+      {featuredLanguages.map((language) => (
+        <li key={language.code} className="juba-busuu-language-item">
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
             alt=""
             aria-hidden="true"
-            className="juba-busuu-language-flag"
             width={80}
             height={60}
             unoptimized
+            style={{ height: 'auto' }}
           />
           <span lang={language.code} dir="auto">{language.name}</span>
         </li>
       ))}
-      </ul>
-    </>
+    </ul>
   )
 }
