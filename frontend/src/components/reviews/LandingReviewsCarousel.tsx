@@ -43,6 +43,9 @@ export function LandingReviewsCarousel({
     if (reduceMotion) return
 
     const interval = window.setInterval(() => {
+      // Do not move the carousel while a visitor is reading or interacting with it.
+      if (scroller.matches(':hover') || scroller.contains(document.activeElement)) return
+
       const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       const maxLeft = scroller.scrollWidth - scroller.clientWidth
 
@@ -108,7 +111,11 @@ export function LandingReviewsCarousel({
 
       <div
         ref={scrollerRef}
-        className={`scrollbar-thumb-[var(--busuu-line)] flex snap-x scrollbar-thin scrollbar-track-transparent gap-4 overflow-x-auto pb-3 ${reviews.length === 1 ? 'justify-center' : ''}`}
+        role="region"
+        aria-label={t('title')}
+        tabIndex={0}
+        ref={scrollerRef}
+        className={`juba-busuu-reviews-scroller scrollbar-thumb-[var(--busuu-line)] flex snap-x scrollbar-thin scrollbar-track-transparent gap-4 overflow-x-auto pb-3 ${reviews.length === 1 ? 'justify-center' : ''}`}
       >
         {reviews.map((review) => (
           <article
