@@ -332,7 +332,7 @@ export default function ChatPage() {
   return (
     <MaintenanceGate>
       <style>{`
-        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;flex:none!important;border-inline-start:1px solid #edf0ea!important;background:#fff!important;padding:0 14px 18px!important;overflow-y:auto!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;flex:none!important;border-inline-start:1px solid #edf0ea!important;background:#fff!important;padding:0 14px 18px!important;overflow-y:auto!important;position:sticky!important;top:0!important;height:100%!important}
         .juba-mobile-chat .juba-chat-profile-card{border:1px solid #edf0ea!important;border-radius:12px!important;background:#fff!important;overflow:hidden!important;margin-bottom:14px!important}
         .juba-mobile-chat .juba-chat-profile-hero{display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;padding:22px 12px 13px!important}
         .juba-mobile-chat .juba-chat-profile-photo{width:104px!important;height:104px!important;border-radius:50%!important;overflow:hidden!important;border:4px solid #fff!important;box-shadow:0 0 0 1px #e4e9e2!important;background:#f4f7f3!important;display:grid!important;place-items:center!important;color:#aaa!important}
