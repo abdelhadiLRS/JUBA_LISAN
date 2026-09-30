@@ -67,10 +67,9 @@ export default async function Home() {
   const t = await getTranslations('landing')
   const tCommon = await getTranslations('common')
   const tBilling = await getTranslations('billing')
-  const languageCountLabel = t('languagesCount').replace(
-    '{count}',
-    new Intl.NumberFormat(locale).format(SUPPORTED_LANGUAGE_COUNT),
-  )
+  const languageCountLabel = t('languagesCount', {
+    count: new Intl.NumberFormat(locale).format(SUPPORTED_LANGUAGE_COUNT),
+  })
 
   let allowRegistration = false
   let stripeEnabled = false
