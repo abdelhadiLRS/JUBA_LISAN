@@ -29471,3 +29471,21 @@ html[data-theme='light'] {
     padding:12px 12px 28px!important;
   }
 }
+
+
+/* DASHBOARD ONLY — STRICT REFERENCE GEOMETRY PASS 2 */
+.juba-reference-v3 .juba-reference-v3-grid{align-items:start!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{position:relative!important;overflow:hidden!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome::before{content:""!important;position:absolute!important;inset-inline-start:0!important;top:0!important;bottom:0!important;width:4px!important;background:#58cc02!important}
+.juba-reference-v3 .juba-reference-welcome-copy{padding-inline-start:2px!important}
+.juba-reference-v3 .juba-reference-welcome-meta{border-top:1px solid #f0f0f0!important;padding-top:7px!important;max-width:540px!important}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head{min-height:54px!important;padding:11px 15px!important;border-bottom:1px solid #ededed!important}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head h2{font-size:13px!important}
+.juba-reference-v3 .juba-reference-v3-chart-footer{border-top:1px solid #f2f2f2!important;padding:7px 14px!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-track{height:6px!important;border-radius:0!important;background:#edf1eb!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-track>span{border-radius:0!important;background:#58cc02!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action .juba-reference-green-button{min-width:76px!important;height:30px!important;padding:0 12px!important;border-radius:6px!important;font-size:8px!important}
+.juba-reference-v3 .juba-reference-achievement-strip{min-height:70px!important;border-radius:7px!important}
+.juba-reference-v3 .juba-reference-v3-rail>.juba-reference-achievement-card{padding:14px!important}
+.juba-reference-v3 .juba-reference-v3-rail>.juba-reference-tools-card{padding:14px!important}
+@media(max-width:900px){.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{min-height:100px!important}.juba-reference-v3 .juba-reference-welcome-meta{max-width:100%!important}}
