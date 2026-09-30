@@ -136,7 +136,7 @@ export default async function Home() {
 
       <main id="main-content">
       {/* Busuu reference hero: centered blue composition with the visual anchored below the CTA */}
-      <section className="juba-busuu-reference-hero" aria-labelledby="landing-hero-title">
+      <section data-editorial-section="00" className="juba-busuu-reference-hero" aria-labelledby="landing-hero-title">
         <div className="juba-busuu-reference-hero-inner">
           <div className="juba-busuu-reference-hero-copy">
             <div className="juba-busuu-hero-meta" aria-hidden="true">
@@ -227,7 +227,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-proof-strip" aria-labelledby="landing-proof-title">
+      <section data-editorial-section="01A" className="juba-busuu-proof-strip" aria-labelledby="landing-proof-title">
         <div className="juba-busuu-proof-inner">
           <h2 id="landing-proof-title" className="sr-only">{t('navFeatures')}</h2>
           <div className="juba-busuu-proof-stat">
@@ -466,7 +466,7 @@ export default async function Home() {
 
       {/* Busuu reference: New languages editorial banner */}
       <ScrollReveal>
-        <section className="juba-busuu-new-languages" aria-label={t('tickerNewLanguages')}>
+        <section data-editorial-section="07A" className="juba-busuu-new-languages" aria-label={t('tickerNewLanguages')}>
           <div className="juba-busuu-new-languages-track">
             {[0, 1].map((group) => (
               <div
@@ -500,7 +500,7 @@ export default async function Home() {
 
       {/* Open Source */}
       <ScrollReveal>
-        <section className="juba-busuu-open-source-section" aria-labelledby="landing-open-source-title">
+        <section data-editorial-section="07B" className="juba-busuu-open-source-section" aria-labelledby="landing-open-source-title">
           <div className="juba-busuu-open-source flex flex-col items-center justify-between gap-5 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
