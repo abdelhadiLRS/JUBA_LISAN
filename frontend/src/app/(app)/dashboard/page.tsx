@@ -464,7 +464,7 @@ export default function DashboardPage() {
             <section className="juba-reference-reference-insights">
               <div className="juba-reference-v3-card juba-reference-insight-card">
                 <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('dailyGoal')}</h3></div>
+                  <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
                   <Flame size={18} />
                 </div>
                 <div className="juba-reference-insight-value"><strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)} {t('today')}</span></div>
@@ -473,7 +473,7 @@ export default function DashboardPage() {
               </div>
               <div className="juba-reference-v3-card juba-reference-insight-card">
                 <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('vocabulary')}</span><h3>{t('vocabulary')}</h3></div>
+                  <div><span className="juba-reference-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
                   <Library size={18} />
                 </div>
                 <div className="juba-reference-words-value"><strong>{vocabularyMastered.toLocaleString()}</strong><span>/ {vocabularyTotal.toLocaleString()}</span></div>
@@ -482,14 +482,14 @@ export default function DashboardPage() {
                     <span key={height} style={{height: Math.max(12, Math.round(height * Math.max(0.18, vocabularyProgress))) + '%'}} className={index === 5 ? 'active' : ''} />
                   ))}
                 </div>
-                <div className="juba-reference-insight-footer"><span>{t('vocabulary')}</span><b>{vocabularyProgressPct}%</b><span>{vocabularyLevel || 'A1'}</span></div>
+                <div className="juba-reference-insight-footer"><span>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><b>{vocabularyProgressPct}%</b><span>{vocabularyLevel || 'A1'}</span></div>
               </div>
             </section>
 
             <section className="juba-reference-reference-stats">
               <div className="juba-reference-v3-card juba-reference-stat-card">
                 <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('vocabulary')}</span><h3>{t('vocabulary')}</h3></div>
+                  <div><span className="juba-reference-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
                   <Library size={18} />
                 </div>
                 <div className="juba-reference-stat-value">{vocabularyMastered.toLocaleString()}</div>
@@ -581,7 +581,7 @@ export default function DashboardPage() {
 
             <section className="juba-reference-v3-card juba-reference-goal-card">
               <div className="juba-reference-v3-card-head">
-                <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('dailyGoal')}</h3></div>
+                <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
                 <Flame size={19} />
               </div>
               <div className="juba-reference-goal-ring" style={{background: 'conic-gradient(#58cc02 0 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%, #edf2e9 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '% 100%)'}}>
