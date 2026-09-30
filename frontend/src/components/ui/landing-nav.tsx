@@ -134,7 +134,6 @@ export function LandingNav({
   }, [])
 
   const localeCodes: Locale[] = ['en', 'ar', 'es', 'fr', 'pt', 'de', 'it', 'pl', 'nl', 'ro', 'ru']
-  // Keep the navigation resilient if a stale client payload supplies an invalid locale.
   const safeLocale = typeof locale === 'string' ? normalizeLocale(locale) : 'en'
   const localeDisplayNames = new Intl.DisplayNames([safeLocale], { type: 'language' })
   const localeOptions: Array<[Locale, string]> = localeCodes.map((code) => [
@@ -183,7 +182,7 @@ export function LandingNav({
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
-          <span className="juba-busuu-nav-pill" aria-hidden="true">LEARN</span>
+          <span className="juba-busuu-nav-pill">{navFeatures}</span>
           {links.map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
@@ -247,42 +246,42 @@ export function LandingNav({
         hidden={!open}
         aria-hidden={!open}
       >
-          <nav aria-label={primaryNavigation}>
-            {links.map((link) => (
-              <a key={link.href + link.label} href={link.href} onClick={() => close(link.href)}>
-                {link.label}
-              </a>
+        <nav aria-label={primaryNavigation}>
+          {links.map((link) => (
+            <a key={link.href + link.label} href={link.href} onClick={() => close(link.href)}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <div className="juba-busuu-mobile-actions">
+          {!hasSession && (
+            <Link href="/login" onClick={() => close()}>
+              {signIn}
+            </Link>
+          )}
+          <Link
+            className="juba-busuu-mobile-cta"
+            href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+            onClick={() => close()}
+          >
+            {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
+          </Link>
+          <nav className="juba-busuu-mobile-locales" aria-label={interfaceLanguages}>
+            {localeOptions.map(([code, label]) => (
+              <Link
+                key={code}
+                href={code === 'en' ? '/' : `/${code}`}
+                onClick={() => close()}
+                aria-current={code === safeLocale ? 'page' : undefined}
+                lang={code}
+                dir="auto"
+                hrefLang={code}
+              >
+                {label}
+              </Link>
             ))}
           </nav>
-          <div className="juba-busuu-mobile-actions">
-            {!hasSession && (
-              <Link href="/login" onClick={() => close()}>
-                {signIn}
-              </Link>
-            )}
-            <Link
-              className="juba-busuu-mobile-cta"
-              href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
-              onClick={() => close()}
-            >
-              {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
-            </Link>
-            <nav className="juba-busuu-mobile-locales" aria-label={interfaceLanguages}>
-              {localeOptions.map(([code, label]) => (
-                <Link
-                  key={code}
-                  href={code === 'en' ? '/' : `/${code}`}
-                  onClick={() => close()}
-                  aria-current={code === safeLocale ? 'page' : undefined}
-                  lang={code}
-                  dir="auto"
-                  hrefLang={code}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        </div>
       </div>
     </header>
   )
