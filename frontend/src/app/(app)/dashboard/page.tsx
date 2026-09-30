@@ -6,14 +6,12 @@ import { useTranslations } from 'next-intl'
 import {
   ArrowUpRight,
   BookOpen,
-  CalendarDays,
   Check,
   ChevronDown,
   Flame,
   Headphones,
   LayoutDashboard,
   Library,
-  ListChecks,
   Mic2,
   MoreHorizontal,
   Play,
@@ -117,7 +115,6 @@ export default function DashboardPage() {
   }>>([])
   const [historyLoading, setHistoryLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
-  const [activeInsight, setActiveInsight] = useState<'next' | 'performance' | 'vocabulary' | null>(null)
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -301,10 +298,6 @@ export default function DashboardPage() {
   if (loading) {
     return <PageLoading label={t('loadingProgress')} minHeight="min-h-screen" />
   }
-
-  const skillEntries = Object.entries(skills)
-    .map(([skill, value]) => ({ skill, value: value as number }))
-    .sort((a, b) => a.value - b.value)
 
   const completedLessonCount = todayLessons.filter(
     (lesson) => (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
