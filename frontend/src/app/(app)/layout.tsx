@@ -285,7 +285,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         ? String(feedbackUnreadCount)
         : ''
 
-  return (
+  return (\n    <>
 
       <style>{`
         /* JUBA LISAN app shell — strict reference chrome */
@@ -786,5 +786,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         onCancel={() => setLogoutConfirm(false)}
       />
     </div>
-  )
+    </>\n  )
 }
