@@ -16784,3 +16784,247 @@ html[data-theme='light'] {
     width:72px;
   }
 }
+
+
+/* ── Landing v6: structural editorial spine + stronger visual rhythm ── */
+.juba-busuu-page main {
+  position:relative;
+  isolation:isolate;
+}
+.juba-busuu-page main > * {
+  position:relative;
+}
+.juba-busuu-page main section[data-editorial-section]::before {
+  content:attr(data-editorial-section);
+  position:absolute;
+  inset-block-start:clamp(22px,3vw,42px);
+  inset-inline-end:clamp(18px,4vw,54px);
+  z-index:3;
+  display:grid;
+  width:34px;
+  height:34px;
+  place-items:center;
+  border:1px solid color-mix(in srgb,var(--busuu-ink) 16%,transparent);
+  border-radius:50%;
+  background:color-mix(in srgb,#fff 78%,transparent);
+  color:var(--busuu-muted);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  backdrop-filter:blur(10px);
+  pointer-events:none;
+}
+.juba-busuu-page main section[data-editorial-section]::after {
+  content:"";
+  position:absolute;
+  inset-block-start:72px;
+  inset-inline-end:calc(clamp(18px,4vw,54px) + 16px);
+  width:1px;
+  height:calc(100% - 72px);
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--busuu-ink) 12%,transparent),
+    transparent 88%);
+  pointer-events:none;
+}
+.juba-busuu-page .juba-busuu-reference-hero[data-editorial-section]::before {
+  border-color:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.12);
+  color:rgba(255,255,255,.86);
+}
+.juba-busuu-page .juba-busuu-reference-hero[data-editorial-section]::after {
+  background:linear-gradient(180deg,rgba(255,255,255,.24),transparent 88%);
+}
+.juba-busuu-page .juba-busuu-proof-strip[data-editorial-section]::before,
+.juba-busuu-page .juba-busuu-proof-strip[data-editorial-section]::after,
+.juba-busuu-page .juba-busuu-new-languages[data-editorial-section]::before,
+.juba-busuu-page .juba-busuu-new-languages[data-editorial-section]::after {
+  display:none;
+}
+.juba-busuu-page .juba-busuu-open-source-section[data-editorial-section]::before,
+.juba-busuu-page .juba-busuu-open-source-section[data-editorial-section]::after {
+  display:none;
+}
+.juba-busuu-page .juba-busuu-footer[data-editorial-section]::before {
+  inset-block-start:18px;
+}
+.juba-busuu-page .juba-busuu-footer[data-editorial-section]::after {
+  inset-block-start:58px;
+  height:calc(100% - 58px);
+}
+.juba-busuu-page .juba-busuu-language-intro h2,
+.juba-busuu-page .juba-busuu-real-world-heading h2,
+.juba-busuu-page .juba-busuu-different-heading h2,
+.juba-busuu-page .juba-busuu-why-learn-heading h2 {
+  position:relative;
+  display:inline-block;
+}
+.juba-busuu-page .juba-busuu-language-intro h2::after,
+.juba-busuu-page .juba-busuu-real-world-heading h2::after,
+.juba-busuu-page .juba-busuu-different-heading h2::after,
+.juba-busuu-page .juba-busuu-why-learn-heading h2::after {
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  inset-block-end:-10px;
+  width:54px;
+  height:5px;
+  border-radius:999px;
+  background:var(--busuu-yellow);
+  transform:rotate(-2deg);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-proof-inner::before {
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  inset-block-start:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--busuu-green);
+  box-shadow:0 0 0 6px var(--busuu-mint);
+  transform:translateY(-50%);
+}
+.juba-busuu-page .juba-busuu-real-world-grid,
+.juba-busuu-page .juba-busuu-different-grid,
+.juba-busuu-page .juba-busuu-why-learn-grid {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-real-world-card,
+.juba-busuu-page .juba-busuu-different-card,
+.juba-busuu-page .juba-busuu-why-learn-card {
+  position:relative;
+  overflow:hidden;
+}
+.juba-busuu-page .juba-busuu-real-world-card::before,
+.juba-busuu-page .juba-busuu-different-card::before,
+.juba-busuu-page .juba-busuu-why-learn-card::before {
+  content:"";
+  position:absolute;
+  inset-block-start:0;
+  inset-inline-end:0;
+  width:46%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--busuu-green));
+  opacity:.6;
+}
+.juba-busuu-page .juba-busuu-real-world-card:hover,
+.juba-busuu-page .juba-busuu-different-card:hover,
+.juba-busuu-page .juba-busuu-why-learn-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 20px 48px color-mix(in srgb,var(--busuu-ink) 11%,transparent);
+}
+.juba-busuu-page .juba-busuu-real-world-card,
+.juba-busuu-page .juba-busuu-different-card,
+.juba-busuu-page .juba-busuu-why-learn-card {
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.juba-busuu-page .juba-busuu-app-section[data-editorial-section],
+.juba-busuu-page .juba-busuu-testimonials[data-editorial-section],
+.juba-busuu-page .juba-busuu-why-learn[data-editorial-section] {
+  overflow:hidden;
+}
+.juba-busuu-page .juba-busuu-app-section[data-editorial-section]::before {
+  border-color:rgba(23,33,27,.16);
+  background:rgba(255,255,255,.72);
+}
+.juba-busuu-page .juba-busuu-testimonials[data-editorial-section]::before {
+  border-color:rgba(255,255,255,.28);
+  background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.8);
+}
+.juba-busuu-page .juba-busuu-testimonials[data-editorial-section]::after {
+  background:linear-gradient(180deg,rgba(255,255,255,.22),transparent 90%);
+}
+.juba-busuu-page .juba-busuu-why-learn-cta {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-why-learn-cta::before,
+.juba-busuu-page .juba-busuu-why-learn-cta::after {
+  content:"";
+  position:absolute;
+  top:50%;
+  width:min(18vw,180px);
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--busuu-line));
+}
+.juba-busuu-page .juba-busuu-why-learn-cta::before { inset-inline-start:0; }
+.juba-busuu-page .juba-busuu-why-learn-cta::after {
+  inset-inline-end:0;
+  transform:scaleX(-1);
+}
+.juba-busuu-page .juba-busuu-open-source-section {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-open-source-section::after {
+  content:"OPEN SOURCE / JUBA LISAN";
+  position:absolute;
+  inset-inline-end:24px;
+  inset-block-start:10px;
+  color:var(--busuu-muted);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+  opacity:.65;
+}
+.juba-busuu-page .juba-busuu-footer {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-footer::before {
+  content:"JUBA LISAN / LANGUAGE LEARNING SYSTEM";
+  position:absolute;
+  inset-inline-start:24px;
+  inset-block-start:14px;
+  color:var(--busuu-muted);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.15em;
+  opacity:.62;
+}
+@media (max-width:900px) {
+  .juba-busuu-page main section[data-editorial-section]::before {
+    width:30px;
+    height:30px;
+    inset-inline-end:18px;
+  }
+  .juba-busuu-page main section[data-editorial-section]::after {
+    inset-inline-end:33px;
+  }
+  .juba-busuu-page .juba-busuu-why-learn-cta::before,
+  .juba-busuu-page .juba-busuu-why-learn-cta::after {
+    width:10vw;
+  }
+}
+@media (max-width:560px) {
+  .juba-busuu-page main section[data-editorial-section]::before {
+    width:26px;
+    height:26px;
+    inset-block-start:16px;
+    inset-inline-end:14px;
+    font-size:9px;
+  }
+  .juba-busuu-page main section[data-editorial-section]::after {
+    display:none;
+  }
+  .juba-busuu-page .juba-busuu-language-intro h2::after,
+  .juba-busuu-page .juba-busuu-real-world-heading h2::after,
+  .juba-busuu-page .juba-busuu-different-heading h2::after,
+  .juba-busuu-page .juba-busuu-why-learn-heading h2::after {
+    width:42px;
+    height:4px;
+    inset-block-end:-7px;
+  }
+  .juba-busuu-page .juba-busuu-proof-inner::before {
+    display:none;
+  }
+  .juba-busuu-page .juba-busuu-why-learn-cta::before,
+  .juba-busuu-page .juba-busuu-why-learn-cta::after {
+    display:none;
+  }
+  .juba-busuu-page .juba-busuu-open-source-section::after,
+  .juba-busuu-page .juba-busuu-footer::before {
+    display:none;
+  }
+}
