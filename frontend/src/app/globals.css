@@ -17745,3 +17745,74 @@ html[data-theme='light'] {
     font-size:15px;
   }
 }
+
+
+/* ── Landing v11: visible section anchors + editorial wayfinding ── */
+.juba-busuu-page .juba-busuu-section-index {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  margin-bottom:14px;
+  border:1px solid rgba(0,168,107,.28);
+  border-radius:50%;
+  background:#fff;
+  color:var(--jl-green-deep);
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.12em;
+  box-shadow:0 4px 0 rgba(0,168,107,.08);
+}
+.juba-busuu-page .juba-busuu-real-world-heading,
+.juba-busuu-page .juba-busuu-different-heading,
+.juba-busuu-page .juba-busuu-why-learn-heading,
+.juba-busuu-page .juba-busuu-app-copy {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-real-world-heading::after,
+.juba-busuu-page .juba-busuu-different-heading::after,
+.juba-busuu-page .juba-busuu-why-learn-heading::after {
+  content:"";
+  display:block;
+  width:46px;
+  height:3px;
+  margin-top:22px;
+  border-radius:999px;
+  background:var(--jl-yellow);
+  transform:rotate(-2deg);
+}
+.juba-busuu-page .juba-busuu-different-heading .juba-busuu-section-index {
+  background:var(--jl-mint);
+}
+.juba-busuu-page .juba-busuu-why-learn-heading .juba-busuu-section-index {
+  background:var(--jl-yellow);
+  border-color:rgba(23,33,27,.08);
+  color:var(--jl-ink);
+}
+.juba-busuu-page .juba-busuu-app-copy .juba-busuu-section-index {
+  background:var(--jl-ink);
+  border-color:rgba(23,33,27,.14);
+  color:#fff;
+}
+.juba-busuu-page .juba-busuu-faq-heading {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.juba-busuu-page .juba-busuu-faq-heading .juba-busuu-section-index {
+  margin-bottom:10px;
+  background:var(--jl-cream);
+}
+@media (max-width:640px) {
+  .juba-busuu-page .juba-busuu-section-index {
+    width:30px;
+    height:30px;
+    margin-bottom:11px;
+  }
+  .juba-busuu-page .juba-busuu-real-world-heading::after,
+  .juba-busuu-page .juba-busuu-different-heading::after,
+  .juba-busuu-page .juba-busuu-why-learn-heading::after {
+    margin-top:18px;
+  }
+}
