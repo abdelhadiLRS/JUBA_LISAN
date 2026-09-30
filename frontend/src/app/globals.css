@@ -20507,3 +20507,73 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* Landing v29 — structured language constellation */
+.juba-busuu-page .juba-busuu-language-list {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
+  width: min(980px, 100%);
+  min-height: 0;
+}
+.juba-busuu-page .juba-busuu-language-item {
+  position: relative;
+  min-width: 0;
+  min-height: 104px;
+  justify-content: center;
+  padding: 15px 8px 12px;
+  border: 1px solid rgba(23,33,27,.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(23,33,27,.045);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-item img {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(8,119,249,.18);
+  box-shadow: 0 16px 30px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-language-item:hover img {
+  transform: scale(1.06);
+  box-shadow: 0 7px 16px rgba(25,40,32,.14);
+}
+.juba-busuu-page .juba-busuu-language-item > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-language-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-language-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+  }
+  .juba-busuu-page .juba-busuu-language-item {
+    min-height: 92px;
+    padding: 13px 6px 10px;
+    border-radius: 14px;
+  }
+  .juba-busuu-page .juba-busuu-language-item img {
+    width: 44px;
+    height: 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-item img {
+    transition: none;
+  }
+  .juba-busuu-page .juba-busuu-language-item:hover,
+  .juba-busuu-page .juba-busuu-language-item:hover img {
+    transform: none;
+  }
+}
