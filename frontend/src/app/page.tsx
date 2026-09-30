@@ -554,6 +554,27 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      <ScrollReveal>
+        <section data-editorial-section="08A" className="juba-busuu-final-cta" aria-labelledby="landing-final-cta-title">
+          <div className="juba-busuu-final-cta-inner">
+            <div className="juba-busuu-final-cta-copy">
+              <span className="juba-busuu-section-index" aria-hidden="true">08A</span>
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2 id="landing-final-cta-title">{t('heroTitle')}</h2>
+              <p>{t('heroSub')}</p>
+            </div>
+            <div className="juba-busuu-final-cta-actions">
+              <Link href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'} className="juba-busuu-final-cta-primary">
+                {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+              </Link>
+              <a href="#languages" className="juba-busuu-final-cta-secondary">
+                {t('navLanguages')} <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       </main>
 
       {/* Footer */}
