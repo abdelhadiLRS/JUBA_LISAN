@@ -502,7 +502,7 @@ export default function DashboardPage() {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
                   return (
-                    <div key={lesson.id ?? lesson.title} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`}>
+                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`}>
                       <div className="juba-reference-path-rail" aria-hidden="true">
                         <span className={`juba-reference-path-node ${done ? 'done' : current ? 'current' : ''}`}>
                           {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
@@ -510,7 +510,7 @@ export default function DashboardPage() {
                       </div>
                       <div className="juba-reference-lesson-copy"><strong>{lesson.title}</strong><span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span></div>
                       <div className="juba-reference-lesson-action">
-                        {current && lesson.id ? <Link href={'/lesson/' + lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link> : done ? <span className="juba-reference-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="juba-reference-locked"><MoreHorizontal size={17} /></span>}
+                        {current && lesson.id ? <div style={{display:'flex',alignItems:'center',gap:7}}><span style={{fontSize:8,fontWeight:900,color:'#58a91b',letterSpacing:'.04em',textTransform:'uppercase'}}>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link></div> : done ? <span className="juba-reference-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="juba-reference-locked"><MoreHorizontal size={17} /></span>}
                       </div>
                     </div>
                   )
