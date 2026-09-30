@@ -124,6 +124,7 @@ export default async function Home() {
         navLanguages={t('navLanguages')}
         interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
+        navPricing={t('navPricing')}
         showReviews={reviews.length > 0}
         signIn={t('signIn')}
         dashboard={t('dashboard')}
