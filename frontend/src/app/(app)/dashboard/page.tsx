@@ -345,7 +345,31 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="juba-duo-home juba-busuu-dashboard">
+      <div className="juba-duo-home juba-busuu-dashboard juba-hifi-dashboard" data-dashboard-version="hifi-2">
+        <div className="juba-hifi-toolbar">
+          <div className="juba-hifi-toolbar-brand">
+            <span className="juba-hifi-toolbar-mark">JL</span>
+            <div>
+              <strong>{tNav('dashboard')}</strong>
+              <span>{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
+            </div>
+          </div>
+          <div className="juba-hifi-toolbar-actions">
+            <span className="juba-hifi-toolbar-level">{cefrLevel || 'A1'}</span>
+            <button
+              type="button"
+              className="juba-hifi-refresh"
+              onClick={refreshDashboardData}
+              disabled={refreshing}
+              aria-label={tError('retry')}
+              title={tError('retry')}
+            >
+              <RefreshCw size={17} className={refreshing ? 'animate-spin' : ''} />
+            </button>
+            <div className="juba-hifi-avatar"><UserRound size={17} /></div>
+          </div>
+        </div>
+
         <section className="juba-duo-welcome">
           <div>
             <span className="juba-duo-eyebrow">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
