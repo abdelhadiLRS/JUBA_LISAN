@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import {
   ArrowUpRight,
   BookOpen,
+  ChartNoAxesColumnIncreasing,
   CalendarDays,
   Check,
   ChevronDown,
@@ -18,6 +19,7 @@ import {
   MoreHorizontal,
   Play,
   RefreshCw,
+  Sparkles,
   Trophy,
   UserRound,
 } from 'lucide-react'
