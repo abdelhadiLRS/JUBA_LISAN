@@ -362,6 +362,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         }
       `}
 
+        /* Reference fidelity pass 8 — final Busuu-style shell alignment */
+        .juba-reference-shell .juba-duo-sidebar{width:220px!important;min-width:220px!important;flex-basis:220px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:80px!important;padding-inline:20px!important}
+        .juba-reference-shell .juba-duo-logo-mark{width:36px!important;height:36px!important;box-shadow:0 2px 0 #46a302!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{font-size:15px!important}
+        .juba-reference-shell .juba-duo-nav{padding:12px 9px!important}
+        .juba-reference-shell .juba-duo-nav-link{min-height:39px!important;margin:1px 0!important;padding:7px 11px!important;border-radius:9px!important;gap:10px!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:18px!important;height:18px!important}
+        .juba-reference-shell .juba-duo-user{padding:11px 13px!important}
+        .juba-reference-shell .juba-duo-main{min-width:0!important}
+        .juba-reference-shell .juba-duo-page-frame{scrollbar-width:thin!important;scrollbar-color:#dfe7da transparent!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-reference-shell .juba-duo-sidebar{width:204px!important;min-width:204px!important;flex-basis:204px!important}
+          .juba-reference-shell .juba-duo-nav-link{font-size:11px!important;padding-inline:9px!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-shell .juba-duo-mobile-bar{height:56px!important;min-height:56px!important}
+        }
+      `}
+
         /* Reference fidelity pass 4 — shell finishing */
         .juba-reference-shell .juba-duo-sidebar{background:#fff!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{border-bottom:1px solid #f3f4f1!important}
