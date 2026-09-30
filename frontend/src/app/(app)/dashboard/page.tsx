@@ -502,9 +502,9 @@ export default function DashboardPage() {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
                   return (
-                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} style={current ? { background: '#fbfff8', boxShadow: 'inset 3px 0 0 #58cc02' } : undefined}>
+                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} style={current ? { background: '#fbfff8', boxShadow: 'inset 3px 0 0 #58cc02', minHeight: 72, borderBottomColor: '#e8eee4' } : done ? { background: '#fff' } : undefined}>
                       <div className="juba-reference-path-rail" aria-hidden="true">
-                        <span className={`juba-reference-path-node ${done ? 'done' : current ? 'current' : ''}`}>
+                        <span className={`juba-reference-path-node ${done ? 'done' : current ? 'current' : ''}`} style={current ? { width: 34, height: 34, marginInlineStart: -2, boxShadow: '0 0 0 5px #f4faef', fontSize: 10 } : undefined}>
                           {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
                         </span>
                       </div>
