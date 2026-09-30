@@ -13331,3 +13331,48 @@ html[data-theme='light'] {
     font-size: clamp(30px, 9vw, 38px);
   }
 }
+
+
+/* === Landing-only cleanup: consolidate repeated ticker/accessibility overrides === */
+.juba-busuu-page .juba-busuu-new-languages {
+  contain: layout paint;
+}
+.juba-busuu-page .juba-busuu-new-languages-track {
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  flex-shrink: 0;
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    overflow-x: auto;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    display: flex;
+    width: max-content;
+    transform: none !important;
+    animation: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
+    display: none;
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 124px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 18px;
+    padding-inline: 18px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group img {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+}
