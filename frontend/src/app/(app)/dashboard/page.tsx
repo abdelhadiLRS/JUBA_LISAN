@@ -347,6 +347,38 @@ export default function DashboardPage() {
 
   return (
     <>
+      <style>{`
+        .juba-reference-v3{background:#f6f6f6}
+        .juba-reference-v3 .juba-reference-v3-grid{align-items:start}
+        .juba-reference-v3 .juba-reference-v3-main{min-width:0}
+        .juba-reference-v3 .juba-reference-v3-main>section{scroll-margin-top:84px}
+        .juba-reference-v3 .juba-reference-v3-welcome{box-shadow:0 1px 0 rgba(0,0,0,.02)}
+        .juba-reference-v3 .juba-reference-v3-welcome .juba-reference-welcome-copy{max-width:calc(100% - 92px)}
+        .juba-reference-v3 .juba-reference-v3-welcome .juba-reference-v3-level{box-shadow:0 2px 0 #eef3eb}
+        .juba-reference-v3 .juba-reference-daily{overflow:hidden}
+        .juba-reference-v3 .juba-reference-v3-chart-col.active span{box-shadow:0 2px 0 #46a302}
+        .juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{padding-bottom:12px}
+        .juba-reference-v3 .juba-reference-course-path{border-top:1px solid #f0f0f0}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:last-child{border-bottom:0}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{color:#3f8e12}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy span{color:#8aa27f}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.done .juba-reference-lesson-copy strong{color:#555}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.done .juba-reference-path-node{box-shadow:0 1px 0 #46a302}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:not(.current):not(.done) .juba-reference-path-node{background:#fafafa}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-path-node{transform:scale(1.08)}
+        .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-action .juba-reference-green-button{min-width:92px;text-align:center}
+        .juba-reference-v3 .juba-reference-v3-rail{align-self:start}
+        .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{box-shadow:0 1px 0 rgba(0,0,0,.025)}
+        .juba-reference-v3 .juba-reference-profile-card{border-top:3px solid #58cc02}
+        .juba-reference-v3 .juba-reference-goal-card{border-top:3px solid #dfead8}
+        .juba-reference-v3 .juba-reference-xp-card{border-top:3px solid #dfead8}
+        .juba-reference-v3 .juba-reference-achievement-card{border-top:3px solid #dfead8}
+        .juba-reference-v3 .juba-reference-tools-card{border-top:3px solid #dfead8}
+        @media (max-width:900px){
+          .juba-reference-v3 .juba-reference-v3-welcome .juba-reference-welcome-copy{max-width:none}
+          .juba-reference-v3 .juba-reference-v3-welcome{align-items:flex-start}
+        }
+      `}</style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
