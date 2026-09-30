@@ -19385,3 +19385,218 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v22 — stronger proof band, chapter markers, and lower-fold contrast */
+.juba-busuu-page .juba-busuu-proof-strip {
+  position: relative;
+  padding: 18px 0;
+  background:
+    linear-gradient(90deg, rgba(8,119,249,.035), transparent 22%, transparent 78%, rgba(0,168,107,.045)),
+    #fff;
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: auto minmax(120px,.55fr) 1px minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);
+  align-items: center;
+  gap: 18px;
+  padding-inline: 24px;
+}
+.juba-busuu-page .juba-busuu-proof-label {
+  align-self: start;
+  padding-top: 4px;
+  color: var(--jl-muted);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-proof-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.juba-busuu-page .juba-busuu-proof-stat strong {
+  color: var(--jl-blue-deep);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1;
+}
+.juba-busuu-page .juba-busuu-proof-stat span,
+.juba-busuu-page .juba-busuu-proof-item {
+  color: var(--jl-muted);
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+.juba-busuu-page .juba-busuu-proof-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.juba-busuu-page .juba-busuu-proof-item > span:last-child {
+  overflow-wrap: anywhere;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  display: inline-flex;
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--jl-green-deep);
+  background: rgba(0,168,107,.10);
+  font-size: 12px;
+  font-weight: 900;
+}
+.juba-busuu-page .juba-busuu-proof-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(23,33,27,.10);
+}
+
+.juba-busuu-page .juba-busuu-section-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 42px;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(8,119,249,.16);
+  border-radius: 999px;
+  background: rgba(8,119,249,.045);
+  color: var(--jl-blue-deep);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1;
+}
+.juba-busuu-page .juba-busuu-eyebrow {
+  line-height: 1.2;
+}
+.juba-busuu-page .juba-busuu-real-world-heading,
+.juba-busuu-page .juba-busuu-different-heading,
+.juba-busuu-page .juba-busuu-why-learn-heading {
+  max-width: 820px;
+}
+.juba-busuu-page .juba-busuu-real-world-heading .juba-busuu-section-index,
+.juba-busuu-page .juba-busuu-different-heading .juba-busuu-section-index,
+.juba-busuu-page .juba-busuu-why-learn-heading .juba-busuu-section-index {
+  margin-bottom: 14px;
+}
+
+.juba-busuu-page .juba-busuu-new-languages {
+  overflow: hidden;
+  border-block: 1px solid rgba(23,33,27,.08);
+  background: var(--jl-blue);
+  color: #fff;
+}
+.juba-busuu-page .juba-busuu-new-languages-track {
+  min-height: 58px;
+  display: flex;
+  width: max-content;
+  align-items: center;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding-inline: 22px;
+  white-space: nowrap;
+  animation: juba-landing-ticker 28s linear infinite;
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  font-size: clamp(11px, 1.2vw, 13px);
+  font-weight: 850;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+@keyframes juba-landing-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-group {
+  animation-play-state: paused;
+}
+
+.juba-busuu-page .juba-busuu-faq-heading {
+  width: min(100% - 32px, 1180px);
+  margin: 0 auto 30px;
+}
+.juba-busuu-page .juba-busuu-faq-heading .juba-busuu-section-index {
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-faq-title {
+  margin-top: 12px;
+  font-size: clamp(30px, 4vw, 48px) !important;
+  letter-spacing: -.045em !important;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-faq-section > .juba-busuu-faq-heading + * {
+  width: min(100% - 32px, 900px);
+  margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 14px 18px;
+    padding-block: 8px;
+  }
+  .juba-busuu-page .juba-busuu-proof-label {
+    grid-column: 1 / -1;
+  }
+  .juba-busuu-page .juba-busuu-proof-divider {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 1px solid rgba(23,33,27,.08);
+    border-radius: 14px;
+    background: rgba(247,250,248,.7);
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    grid-template-columns: 1fr;
+    width: min(100% - 32px, 1180px);
+    padding-inline: 0;
+  }
+  .juba-busuu-page .juba-busuu-proof-stat {
+    padding-bottom: 8px;
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    min-height: 48px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    min-height: 52px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 16px;
+    padding-inline: 16px;
+    animation-duration: 22s;
+  }
+  .juba-busuu-page .juba-busuu-faq-heading {
+    margin-bottom: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    animation: none;
+  }
+}
