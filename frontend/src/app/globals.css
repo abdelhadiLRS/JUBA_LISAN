@@ -18631,3 +18631,463 @@ html[data-theme='light'] {
     padding-bottom:32px;
   }
 }
+
+
+/* ==========================================================================
+   JUBA LISAN — strict Hi-Fi dashboard reconstruction
+   Reference direction: Juliana Camolese's Duolingo Dashboard case study.
+   This layer intentionally overrides the earlier generic dashboard system.
+   Authenticated UI only; public landing is untouched.
+   ========================================================================== */
+
+.juba-duo-shell{
+  --jl-hifi-blue:#2f80d9;
+  --jl-hifi-blue-dark:#2369b8;
+  --jl-hifi-green:#58cc02;
+  --jl-hifi-green-dark:#46a302;
+  --jl-hifi-yellow:#ffc800;
+  --jl-hifi-red:#ff4b4b;
+  --jl-hifi-purple:#8b5cf6;
+  --jl-hifi-bg:#f5f5f5;
+  --jl-hifi-surface:#ffffff;
+  --jl-hifi-line:#e5e5e5;
+  --jl-hifi-ink:#3c3c3c;
+  --jl-hifi-muted:#777777;
+  background:var(--jl-hifi-bg) !important;
+  color:var(--jl-hifi-ink) !important;
+}
+
+/* Desktop shell: the reference uses a narrow colored navigation rail. */
+@media (min-width:901px){
+  .juba-duo-shell .juba-duo-sidebar{
+    width:78px !important;
+    background:var(--jl-hifi-blue) !important;
+    border:0 !important;
+    color:#fff !important;
+    box-shadow:none !important;
+  }
+  .juba-duo-shell .juba-duo-sidebar > div:first-child{
+    justify-content:center;
+    padding:18px 0 !important;
+    border-color:rgba(255,255,255,.16) !important;
+  }
+  .juba-duo-shell .juba-duo-logo-mark{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#fff;
+    color:var(--jl-hifi-blue);
+    box-shadow:none;
+    font-size:13px;
+  }
+  .juba-duo-shell .juba-duo-sidebar > div:first-child > span:last-child{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+    white-space:nowrap;
+  }
+  .juba-duo-shell .juba-duo-language{
+    padding:12px 8px !important;
+    border-color:rgba(255,255,255,.16) !important;
+  }
+  .juba-duo-shell .juba-duo-language button,
+  .juba-duo-shell .juba-duo-language select{
+    width:100% !important;
+    min-width:0 !important;
+    justify-content:center;
+    color:#fff !important;
+    background:transparent !important;
+    border-color:transparent !important;
+  }
+  .juba-duo-shell .juba-duo-nav{
+    padding:12px 8px !important;
+  }
+  .juba-duo-shell .juba-duo-nav-link{
+    width:100%;
+    min-height:52px;
+    margin:3px 0 !important;
+    padding:10px 4px !important;
+    justify-content:center;
+    gap:0;
+    border:0 !important;
+    border-radius:8px !important;
+    color:rgba(255,255,255,.82) !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    font-size:0 !important;
+  }
+  .juba-duo-shell .juba-duo-nav-link svg{
+    width:23px !important;
+    height:23px !important;
+    color:currentColor !important;
+  }
+  .juba-duo-shell .juba-duo-nav-link:hover{
+    color:#fff !important;
+    background:rgba(255,255,255,.13) !important;
+  }
+  .juba-duo-shell .juba-duo-nav-link.is-active{
+    color:#fff !important;
+    background:rgba(255,255,255,.20) !important;
+  }
+  .juba-duo-shell .juba-duo-resource-toggle{
+    justify-content:center;
+    padding:12px 4px !important;
+    color:rgba(255,255,255,.75) !important;
+    font-size:0 !important;
+  }
+  .juba-duo-shell .juba-duo-resource-toggle span:last-child{
+    font-size:14px !important;
+  }
+  .juba-duo-shell .juba-duo-nav-link-sub{
+    display:none;
+  }
+  .juba-duo-shell .juba-duo-nav-divider{
+    border-color:rgba(255,255,255,.16) !important;
+  }
+  .juba-duo-shell .juba-duo-user{
+    padding:12px 8px !important;
+    border-color:rgba(255,255,255,.16) !important;
+    background:var(--jl-hifi-blue) !important;
+  }
+  .juba-duo-shell .juba-duo-user > div{
+    justify-content:center;
+  }
+  .juba-duo-shell .juba-duo-user > div > div:last-child,
+  .juba-duo-shell .juba-duo-user-action,
+  .juba-duo-shell .juba-duo-version{
+    display:none !important;
+  }
+  .juba-duo-shell .juba-duo-user > div > div:first-child{
+    margin:0 !important;
+  }
+  .juba-duo-shell .juba-duo-user .border-\[var\(--duo-line\)\]{
+    border-color:rgba(255,255,255,.55) !important;
+  }
+  .juba-duo-shell .juba-duo-main{
+    margin-inline-start:78px !important;
+    margin-inline-end:0 !important;
+    background:var(--jl-hifi-bg) !important;
+  }
+  .juba-duo-shell[dir="rtl"] .juba-duo-main{
+    margin-inline-start:78px !important;
+    margin-inline-end:0 !important;
+  }
+}
+
+/* The dashboard itself follows the reference's flat white-card / grey-canvas grid. */
+.juba-dashboard-workspace .juba-duo-home{
+  min-height:100%;
+  padding:30px 34px 56px !important;
+  background:var(--jl-hifi-bg) !important;
+}
+.juba-dashboard-workspace .juba-duo-welcome{
+  width:min(1180px,100%);
+  max-width:none;
+  margin:0 auto 22px;
+  padding:0 2px 14px;
+  align-items:center;
+  border-bottom:1px solid var(--jl-hifi-line);
+}
+.juba-dashboard-workspace .juba-duo-eyebrow{
+  margin-bottom:5px;
+  color:#888;
+  font-size:11px;
+  letter-spacing:.04em;
+  text-transform:none;
+}
+.juba-dashboard-workspace .juba-duo-welcome h1{
+  color:var(--jl-hifi-ink) !important;
+  font-size:30px !important;
+  font-weight:700 !important;
+  letter-spacing:-.02em !important;
+}
+.juba-dashboard-workspace .juba-duo-welcome p{
+  margin-top:5px;
+  color:var(--jl-hifi-muted);
+  font-size:13px;
+}
+.juba-dashboard-workspace .juba-duo-top-stats{
+  gap:18px;
+}
+.juba-dashboard-workspace .juba-duo-top-stats > div{
+  min-width:92px;
+  padding:0 4px;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.juba-dashboard-workspace .juba-duo-top-stats svg{
+  width:18px;
+  height:18px;
+}
+.juba-dashboard-workspace .juba-duo-top-stats strong{
+  font-size:16px;
+}
+.juba-dashboard-workspace .juba-duo-top-stats span{
+  font-size:9px;
+  font-weight:700;
+}
+
+/* Three-column composition: learning area + supporting widgets. */
+.juba-dashboard-workspace .juba-duo-grid{
+  width:min(1180px,100%);
+  max-width:none;
+  grid-template-columns:minmax(0,1.65fr) minmax(285px,.8fr) !important;
+  gap:20px !important;
+}
+.juba-dashboard-workspace .juba-duo-unit{
+  padding:0 !important;
+  overflow:hidden;
+  border:1px solid var(--jl-hifi-line) !important;
+  border-radius:2px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+.juba-dashboard-workspace .juba-duo-unit-head{
+  min-height:78px;
+  padding:18px 20px;
+  background:#fff;
+}
+.juba-dashboard-workspace .juba-duo-unit-kicker{
+  color:#999;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.03em;
+}
+.juba-dashboard-workspace .juba-duo-unit h2{
+  margin-top:3px;
+  color:var(--jl-hifi-ink);
+  font-size:18px;
+  font-weight:700;
+}
+.juba-dashboard-workspace .juba-duo-guide{
+  color:var(--jl-hifi-blue);
+  font-size:12px;
+  font-weight:700;
+}
+.juba-dashboard-workspace .juba-duo-progress{
+  height:7px;
+  margin:0 20px;
+  border-radius:0;
+  background:#e8e8e8;
+}
+.juba-dashboard-workspace .juba-duo-progress span{
+  background:var(--jl-hifi-green);
+  border-radius:0;
+}
+.juba-dashboard-workspace .juba-duo-progress-meta{
+  padding:7px 20px 12px;
+  margin:0;
+  font-size:10px;
+}
+
+/* Path becomes a clean vertical learning list instead of a gamified zig-zag. */
+.juba-dashboard-workspace .juba-duo-path{
+  padding:0 !important;
+  border-top:1px solid var(--jl-hifi-line);
+}
+.juba-dashboard-workspace .juba-duo-node-row,
+.juba-dashboard-workspace .juba-duo-node-row.is-offset{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:15px 20px;
+  transform:none !important;
+  border-bottom:1px solid var(--jl-hifi-line);
+  gap:14px;
+}
+.juba-dashboard-workspace .juba-duo-node{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border:2px solid #ddd;
+  border-radius:50%;
+  box-shadow:none !important;
+}
+.juba-dashboard-workspace .juba-duo-node.is-done{
+  background:var(--jl-hifi-green);
+  border-color:var(--jl-hifi-green-dark);
+}
+.juba-dashboard-workspace .juba-duo-node.is-current{
+  background:var(--jl-hifi-blue);
+  border-color:var(--jl-hifi-blue-dark);
+}
+.juba-dashboard-workspace .juba-duo-node-copy{
+  gap:3px;
+}
+.juba-dashboard-workspace .juba-duo-node-copy strong{
+  color:#444;
+  font-size:13px;
+  font-weight:700;
+}
+.juba-dashboard-workspace .juba-duo-node-copy span{
+  color:#999;
+  font-size:11px;
+}
+.juba-dashboard-workspace .juba-duo-cta{
+  min-height:32px;
+  padding:0 14px;
+  margin-top:5px;
+  border-radius:3px;
+  background:var(--jl-hifi-green);
+  box-shadow:0 2px 0 var(--jl-hifi-green-dark);
+  font-size:11px;
+}
+
+/* Supporting widgets mirror Daily Goal / League / Friends / Achievement cards. */
+.juba-dashboard-workspace .juba-duo-side{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-content:start;
+  gap:14px;
+}
+.juba-dashboard-workspace .juba-duo-side .juba-duo-card{
+  min-height:132px;
+  margin:0;
+  padding:16px;
+  border:1px solid var(--jl-hifi-line) !important;
+  border-radius:2px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+.juba-dashboard-workspace .juba-duo-side .juba-duo-streak-card{
+  grid-column:1 / -1;
+  min-height:88px;
+  padding:14px 16px;
+}
+.juba-dashboard-workspace .juba-duo-side .juba-duo-card-icon{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#fff4cc;
+}
+.juba-dashboard-workspace .juba-duo-card-head h3{
+  color:#555;
+  font-size:12px;
+  font-weight:700;
+}
+.juba-dashboard-workspace .juba-duo-card-head > span{
+  color:var(--jl-hifi-green-dark);
+  font-size:12px;
+}
+.juba-dashboard-workspace .juba-duo-meter{
+  height:6px;
+  margin:10px 0 8px;
+  border-radius:0;
+  background:#ededed;
+}
+.juba-dashboard-workspace .juba-duo-meter span{
+  border-radius:0;
+  background:var(--jl-hifi-green);
+}
+.juba-dashboard-workspace .juba-duo-card p{
+  color:#999;
+  font-size:10px;
+}
+.juba-dashboard-workspace .juba-duo-mini-bars{
+  height:64px;
+  gap:5px;
+}
+.juba-dashboard-workspace .juba-duo-mini-bars span{
+  border-radius:1px 1px 0 0;
+  background:var(--jl-hifi-yellow);
+}
+.juba-dashboard-workspace .juba-duo-links{
+  grid-column:1 / -1;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  border:1px solid var(--jl-hifi-line);
+  background:var(--jl-hifi-line);
+}
+.juba-dashboard-workspace .juba-duo-links a{
+  min-height:54px;
+  padding:12px;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#fff;
+  color:#666;
+  font-size:11px;
+  font-weight:700;
+}
+.juba-dashboard-workspace .juba-duo-links a:hover{
+  background:#f7f7f7;
+  color:var(--jl-hifi-blue);
+}
+
+/* Premium strip becomes a compact promotional ribbon like the reference. */
+.juba-dashboard-workspace .juba-duo-premium{
+  width:min(1180px,100%);
+  max-width:none;
+  margin:18px auto 0;
+  padding:14px 18px;
+  border:0 !important;
+  border-radius:2px !important;
+  background:var(--jl-hifi-blue) !important;
+  color:#fff !important;
+  box-shadow:none !important;
+}
+.juba-dashboard-workspace .juba-duo-premium strong,
+.juba-dashboard-workspace .juba-duo-premium span{
+  color:#fff !important;
+}
+.juba-dashboard-workspace .juba-duo-premium button{
+  border-radius:2px;
+}
+
+/* Chat keeps the same blue navigation rail and flat white work surface. */
+.juba-dashboard-workspace .juba-mobile-chat{
+  background:var(--jl-hifi-bg);
+}
+.juba-dashboard-workspace .juba-mobile-chat .chat-conversations-sidebar{
+  border-color:var(--jl-hifi-line) !important;
+  background:#fff !important;
+}
+.juba-dashboard-workspace .juba-mobile-chat .chat-main,
+.juba-dashboard-workspace .juba-mobile-chat .chat-messages{
+  background:#fff !important;
+}
+.juba-dashboard-workspace .juba-mobile-chat .chat-conversations-sidebar > *{
+  border-color:var(--jl-hifi-line) !important;
+}
+.juba-dashboard-workspace .juba-mobile-chat button,
+.juba-dashboard-workspace .juba-mobile-chat input,
+.juba-dashboard-workspace .juba-mobile-chat textarea{
+  border-radius:3px !important;
+}
+.juba-dashboard-workspace .juba-mobile-chat .chat-message{
+  border-radius:3px !important;
+}
+
+/* Mobile: retain the reference's flat card rhythm without collapsing usability. */
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-duo-home{
+    padding:18px 12px 34px !important;
+  }
+  .juba-dashboard-workspace .juba-duo-welcome{
+    align-items:flex-start;
+    flex-direction:column;
+    padding-bottom:12px;
+  }
+  .juba-dashboard-workspace .juba-duo-top-stats{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .juba-dashboard-workspace .juba-duo-grid{
+    grid-template-columns:1fr !important;
+  }
+  .juba-dashboard-workspace .juba-duo-side{
+    grid-template-columns:1fr 1fr;
+  }
+}
+@media (max-width:560px){
+  .juba-dashboard-workspace .juba-duo-side{
+    grid-template-columns:1fr;
+  }
+  .juba-dashboard-workspace .juba-duo-side .juba-duo-streak-card,
+  .juba-dashboard-workspace .juba-duo-links{
+    grid-column:auto;
+  }
+}
