@@ -21385,3 +21385,143 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v22 — strengthen the language chapter as a premium destination */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(8,119,249,.055), transparent 24%),
+    radial-gradient(circle at 92% 72%, rgba(45,180,110,.065), transparent 26%),
+    #fff;
+}
+.juba-busuu-page .juba-busuu-reference-languages::before {
+  content: "01";
+  position: absolute;
+  inset-inline-end: clamp(18px, 5vw, 72px);
+  inset-block-start: clamp(28px, 4vw, 56px);
+  z-index: -1;
+  font-size: clamp(84px, 14vw, 190px);
+  line-height: .8;
+  font-weight: 900;
+  letter-spacing: -.08em;
+  color: rgba(23,33,27,.035);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-intro {
+  position: relative;
+  z-index: 1;
+  align-items: end;
+  gap: clamp(24px, 6vw, 84px);
+}
+.juba-busuu-page .juba-busuu-language-intro > div {
+  max-width: 760px;
+}
+.juba-busuu-page .juba-busuu-language-intro h2 {
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position: relative;
+  margin-top: clamp(38px, 5vw, 62px);
+  padding: clamp(18px, 3vw, 34px);
+  border: 1px solid rgba(23,33,27,.09);
+  border-radius: clamp(24px, 3vw, 34px);
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 22px 60px rgba(23,33,27,.07);
+}
+.juba-busuu-page .juba-busuu-language-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(8,119,249,.12);
+  border-radius: clamp(18px, 2.5vw, 26px);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-list {
+  position: relative;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-language-item {
+  min-height: 118px;
+  padding: 18px 14px;
+  border: 1px solid rgba(23,33,27,.08);
+  border-radius: 22px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 10px 26px rgba(23,33,27,.055);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.juba-busuu-page .juba-busuu-language-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(8,119,249,.22);
+  box-shadow: 0 16px 34px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-language-item img {
+  width: 44px;
+  height: 32px !important;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(23,33,27,.12);
+}
+.juba-busuu-page .juba-busuu-language-item span {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-language-count {
+  font-weight: 800;
+  color: var(--jl-muted);
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  min-height: 46px;
+  padding-inline: 18px;
+  border: 1px solid rgba(8,119,249,.18);
+  border-radius: 999px;
+  background: rgba(8,119,249,.06);
+  color: var(--jl-blue-deep);
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover {
+  transform: translateY(-2px);
+  background: rgba(8,119,249,.1);
+  border-color: rgba(8,119,249,.3);
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-language-stage {
+    margin-top: 30px;
+    padding: 12px;
+    border-radius: 24px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::before {
+    inset: 8px;
+  }
+  .juba-busuu-page .juba-busuu-language-item {
+    min-height: 104px;
+    padding: 14px 10px;
+    border-radius: 18px;
+  }
+  .juba-busuu-page .juba-busuu-language-item:hover {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+  .juba-busuu-page .juba-busuu-language-item:hover,
+  .juba-busuu-page .juba-busuu-language-cta-link:hover {
+    transform: none;
+  }
+}
