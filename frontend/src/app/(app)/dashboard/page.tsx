@@ -408,7 +408,30 @@ export default function DashboardPage() {
               </div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-course">
+            <section className="juba-reference-reference-stats">
+              <div className="juba-reference-v3-card juba-reference-stat-card">
+                <div className="juba-reference-v3-card-head">
+                  <div><span className="juba-reference-section-label">{t('vocabulary')}</span><h3>{t('vocabulary')}</h3></div>
+                  <Library size={18} />
+                </div>
+                <div className="juba-reference-stat-value">{vocabularyMastered.toLocaleString()}</div>
+                <div className="juba-reference-stat-caption">{vocabularyTotal.toLocaleString()} · {vocabularyProgressPct}%</div>
+                <div className="juba-reference-stat-track"><span style={{width: vocabularyProgressPct + '%'}} /></div>
+              </div>
+              <div className="juba-reference-v3-card juba-reference-stat-card">
+                <div className="juba-reference-v3-card-head">
+                  <div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div>
+                  <ChartNoAxesColumnIncreasing size={18} />
+                </div>
+                <div className="juba-reference-stat-breakdown">
+                  <span><i />{t('today')}<b>{historyEntries[historyEntries.length - 1]?.xp_earned ?? 0} XP</b></span>
+                  <span><i />{t('streak')}<b>{streak}</b></span>
+                  <span><i />{t('accuracy')}<b>{accuracy}%</b></span>
+                </div>
+              </div>
+            </section>
+
+            <<section className="juba-reference-v3-card juba-reference-course">
               <div className="juba-reference-card-header">
                 <div>
                   <span className="juba-reference-section-label">{t('nextStep')}</span>
