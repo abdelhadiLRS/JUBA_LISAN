@@ -18951,3 +18951,94 @@ html[data-theme='light'] {
     scroll-snap-type: none;
   }
 }
+
+
+/* ── Landing v11: stronger responsive hierarchy and tactile card system ── */
+.juba-busuu-page .juba-busuu-reference-hero-copy {
+  position: relative;
+  z-index: 3;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art::after {
+  content: "";
+  position: absolute;
+  inset: auto 8% 3%;
+  height: 18%;
+  border-radius: 50%;
+  background: rgba(5, 47, 112, .22);
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: -1;
+}
+.juba-busuu-page .juba-busuu-reference-hero .juba-busuu-reference-primary:focus-visible,
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
+.juba-busuu-page .juba-busuu-final-cta-primary:focus-visible,
+.juba-busuu-page .juba-busuu-final-cta-secondary:focus-visible {
+  outline: 3px solid rgba(255, 216, 77, .95);
+  outline-offset: 5px;
+}
+.juba-busuu-page .juba-busuu-different-card {
+  overflow: hidden;
+  border: 1px solid rgba(16, 36, 62, .10);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(16, 36, 62, .07);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.juba-busuu-page .juba-busuu-different-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(8, 119, 249, .22);
+  box-shadow: 0 20px 44px rgba(16, 36, 62, .12);
+}
+.juba-busuu-page .juba-busuu-different-media {
+  background: linear-gradient(145deg, #edf7f2, #f7f8f3);
+}
+.juba-busuu-page .juba-busuu-why-learn-card {
+  border-radius: 20px;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.juba-busuu-page .juba-busuu-why-learn-card:hover {
+  transform: translateY(-4px);
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(23, 33, 27, .08);
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-hero-inner {
+    padding-bottom: 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    width: calc(100% + 20px);
+    margin-inline: -10px;
+    margin-top: 30px;
+    aspect-ratio: 1 / .82;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art::after {
+    inset-inline: 12%;
+    bottom: 4%;
+  }
+  .juba-busuu-page .juba-busuu-different-card:hover,
+  .juba-busuu-page .juba-busuu-why-learn-card:hover {
+    transform: none;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-reference-actions {
+    margin-top: 24px;
+  }
+  .juba-busuu-page .juba-busuu-reference-primary {
+    min-height: 52px;
+    width: min(100%, 310px);
+  }
+  .juba-busuu-page .juba-busuu-different-card {
+    border-radius: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-different-card,
+  .juba-busuu-page .juba-busuu-why-learn-card,
+  .juba-busuu-page .juba-busuu-reference-primary {
+    transition: none;
+  }
+}
