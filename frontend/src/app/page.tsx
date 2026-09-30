@@ -177,11 +177,11 @@ export default async function Home() {
                 className="juba-busuu-reference-wing juba-busuu-reference-wing-right"
               />
             </div>
-            <div className="juba-busuu-hero-benefits" aria-label={t('navFeatures')}>
-              <span><b aria-hidden="true">✓</b>{t('feature1Title')}</span>
-              <span><b aria-hidden="true">✓</b>{t('feature2Title')}</span>
-              <span><b aria-hidden="true">✓</b>{t('feature3Title')}</span>
-            </div>
+            <ul className="juba-busuu-hero-benefits" aria-label={t('navFeatures')}>
+              <li><b aria-hidden="true">✓</b>{t('feature1Title')}</li>
+              <li><b aria-hidden="true">✓</b>{t('feature2Title')}</li>
+              <li><b aria-hidden="true">✓</b>{t('feature3Title')}</li>
+            </ul>
           </div>
 
           <div className="juba-busuu-reference-hero-art">
@@ -222,7 +222,7 @@ export default async function Home() {
             <LanguageBubbles dir={dir} />
           </div>
           <div className="juba-busuu-language-bottom">
-            <span>{SUPPORTED_LANGUAGE_COUNT}+ languages</span>
+            <span>{SUPPORTED_LANGUAGE_COUNT}+ {t('navLanguages')}</span>
             <Link
               href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               className="juba-busuu-language-cta-link"
