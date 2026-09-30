@@ -25438,3 +25438,19 @@ html[data-theme='light'] {
     box-shadow: 0 5px 0 rgba(23,33,27,.08);
   }
 }
+
+
+/* Final mobile navigation alignment: the fixed menu must start exactly below the
+   compact header instead of leaving a gap/overlap on small phones. */
+@media (max-width: 1000px) {
+  .juba-busuu-page .juba-busuu-mobile-menu {
+    top: 66px;
+    min-height: calc(100dvh - 66px);
+  }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .juba-busuu-page .juba-busuu-mobile-menu {
+    top: 74px;
+    min-height: calc(100dvh - 74px);
+  }
+}
