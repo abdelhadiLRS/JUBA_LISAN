@@ -175,11 +175,12 @@ export function LandingNav({
   return (
     <header ref={headerRef} className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
-        <Link href={safeLocale === 'en' ? '/' : `/${safeLocale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
+        <Link href={safeLocale === 'en' ? '/' : `/${safeLocale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand" data-brand="JUBA LISAN">
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority style={{ height: 'auto' }} />
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
+          <span className="juba-busuu-nav-pill" aria-hidden="true">LEARN</span>
           {links.map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
@@ -194,6 +195,7 @@ export function LandingNav({
           <Link href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'} className="juba-busuu-nav-cta">
             {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
           </Link>
+          <span className="juba-busuu-nav-rule" aria-hidden="true" />
           <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
             <summary
               className="juba-busuu-locale"
