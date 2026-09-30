@@ -22964,3 +22964,121 @@ html[data-theme='light'] {
   .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:1fr!important;padding:16px!important}
   .juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:1fr!important}
 }
+
+
+/* V3 STRICT — REFERENCE VISUAL LOCK */
+.juba-reference-v3.juba-reference-dashboard{
+  font-size:10px!important;
+  color:#555!important;
+}
+.juba-reference-v3 .juba-reference-v3-grid{
+  align-items:start!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  display:flex!important;
+  flex-direction:column!important;
+}
+.juba-reference-v3 .juba-reference-v3-welcome{
+  border:1px solid #e2e2e2!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.025)!important;
+}
+.juba-reference-v3 .juba-reference-welcome-copy p{
+  max-width:560px!important;
+  margin:0!important;
+  color:#999!important;
+  font-size:9px!important;
+  line-height:1.45!important;
+}
+.juba-reference-v3 .juba-reference-section-label{
+  color:#a2a2a2!important;
+  font-size:8px!important;
+  line-height:1!important;
+  letter-spacing:.055em!important;
+  text-transform:uppercase!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-v3-card-head h2,
+.juba-reference-v3 .juba-reference-v3-card-head h3{
+  color:#555!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head strong{
+  color:#58a91b!important;
+  font-size:15px!important;
+  font-weight:950!important;
+}
+.juba-reference-v3 .juba-reference-v3-chart{
+  height:112px!important;
+  margin-top:10px!important;
+}
+.juba-reference-v3 .juba-reference-v3-chart-col span{
+  min-height:7px!important;
+  border-radius:4px 4px 2px 2px!important;
+}
+.juba-reference-v3 .juba-reference-v3-chart-col.active span{
+  box-shadow:0 0 0 2px #eef9e8!important;
+}
+.juba-reference-v3 .juba-reference-chart-summary{
+  margin-top:12px!important;
+  padding-top:11px!important;
+  border-top:1px solid #ededed!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-insight-card{
+  border:1px solid #e5e5e5!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{
+  padding-inline:2px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  border-bottom:1px solid #f1f1f1!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:last-child{
+  border-bottom:0!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node{
+  transition:transform .16s ease,box-shadow .16s ease!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-path-node{
+  transform:scale(1.04)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-green-button{
+  font-weight:950!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  position:sticky!important;
+  top:18px!important;
+  align-self:start!important;
+}
+.juba-reference-v3 .juba-reference-profile-card{
+  border-top:3px solid #58cc02!important;
+}
+.juba-reference-v3 .juba-reference-goal-card,
+.juba-reference-v3 .juba-reference-xp-card,
+.juba-reference-v3 .juba-reference-achievement-card,
+.juba-reference-v3 .juba-reference-tools-card{
+  border-top:1px solid #e7e7e7!important;
+}
+.juba-reference-v3 .juba-reference-premium{
+  border-radius:8px!important;
+}
+.juba-reference-shell .juba-duo-sidebar{
+  box-shadow:1px 0 0 rgba(0,0,0,.015)!important;
+}
+.juba-reference-shell .juba-duo-sidebar .juba-duo-nav{
+  padding-inline:10px!important;
+}
+.juba-reference-shell .juba-duo-sidebar .juba-duo-nav a{
+  margin-block:2px!important;
+}
+.juba-reference-shell .juba-duo-sidebar .juba-duo-nav a.active{
+  color:#58a91b!important;
+  background:#eff9e8!important;
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-rail{
+    position:static!important;
+  }
+}
