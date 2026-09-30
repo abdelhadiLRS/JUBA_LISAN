@@ -17736,3 +17736,181 @@ html[data-theme='light'] {
     padding:12px 14px;
   }
 }
+
+
+/* JUBA LISAN — authenticated dashboard system layer 2026-09-30
+ * Applies only inside .juba-dashboard-workspace, never to the public landing page.
+ * Gives every dashboard route the same visual system: canvas, cards, controls,
+ * tables, tabs, empty/loading states, forms, and responsive rhythm.
+ */
+.juba-dashboard-workspace{
+  --jl-ui-bg:#f7f9f7;
+  --jl-ui-card:#fff;
+  --jl-ui-line:#dfe6e1;
+  --jl-ui-ink:#17211b;
+  --jl-ui-muted:#68736d;
+  --jl-ui-green:#58a700;
+  --jl-ui-green-dark:#438600;
+  --jl-ui-blue:#1689d8;
+  --jl-ui-soft:#eef7e8;
+  --jl-ui-radius:12px;
+  background:var(--jl-ui-bg);
+  color:var(--jl-ui-ink);
+  min-height:100%;
+}
+
+/* Normalize common page-level containers used across dashboard routes. */
+.juba-dashboard-workspace > *{
+  max-width:1240px;
+  margin-inline:auto;
+}
+.juba-dashboard-workspace > *:first-child{
+  margin-top:0;
+}
+.juba-dashboard-workspace a{
+  text-underline-offset:3px;
+}
+.juba-dashboard-workspace button:not([class*="bg-transparent"]),
+.juba-dashboard-workspace [role="button"]{
+  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background-color .12s ease;
+}
+.juba-dashboard-workspace button:active,
+.juba-dashboard-workspace [role="button"]:active{
+  transform:translateY(1px);
+}
+
+/* Shared cards, panels and bordered sections. */
+.juba-dashboard-workspace .rounded-xl,
+.juba-dashboard-workspace .rounded-2xl{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .bg-white{
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace input:not([type="checkbox"]):not([type="radio"]),
+.juba-dashboard-workspace textarea,
+.juba-dashboard-workspace select{
+  border-color:#ccd8cf;
+  border-radius:10px;
+  background:#fff;
+  color:var(--jl-ui-ink);
+  outline:none;
+}
+.juba-dashboard-workspace input:not([type="checkbox"]):not([type="radio"]):focus,
+.juba-dashboard-workspace textarea:focus,
+.juba-dashboard-workspace select:focus{
+  border-color:var(--jl-ui-green);
+  box-shadow:0 0 0 3px rgba(88,167,0,.12);
+}
+
+/* Primary actions: preserve component semantics while unifying the dashboard. */
+.juba-dashboard-workspace a[class*="bg-[var(--duo-green)"],
+.juba-dashboard-workspace button[class*="bg-[var(--duo-green)"],
+.juba-dashboard-workspace button[class*="bg-\\[var(--duo-green)\\]"]{
+  background:var(--jl-ui-green);
+  border-color:var(--jl-ui-green-dark);
+  box-shadow:0 2px 0 var(--jl-ui-green-dark);
+}
+.juba-dashboard-workspace a[class*="bg-[var(--duo-green)"]:hover,
+.juba-dashboard-workspace button[class*="bg-[var(--duo-green)"]:hover{
+  background:var(--jl-ui-green-dark);
+}
+
+/* Section headings and page rhythm. */
+.juba-dashboard-workspace h1{
+  letter-spacing:-.025em;
+}
+.juba-dashboard-workspace h2,
+.juba-dashboard-workspace h3{
+  letter-spacing:-.015em;
+}
+.juba-dashboard-workspace hr{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace table{
+  border-collapse:separate;
+  border-spacing:0;
+  width:100%;
+}
+.juba-dashboard-workspace th{
+  color:var(--jl-ui-muted);
+  background:#f7faf7;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.juba-dashboard-workspace td,
+.juba-dashboard-workspace th{
+  border-bottom:1px solid var(--jl-ui-line);
+}
+.juba-dashboard-workspace tbody tr:hover{
+  background:#fafcf9;
+}
+
+/* Consistent scrollbar only within authenticated content. */
+.juba-dashboard-workspace{
+  scrollbar-color:#cbd6ce transparent;
+  scrollbar-width:thin;
+}
+
+/* Dashboard shell navigation: make every route feel like one product. */
+.juba-duo-shell .juba-duo-sidebar{
+  background:#fff;
+  border-inline-end:1px solid var(--jl-ui-line);
+}
+.juba-duo-shell .juba-duo-nav-link{
+  min-height:40px;
+  margin:2px 10px;
+  border-inline-start:3px solid transparent;
+  border-radius:8px;
+}
+.juba-duo-shell .juba-duo-nav-link:hover{
+  background:#f4f8f4;
+}
+.juba-duo-shell .juba-duo-nav-link.is-active{
+  background:#eef7e8;
+  border-inline-start-color:var(--jl-ui-green);
+  color:var(--jl-ui-ink);
+  font-weight:800;
+}
+.juba-duo-shell .juba-duo-resource-toggle{
+  border-radius:8px;
+}
+.juba-duo-shell .juba-duo-user{
+  background:#fff;
+  border-top:1px solid var(--jl-ui-line);
+}
+.juba-duo-shell .juba-duo-main{
+  background:var(--jl-ui-bg);
+}
+
+/* Shared dashboard loading / empty-state surfaces. */
+.juba-dashboard-workspace [aria-busy="true"]{
+  min-height:180px;
+}
+.juba-dashboard-workspace .border-dashed{
+  border-color:#cdd9d0;
+  background:#fbfcfb;
+}
+
+/* Compact mobile rhythm across every authenticated page. */
+@media (max-width:900px){
+  .juba-dashboard-workspace{
+    padding-inline:12px;
+  }
+  .juba-dashboard-workspace > *{
+    max-width:none;
+  }
+  .juba-dashboard-workspace .grid{
+    gap:12px;
+  }
+}
+@media (max-width:560px){
+  .juba-dashboard-workspace{
+    padding-inline:8px;
+  }
+  .juba-dashboard-workspace h1{
+    font-size:clamp(24px,7vw,32px);
+  }
+}
