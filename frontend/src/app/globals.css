@@ -20789,3 +20789,48 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* Landing v30 — FAQ questions use the same editorial wayfinding as the page chapters */
+.juba-busuu-page .juba-landing-faq-label {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 12px;
+}
+.juba-busuu-page .juba-landing-faq-number {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(8,119,249,.16);
+  border-radius: 10px;
+  background: rgba(8,119,249,.06);
+  color: var(--jl-blue-deep);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+.juba-busuu-page .juba-landing-faq-question:hover .juba-landing-faq-number,
+.juba-busuu-page .juba-landing-faq-item.is-open .juba-landing-faq-number {
+  border-color: rgba(8,119,249,.24);
+  background: rgba(8,119,249,.10);
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-landing-faq-label {
+    gap: 10px;
+  }
+  .juba-busuu-page .juba-landing-faq-number {
+    width: 27px;
+    height: 27px;
+    border-radius: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-landing-faq-number {
+    transition: none;
+  }
+}
