@@ -199,7 +199,7 @@ export default async function Home() {
       </section>
 
       {/* Strong editorial language destination */}
-      <section id="languages" className="juba-busuu-reference-languages scroll-mt-24" aria-labelledby="landing-languages-title">
+      <section id="languages" data-editorial-section="01" className="juba-busuu-reference-languages scroll-mt-24" aria-labelledby="landing-languages-title">
         <div className="juba-busuu-reference-languages-inner">
           <div className="juba-busuu-language-intro">
             <div>
@@ -250,7 +250,7 @@ export default async function Home() {
 
       {/* Busuu-style real-world learning section */}
       <ScrollReveal>
-        <section className="juba-busuu-real-world" aria-labelledby="landing-real-world-title">
+        <section data-editorial-section="02" className="juba-busuu-real-world" aria-labelledby="landing-real-world-title">
           <div className="juba-busuu-real-world-inner">
             <div className="juba-busuu-real-world-heading">
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
@@ -299,7 +299,7 @@ export default async function Home() {
 
       {/* Busuu-style differentiation section */}
       <ScrollReveal>
-        <section id="features" className="juba-busuu-different scroll-mt-16" aria-labelledby="landing-features-title">
+        <section id="features" data-editorial-section="03" className="juba-busuu-different scroll-mt-16" aria-labelledby="landing-features-title">
           <div className="juba-busuu-different-inner">
             <div className="juba-busuu-different-heading">
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
@@ -344,7 +344,7 @@ export default async function Home() {
 
       {/* Reviews */}
       <ScrollReveal>
-        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
+        <section id="reviews" data-editorial-section="04" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
           <div className="juba-busuu-testimonials-inner">
             <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
             <LandingReviewsCarousel reviews={reviews} />
@@ -354,7 +354,7 @@ export default async function Home() {
 
       {/* Busuu-style "why learn" editorial section */}
       <ScrollReveal>
-        <section className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
+        <section data-editorial-section="05" className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
           <div className="juba-busuu-why-learn-inner">
             <div className="juba-busuu-why-learn-heading">
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
@@ -388,7 +388,7 @@ export default async function Home() {
 
       {/* Pricing */}
       <ScrollReveal>
-        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
+        <section id="pricing" data-editorial-section="06" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
           <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
           <PricingSection
             stripeEnabled={stripeEnabled}
@@ -404,7 +404,7 @@ export default async function Home() {
 
       {/* Busuu-style app download band */}
       <ScrollReveal>
-        <section className="juba-busuu-app-section" aria-labelledby="app-download-title">
+        <section data-editorial-section="07" className="juba-busuu-app-section" aria-labelledby="app-download-title">
           <div className="juba-busuu-app-inner">
             <div className="juba-busuu-app-copy">
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
@@ -529,7 +529,7 @@ export default async function Home() {
 
       {/* FAQ */}
       <ScrollReveal>
-        <section id="faq" className="juba-busuu-faq-section scroll-mt-16" aria-labelledby="landing-faq-title">
+        <section id="faq" data-editorial-section="08" className="juba-busuu-faq-section scroll-mt-16" aria-labelledby="landing-faq-title">
           <h2 id="landing-faq-title" className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
             {t('faqTitle')}
           </h2>
