@@ -29674,3 +29674,160 @@ html[data-theme='light'] {
     white-space:nowrap!important;
   }
 }
+
+
+/* V3 STRICT REFERENCE — DASHBOARD COMPOSITION PASS */
+.juba-reference-v3{
+  --ref-green:#58cc02;
+  --ref-green-dark:#46a302;
+  --ref-ink:#4b4b4b;
+  --ref-muted:#999;
+  --ref-border:#e5e5e5;
+  --ref-page:#f7f7f7;
+}
+.juba-reference-v3 .juba-reference-v3-grid{
+  align-items:start!important;
+}
+.juba-reference-v3 .juba-reference-v3-main,
+.juba-reference-v3 .juba-reference-v3-rail{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{
+  order:1!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-course{
+  order:2!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-daily{
+  order:3!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-reference-insights{
+  order:4!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-achievement-strip{
+  order:5!important;
+}
+.juba-reference-v3 .juba-reference-v3-card{
+  box-shadow:0 1px 2px rgba(0,0,0,.035)!important;
+}
+.juba-reference-v3 .juba-reference-course{
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{
+  padding-bottom:11px!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress{
+  margin-bottom:12px!important;
+}
+.juba-reference-v3 .juba-reference-course-path{
+  --rail-x:34px;
+  border-top:1px solid #efefef!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before,
+.juba-reference-v3 .juba-reference-course-path::after{
+  inset-inline-start:var(--rail-x)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  min-height:66px!important;
+  grid-template-columns:42px minmax(0,1fr) 108px!important;
+  gap:10px!important;
+  padding:9px 16px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node{
+  width:32px!important;
+  height:32px!important;
+  border-width:2px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{
+  background:#fbfef9!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{
+  color:#58a91b!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  color:#555!important;
+  font-size:11px!important;
+  font-weight:850!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy span{
+  display:block!important;
+  margin-top:3px!important;
+  color:#aaa!important;
+  font-size:8px!important;
+  font-weight:750!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{
+  justify-self:end!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-green-button{
+  min-width:86px!important;
+  height:30px!important;
+  border-radius:7px!important;
+  box-shadow:0 2px 0 var(--ref-green-dark)!important;
+  font-size:8px!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-v3-card{
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-profile-card{
+  padding:16px!important;
+}
+.juba-reference-v3 .juba-reference-goal-card{
+  padding:16px!important;
+}
+.juba-reference-v3 .juba-reference-xp-card,
+.juba-reference-v3 .juba-reference-achievement-card,
+.juba-reference-v3 .juba-reference-tools-card{
+  padding:15px 16px!important;
+}
+.juba-reference-v3 .juba-reference-profile-card h3,
+.juba-reference-v3 .juba-reference-goal-card h3,
+.juba-reference-v3 .juba-reference-xp-card h3,
+.juba-reference-v3 .juba-reference-achievement-card h3,
+.juba-reference-v3 .juba-reference-tools-card h3{
+  color:#555!important;
+  font-size:11px!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights{
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-insight-card{
+  min-height:132px!important;
+  padding:15px 16px!important;
+}
+.juba-reference-v3 .juba-reference-achievement-strip{
+  min-height:70px!important;
+  padding:12px 16px!important;
+}
+@media(max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    padding-inline:14px!important;
+  }
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+    grid-template-columns:38px minmax(0,1fr) 82px!important;
+  }
+}
+@media(max-width:560px){
+  .juba-reference-v3 .juba-reference-course-path{
+    --rail-x:29px;
+  }
+}
