@@ -19097,3 +19097,32 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v13 — anchor rhythm and mobile CTA clarity */
+.juba-busuu-page [data-editorial-section] {
+  scroll-margin-top: 92px;
+}
+.juba-busuu-page .juba-busuu-reference-actions {
+  min-height: 64px;
+}
+.juba-busuu-page .juba-busuu-reference-actions .juba-busuu-reference-secondary {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page [data-editorial-section] {
+    scroll-margin-top: 76px;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions {
+    min-height: 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-wing {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-reference-actions {
+    gap: 9px;
+  }
+}
