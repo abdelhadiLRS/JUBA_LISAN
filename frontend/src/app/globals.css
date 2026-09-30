@@ -14214,9 +14214,6 @@ html[data-theme='light'] {
   font-weight: 850;
   letter-spacing: .12em;
 }
-.juba-busuu-page .juba-busuu-why-learn-card:nth-child(1) .juba-busuu-why-learn-number::after { content: "1"; }
-.juba-busuu-page .juba-busuu-why-learn-card:nth-child(2) .juba-busuu-why-learn-number::after { content: "2"; }
-.juba-busuu-page .juba-busuu-why-learn-card:nth-child(3) .juba-busuu-why-learn-number::after { content: "3"; }
 .juba-busuu-page .juba-busuu-why-learn-number { font-size: 0; }
 .juba-busuu-page .juba-busuu-why-learn-number::after { font-size: 12px; }
 .juba-busuu-page .juba-busuu-why-learn-card h3 {
