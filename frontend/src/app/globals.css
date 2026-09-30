@@ -31545,3 +31545,58 @@ html[data-theme='light'] {
     flex-wrap:wrap!important;
   }
 }
+
+
+/* V3 STRICT — DASHBOARD DENSITY + RIGHT RAIL HIERARCHY */
+.juba-reference-v3 .juba-reference-v3-grid{
+  align-items:start!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{
+  position:relative!important;
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-v3-welcome::after{
+  content:""!important;
+  position:absolute!important;
+  inset-inline-end:0!important;
+  inset-block:0!important;
+  width:4px!important;
+  background:#58cc02!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-daily{
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-v3-card-head h2,
+.juba-reference-v3 .juba-reference-v3-card-head h3{
+  letter-spacing:-.01em!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  position:sticky!important;
+  top:18px!important;
+}
+.juba-reference-v3 .juba-reference-profile-card{
+  border-top:3px solid #58cc02!important;
+}
+.juba-reference-v3 .juba-reference-goal-card .juba-reference-card-title,
+.juba-reference-v3 .juba-reference-xp-card .juba-reference-card-title,
+.juba-reference-v3 .juba-reference-achievement-card .juba-reference-card-title{
+  color:#555!important;
+}
+.juba-reference-v3 .juba-reference-achievement-card{
+  background:#fbfff8!important;
+}
+.juba-reference-v3 .juba-reference-achievement-card .juba-reference-achievement-icon{
+  background:#eff9e8!important;
+  border-color:#d8eccd!important;
+}
+.juba-reference-v3 .juba-reference-tools-card{
+  background:#fff!important;
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-rail{
+    position:static!important;
+  }
+}
