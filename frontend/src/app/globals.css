@@ -12758,3 +12758,54 @@ html[data-theme='light'] {
     flex-basis: 34px;
   }
 }
+
+
+/* === Landing-only Busuu composition pass: proof band === */
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding-inline: 24px;
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  min-height: 132px;
+  margin-top: -42px;
+  padding: 28px clamp(24px, 4vw, 48px);
+  border: 0;
+  border-radius: 26px;
+  background: #f7faf8;
+  box-shadow: 0 12px 34px rgba(23,33,27,.07);
+}
+.juba-busuu-page .juba-busuu-proof-stat,
+.juba-busuu-page .juba-busuu-proof-item {
+  flex: 1 1 0;
+  justify-content: center;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-proof-stat {
+  align-items: center;
+}
+.juba-busuu-page .juba-busuu-proof-item {
+  flex-direction: column;
+  gap: 8px;
+  color: #17211b;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  width: 34px;
+  height: 34px;
+  background: #e4f5ec;
+}
+.juba-busuu-page .juba-busuu-proof-divider {
+  height: 54px;
+  background: #dce5df;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    margin-top: -30px;
+    padding: 24px 20px;
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    margin-top: -22px;
+    padding: 22px 18px;
+  }
+}
