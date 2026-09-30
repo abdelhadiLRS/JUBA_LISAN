@@ -12887,3 +12887,152 @@ html[data-theme='light'] {
     min-height: 240px;
   }
 }
+
+
+/* === Landing-only Busuu composition pass: hero === */
+.juba-busuu-page .juba-busuu-reference-hero {
+  min-height: 720px;
+  padding: 72px 24px 0 !important;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.16), transparent 24%),
+    radial-gradient(circle at 82% 22%, rgba(255,255,255,.12), transparent 22%),
+    #116eee;
+}
+.juba-busuu-page .juba-busuu-reference-hero-inner {
+  width: min(1240px, 100%);
+  min-height: 648px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy {
+  position: relative;
+  z-index: 3;
+  width: min(900px, 100%);
+}
+.juba-busuu-page .juba-busuu-reference-kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: rgba(255,255,255,.84);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-reference-hero h1 {
+  margin: 0;
+  color: #fff !important;
+  font-size: clamp(46px, 6.5vw, 82px) !important;
+  line-height: .98;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy > p {
+  max-width: 650px;
+  margin: 20px auto 0;
+  color: rgba(255,255,255,.9) !important;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.55;
+}
+.juba-busuu-page .juba-busuu-reference-actions {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 28px;
+  min-height: 62px;
+}
+.juba-busuu-page .juba-busuu-reference-primary {
+  position: relative;
+  z-index: 2;
+  min-width: 188px;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #17211b !important;
+  box-shadow: 0 4px 0 rgba(8,56,126,.35) !important;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-reference-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(8,56,126,.32) !important;
+}
+.juba-busuu-page .juba-busuu-reference-wing {
+  position: absolute;
+  z-index: 1;
+  width: 112px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+.juba-busuu-page .juba-busuu-reference-wing-left {
+  inset-inline-end: calc(100% - 18px);
+  transform: rotate(-8deg);
+}
+.juba-busuu-page .juba-busuu-reference-wing-right {
+  inset-inline-start: calc(100% - 18px);
+  transform: rotate(8deg) scaleX(-1);
+}
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  width: min(980px, 100%);
+  margin-top: 30px;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-hero {
+    min-height: 650px;
+    padding: 54px 18px 0 !important;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-inner {
+    min-height: 596px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero h1 {
+    font-size: clamp(40px, 11vw, 58px) !important;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy > p {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions {
+    margin-top: 22px;
+  }
+  .juba-busuu-page .juba-busuu-reference-wing {
+    width: 82px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art {
+    width: 112%;
+    max-width: none;
+    margin-top: 24px;
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-reference-hero {
+    min-height: 590px;
+    padding-top: 42px !important;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-inner {
+    min-height: 548px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero h1 {
+    font-size: 38px !important;
+  }
+  .juba-busuu-page .juba-busuu-reference-wing {
+    width: 62px;
+  }
+  .juba-busuu-page .juba-busuu-reference-primary {
+    min-width: 168px;
+    padding-inline: 22px;
+  }
+}
