@@ -566,7 +566,6 @@ html[data-theme='light'] {
 .juba-busuu-open-source { border-radius:20px !important; box-shadow:0 8px 28px rgba(23,33,27,.06); }
 .juba-busuu-section h2 { letter-spacing:-.035em; }
 .juba-busuu-section a:not(.juba-busuu-nav-cta) { text-decoration-thickness:1px; text-underline-offset:3px; }
-.juba-busuu-page button:focus-visible, .juba-busuu-page a:focus-visible, .juba-busuu-page summary:focus-visible { outline:3px solid rgba(0,168,107,.28); outline-offset:3px; }
 /* Direction is inherited from the landing root; use logical positioning for both locales. */
 .juba-busuu-page .juba-busuu-footer { direction:inherit; }
 @media (max-width:640px) { .juba-busuu-demo-card { border-radius:18px !important; } .juba-busuu-feature-card { padding:22px !important; } }
@@ -12776,12 +12775,6 @@ html[data-theme='light'] {
   50% { transform: translateY(-8px) rotate(1deg); }
 }
 
-.juba-busuu-page .juba-busuu-reference-primary:focus-visible,
-.juba-busuu-page .juba-busuu-nav-cta:focus-visible,
-.juba-busuu-page .juba-busuu-login:focus-visible {
-  outline: 3px solid rgba(255,255,255,.9);
-  outline-offset: 4px;
-}
 .juba-busuu-page .juba-busuu-new-languages:focus-visible {
   outline: 3px solid var(--busuu-green-dark);
   outline-offset: -3px;
