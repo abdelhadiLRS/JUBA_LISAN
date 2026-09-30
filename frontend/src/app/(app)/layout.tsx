@@ -285,7 +285,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         ? String(feedbackUnreadCount)
         : ''
 
-  return (\n    <>
+  return (
+    <>
 
       <style>{`
         /* JUBA LISAN app shell — strict reference chrome */
