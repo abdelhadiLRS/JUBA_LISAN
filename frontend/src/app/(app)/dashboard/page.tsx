@@ -381,7 +381,7 @@ export default function DashboardPage() {
                   <i aria-hidden="true" />
                   <span>{currentDayDisplay}/{totalDays || 0}</span>
                   <i aria-hidden="true" />
-                  <span>{pendingCount} {t('lessonReady')}</span>
+                  <span>{completedLessonCount}/{todayLessons.length}</span>
                 </div>
               </div>
               <div className="juba-reference-v3-level" aria-label={`${cefrLevel || 'A1'} ${planCompletion}%`}>
@@ -487,7 +487,7 @@ export default function DashboardPage() {
                 <Link href="/plan" className="juba-reference-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
-              <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{pendingCount} {t('lessonReady')}</span></div>
+              <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{completedLessonCount}/{todayLessons.length} {t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</span></div>
               <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': completedExpr} as CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
