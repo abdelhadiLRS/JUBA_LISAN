@@ -21727,3 +21727,66 @@ html[data-theme='light'] {
 .juba-reference-v3 .juba-reference-course-path .juba-reference-path-rail{height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important}
 .juba-reference-v3 .juba-reference-course-path::before,.juba-reference-v3 .juba-reference-course-path::after{inset-inline-start:35px!important}
 @media (max-width:600px){.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{grid-template-columns:32px minmax(0,1fr) auto!important;gap:9px!important;padding-inline:12px!important}.juba-reference-v3 .juba-reference-course-path::before,.juba-reference-v3 .juba-reference-course-path::after{inset-inline-start:30px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy strong{font-size:10px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy span{font-size:7px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-green-button{min-width:72px!important;padding:0 8px!important}}
+
+
+/* JUBA LISAN — STRICT REFERENCE LOCK / FINAL DASHBOARD CHROME */
+.juba-reference-v3 .juba-reference-course-path::after{
+  transform:scaleY(var(--course-path-progress,0))!important;
+  transform-origin:top!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  position:relative!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current::before{
+  content:""!important;
+  position:absolute!important;
+  inset-inline-start:0!important;
+  top:0!important;
+  bottom:0!important;
+  width:3px!important;
+  background:#58cc02!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.done .juba-reference-lesson-copy strong{
+  color:#707070!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.current{
+  border-width:3px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{
+  align-self:center!important;
+}
+.juba-reference-v3 .juba-reference-daily .juba-reference-chart-summary{
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card{
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card-head{
+  min-height:46px!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-insight-value strong,
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-words-value strong{
+  font-size:22px!important;
+  line-height:1!important;
+  font-weight:950!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-insight-track,
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-small-progress{
+  margin-inline:15px!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights .juba-reference-insight-footer{
+  min-height:31px!important;
+  border-top:1px solid #f0f0f0!important;
+  padding-inline:15px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-goal-card .juba-reference-goal-ring{
+  border-width:6px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{
+  background:linear-gradient(180deg,#fff 0%,#fbfdf9 100%)!important;
+}
+@media(max-width:900px){
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current::before{
+    width:2px!important;
+  }
+}
