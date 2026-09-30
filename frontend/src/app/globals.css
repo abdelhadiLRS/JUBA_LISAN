@@ -17459,3 +17459,280 @@ html[data-theme='light'] {
     grid-template-columns:1fr 1fr;
   }
 }
+
+
+/* JUBA LISAN — Duolingo hifi fidelity pass 2026-09-30 */
+/*
+ * The two high-fidelity references are:
+ * - duolingo_hifi.jpg: learning path + compact progress/achievement/friends rail
+ * - duolingo_hifi_chat.jpg: conversation workspace + profile/friends rail
+ *
+ * JUBA LISAN keeps its own green identity, content, routes and RTL behavior.
+ */
+
+/* ---------- Dashboard: high-fidelity composition ---------- */
+.juba-busuu-dashboard.juba-duo-home{
+  background:#f8faf8;
+  padding-top:24px;
+}
+
+.juba-busuu-dashboard .juba-duo-welcome{
+  position:relative;
+  padding:4px 2px 16px;
+}
+
+.juba-busuu-dashboard .juba-duo-welcome:after{
+  content:"";
+  position:absolute;
+  inset-inline:0;
+  bottom:-1px;
+  height:3px;
+  background:linear-gradient(90deg, transparent 0%, #dce8df 18%, #58a700 50%, #dce8df 82%, transparent 100%);
+  opacity:.55;
+}
+
+.juba-busuu-dashboard .juba-duo-grid{
+  align-items:start;
+}
+
+@media (min-width:1200px){
+  .juba-busuu-dashboard .juba-duo-grid{
+    grid-template-columns:minmax(0,1.72fr) minmax(230px,.68fr) minmax(230px,.68fr);
+    gap:16px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-course{
+    min-width:0;
+  }
+
+  .juba-busuu-dashboard .juba-duo-course>.juba-duo-unit{
+    border-radius:14px 14px 0 0;
+    border-bottom:0;
+    padding-bottom:16px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-path{
+    border:1px solid var(--jl-dash-line);
+    border-top:0;
+    border-radius:0 0 14px 14px;
+    background:#fff;
+    padding:20px 18px 18px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side{
+    gap:16px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-card{
+    min-height:118px;
+    border-radius:12px;
+  }
+}
+
+.juba-busuu-dashboard .juba-duo-path:after{
+  content:"";
+  position:absolute;
+  inset-inline-start:29px;
+  inset-block-start:34px;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#58a700;
+  box-shadow:0 0 0 5px #eef7e8;
+  opacity:.9;
+  pointer-events:none;
+}
+
+.juba-busuu-dashboard[dir="rtl"] .juba-duo-path:after{
+  inset-inline-start:auto;
+  inset-inline-end:29px;
+}
+
+.juba-busuu-dashboard .juba-duo-node-row{
+  min-height:72px;
+}
+
+.juba-busuu-dashboard .juba-duo-node-row.is-offset{
+  transform:translateX(28px);
+}
+
+.juba-busuu-dashboard[dir="rtl"] .juba-duo-node-row.is-offset{
+  transform:translateX(-28px);
+}
+
+.juba-busuu-dashboard .juba-duo-node-row.is-offset:hover{
+  transform:translateX(28px);
+}
+
+.juba-busuu-dashboard[dir="rtl"] .juba-duo-node-row.is-offset:hover{
+  transform:translateX(-28px);
+}
+
+.juba-busuu-dashboard .juba-duo-card-link{
+  color:var(--jl-dash-blue-dark);
+  font-size:10px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-complete{
+  color:var(--jl-dash-green-dark);
+  font-size:10px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-empty{
+  min-height:260px;
+  border:1px dashed #cdd9d0;
+  border-radius:12px;
+  background:#fbfcfb;
+}
+
+.juba-busuu-dashboard .juba-duo-premium{
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+
+/* ---------- Chat: high-fidelity conversation workspace ---------- */
+.juba-mobile-chat{
+  --jl-chat-bg:#f8faf8;
+  --jl-chat-card:#ffffff;
+  --jl-chat-line:#dfe7e1;
+  --jl-chat-ink:#17211b;
+  --jl-chat-muted:#6a756f;
+  --jl-chat-green:#58a700;
+  --jl-chat-green-dark:#438600;
+  background:var(--jl-chat-bg);
+  color:var(--jl-chat-ink);
+}
+
+.juba-mobile-chat .chat-conversations-sidebar{
+  width:230px;
+  background:#fff;
+  border-inline-end:1px solid var(--jl-chat-line);
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:first-child{
+  min-height:58px;
+  background:#fff;
+  border-bottom:1px solid var(--jl-chat-line);
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:first-child button{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid #cdd8d0;
+  border-radius:8px;
+  background:#fff;
+  color:var(--jl-chat-green-dark);
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:first-child button:hover{
+  background:#eef7e8;
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:last-child>div{
+  border-bottom:1px solid #edf1ee;
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:last-child>div:hover{
+  background:#f6f9f6;
+}
+
+.juba-mobile-chat .chat-conversations-sidebar>div:last-child>div[class*="bg-"]{
+  background:#eef7e8;
+  border-inline-start:3px solid var(--jl-chat-green);
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden{
+  background:var(--jl-chat-bg);
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.border-b{
+  min-height:64px;
+  padding-inline:22px;
+  background:#fff;
+  border-bottom:1px solid var(--jl-chat-line);
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.border-b button:first-child{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--jl-chat-line);
+  border-radius:8px;
+  background:#fff;
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.min-h-0.flex-1{
+  width:min(920px,100%);
+  margin-inline:auto;
+  padding:34px clamp(18px,4vw,56px);
+  background:#fff;
+}
+
+.juba-mobile-chat .word-selectable{
+  border-radius:12px!important;
+  box-shadow:none!important;
+  line-height:1.65;
+}
+
+.juba-mobile-chat .word-selectable.bg-\[var\(--duo-green\)\]{
+  background:var(--jl-chat-green)!important;
+  border-color:var(--jl-chat-green-dark)!important;
+  border-radius:12px 12px 4px 12px!important;
+}
+
+.juba-mobile-chat .word-selectable.bg-\[var\(--duo-card\)\]{
+  background:#f7f9f7!important;
+  border-color:#dfe7e1!important;
+  border-radius:12px 12px 12px 4px!important;
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.border-t-2{
+  border-top:1px solid var(--jl-chat-line);
+  background:#fff;
+  padding:16px clamp(18px,4vw,56px);
+}
+
+.juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.border-t-2>div{
+  width:min(920px,100%);
+  margin-inline:auto;
+}
+
+.juba-mobile-chat input{
+  min-height:48px;
+  border:1px solid #ccd8cf!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  background:#fff!important;
+}
+
+.juba-mobile-chat input:focus{
+  border-color:var(--jl-chat-green)!important;
+  box-shadow:0 0 0 3px rgba(88,167,0,.12)!important;
+}
+
+.juba-mobile-chat input + button{
+  min-width:92px;
+  border:1px solid var(--jl-chat-green-dark)!important;
+  border-radius:10px!important;
+  background:var(--jl-chat-green)!important;
+  box-shadow:0 2px 0 var(--jl-chat-green-dark)!important;
+}
+
+@media (max-width:900px){
+  .juba-busuu-dashboard .juba-duo-node-row.is-offset,
+  .juba-busuu-dashboard .juba-duo-node-row.is-offset:hover{
+    transform:none;
+  }
+
+  .juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.min-h-0.flex-1{
+    padding:24px 14px;
+  }
+
+  .juba-mobile-chat>div.flex.flex-1.flex-col.overflow-hidden>div.border-t-2{
+    padding:12px 14px;
+  }
+}
