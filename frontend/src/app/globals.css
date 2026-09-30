@@ -18873,3 +18873,11 @@ html[data-theme='light'] {
 @media(max-width:900px){
  .juba-reference-v3-grid{grid-template-columns:1fr!important;justify-content:stretch!important}
 }
+
+
+.juba-reference-chart-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:9px;padding-top:9px;border-top:1px solid #eee}
+.juba-reference-chart-summary span{display:flex;flex-direction:column;gap:2px;padding-inline:8px;border-inline-start:1px solid #eee}
+.juba-reference-chart-summary span:first-child{border-inline-start:0;padding-inline-start:0}
+.juba-reference-chart-summary small{font-size:7px;color:#aaa;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.juba-reference-chart-summary b{font-size:11px;color:#555;font-weight:900}
+@media(max-width:680px){.juba-reference-chart-summary{grid-template-columns:repeat(3,1fr)}.juba-reference-chart-summary span{padding-inline:5px}}
