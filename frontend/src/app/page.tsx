@@ -272,6 +272,22 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      {/* Pricing */}
+      <ScrollReveal>
+        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
+          <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
+          <PricingSection
+            stripeEnabled={stripeEnabled}
+            trialDays={trialDays}
+            hasSession={hasSession}
+            priceMonthly={priceMonthly}
+            priceYearly={priceYearly}
+            totalPriceMonthly={totalPriceMonthly}
+            totalPriceYearly={totalPriceYearly}
+          />
+        </section>
+      </ScrollReveal>
+
       {/* Busuu-style "why learn" editorial section */}
       <ScrollReveal>
         <section className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
@@ -313,22 +329,6 @@ export default async function Home() {
             <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
             <LandingReviewsCarousel reviews={reviews} />
           </div>
-        </section>
-      </ScrollReveal>
-
-      {/* Pricing */}
-      <ScrollReveal>
-        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
-          <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
-          <PricingSection
-            stripeEnabled={stripeEnabled}
-            trialDays={trialDays}
-            hasSession={hasSession}
-            priceMonthly={priceMonthly}
-            priceYearly={priceYearly}
-            totalPriceMonthly={totalPriceMonthly}
-            totalPriceYearly={totalPriceYearly}
-          />
         </section>
       </ScrollReveal>
 
