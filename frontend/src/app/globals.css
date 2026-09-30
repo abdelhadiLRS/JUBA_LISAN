@@ -21684,3 +21684,94 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* ── Landing continuation: make the language chapter feel like a flagship destination ── */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.juba-busuu-page .juba-busuu-reference-languages::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(8,119,249,.08), transparent 26%),
+    radial-gradient(circle at 92% 76%, rgba(82,174,119,.10), transparent 28%);
+  pointer-events:none;
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner {
+  position:relative;
+}
+.juba-busuu-page .juba-busuu-language-intro h2 {
+  max-width:10ch;
+  font-size:clamp(42px,5.8vw,72px);
+  line-height:.96;
+  letter-spacing:-.055em;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position:relative;
+  border-radius:30px;
+  padding:clamp(18px,3vw,34px);
+  background:rgba(255,255,255,.88);
+  box-shadow:0 28px 80px rgba(17,23,20,.10);
+  backdrop-filter:blur(10px);
+}
+.juba-busuu-page .juba-busuu-language-stage::before {
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(23,33,27,.055);
+  border-radius:22px;
+  pointer-events:none;
+}
+.juba-busuu-page .juba-busuu-language-list {
+  position:relative;
+  z-index:1;
+  gap:10px;
+}
+.juba-busuu-page .juba-busuu-language-item {
+  min-height:122px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fff 0%,#f8faf7 100%);
+  box-shadow:0 5px 16px rgba(17,23,20,.035);
+}
+.juba-busuu-page .juba-busuu-language-item:focus-within {
+  outline:3px solid rgba(8,119,249,.18);
+  outline-offset:2px;
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  position:relative;
+  z-index:1;
+  margin-top:24px;
+  padding:20px 4px 0;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 16px;
+  border:1px solid rgba(8,119,249,.18);
+  border-radius:999px;
+  color:var(--jl-blue-deep,#075cae);
+  background:rgba(8,119,249,.055);
+  text-decoration:none;
+  transition:transform .18s ease,background-color .18s ease,border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover {
+  transform:translateY(-2px);
+  border-color:rgba(8,119,249,.32);
+  background:rgba(8,119,249,.10);
+}
+@media(max-width:700px) {
+  .juba-busuu-page .juba-busuu-language-intro h2 { max-width:12ch; }
+  .juba-busuu-page .juba-busuu-language-stage { border-radius:24px; }
+  .juba-busuu-page .juba-busuu-language-stage::before { inset:9px; border-radius:18px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link { transition:none; }
+}
