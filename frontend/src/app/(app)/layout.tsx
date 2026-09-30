@@ -412,6 +412,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important;border:2px solid #fff!important}
         @media (max-width:900px){.juba-reference-shell .juba-duo-sidebar{width:0!important;min-width:0!important;flex-basis:0!important}}
 
+        /* Reference fidelity pass 9 — optical hierarchy and viewport stability */
+        .juba-reference-shell .juba-duo-sidebar{overflow:hidden!important}
+        .juba-reference-shell .juba-duo-nav{overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:none!important}
+        .juba-reference-shell .juba-duo-nav::-webkit-scrollbar{display:none!important}
+        .juba-reference-shell .juba-duo-nav-link{white-space:nowrap!important}
+        .juba-reference-shell .juba-duo-nav-link svg{flex:none!important}
+        .juba-reference-shell .juba-duo-user{flex:none!important}
+        .juba-reference-shell .juba-duo-page-frame{overscroll-behavior-y:contain!important}
+        @media (min-width:901px){
+          .juba-reference-shell .juba-duo-sidebar{height:100dvh!important}
+          .juba-reference-shell .juba-duo-main{height:100dvh!important;display:flex!important;flex-direction:column!important}
+          .juba-reference-shell .juba-duo-page-frame{flex:1 1 auto!important;min-height:0!important}
+        }
+        @media (max-width:640px){
+          .juba-reference-shell .juba-duo-main{width:100%!important}
+        }
       `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
