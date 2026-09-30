@@ -14751,3 +14751,70 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-real-world { padding-inline: 18px; }
   .juba-busuu-page .juba-busuu-real-world-card { min-height: 245px; padding: 24px; }
 }
+
+
+/* ── Landing polish: editorial cards ── */
+.juba-busuu-page .juba-busuu-real-world-card {
+  min-height: 360px;
+  padding: 28px;
+  justify-content: space-between;
+  border-radius: 0;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.juba-busuu-page .juba-busuu-real-world-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(21,28,24,.12);
+}
+.juba-busuu-page .juba-busuu-real-world-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.juba-busuu-page .juba-busuu-real-world-index {
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .12em;
+  opacity: .72;
+}
+.juba-busuu-page .juba-busuu-real-world-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+}
+.juba-busuu-page .juba-busuu-real-world-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 430px;
+}
+.juba-busuu-page .juba-busuu-real-world-copy h3 {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: .98;
+  letter-spacing: -.05em;
+}
+.juba-busuu-page .juba-busuu-real-world-copy p {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  opacity: .88;
+}
+.juba-busuu-page .juba-busuu-real-world-card::before {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  top: 56px;
+  inset-inline-end: -36px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: .14;
+}
+.juba-busuu-page .juba-busuu-real-world-orb { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-real-world-card { transition: none; }
+  .juba-busuu-page .juba-busuu-real-world-card:hover { transform: none; }
+}
