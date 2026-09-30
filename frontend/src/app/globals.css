@@ -25001,3 +25001,139 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+/* ── Landing refinement v53: give the language chapter a stronger visual stage ── */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position: relative;
+  overflow: clip;
+}
+.juba-busuu-page .juba-busuu-reference-languages::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 22%;
+  width: min(72vw, 860px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(8,119,249,.065) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(42,166,112,.055) 0 1px, transparent 1.5px);
+  background-size: 28px 28px, 43px 43px;
+  mask-image: radial-gradient(circle, #000 0 42%, transparent 72%);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner {
+  position: relative;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-language-intro {
+  align-items: end;
+  gap: clamp(28px, 6vw, 96px);
+}
+.juba-busuu-page .juba-busuu-language-intro > div {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-language-intro h2 {
+  max-width: 760px;
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-language-intro p {
+  max-width: 440px;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position: relative;
+  overflow: hidden;
+  margin-top: clamp(42px, 5vw, 64px);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(8,119,249,.07), transparent 24%),
+    radial-gradient(circle at 82% 78%, rgba(42,166,112,.07), transparent 28%),
+    rgba(255,255,255,.84);
+}
+.juba-busuu-page .juba-busuu-language-stage::before,
+.juba-busuu-page .juba-busuu-language-stage::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-language-stage::before {
+  inset-inline-start: 28px;
+  inset-block-start: 28px;
+  background: var(--busuu-blue);
+  box-shadow: 18px 0 0 rgba(8,119,249,.14), 36px 0 0 rgba(8,119,249,.07);
+}
+.juba-busuu-page .juba-busuu-language-stage::after {
+  inset-inline-end: 28px;
+  inset-block-end: 28px;
+  background: var(--busuu-green);
+  box-shadow: -18px 0 0 rgba(42,166,112,.14), -36px 0 0 rgba(42,166,112,.07);
+}
+.juba-busuu-page .juba-busuu-language-list {
+  position: relative;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  border: 1px solid rgba(23,33,27,.055);
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 8px 22px rgba(23,33,27,.045);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(8,119,249,.18);
+  background: #fff;
+  box-shadow: 0 16px 30px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img {
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgba(23,33,27,.10);
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  position: relative;
+  z-index: 1;
+  padding-top: 18px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  min-height: 44px;
+  padding-inline: 17px;
+  border: 1px solid rgba(8,119,249,.18);
+  border-radius: 999px;
+  background: rgba(8,119,249,.055);
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover,
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(8,119,249,.09);
+  border-color: rgba(8,119,249,.30);
+}
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-language-stage {
+    margin-top: 34px;
+    border-radius: 24px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::before {
+    inset-inline-start: 16px;
+    inset-block-start: 16px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::after {
+    inset-inline-end: 16px;
+    inset-block-end: 16px;
+  }
+  .juba-busuu-page .juba-busuu-language-bottom {
+    gap: 12px;
+  }
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    min-height: 42px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+}
