@@ -16614,3 +16614,355 @@ html[data-theme='light'] {
     min-height:40px;
   }
 }
+
+/* === Busuu fidelity pass: passport warmth, mist canvas and signature gradient === */
+.juba-busuu-page{
+  --busuu-deep-indigo:#3b1e90;
+  --busuu-signal-blue:#116eee;
+  --busuu-spring-mint:#11ee92;
+  --busuu-hero-gradient:linear-gradient(90deg,#3b1e90 0%,#5a3cc4 30%,#3a6ef0 100%);
+  --busuu-charcoal:#252b2f;
+  --busuu-canvas:#f2f7fd;
+  --busuu-paper:#fff;
+  --busuu-border:#d6dee6;
+  --busuu-slate:#666e7e;
+  --busuu-shadow:rgba(0,0,0,.1) 0 1px 2px 0;
+  --busuu-radius-card:16px;
+  --busuu-radius-button:45px;
+  background:var(--busuu-canvas);
+  color:var(--busuu-charcoal);
+  font-family:Poppins,Nunito,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.juba-busuu-page main{background:var(--busuu-canvas)}
+.juba-busuu-page .juba-busuu-nav{
+  min-height:64px;
+  height:64px;
+  background:#fff;
+  border-bottom:1px solid rgba(214,222,230,.9);
+  box-shadow:var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-nav-inner{
+  width:min(1200px,calc(100% - 40px));
+  min-height:64px!important;
+  gap:20px;
+}
+.juba-busuu-page .juba-busuu-brand img{width:138px}
+.juba-busuu-page .juba-busuu-nav-links{
+  margin-inline-start:auto;
+  gap:8px;
+}
+.juba-busuu-page .juba-busuu-nav-links a{
+  padding:10px 14px;
+  border-radius:45px;
+  color:var(--busuu-charcoal);
+  font-size:14px;
+  font-weight:700;
+}
+.juba-busuu-page .juba-busuu-nav-links a::after{display:none}
+.juba-busuu-page .juba-busuu-nav-links a:hover{
+  color:var(--busuu-signal-blue);
+  background:#f2f7fd;
+}
+.juba-busuu-page .juba-busuu-nav-pill{
+  display:none;
+}
+.juba-busuu-page .juba-busuu-nav-actions{gap:6px}
+.juba-busuu-page .juba-busuu-login{
+  min-height:44px;
+  padding:0 18px;
+  border-radius:45px;
+  color:var(--busuu-charcoal);
+  font-size:14px;
+  font-weight:700;
+}
+.juba-busuu-page .juba-busuu-nav-cta{
+  min-height:44px;
+  padding:0 20px;
+  border:2px solid var(--busuu-signal-blue);
+  border-radius:45px;
+  background:transparent;
+  color:var(--busuu-signal-blue);
+  box-shadow:none;
+  font-size:14px;
+  font-weight:700;
+}
+.juba-busuu-page .juba-busuu-nav-cta:hover{
+  background:var(--busuu-signal-blue);
+  color:#fff;
+}
+.juba-busuu-page .juba-busuu-locale{
+  min-height:40px;
+  border:1px solid var(--busuu-border);
+  border-radius:5px;
+  background:#fff;
+  color:var(--busuu-charcoal);
+  box-shadow:none;
+}
+.juba-busuu-page .juba-busuu-visitor-locale{
+  min-height:40px;
+  border-color:var(--busuu-border);
+  border-radius:45px;
+  box-shadow:var(--busuu-shadow);
+}
+
+/* Hero: full-bleed Busuu gradient, mint conversion action */
+.juba-busuu-page .juba-busuu-reference-hero{
+  min-height:0;
+  padding:64px 20px 0;
+  background:var(--busuu-hero-gradient);
+  color:#fff;
+}
+.juba-busuu-page .juba-busuu-reference-hero-inner{
+  width:min(1200px,100%);
+  min-height:560px;
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  align-items:center;
+  gap:48px;
+  margin-inline:auto;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy{
+  align-items:flex-start;
+  text-align:start;
+  padding-block:36px;
+}
+.juba-busuu-page .juba-busuu-reference-kicker{
+  color:rgba(255,255,255,.84);
+  font-size:10px;
+  line-height:1.2;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy h1{
+  max-width:560px;
+  margin:14px 0 0;
+  color:#fff;
+  font-size:clamp(40px,4.2vw,56px);
+  line-height:1.14;
+  letter-spacing:-.035em;
+  font-weight:800;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy p{
+  max-width:480px;
+  margin:20px 0 0;
+  color:rgba(255,255,255,.92);
+  font-size:16px;
+  line-height:1.5;
+}
+.juba-busuu-page .juba-busuu-reference-actions{
+  margin-top:24px;
+  justify-content:flex-start;
+  gap:12px;
+}
+.juba-busuu-page .juba-busuu-reference-primary{
+  min-height:48px;
+  padding:12px 20px;
+  border:0;
+  border-radius:45px;
+  background:var(--busuu-spring-mint);
+  color:var(--busuu-charcoal);
+  box-shadow:var(--busuu-shadow);
+  font-size:15px;
+  font-weight:700;
+}
+.juba-busuu-page .juba-busuu-reference-primary:hover{
+  background:#25f29f;
+  color:var(--busuu-charcoal);
+  transform:translateY(-1px);
+}
+.juba-busuu-page .juba-busuu-reference-wing{
+  display:none;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art{
+  position:relative;
+  width:100%;
+  margin:0;
+  border-radius:0;
+  overflow:visible;
+  background:transparent;
+  box-shadow:none;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art>img{
+  display:block;
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  filter:none;
+}
+.juba-busuu-page .juba-busuu-hero-float{
+  max-width:190px;
+  padding:10px 14px;
+  border:0;
+  border-radius:45px;
+  background:#fff;
+  color:var(--busuu-charcoal);
+  box-shadow:var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-hero-float strong{
+  font-size:12px;
+  line-height:1.3;
+  font-weight:700;
+}
+
+/* Language passport: mist canvas + circular flag tiles */
+.juba-busuu-page .juba-busuu-reference-languages{
+  padding:64px 20px;
+  background:var(--busuu-canvas);
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner{
+  width:min(1200px,100%);
+  margin-inline:auto;
+}
+.juba-busuu-page .juba-busuu-language-intro{
+  display:block;
+  margin-bottom:40px;
+  text-align:center;
+}
+.juba-busuu-page .juba-busuu-language-intro h2{
+  margin:8px auto 0;
+  color:var(--busuu-charcoal);
+  font-size:clamp(24px,3vw,36px);
+  line-height:1.14;
+  letter-spacing:-.02em;
+  font-weight:700;
+  text-align:center;
+}
+.juba-busuu-page .juba-busuu-language-intro>p{
+  max-width:620px;
+  margin:12px auto 0;
+  color:var(--busuu-slate);
+  font-size:16px;
+  line-height:1.5;
+}
+.juba-busuu-page .juba-busuu-language-intro .juba-busuu-eyebrow{
+  color:var(--busuu-signal-blue);
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:20px 12px;
+  justify-items:center;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item{
+  min-height:0;
+  width:100%;
+  padding:0 6px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img{
+  width:76px;
+  height:76px!important;
+  padding:0;
+  border:0;
+  border-radius:9999px;
+  object-fit:cover;
+  box-shadow:var(--busuu-shadow);
+  background:#fff;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item span{
+  color:var(--busuu-charcoal);
+  font-size:14px;
+  line-height:1.5;
+  font-weight:400;
+  text-align:center;
+}
+
+/* Calm content cards */
+.juba-busuu-page .juba-busuu-real-world,
+.juba-busuu-page .juba-busuu-different,
+.juba-busuu-page .juba-busuu-testimonials,
+.juba-busuu-page .juba-busuu-why-learn,
+.juba-busuu-page .juba-busuu-pricing,
+.juba-busuu-page .juba-busuu-faq-section,
+.juba-busuu-page .juba-busuu-open-source-section{
+  background:var(--busuu-canvas);
+}
+.juba-busuu-page .juba-busuu-real-world-card,
+.juba-busuu-page .juba-busuu-different-card,
+.juba-busuu-page .juba-busuu-why-learn-card{
+  border-radius:16px;
+  box-shadow:var(--busuu-shadow);
+}
+.juba-busuu-page .juba-busuu-real-world-card:hover,
+.juba-busuu-page .juba-busuu-different-card:hover,
+.juba-busuu-page .juba-busuu-why-learn-card:hover{
+  transform:translateY(-2px);
+}
+.juba-busuu-page .juba-busuu-proof-strip{
+  background:var(--busuu-canvas);
+}
+.juba-busuu-page .juba-busuu-proof-inner{
+  background:#fff;
+  border:1px solid var(--busuu-border);
+  box-shadow:var(--busuu-shadow);
+}
+
+/* Remove decorative editorial labels that compete with the passport language */
+.juba-busuu-page .juba-busuu-open-source-section::before,
+.juba-busuu-page .juba-busuu-footer::before{
+  display:none;
+}
+@media (max-width:1000px){
+  .juba-busuu-page .juba-busuu-reference-hero-inner{
+    grid-template-columns:1fr;
+    min-height:0;
+    gap:28px;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy{
+    align-items:center;
+    text-align:center;
+    padding-block:20px 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy p{
+    margin-inline:auto;
+  }
+  .juba-busuu-page .juba-busuu-reference-actions{justify-content:center}
+  .juba-busuu-page .juba-busuu-reference-hero-art{
+    max-width:760px;
+    margin-inline:auto;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+}
+@media (max-width:640px){
+  .juba-busuu-page .juba-busuu-nav{
+    min-height:64px;
+    height:64px;
+  }
+  .juba-busuu-page .juba-busuu-nav-inner{
+    width:calc(100% - 24px);
+    min-height:64px!important;
+  }
+  .juba-busuu-page .juba-busuu-brand img{width:124px}
+  .juba-busuu-page .juba-busuu-reference-hero{
+    padding:42px 16px 0;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1{
+    font-size:clamp(36px,10vw,46px);
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-art{
+    max-width:560px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages{
+    padding:56px 16px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:24px 8px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img{
+    width:64px;
+    height:64px!important;
+  }
+}
