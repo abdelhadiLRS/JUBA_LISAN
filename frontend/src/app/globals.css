@@ -24997,3 +24997,88 @@ html[data-theme='light'] {
     position:static!important;
   }
 }
+
+
+/* DASHBOARD REFERENCE — FINAL PROPORTION PASS */
+.juba-reference-v3 .juba-reference-v3-grid{
+  width:min(1180px,100%)!important;
+  max-width:1180px!important;
+  grid-template-columns:minmax(0,1fr) 286px!important;
+  gap:18px!important;
+  padding:18px 22px 38px!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{gap:12px!important}
+.juba-reference-v3 .juba-reference-v3-welcome{
+  min-height:100px!important;
+  padding:17px 20px!important;
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-section-label{
+  font-size:8px!important;
+  letter-spacing:.055em!important;
+}
+.juba-reference-v3 .juba-reference-welcome-meta{
+  margin-top:8px!important;
+  font-size:8px!important;
+}
+.juba-reference-v3 .juba-reference-daily{padding:16px 18px 13px!important}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head h2{font-size:15px!important}
+.juba-reference-v3 .juba-reference-v3-chart{
+  height:118px!important;
+  margin-top:12px!important;
+}
+.juba-reference-v3 .juba-reference-v3-chart-col{gap:6px!important}
+.juba-reference-v3 .juba-reference-v3-chart-col small{font-size:7px!important}
+.juba-reference-v3 .juba-reference-chart-summary{
+  margin-top:10px!important;
+  padding-top:9px!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.juba-reference-v3 .juba-reference-insight-card{
+  min-height:142px!important;
+  padding:14px 16px!important;
+}
+.juba-reference-v3 .juba-reference-insight-card h3{font-size:12px!important}
+.juba-reference-v3 .juba-reference-course{border-radius:8px!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-card-header{
+  padding:16px 18px 11px!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-row{padding:0 18px!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-meta{
+  padding:7px 18px 11px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  min-height:66px!important;
+  grid-template-columns:38px minmax(0,1fr) auto!important;
+  padding:8px 17px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{min-width:70px!important}
+.juba-reference-v3 .juba-reference-v3-rail{gap:10px!important}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-v3-card{
+  padding:14px 15px!important;
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-profile-card{min-height:102px!important}
+.juba-reference-v3 .juba-reference-streak-display strong{font-size:30px!important}
+.juba-reference-v3 .juba-reference-goal-ring{
+  width:82px!important;
+  height:82px!important;
+}
+.juba-reference-v3 .juba-reference-xp-card .juba-reference-xp-row{min-height:29px!important}
+@media(max-width:1200px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    grid-template-columns:minmax(0,1fr) 270px!important;
+  }
+}
+@media(max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    grid-template-columns:1fr!important;
+    padding:14px 0 30px!important;
+  }
+  .juba-reference-v3 .juba-reference-reference-insights{
+    grid-template-columns:1fr!important;
+  }
+}
