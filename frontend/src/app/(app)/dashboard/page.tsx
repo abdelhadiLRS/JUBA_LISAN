@@ -687,6 +687,22 @@ export default function DashboardPage() {
         .juba-reference-v3 .juba-reference-reference-nav a{transition:color .16s ease,background .16s ease!important}
         .juba-reference-v3 button:focus-visible,.juba-reference-v3 a:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
         @media (max-width:900px){.juba-reference-v3 .juba-reference-topbar{border-bottom:1px solid #f0f2ed!important}}
+              /* reference fidelity pass 7 — screenshot-level rhythm and card geometry */
+        .juba-reference-v3 .juba-reference-v3-card{border-radius:14px!important;border:1px solid #e7ece3!important;background:#fff!important}
+        .juba-reference-v3 .juba-reference-v3-card-head{min-height:30px!important}
+        .juba-reference-v3 .juba-reference-v3-card-head h3{letter-spacing:-.02em!important}
+        .juba-reference-v3 .juba-reference-profile-card{overflow:hidden!important}
+        .juba-reference-v3 .juba-reference-profile-hero{padding:18px 18px 15px!important}
+        .juba-reference-v3 .juba-reference-profile-metrics{border-top:1px solid #edf0ea!important}
+        .juba-reference-v3 .juba-reference-goal-ring{box-shadow:inset 0 0 0 1px rgba(88,169,27,.04)!important}
+        .juba-reference-v3 .juba-reference-small-progress{height:6px!important;border-radius:99px!important;background:#edf2e9!important;overflow:hidden!important}
+        .juba-reference-v3 .juba-reference-small-progress>span{display:block!important;height:100%!important;border-radius:inherit!important;background:#58cc02!important}
+        .juba-reference-v3 .juba-reference-tools-card a,.juba-reference-v3 .juba-reference-friend-row{min-height:48px!important}
+        .juba-reference-v3 .juba-reference-friend-row{border-bottom:1px solid #f0f2ed!important}
+        .juba-reference-v3 .juba-reference-friend-row:last-child{border-bottom:0!important}
+        .juba-reference-v3 .juba-reference-premium{border-radius:14px!important}
+        @media (max-width:900px){.juba-reference-v3 .juba-reference-v3-card{border-radius:12px!important}}
+
       </style>
       <OnboardingTour />
       <WhatsNew />
