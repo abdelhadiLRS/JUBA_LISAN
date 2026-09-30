@@ -16966,3 +16966,496 @@ html[data-theme='light'] {
     height:64px!important;
   }
 }
+
+
+
+/* JUBA LISAN — Dashboard fidelity pass 2026-09-30 */
+/*
+ * Reference direction:
+ * - desktop language-learning dashboard with a calm white canvas
+ * - strong primary learning path
+ * - compact secondary progress widgets
+ * - three-column information density without visual clutter
+ * - JUBA LISAN identity and RTL behavior are preserved
+ *
+ * This is a reference-driven adaptation, not a copy of the source brand.
+ */
+
+.juba-busuu-dashboard.juba-duo-home{
+  --jl-dash-bg:#f7f9f7;
+  --jl-dash-card:#ffffff;
+  --jl-dash-line:#dfe6e1;
+  --jl-dash-ink:#17211b;
+  --jl-dash-muted:#65716b;
+  --jl-dash-green:#58a700;
+  --jl-dash-green-dark:#438600;
+  --jl-dash-blue:#1689d8;
+  --jl-dash-blue-dark:#116eae;
+  --jl-dash-yellow:#f0b323;
+  background:var(--jl-dash-bg);
+  width:100%;
+  max-width:none;
+  min-height:100%;
+  padding:28px clamp(20px,3.4vw,52px) 56px;
+  color:var(--jl-dash-ink);
+}
+
+.juba-busuu-dashboard .juba-duo-welcome{
+  width:min(1240px,100%);
+  margin:0 auto 22px;
+  padding:0 0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  border-bottom:1px solid var(--jl-dash-line);
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+}
+
+.juba-busuu-dashboard .juba-duo-eyebrow{
+  color:var(--jl-dash-muted);
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-welcome h1{
+  margin:5px 0 4px;
+  color:var(--jl-dash-ink);
+  font-size:clamp(26px,2.6vw,36px);
+  line-height:1.15;
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.juba-busuu-dashboard .juba-duo-welcome p{
+  margin:0;
+  color:var(--jl-dash-muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.juba-busuu-dashboard .juba-duo-top-stats{
+  gap:8px;
+}
+
+.juba-busuu-dashboard .juba-duo-top-stats>div{
+  min-width:92px;
+  padding:10px 13px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-template-rows:auto auto;
+  column-gap:7px;
+  row-gap:2px;
+  border:1px solid var(--jl-dash-line);
+  border-radius:10px;
+  background:var(--jl-dash-card);
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+
+.juba-busuu-dashboard .juba-duo-top-stats svg{
+  grid-row:1 / span 2;
+  align-self:center;
+  color:var(--jl-dash-yellow);
+}
+
+.juba-busuu-dashboard .juba-duo-top-stats strong{
+  color:var(--jl-dash-ink);
+  font-size:16px;
+  line-height:1;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-top-stats span{
+  color:var(--jl-dash-muted);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+/* Desktop information architecture: learning path + two compact insight columns. */
+@media (min-width:1200px){
+  .juba-busuu-dashboard .juba-duo-grid{
+    width:min(1240px,100%);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(0,1.55fr) minmax(190px,.62fr) minmax(190px,.62fr);
+    grid-template-rows:auto auto auto;
+    align-items:start;
+    gap:14px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-course{
+    grid-column:1;
+    grid-row:1 / span 3;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side{
+    display:contents;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-card:nth-child(1){
+    grid-column:2;
+    grid-row:1;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-card:nth-child(2){
+    grid-column:3;
+    grid-row:1;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-card:nth-child(3){
+    grid-column:2;
+    grid-row:2;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-card:nth-child(4){
+    grid-column:3;
+    grid-row:2;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-links{
+    grid-column:2 / span 2;
+    grid-row:3;
+  }
+}
+
+.juba-busuu-dashboard .juba-duo-unit,
+.juba-busuu-dashboard .juba-duo-card{
+  border:1px solid var(--jl-dash-line);
+  border-radius:12px;
+  background:var(--jl-dash-card);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+
+.juba-busuu-dashboard .juba-duo-unit{
+  padding:22px;
+}
+
+.juba-busuu-dashboard .juba-duo-unit-head{
+  margin-bottom:18px;
+}
+
+.juba-busuu-dashboard .juba-duo-unit-head h2{
+  margin-top:5px;
+  color:var(--jl-dash-ink);
+  font-size:20px;
+  line-height:1.3;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-unit-kicker{
+  color:var(--jl-dash-green-dark);
+  font-size:10px;
+  letter-spacing:.08em;
+}
+
+.juba-busuu-dashboard .juba-duo-guide{
+  color:var(--jl-dash-blue-dark);
+  font-size:12px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-progress{
+  height:8px;
+  margin-top:16px;
+  background:#e7ece8;
+}
+
+.juba-busuu-dashboard .juba-duo-progress>span,
+.juba-busuu-dashboard .juba-duo-meter>span{
+  background:var(--jl-dash-green);
+}
+
+.juba-busuu-dashboard .juba-duo-progress-meta{
+  margin-top:7px;
+  color:var(--jl-dash-muted);
+  font-size:10px;
+}
+
+/* Main learning path: clean nodes, restrained depth, visible connector. */
+.juba-busuu-dashboard .juba-duo-path{
+  position:relative;
+  padding:18px 4px 4px;
+}
+
+.juba-busuu-dashboard .juba-duo-path:before{
+  content:"";
+  position:absolute;
+  inset-block:34px 42px;
+  inset-inline-start:36px;
+  width:2px;
+  background:#e3e9e5;
+  pointer-events:none;
+}
+
+.juba-busuu-dashboard .juba-duo-node-row{
+  position:relative;
+  z-index:1;
+  max-width:none;
+  margin:0 0 10px;
+  padding:10px 12px;
+  gap:14px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  transition:background .16s ease, transform .16s ease;
+}
+
+.juba-busuu-dashboard .juba-duo-node-row:hover{
+  background:#f8faf8;
+}
+
+.juba-busuu-dashboard .juba-duo-node-row.is-offset{
+  margin-inline-start:26px;
+}
+
+.juba-busuu-dashboard .juba-duo-node{
+  width:54px;
+  height:54px;
+  flex-basis:54px;
+  border:2px solid #dce4de;
+  background:#fff;
+  box-shadow:0 2px 0 #dce4de;
+  color:#7b8781;
+}
+
+.juba-busuu-dashboard .juba-duo-node.is-current{
+  border-color:var(--jl-dash-green);
+  background:var(--jl-dash-green);
+  box-shadow:0 3px 0 var(--jl-dash-green-dark);
+  color:#fff;
+}
+
+.juba-busuu-dashboard .juba-duo-node.is-done{
+  border-color:#b8d997;
+  background:#eef7e8;
+  color:var(--jl-dash-green-dark);
+  box-shadow:none;
+}
+
+.juba-busuu-dashboard .juba-duo-node-copy{
+  gap:4px;
+}
+
+.juba-busuu-dashboard .juba-duo-node-copy strong{
+  color:var(--jl-dash-ink);
+  font-size:14px;
+  font-weight:750;
+}
+
+.juba-busuu-dashboard .juba-duo-node-copy>span{
+  color:var(--jl-dash-muted);
+  font-size:11px;
+}
+
+.juba-busuu-dashboard .juba-duo-cta{
+  min-height:36px;
+  margin-top:5px;
+  padding:0 17px;
+  border-radius:7px;
+  background:var(--jl-dash-green);
+  box-shadow:0 2px 0 var(--jl-dash-green-dark);
+  font-size:12px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-cta:hover{
+  background:var(--jl-dash-green-dark);
+}
+
+.juba-busuu-dashboard .juba-duo-card{
+  padding:16px;
+  margin:0;
+}
+
+.juba-busuu-dashboard .juba-duo-card-head h3{
+  color:var(--jl-dash-ink);
+  font-size:12px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-card-head>span{
+  color:var(--jl-dash-green-dark);
+  font-size:16px;
+  font-weight:800;
+}
+
+.juba-busuu-dashboard .juba-duo-card p{
+  color:var(--jl-dash-muted);
+  font-size:11px;
+  line-height:1.55;
+}
+
+.juba-busuu-dashboard .juba-duo-streak-card{
+  min-height:106px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.juba-busuu-dashboard .juba-duo-card-icon{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  background:#fff5d9;
+  color:var(--jl-dash-yellow);
+}
+
+.juba-busuu-dashboard .juba-duo-streak-card strong{
+  font-size:24px;
+}
+
+.juba-busuu-dashboard .juba-duo-meter{
+  height:7px;
+  margin:10px 0 7px;
+}
+
+.juba-busuu-dashboard .juba-duo-mini-bars{
+  height:68px;
+  gap:5px;
+  margin-top:10px;
+}
+
+.juba-busuu-dashboard .juba-duo-mini-bars span{
+  border-radius:4px 4px 1px 1px;
+  background:var(--jl-dash-blue);
+}
+
+.juba-busuu-dashboard .juba-duo-links{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;
+}
+
+.juba-busuu-dashboard .juba-duo-links a{
+  min-height:44px;
+  justify-content:center;
+  padding:8px 9px;
+  border:1px solid var(--jl-dash-line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--jl-dash-muted);
+  font-size:10px;
+  font-weight:750;
+}
+
+.juba-busuu-dashboard .juba-duo-links a:hover{
+  border-color:#b9d69e;
+  background:#f0f8ea;
+  color:var(--jl-dash-green-dark);
+}
+
+.juba-busuu-dashboard .juba-duo-premium{
+  width:min(1240px,100%);
+  margin:14px auto 0;
+  padding:12px 14px;
+  border:1px solid #ead7a4;
+  border-radius:10px;
+  background:#fffaf0;
+}
+
+/* RTL: the same visual hierarchy is mirrored without changing semantic order. */
+.juba-busuu-dashboard[dir="rtl"] .juba-duo-path:before{
+  inset-inline-start:auto;
+  inset-inline-end:36px;
+}
+
+@media (max-width:1199px) and (min-width:901px){
+  .juba-busuu-dashboard .juba-duo-grid{
+    grid-template-columns:minmax(0,1.45fr) minmax(260px,.72fr);
+    gap:18px;
+  }
+}
+
+@media (max-width:900px){
+  .juba-busuu-dashboard.juba-duo-home{
+    padding:24px 16px 40px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-welcome{
+    padding-bottom:16px;
+    margin-bottom:16px;
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .juba-busuu-dashboard .juba-duo-top-stats{
+    width:100%;
+  }
+
+  .juba-busuu-dashboard .juba-duo-top-stats>div{
+    flex:1;
+  }
+
+  .juba-busuu-dashboard .juba-duo-grid{
+    grid-template-columns:minmax(0,1fr);
+  }
+
+  .juba-busuu-dashboard .juba-duo-side{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-links{
+    grid-column:1/-1;
+  }
+}
+
+@media (max-width:560px){
+  .juba-busuu-dashboard.juba-duo-home{
+    padding:16px 10px 30px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-welcome h1{
+    font-size:25px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-top-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .juba-busuu-dashboard .juba-duo-top-stats>div{
+    min-width:0;
+  }
+
+  .juba-busuu-dashboard .juba-duo-unit{
+    padding:16px 12px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-path:before{
+    inset-inline-start:30px;
+  }
+
+  .juba-busuu-dashboard[dir="rtl"] .juba-duo-path:before{
+    inset-inline-start:auto;
+    inset-inline-end:30px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-node-row,
+  .juba-busuu-dashboard .juba-duo-node-row.is-offset{
+    margin-inline-start:0;
+    padding:9px 5px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-node{
+    width:48px;
+    height:48px;
+    flex-basis:48px;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side{
+    grid-template-columns:1fr;
+  }
+
+  .juba-busuu-dashboard .juba-duo-side>.juba-duo-links{
+    grid-column:auto;
+    grid-template-columns:1fr 1fr;
+  }
+}
