@@ -523,13 +523,17 @@ export default function DashboardPage() {
 
           <aside className="juba-reference-v3-rail">
             <section className="juba-reference-v3-card juba-reference-profile-card">
-              <div className="juba-reference-v3-card-head">
-                <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('streak')}</h3></div>
-                <Flame size={19} />
+              <div className="juba-reference-profile-hero">
+                <div className="juba-reference-profile-photo">
+                  {user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={28} />}
+                </div>
+                <strong>{user?.displayName || user?.username}</strong>
+                <span>{cefrLevel || 'A1'} · {tTarget(activeLanguage?.code || 'en-US')}</span>
               </div>
-              <div className="juba-reference-streak-display"><strong>{streak}</strong><span>{t('today')}</span></div>
-              <div className="juba-reference-mini-metrics">
-                <span><b>{xp}</b> XP</span><span><b>{accuracy}%</b> {t('accuracy')}</span>
+              <div className="juba-reference-profile-metrics">
+                <span><b>{xp}</b><small>XP</small></span>
+                <span><b>{streak}</b><small>{t('streak')}</small></span>
+                <span><b>{accuracy}%</b><small>{t('accuracy')}</small></span>
               </div>
             </section>
 
