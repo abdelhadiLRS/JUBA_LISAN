@@ -19126,3 +19126,76 @@ html[data-theme='light'] {
     gap: 9px;
   }
 }
+
+
+/* Landing v20 — full-page editorial rhythm and lower-fold cohesion */
+.juba-busuu-page .juba-busuu-reference-languages,
+.juba-busuu-page .juba-busuu-real-world,
+.juba-busuu-page .juba-busuu-different,
+.juba-busuu-page .juba-busuu-why-learn,
+.juba-busuu-page .juba-busuu-pricing,
+.juba-busuu-page .juba-busuu-app-section,
+.juba-busuu-page .juba-busuu-faq-section {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-reference-languages::before,
+.juba-busuu-page .juba-busuu-real-world::before,
+.juba-busuu-page .juba-busuu-different::before,
+.juba-busuu-page .juba-busuu-why-learn::before,
+.juba-busuu-page .juba-busuu-pricing::before,
+.juba-busuu-page .juba-busuu-app-section::before,
+.juba-busuu-page .juba-busuu-faq-section::before {
+  content: "";
+  position: absolute;
+  inset-inline: max(18px, calc((100% - 1180px) / 2));
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(23,33,27,.10) 18%, rgba(23,33,27,.10) 82%, transparent);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  border-top: 0;
+  border-bottom: 1px solid rgba(23,33,27,.08);
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-real-world {
+  background: linear-gradient(180deg, #fff 0%, #f7faf8 100%);
+}
+.juba-busuu-page .juba-busuu-different {
+  background: #fbfaf6;
+}
+.juba-busuu-page .juba-busuu-why-learn {
+  background: linear-gradient(180deg, #fff 0%, #f3f8f5 100%);
+}
+.juba-busuu-page .juba-busuu-pricing {
+  background: #fbfaf6;
+}
+.juba-busuu-page .juba-busuu-app-section {
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-new-languages {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 10px 30px rgba(23,33,27,.06);
+}
+.juba-busuu-page .juba-busuu-open-source-section {
+  background: #f7faf8;
+}
+.juba-busuu-page .juba-busuu-open-source {
+  border: 1px solid rgba(23,33,27,.09);
+  background: #fff;
+}
+.juba-busuu-page .juba-busuu-final-cta {
+  border-top: 1px solid rgba(23,33,27,.08);
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-reference-languages::before,
+  .juba-busuu-page .juba-busuu-real-world::before,
+  .juba-busuu-page .juba-busuu-different::before,
+  .juba-busuu-page .juba-busuu-why-learn::before,
+  .juba-busuu-page .juba-busuu-pricing::before,
+  .juba-busuu-page .juba-busuu-app-section::before,
+  .juba-busuu-page .juba-busuu-faq-section::before {
+    inset-inline: 16px;
+  }
+}
