@@ -224,6 +224,10 @@ export default async function Home() {
             <p>{t('languagesDescription')}</p>
           </div>
           <div className="juba-busuu-language-stage">
+            <div className="juba-busuu-language-stage-header">
+              <span className="juba-busuu-language-stage-label">{t('languagesEyebrow')}</span>
+              <span className="juba-busuu-language-stage-count">{t('languagesCount', { count: SUPPORTED_LANGUAGE_COUNT })}</span>
+            </div>
             <LanguageBubbles dir={dir} />
           </div>
           <div className="juba-busuu-language-bottom">
