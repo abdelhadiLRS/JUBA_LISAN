@@ -8,7 +8,7 @@ import type { ReviewPublic } from '@/types/api'
 
 function Stars({ rating, label }: { rating: number; label: string }) {
   return (
-    <div className="flex gap-1" aria-label={label}>
+    <div className="flex gap-1" role="img" aria-label={label}>
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
@@ -65,7 +65,7 @@ export function LandingReviewsCarousel({
       const isAtEnd = scroller.scrollLeft >= maxLeft - 1
       scroller.scrollTo({
         left: isAtEnd ? 0 : Math.min(scroller.scrollLeft + 320, maxLeft),
-        behavior: reduceMotion ? 'auto' : 'smooth',
+        behavior: 'smooth',
       })
     }, 3500)
 
@@ -135,11 +135,11 @@ export function LandingReviewsCarousel({
                   <h3 className="text-[var(--busuu-ink)] font-sans text-sm font-semibold tracking-tight">
                     {review.user_display_name}
                   </h3>
-                <p className="text-[var(--busuu-muted)] mt-1 font-sans text-xs font-bold tracking-wide">
-                  {t('learningLanguage', {
-                    language: languageLabel(review.target_language),
-                  })}
-                </p>
+                  <p className="text-[var(--busuu-muted)] mt-1 font-sans text-xs font-bold tracking-wide">
+                    {t('learningLanguage', {
+                      language: languageLabel(review.target_language),
+                    })}
+                  </p>
                 </div>
               </div>
               <Stars
