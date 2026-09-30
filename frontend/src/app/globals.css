@@ -15316,3 +15316,164 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-testimonials { padding-inline: 18px; }
   .juba-busuu-page .juba-ff-reviews > div:first-child h2 { font-size: 48px !important; }
 }
+
+
+/* ── Landing app section: immersive product moment ── */
+.juba-busuu-page .juba-busuu-app-section {
+  position: relative;
+  min-height: 680px;
+  padding: clamp(90px, 10vw, 150px) 24px;
+  overflow: hidden;
+  background: #075fe7;
+  color: #fff;
+}
+.juba-busuu-page .juba-busuu-app-section::before {
+  content: "";
+  position: absolute;
+  width: 760px;
+  height: 760px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 50%;
+  top: -330px;
+  right: -140px;
+}
+.juba-busuu-page .juba-busuu-app-section::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%;
+  bottom: -300px;
+  left: -120px;
+}
+.juba-busuu-page .juba-busuu-app-inner {
+  position: relative;
+  z-index: 2;
+  width: min(1240px, 100%);
+  min-height: 500px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: .82fr 1.18fr;
+  align-items: center;
+  gap: 40px;
+}
+.juba-busuu-page .juba-busuu-app-copy {
+  position: relative;
+  z-index: 4;
+}
+.juba-busuu-page .juba-busuu-app-copy h2 {
+  max-width: 8ch;
+  margin: 14px 0 24px;
+  font-size: clamp(54px, 7vw, 96px);
+  line-height: .88;
+  letter-spacing: -.07em;
+}
+.juba-busuu-page .juba-busuu-app-copy p {
+  max-width: 460px;
+  color: rgba(255,255,255,.82);
+  font-size: 17px;
+  line-height: 1.75;
+}
+.juba-busuu-page .juba-busuu-app-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  margin-top: 30px;
+  padding: 0 30px;
+  background: #d9f34f;
+  color: #111714;
+  font-weight: 900;
+  border-radius: 999px;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.juba-busuu-page .juba-busuu-app-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(0,0,0,.18);
+}
+.juba-busuu-page .juba-busuu-app-art {
+  position: relative;
+  min-height: 540px;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-app-art::before {
+  content: "";
+  position: absolute;
+  width: min(510px, 70vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #d9f34f;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.juba-busuu-page .juba-busuu-app-art img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  transition: transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.juba-busuu-page .juba-busuu-app-art:hover .juba-busuu-app-convector {
+  transform: translate(-50%, -50%) rotate(-4deg) scale(1.04);
+}
+.juba-busuu-page .juba-busuu-app-convector {
+  width: min(430px, 56vw);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  filter: drop-shadow(0 28px 32px rgba(0,0,0,.2));
+}
+.juba-busuu-page .juba-busuu-app-branch-left {
+  width: 260px;
+  left: -20px;
+  bottom: 8px;
+  z-index: 3;
+}
+.juba-busuu-page .juba-busuu-app-branch-right {
+  width: 290px;
+  right: -20px;
+  top: 20px;
+  z-index: 3;
+}
+.juba-busuu-page .juba-busuu-app-triangle-up {
+  width: 90px;
+  top: 18%;
+  left: 12%;
+  z-index: 2;
+  animation: jubaAppFloat 6s ease-in-out infinite;
+}
+.juba-busuu-page .juba-busuu-app-triangle-down {
+  width: 105px;
+  right: 12%;
+  bottom: 15%;
+  z-index: 2;
+  animation: jubaAppFloat 7s ease-in-out infinite reverse;
+}
+@keyframes jubaAppFloat {
+  0%,100% { transform: translate3d(0,0,0) rotate(0); }
+  50% { transform: translate3d(0,-16px,0) rotate(5deg); }
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-app-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .juba-busuu-page .juba-busuu-app-copy h2 { max-width: 9ch; }
+  .juba-busuu-page .juba-busuu-app-art { min-height: 430px; }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-app-section { min-height: 0; padding: 78px 18px 30px; }
+  .juba-busuu-page .juba-busuu-app-copy h2 { font-size: 52px; }
+  .juba-busuu-page .juba-busuu-app-art { min-height: 350px; }
+  .juba-busuu-page .juba-busuu-app-art::before { width: 300px; }
+  .juba-busuu-page .juba-busuu-app-convector { width: 280px; }
+  .juba-busuu-page .juba-busuu-app-branch-left { width: 160px; left: -55px; }
+  .juba-busuu-page .juba-busuu-app-branch-right { width: 175px; right: -55px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-app-triangle-up,
+  .juba-busuu-page .juba-busuu-app-triangle-down { animation: none; }
+}
