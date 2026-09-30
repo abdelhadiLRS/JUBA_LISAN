@@ -360,8 +360,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-sidebar{width:196px!important;min-width:196px!important}
           .juba-reference-shell .juba-duo-nav-link{padding-inline:9px!important;gap:9px!important}
         }
-      `}
-
         /* Reference fidelity pass 8 — final Busuu-style shell alignment */
         .juba-reference-shell .juba-duo-sidebar{width:220px!important;min-width:220px!important;flex-basis:220px!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{height:80px!important;padding-inline:20px!important}
@@ -380,7 +378,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         @media (max-width:900px){
           .juba-reference-shell .juba-duo-mobile-bar{height:56px!important;min-height:56px!important}
         }
-      `}
 
         /* Reference fidelity pass 4 — shell finishing */
         .juba-reference-shell .juba-duo-sidebar{background:#fff!important}
@@ -415,7 +412,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important;border:2px solid #fff!important}
         @media (max-width:900px){.juba-reference-shell .juba-duo-sidebar{width:0!important;min-width:0!important;flex-basis:0!important}}
 
-      </style>
+      `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
