@@ -213,16 +213,16 @@ export default async function Home() {
         <div className="juba-busuu-reference-languages-inner">
           <div className="juba-busuu-language-intro">
             <div>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2 id="landing-languages-title">{t('navLanguages')}</h2>
+              <span className="juba-busuu-eyebrow">{t('languagesEyebrow')}</span>
+              <h2 id="landing-languages-title">{t('languagesTitle')}</h2>
             </div>
-            <p>{t('heroSub')}</p>
+            <p>{t('languagesDescription')}</p>
           </div>
           <div className="juba-busuu-language-stage">
             <LanguageBubbles dir={dir} />
           </div>
           <div className="juba-busuu-language-bottom">
-            <span className="juba-busuu-language-count"><strong>{SUPPORTED_LANGUAGE_COUNT}+</strong> languages</span>
+            <span className="juba-busuu-language-count">{t('languagesCount', { count: SUPPORTED_LANGUAGE_COUNT })}</span>
             <Link
               href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               className="juba-busuu-language-cta-link"
@@ -265,9 +265,9 @@ export default async function Home() {
           <div className="juba-busuu-real-world-inner">
             <div className="juba-busuu-real-world-heading">
               <span className="juba-busuu-section-index" aria-hidden="true">02</span>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2 id="landing-real-world-title">{t('heroTitle')}</h2>
-              <p>{t('heroSub')}</p>
+              <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
+              <h2 id="landing-real-world-title">{t('bentoTitle')}</h2>
+              <p>{t('bentoSubtitle')}</p>
             </div>
             <div className="juba-busuu-real-world-grid">
               {[
@@ -370,9 +370,9 @@ export default async function Home() {
           <div className="juba-busuu-why-learn-inner">
             <div className="juba-busuu-why-learn-heading">
               <span className="juba-busuu-section-index" aria-hidden="true">05</span>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2 id="landing-why-learn-title">{t('navFeatures')}</h2>
-              <p>{t('heroSub')}</p>
+              <span className="juba-busuu-eyebrow">{t('experienceSubtitle')}</span>
+              <h2 id="landing-why-learn-title">{t('experienceTitle')}</h2>
+              <p>{t('builtForLearners')}</p>
             </div>
             <div className="juba-busuu-why-learn-grid">
               {[
@@ -421,9 +421,9 @@ export default async function Home() {
           <div className="juba-busuu-app-inner">
             <div className="juba-busuu-app-copy">
               <span className="juba-busuu-section-index" aria-hidden="true">07</span>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2 id="app-download-title">{t('heroTitle')}</h2>
-              <p>{t('heroSub')}</p>
+              <span className="juba-busuu-eyebrow">{t('appCtaNote')}</span>
+              <h2 id="app-download-title">{t('appCtaTitle')}</h2>
+              <p>{t('appCtaDescription')}</p>
               <div className="juba-busuu-app-badges">
                 <Link
                   href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
