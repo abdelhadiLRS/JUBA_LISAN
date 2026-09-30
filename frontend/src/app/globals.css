@@ -16136,6 +16136,62 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-nav-cta{min-height:46px;padding-inline:24px;border-radius:999px;background:var(--jl-green);color:#fff;box-shadow:0 3px 0 var(--jl-green-deep);font-weight:850;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
 .juba-busuu-page .juba-busuu-nav-cta:hover{background:var(--jl-green-deep);transform:translateY(-1px);box-shadow:0 4px 0 #006f48}
 .juba-busuu-page .juba-busuu-locale{border-color:var(--jl-line);border-radius:999px;background:#fff}
+.juba-busuu-page .juba-busuu-nav-inner{gap:24px}
+.juba-busuu-page .juba-busuu-nav-links{gap:24px}
+.juba-busuu-page .juba-busuu-nav-actions{gap:10px}
+.juba-busuu-page .juba-busuu-visitor-locale{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:42px;
+  padding:5px 10px 5px 6px;
+  border:1px solid var(--jl-line);
+  border-radius:999px;
+  background:#fff;
+  color:var(--jl-ink);
+  box-shadow:0 2px 0 rgba(23,33,27,.03);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.juba-busuu-page .juba-busuu-visitor-flag{
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  overflow:hidden;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(23,33,27,.1);
+}
+.juba-busuu-page .juba-busuu-visitor-flag img{
+  width:30px;
+  height:22px;
+  max-width:none;
+  object-fit:cover;
+}
+.juba-busuu-page .juba-busuu-visitor-code{min-width:20px;text-align:center}
+.juba-busuu-page .juba-busuu-visitor-locale svg{width:14px;height:14px;color:var(--jl-muted)}
+.juba-busuu-page .juba-busuu-locale{
+  min-height:42px;
+  padding-inline:12px;
+  border:1px solid var(--jl-line);
+  box-shadow:0 2px 0 rgba(23,33,27,.03);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img{
+  width:54px;
+  height:54px!important;
+  object-fit:cover;
+  aspect-ratio:1;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(23,33,27,.1),0 5px 12px rgba(23,33,27,.08);
+}
+@media (max-width:1000px){
+  .juba-busuu-page .juba-busuu-visitor-locale{min-height:40px}
+}
+@media (max-width:700px){
+  .juba-busuu-page .juba-busuu-visitor-locale{width:max-content}
+}
+
 
 /* Hero */
 .juba-busuu-page .juba-busuu-reference-hero{background:var(--jl-blue);color:#fff;min-height:760px;padding:0}
