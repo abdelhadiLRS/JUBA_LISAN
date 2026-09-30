@@ -428,7 +428,7 @@ export default async function Home() {
 
       {/* Open Source */}
       <ScrollReveal>
-        <section className="juba-busuu-open-source-section">
+        <section className="juba-busuu-open-source-section" aria-labelledby="landing-open-source-title">
           <div className="juba-busuu-open-source flex flex-col items-center justify-between gap-5 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
@@ -439,9 +439,9 @@ export default async function Home() {
                 className="block opacity-80"
               />
               <div className="text-start">
-                <p className="juba-busuu-open-source-title font-sans text-sm font-bold tracking-tight">
+                <h2 id="landing-open-source-title" className="juba-busuu-open-source-title font-sans text-sm font-bold tracking-tight">
                   {tBilling('openSourceTitle')}
-                </p>
+                </h2>
                 <p className="juba-busuu-open-source-description mt-1 text-xs font-semibold tracking-wide">
                   {tBilling('openSourceDesc')}
                 </p>
