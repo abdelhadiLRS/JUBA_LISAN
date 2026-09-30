@@ -12301,33 +12301,7 @@ html[data-theme='light'] {
 }
 
 
-/* === Landing accessibility pass: motion controls and keyboard focus === */
-.juba-busuu-page .juba-busuu-new-languages-track {
-  backface-visibility: hidden;
-}
-
-.juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
-.juba-busuu-page .juba-busuu-reference-primary:focus-visible,
-.juba-busuu-page .juba-busuu-nav a:focus-visible,
-.juba-busuu-page .juba-busuu-footer a:focus-visible {
-  outline: 3px solid #f3b63f;
-  outline-offset: 4px;
-}
-@media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-new-languages-track {
-    animation: none !important;
-    transform: none !important;
-  }
-  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
-    display: none;
-  }
-  .juba-busuu-page .juba-busuu-language-item,
-  .juba-busuu-page .juba-busuu-reference-primary,
-  .juba-busuu-page .juba-busuu-nav a,
-  .juba-busuu-page .juba-busuu-footer a {
-    transition: none !important;
-  }
-}
+/* Legacy landing focus/motion overrides consolidated into the canonical accessibility rules below. */
 
 
 /* === Landing responsive correction: app download stack === */
