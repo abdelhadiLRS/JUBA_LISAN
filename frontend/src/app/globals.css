@@ -31417,3 +31417,131 @@ html[data-theme='light'] {
 .juba-reference-v3 .juba-reference-v3-rail{align-content:start!important}
 .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{box-shadow:0 1px 2px rgba(0,0,0,.025)!important}
 @media (max-width:900px){.juba-reference-v3 .juba-reference-v3-welcome{padding:14px 16px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{grid-template-columns:34px minmax(0,1fr)!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{grid-column:2!important;text-align:start!important}}
+
+
+/* V3 STRICT — COURSE CHECKPOINT COMPOSITION */
+.juba-reference-v3 .juba-reference-course{
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{
+  padding-bottom:12px!important;
+  margin-bottom:0!important;
+}
+.juba-reference-v3 .juba-reference-course-path{
+  margin:0 -1px -1px!important;
+  border-top:1px solid #edf0ed!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before{
+  inset-inline-start:33px!important;
+  width:3px!important;
+  background:#e7ece5!important;
+}
+.juba-reference-v3 .juba-reference-course-path::after{
+  inset-inline-start:33px!important;
+  width:3px!important;
+  background:#58cc02!important;
+  border-radius:0 0 3px 3px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  min-height:70px!important;
+  grid-template-columns:44px minmax(0,1fr) auto!important;
+  gap:10px!important;
+  padding:10px 18px!important;
+}
+.juba-reference-v3 .juba-reference-path-node{
+  width:32px!important;
+  height:32px!important;
+  border-width:2px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{
+  box-shadow:inset 3px 0 0 #58cc02!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-path-node{
+  transform:scale(1.08)!important;
+  box-shadow:0 0 0 5px #f1f9ed!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy{
+  min-width:0!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy span{
+  display:block!important;
+  margin-top:4px!important;
+  color:#a1a1a1!important;
+  font-size:8px!important;
+  font-weight:750!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{
+  min-width:92px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:not(.current):not(.done) .juba-reference-lesson-copy{
+  opacity:.72!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:not(.current):not(.done) .juba-reference-path-node{
+  background:#fafafa!important;
+}
+.juba-reference-v3 .juba-reference-progress-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin:12px 0 7px!important;
+}
+.juba-reference-v3 .juba-reference-progress-track{
+  height:7px!important;
+  overflow:hidden!important;
+  border-radius:999px!important;
+  background:#edf1eb!important;
+}
+.juba-reference-v3 .juba-reference-progress-track span{
+  display:block!important;
+  height:100%!important;
+  border-radius:inherit!important;
+  background:#58cc02!important;
+}
+.juba-reference-v3 .juba-reference-progress-row strong{
+  min-width:38px!important;
+  color:#58a91b!important;
+  font-size:10px!important;
+  font-weight:950!important;
+  text-align:end!important;
+}
+.juba-reference-v3 .juba-reference-progress-meta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  margin-bottom:12px!important;
+  color:#a0a0a0!important;
+  font-size:8px!important;
+  font-weight:800!important;
+}
+.juba-reference-v3 .juba-reference-progress-meta span{
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.juba-reference-v3 .juba-reference-progress-meta span:last-child{
+  color:#58a91b!important;
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+    grid-template-columns:40px minmax(0,1fr)!important;
+    min-height:66px!important;
+  }
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{
+    grid-column:2!important;
+    min-width:0!important;
+    margin-top:-2px!important;
+  }
+  .juba-reference-v3 .juba-reference-progress-meta{
+    flex-wrap:wrap!important;
+  }
+}
