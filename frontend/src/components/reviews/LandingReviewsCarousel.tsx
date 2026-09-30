@@ -43,8 +43,12 @@ export function LandingReviewsCarousel({
     if (reduceMotion) return
 
     const interval = window.setInterval(() => {
-      // Do not move the carousel while a visitor is reading or interacting with it.
-      if (scroller.matches(':hover') || scroller.contains(document.activeElement)) return
+      // Keep the carousel still while the page is hidden or a visitor is interacting.
+      if (
+        document.visibilityState !== 'visible' ||
+        scroller.matches(':hover') ||
+        scroller.contains(document.activeElement)
+      ) return
 
       const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       const maxLeft = scroller.scrollWidth - scroller.clientWidth
