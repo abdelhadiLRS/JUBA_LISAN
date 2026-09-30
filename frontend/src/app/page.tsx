@@ -144,7 +144,7 @@ export default async function Home() {
             <p>{t('heroSub')}</p>
             <div className="juba-busuu-reference-actions">
               <img
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/left-wing.png"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/left-wing.png"
                 alt=""
                 aria-hidden="true"
                 className="juba-busuu-reference-wing juba-busuu-reference-wing-left"
@@ -166,7 +166,7 @@ export default async function Home() {
                     : t('signIn')}
               </Link>
               <img
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/right-wing.png"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/right-wing.png"
                 alt=""
                 aria-hidden="true"
                 className="juba-busuu-reference-wing juba-busuu-reference-wing-right"
@@ -176,7 +176,7 @@ export default async function Home() {
 
           <div className="juba-busuu-reference-hero-art">
             <img
-              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
+              src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/en-paid-landing.avif"
               alt=""
               aria-hidden="true"
               fetchPriority="high"
@@ -242,19 +242,19 @@ export default async function Home() {
                   title: t('feature1Title'),
                   desc: t('feature1Desc'),
                   image:
-                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-1-real_people__1_.png',
+                    '/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-1-real_people__1_.png',
                 },
                 {
                   title: t('feature2Title'),
                   desc: t('feature2Desc'),
                   image:
-                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-2-supportive-community.png',
+                    '/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-2-supportive-community.png',
                 },
                 {
                   title: t('feature3Title'),
                   desc: t('feature3Desc'),
                   image:
-                    'https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-3-express-yourself__1_.png',
+                    '/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/what-makes-busuu-different-3-express-yourself__1_.png',
                 },
               ].map(({ title, desc, image }) => (
                 <article key={title} className="juba-busuu-different-card">
@@ -282,7 +282,7 @@ export default async function Home() {
               <p>{t('heroSub')}</p>
               <div className="juba-busuu-editorial-cta-row">
                 <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
+                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -295,7 +295,7 @@ export default async function Home() {
                   {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
                 </Link>
                 <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
+                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
                   alt=""
                   aria-hidden="true"
                 />
@@ -303,7 +303,7 @@ export default async function Home() {
             </div>
             <div className="juba-busuu-editorial-art" aria-hidden="true">
               <img
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
                 alt=""
               />
             </div>
@@ -359,35 +359,35 @@ export default async function Home() {
                 className="juba-busuu-app-branch-left"
                 loading="lazy"
                 decoding="async"
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-convector"
                 loading="lazy"
                 decoding="async"
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-branch-right"
                 loading="lazy"
                 decoding="async"
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-triangle-up"
                 loading="lazy"
                 decoding="async"
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-up.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-up.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-triangle-down"
                 loading="lazy"
                 decoding="async"
-                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-down.svg"
+                src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-down.svg"
                 alt=""
               />
             </div>
@@ -407,17 +407,17 @@ export default async function Home() {
               >
                 <span>{t('tickerNewLanguages')}</span>
                 <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
                 />
                 <span>{t('tickerNewOpportunities')}</span>
                 <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
                 />
                 <span>{t('tickerNewYou')}</span>
                 <img
-                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
                 />
               </div>
