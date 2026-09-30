@@ -9199,15 +9199,14 @@ html[data-theme='light'] {
   box-shadow: 0 12px 28px rgba(0,0,0,.2);
 }
 .juba-busuu-page .juba-busuu-reference-hero-art {
+  position: relative;
   width: min(985px, 100%);
+  aspect-ratio: 985 / 720;
   margin: 48px auto 0;
   line-height: 0;
 }
-.juba-busuu-page .juba-busuu-reference-hero-art img {
+.juba-busuu-page .juba-busuu-reference-hero-art .juba-busuu-reference-hero-image {
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: 720px;
   object-fit: contain;
   object-position: bottom center;
 }
@@ -9422,8 +9421,6 @@ html[data-theme='light'] {
 }
 .juba-busuu-page .juba-busuu-different-media img {
   display: block;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 .juba-busuu-page .juba-busuu-different-copy {
