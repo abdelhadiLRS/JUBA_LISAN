@@ -211,6 +211,9 @@ export function LandingNav({
                   lang={code}
                   dir="auto"
                   hrefLang={code}
+                  onClick={() => {
+                    if (localeMenuRef.current) localeMenuRef.current.open = false
+                  }}
                 >
                   {label}
                 </Link>
