@@ -18480,3 +18480,154 @@ html[data-theme='light'] {
     padding-bottom:32px;
   }
 }
+
+
+/* Dashboard completion pass — remaining learning workspaces.
+ * Visual-only, scoped to authenticated dashboard content.
+ */
+.juba-dashboard-workspace .juba-mobile-plan .juba-mobile-plan,
+.juba-dashboard-workspace .juba-mobile-plan{
+  max-width:1240px;
+}
+.juba-dashboard-workspace .juba-mobile-plan > section{
+  border-radius:12px;
+}
+.juba-dashboard-workspace .juba-mobile-plan .rounded-2xl{
+  border-radius:10px;
+}
+.juba-dashboard-workspace .juba-mobile-plan .rounded-[22px]{
+  border-radius:14px;
+}
+.juba-dashboard-workspace .juba-mobile-plan button,
+.juba-dashboard-workspace .juba-mobile-plan a{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-plan .shadow-[0_4px_0_var(--duo-green-dark)]{
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+
+.juba-dashboard-workspace .juba-mobile-coach{
+  max-width:1240px;
+  margin-inline:auto;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-coach > div{
+  max-width:1240px;
+}
+.juba-dashboard-workspace .juba-mobile-coach .juba-card{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-coach .rounded-3xl,
+.juba-dashboard-workspace .juba-mobile-coach .rounded-[20px]{
+  border-radius:12px;
+}
+.juba-dashboard-workspace .juba-mobile-coach a,
+.juba-dashboard-workspace .juba-mobile-coach button{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-coach .shadow-[0_4px_0_var(--duo-green-dark)]{
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+
+.juba-dashboard-workspace .juba-mobile-flashcards{
+  max-width:1100px;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-flashcards > div{
+  border-color:var(--jl-ui-line);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-flashcards .rounded-2xl,
+.juba-dashboard-workspace .juba-mobile-flashcards .rounded-xl{
+  border-radius:10px;
+}
+.juba-dashboard-workspace .juba-mobile-flashcards .shadow-[0_3px_0_var(--duo-line)]{
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-flashcards input,
+.juba-dashboard-workspace .juba-mobile-flashcards select{
+  border-width:1px;
+  border-color:#ccd8cf;
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-flashcards button,
+.juba-dashboard-workspace .juba-mobile-flashcards a{
+  border-radius:9px;
+}
+
+.juba-dashboard-workspace .juba-mobile-listening,
+.juba-dashboard-workspace .juba-mobile-reading,
+.juba-dashboard-workspace .juba-mobile-vocabulary{
+  max-width:1240px;
+  margin-inline:auto;
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-mobile-listening .juba-panel,
+.juba-dashboard-workspace .juba-mobile-reading .juba-panel,
+.juba-dashboard-workspace .juba-mobile-vocabulary .juba-card{
+  border-radius:12px;
+  border-color:var(--jl-ui-line);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-listening .rounded-[28px],
+.juba-dashboard-workspace .juba-mobile-reading .rounded-[28px],
+.juba-dashboard-workspace .juba-mobile-vocabulary .rounded-[28px]{
+  border-radius:12px;
+}
+.juba-dashboard-workspace .juba-mobile-listening button,
+.juba-dashboard-workspace .juba-mobile-reading button,
+.juba-dashboard-workspace .juba-mobile-vocabulary button{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-listening input,
+.juba-dashboard-workspace .juba-mobile-reading input,
+.juba-dashboard-workspace .juba-mobile-vocabulary input{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-mobile-reading .juba-panel:hover,
+.juba-dashboard-workspace .juba-mobile-listening .juba-panel:hover,
+.juba-dashboard-workspace .juba-mobile-vocabulary .juba-card:hover{
+  box-shadow:0 5px 14px rgba(23,33,27,.055);
+}
+
+.juba-dashboard-workspace .juba-assessment-page{
+  padding-top:24px;
+  padding-bottom:48px;
+}
+.juba-dashboard-workspace .juba-assessment-page > *{
+  max-width:1240px;
+  margin-inline:auto;
+}
+.juba-dashboard-workspace .juba-assessment-page .juba-card{
+  border-radius:12px;
+  border-color:var(--jl-ui-line);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-assessment-page button,
+.juba-dashboard-workspace .juba-assessment-page a{
+  border-radius:9px;
+}
+.juba-dashboard-workspace .juba-assessment-page input,
+.juba-dashboard-workspace .juba-assessment-page textarea,
+.juba-dashboard-workspace .juba-assessment-page select{
+  border-width:1px;
+  border-radius:9px;
+  border-color:#ccd8cf;
+}
+
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-mobile-plan,
+  .juba-dashboard-workspace .juba-mobile-coach,
+  .juba-dashboard-workspace .juba-mobile-flashcards,
+  .juba-dashboard-workspace .juba-mobile-listening,
+  .juba-dashboard-workspace .juba-mobile-reading,
+  .juba-dashboard-workspace .juba-mobile-vocabulary,
+  .juba-dashboard-workspace .juba-assessment-page{
+    padding-top:18px;
+    padding-bottom:32px;
+  }
+}
