@@ -21976,3 +21976,37 @@ html[data-theme='light'] {
     grid-template-columns:1fr!important;
   }
 }
+
+/* JUBA LISAN — STRICT REFERENCE DASHBOARD PASS */
+.juba-reference-v3{--ref-green:#58cc02;--ref-green-dark:#46a302;--ref-ink:#454545;--ref-muted:#999;--ref-line:#e5e5e5;--ref-surface:#fff;--ref-bg:#f7f7f7;}
+.juba-reference-v3 .juba-reference-v3-grid{align-items:start!important;}
+.juba-reference-v3 .juba-reference-v3-main{min-width:0!important;gap:12px!important;}
+.juba-reference-v3 .juba-reference-v3-rail{min-width:0!important;}
+.juba-reference-v3 .juba-reference-v3-welcome{position:relative!important;overflow:hidden!important;min-height:108px!important;background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-welcome::after{content:"";position:absolute;inset-inline-end:0;top:0;bottom:0;width:4px;background:#58cc02;}
+.juba-reference-v3 .juba-reference-welcome-copy{padding-inline-end:12px!important;}
+.juba-reference-v3 .juba-reference-welcome-meta span{white-space:nowrap!important;}
+.juba-reference-v3 .juba-reference-v3-level{position:relative!important;overflow:hidden!important;background:#fff!important;border-color:#e8f2e3!important;border-top-color:#58cc02!important;}
+.juba-reference-v3 .juba-reference-v3-level::before{content:"";position:absolute;inset:5px;border:1px solid #f0f0f0;border-radius:50%;}
+.juba-reference-v3 .juba-reference-course{overflow:hidden!important;}
+.juba-reference-v3 .juba-reference-course-path{--course-path-progress:0!important;position:relative!important;}
+.juba-reference-v3 .juba-reference-course-path::after{transform:scaleY(var(--course-path-progress))!important;}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{background:#fff!important;transition:background .15s ease,transform .15s ease!important;}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{background:#fbfdf9!important;}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{color:#58a91b!important;}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-green-button{min-width:72px!important;justify-content:center!important;}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.done .juba-reference-lesson-copy strong{color:#666!important;}
+.juba-reference-v3 .juba-reference-daily,.juba-reference-v3 .juba-reference-insight-card,.juba-reference-v3 .juba-reference-achievement-strip{background:#fff!important;}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-card-head strong{color:#58a91b!important;font-size:14px!important;font-weight:950!important;}
+.juba-reference-v3 .juba-reference-chart-summary{border-top:1px solid #f0f0f0!important;margin-top:8px!important;padding-top:10px!important;}
+.juba-reference-v3 .juba-reference-chart-summary span{min-width:0!important;}
+.juba-reference-v3 .juba-reference-chart-summary b{color:#454545!important;font-size:13px!important;font-weight:950!important;}
+.juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:1fr 1fr!important;}
+.juba-reference-v3 .juba-reference-insight-card{border-radius:8px!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-profile-card{background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-goal-card{background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-xp-card{background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-tools-card{background:#fff!important;}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-profile-card .juba-reference-streak-value{color:#58a91b!important;}
+@media(max-width:900px){.juba-reference-v3 .juba-reference-reference-insights{grid-template-columns:1fr!important;}.juba-reference-v3 .juba-reference-v3-welcome{min-height:96px!important;}}
