@@ -322,7 +322,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-main{width:100%!important}
           .juba-reference-shell .juba-duo-mobile-bar{display:block!important;background:#fff!important;border-bottom:1px solid #edf0ea!important;box-shadow:none!important}
         }
-      `}</style>
+      `}
+        /* Reference fidelity pass — shared geometry only; landing page untouched */
+        .juba-reference-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:88px!important;padding:0 22px!important}
+        .juba-reference-shell .juba-duo-nav{padding:16px 10px!important}
+        .juba-reference-shell .juba-duo-nav-link{min-height:42px!important;margin:2px 0!important;padding:8px 12px!important;border-radius:9px!important;font-size:12px!important;line-height:1.2!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:19px!important;height:19px!important}
+        .juba-reference-shell .juba-duo-user{padding:12px 14px!important}
+        @media (min-width:901px){.juba-reference-shell .juba-duo-page-frame{min-height:100dvh!important}}
+        @media (max-width:900px){.juba-reference-shell .juba-duo-sidebar{width:100%!important;min-width:0!important}}
+</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
