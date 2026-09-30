@@ -132,6 +132,19 @@ export function LandingNav({
   }, [])
 
   const localeCodes: Locale[] = ['en', 'ar', 'es', 'fr', 'pt', 'de', 'it', 'pl', 'nl', 'ro', 'ru']
+  const localeCountries: Record<Locale, string> = {
+    en: 'gb',
+    ar: 'dz',
+    es: 'es',
+    fr: 'fr',
+    pt: 'pt',
+    de: 'de',
+    it: 'it',
+    pl: 'pl',
+    nl: 'nl',
+    ro: 'ro',
+    ru: 'ru',
+  }
   // Keep the navigation resilient if a stale client payload supplies an invalid locale.
   const safeLocale = typeof locale === 'string' ? normalizeLocale(locale) : 'en'
   const localeDisplayNames = new Intl.DisplayNames([safeLocale], { type: 'language' })
@@ -217,7 +230,17 @@ export function LandingNav({
                     if (localeMenuRef.current) localeMenuRef.current.open = false
                   }}
                 >
-                  {label}
+                  <span className="juba-busuu-locale-option-flag" aria-hidden="true">
+                    <Image
+                      src={`https://flagcdn.com/w80/${localeCountries[code]}.png`}
+                      alt=""
+                      width={80}
+                      height={60}
+                      unoptimized
+                    />
+                  </span>
+                  <span className="juba-busuu-locale-option-label">{label}</span>
+                  {code === safeLocale && <span className="juba-busuu-locale-option-current" aria-hidden="true">✓</span>}
                 </Link>
               ))}
             </div>
@@ -275,7 +298,17 @@ export function LandingNav({
                   dir="auto"
                   hrefLang={code}
                 >
-                  {label}
+                  <span className="juba-busuu-locale-option-flag" aria-hidden="true">
+                    <Image
+                      src={`https://flagcdn.com/w80/${localeCountries[code]}.png`}
+                      alt=""
+                      width={80}
+                      height={60}
+                      unoptimized
+                    />
+                  </span>
+                  <span className="juba-busuu-locale-option-label">{label}</span>
+                  {code === safeLocale && <span className="juba-busuu-locale-option-current" aria-hidden="true">✓</span>}
                 </Link>
               ))}
             </nav>
