@@ -238,14 +238,37 @@ export default async function Home() {
             </div>
             <div className="juba-busuu-real-world-grid">
               {[
-                { label: t('feature1Title'), copy: t('feature1Desc'), tone: 'blue' },
-                { label: t('feature2Title'), copy: t('feature2Desc'), tone: 'green' },
-                { label: t('feature3Title'), copy: t('feature3Desc'), tone: 'cream' },
-              ].map(({ label, copy, tone }) => (
-                <article key={label} className={`juba-busuu-real-world-card juba-busuu-real-world-card--${tone}`}>
-                  <div className="juba-busuu-real-world-orb" aria-hidden="true" />
-                  <span>{label}</span>
-                  <p>{copy}</p>
+                {
+                  label: t('feature1Title'),
+                  copy: t('feature1Desc'),
+                  icon: '01',
+                  tone: 'blue',
+                },
+                {
+                  label: t('feature2Title'),
+                  copy: t('feature2Desc'),
+                  icon: '02',
+                  tone: 'green',
+                },
+                {
+                  label: t('feature3Title'),
+                  copy: t('feature3Desc'),
+                  icon: '03',
+                  tone: 'cream',
+                },
+              ].map(({ label, copy, icon, tone }) => (
+                <article
+                  key={label}
+                  className={`juba-busuu-real-world-card juba-busuu-real-world-card--${tone}`}
+                >
+                  <div className="juba-busuu-real-world-card-top">
+                    <span className="juba-busuu-real-world-index">{icon}</span>
+                    <span className="juba-busuu-real-world-mark" aria-hidden="true">↗</span>
+                  </div>
+                  <div className="juba-busuu-real-world-copy">
+                    <h3>{label}</h3>
+                    <p>{copy}</p>
+                  </div>
                 </article>
               ))}
             </div>
