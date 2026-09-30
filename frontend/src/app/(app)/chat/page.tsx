@@ -396,7 +396,24 @@ export default function ChatPage() {
           .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\[75\%\].min-w-\[10rem\]{max-width:82%!important}
           .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:12px!important}
         }
-      `}</style>
+      `}
+        /* Reference fidelity pass — chat composition */
+        .juba-mobile-chat{background:#fff!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:224px!important;background:#fff!important;border-right:1px solid #edf0ea!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding-inline:20px!important;background:#fff!important;border-bottom:1px solid #edf0ea!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:900px!important;padding:24px 30px!important;gap:0!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:12px!important}
+        .juba-mobile-chat .word-selectable{border-radius:11px!important;padding:11px 14px!important;font-size:13px!important;line-height:1.55!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{border-top:1px solid #edf0ea!important;padding:12px 24px 16px!important;background:#fff!important}
+        .juba-mobile-chat input{height:44px!important;border-radius:9px!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:44px!important;border-radius:9px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;background:#fff!important;border-left:1px solid #edf0ea!important;padding:18px!important;gap:12px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid #e8ece5!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-mobile-chat .juba-chat-profile-hero{padding:18px 16px 14px!important}
+        .juba-mobile-chat .juba-chat-profile-photo{width:68px!important;height:68px!important;border-radius:50%!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid #eef1ec!important}
+        @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}.juba-mobile-chat .chat-conversations-sidebar{width:min(82vw,300px)!important}}
+</style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
           visible={memoryToast}
