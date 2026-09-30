@@ -18102,3 +18102,105 @@ html[data-theme='light'] {
     padding-top:18px;
   }
 }
+
+
+/* JUBA LISAN — utility-route polish
+ * Keeps support/feedback/review surfaces visually inside the same dashboard
+ * system without changing their data flow or interaction model.
+ */
+.juba-dashboard-workspace .juba-utility-page{
+  max-width:1240px;
+  margin-inline:auto;
+  padding:24px clamp(12px,2.5vw,32px) 48px;
+}
+.juba-dashboard-workspace .juba-utility-page > .juba-card{
+  overflow:hidden;
+}
+.juba-dashboard-workspace .juba-utility-header{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px;
+  padding:0 0 18px;
+  border-bottom:1px solid var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-utility-header h1{
+  margin:0;
+  color:var(--jl-ui-ink);
+  font-size:clamp(24px,3vw,32px);
+  font-weight:800;
+}
+.juba-dashboard-workspace .juba-utility-header p{
+  margin:0 0 5px;
+  color:var(--jl-ui-green-dark);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.juba-dashboard-workspace .juba-utility-tabs{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  border-bottom:1px solid var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-utility-tabs button{
+  min-height:42px;
+  border-bottom:2px solid transparent;
+  border-radius:7px 7px 0 0;
+}
+.juba-dashboard-workspace .juba-utility-tabs button:hover{
+  background:#f4f8f4;
+}
+.juba-dashboard-workspace .juba-utility-tabs button[data-active="true"]{
+  border-bottom-color:var(--jl-ui-green);
+  background:#eef7e8;
+  color:var(--jl-ui-ink);
+}
+.juba-dashboard-workspace .juba-feedback-list{
+  overflow:hidden;
+  border:1px solid var(--jl-ui-line);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-feedback-list > div{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-feedback-list > div:hover{
+  background:#f7faf6;
+}
+.juba-dashboard-workspace .juba-faq-shell{
+  max-width:960px;
+}
+.juba-dashboard-workspace .juba-faq-list{
+  overflow:hidden;
+  border:1px solid var(--jl-ui-line);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-faq-list > div{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-faq-question{
+  min-height:56px;
+  border-radius:0;
+}
+.juba-dashboard-workspace .juba-faq-question:hover{
+  background:#f7faf6!important;
+}
+.juba-dashboard-workspace .juba-faq-answer{
+  background:#f7faf7!important;
+  border-color:var(--jl-ui-line)!important;
+}
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-utility-page{
+    padding:18px 10px 32px;
+  }
+  .juba-dashboard-workspace .juba-utility-header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:8px;
+  }
+}
