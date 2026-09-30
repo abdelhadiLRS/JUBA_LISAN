@@ -15001,24 +15001,17 @@ html[data-theme='light'] {
   gap: 12px;
   max-width: 230px;
   padding: 13px 17px;
-  border: 1px solid rgba(255,255,255,.38);
-  border-radius: 999px;
-  background: rgba(255,255,255,.12);
-  color: #fff;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+  border: 2px solid rgba(255,255,255,.75);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--jl-ink);
+  box-shadow: 0 12px 30px rgba(4,42,91,.16);
   animation: jubaHeroFloat 5s ease-in-out infinite;
-}
-.juba-busuu-page .juba-busuu-hero-float span {
-  flex: 0 0 auto;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  opacity: .7;
 }
 .juba-busuu-page .juba-busuu-hero-float strong {
   font-size: 12px;
   line-height: 1.2;
+  font-weight: 850;
 }
 .juba-busuu-page .juba-busuu-hero-float-left { inset-inline-start: 2%; top: 43%; }
 .juba-busuu-page .juba-busuu-hero-float-right { inset-inline-end: 2%; top: 34%; animation-delay: -1.6s; }
@@ -16240,10 +16233,6 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-reference-primary:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(4,42,91,.25)}
 .juba-busuu-page .juba-busuu-reference-hero-art{width:min(1060px,100%);margin:clamp(54px,6vw,76px) auto 0;border-radius:32px 32px 0 0;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(4,42,91,.22)}
 .juba-busuu-page .juba-busuu-reference-hero-art>img{display:block;width:100%;height:auto}
-.juba-busuu-page .juba-busuu-hero-float{z-index:2;border:2px solid rgba(255,255,255,.75);border-radius:18px;background:#fff;color:var(--jl-ink);box-shadow:0 12px 30px rgba(4,42,91,.16)}
-.juba-busuu-page .juba-busuu-hero-float span{color:var(--jl-green-deep);font-weight:900}
-.juba-busuu-page .juba-busuu-hero-float strong{font-weight:850}
-
 /* Languages */
 .juba-busuu-page .juba-busuu-reference-languages{padding:clamp(88px,10vw,132px) 24px;background:#fff}
 .juba-busuu-page .juba-busuu-language-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.65fr);align-items:end;gap:48px;margin-bottom:48px}
