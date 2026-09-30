@@ -315,7 +315,7 @@ export default async function Home() {
           <div className="juba-busuu-different-inner">
             <div className="juba-busuu-different-heading">
               <span className="juba-busuu-section-index" aria-hidden="true">03</span>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
               <h2 id="landing-features-title">{t('navFeatures')}</h2>
             </div>
 
