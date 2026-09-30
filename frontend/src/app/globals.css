@@ -18881,3 +18881,33 @@ html[data-theme='light'] {
 .juba-reference-chart-summary small{font-size:7px;color:#aaa;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .juba-reference-chart-summary b{font-size:11px;color:#555;font-weight:900}
 @media(max-width:680px){.juba-reference-chart-summary{grid-template-columns:repeat(3,1fr)}.juba-reference-chart-summary span{padding-inline:5px}}
+
+
+/* ==========================================================================
+   DASHBOARD REFERENCE — GOAL / XP DETAIL PANELS
+   ========================================================================== */
+.juba-reference-goal-card,.juba-reference-xp-card{padding:15px 16px!important}
+.juba-reference-goal-ring{
+  width:86px;height:86px;margin:14px auto 10px;border-radius:50%;
+  display:flex;align-items:baseline;justify-content:center;gap:2px;
+  padding-top:29px;
+  background:conic-gradient(#58cc02 0 var(--goal-progress,0%),#edf2e9 var(--goal-progress,0%) 100%);
+  position:relative;
+}
+.juba-reference-goal-ring::after{
+  content:"";position:absolute;inset:7px;border-radius:50%;background:#fff;
+}
+.juba-reference-goal-ring strong,.juba-reference-goal-ring span{position:relative;z-index:1}
+.juba-reference-goal-ring strong{font-size:25px;line-height:1;font-weight:900;color:#4d4d4d}
+.juba-reference-goal-ring span{font-size:10px;font-weight:800;color:#aaa}
+.juba-reference-goal-copy{display:flex;align-items:center;justify-content:center;gap:7px}
+.juba-reference-goal-copy b{font-size:11px;color:#58a91b}
+.juba-reference-goal-copy span{font-size:9px;color:#999;font-weight:700}
+.juba-reference-xp-list{margin-top:10px}
+.juba-reference-xp-list>div{
+  min-height:31px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid #eee;font-size:9px;color:#999;font-weight:700
+}
+.juba-reference-xp-list b{font-size:10px;color:#555;font-weight:900}
+.juba-reference-xp-card .juba-reference-v3-card-head>svg,
+.juba-reference-goal-card .juba-reference-v3-card-head>svg{color:#58cc02}
