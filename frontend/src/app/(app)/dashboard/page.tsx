@@ -508,7 +508,13 @@ export default function DashboardPage() {
                           {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
                         </span>
                       </div>
-                      <div className="juba-reference-lesson-copy"><strong>{lesson.title}</strong><span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span></div>
+                      <div className="juba-reference-lesson-copy">
+                        <div style={{display:'flex',alignItems:'center',gap:7,minWidth:0}}>
+                          <span style={{fontSize:8,fontWeight:950,color:done ? '#58a91b' : current ? '#58a91b' : '#b2b2b2',letterSpacing:'.05em',textTransform:'uppercase',whiteSpace:'nowrap'}}>CP {String(index + 1).padStart(2,'0')}</span>
+                          <strong style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{lesson.title}</strong>
+                        </div>
+                        <span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span>
+                      </div>
                       <div className="juba-reference-lesson-action">
                         {current && lesson.id ? <div style={{display:'flex',alignItems:'center',gap:7}}><span style={{fontSize:8,fontWeight:900,color:'#58a91b',letterSpacing:'.04em',textTransform:'uppercase'}}>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link></div> : done ? <span className="juba-reference-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="juba-reference-locked"><MoreHorizontal size={17} /></span>}
                       </div>
