@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
+import { useProgressStore } from '@/store/progress'
 import { useLanguageStore } from '@/store/language'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
@@ -22,6 +23,7 @@ import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 import { MemorySavedToast } from '@/components/memory/MemorySavedToast'
 import { useTransientToast } from '@/hooks/useTransientToast'
 import { readSseData } from '@/lib/sse'
+import { Users, Trophy, MessageCircle, Settings, LogOut } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -45,12 +47,23 @@ interface ChatSseEvent {
   memory_updated?: boolean
 }
 
+interface FriendItem {
+  id: number
+  username: string
+  display_name: string
+  avatar?: string | null
+}
+
 export default function ChatPage() {
   const t = useTranslations('chat')
   const tCommon = useTranslations('common')
   const tLang = useTranslations('targetLanguages')
   const router = useRouter()
   const user = useAuthStore((s) => s.user)
+  const xp = useProgressStore((s) => s.xp)
+  const streak = useProgressStore((s) => s.streak)
+  const gameStats = useProgressStore((s) => s.gameStats)
+  const [friends, setFriends] = useState<FriendItem[]>([])
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const {
     selectedWord,
@@ -86,6 +99,7 @@ export default function ChatPage() {
   const freemiumStatus = useFreemiumStore((s) => s.status)
   const fetchFreemium = useFreemiumStore((s) => s.fetchStatus)
   const decrementFreemium = useFreemiumStore((s) => s.decrement)
+  const accuracy = gameStats.questionsAnswered > 0 ? Math.round((gameStats.correctAnswers / gameStats.questionsAnswered) * 100) : 0
   const freemiumExhausted =
     stripeEnabled &&
     !isSubscribed(user, stripeEnabled) &&
@@ -98,6 +112,18 @@ export default function ChatPage() {
       fetchFreemium()
     }
   }, [stripeEnabled, user, fetchFreemium])
+
+  useEffect(() => {
+    let cancelled = false
+    apiFetch('/api/social/friends').then(async (res) => {
+      if (!res.ok) return
+      const data = await res.json()
+      if (!cancelled) setFriends(Array.isArray(data) ? data.slice(0, 6) : [])
+    }).catch(() => {
+      if (!cancelled) setFriends([])
+    })
+    return () => { cancelled = true }
+  }, [])
 
   const scrollBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -305,6 +331,39 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
+      <style>{`
+        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;flex:none!important;border-inline-start:1px solid #edf0ea!important;background:#fff!important;padding:0 14px 18px!important;overflow-y:auto!important}
+        .juba-mobile-chat .juba-chat-profile-card{border:1px solid #edf0ea!important;border-radius:12px!important;background:#fff!important;overflow:hidden!important;margin-bottom:14px!important}
+        .juba-mobile-chat .juba-chat-profile-hero{display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;padding:22px 12px 13px!important}
+        .juba-mobile-chat .juba-chat-profile-photo{width:104px!important;height:104px!important;border-radius:50%!important;overflow:hidden!important;border:4px solid #fff!important;box-shadow:0 0 0 1px #e4e9e2!important;background:#f4f7f3!important;display:grid!important;place-items:center!important;color:#aaa!important}
+        .juba-mobile-chat .juba-chat-profile-photo img{width:100%!important;height:100%!important;object-fit:cover!important}
+        .juba-mobile-chat .juba-chat-profile-hero strong{margin-top:9px!important;color:#555!important;font-size:15px!important}
+        .juba-mobile-chat .juba-chat-profile-hero span{margin-top:3px!important;color:#999!important;font-size:9px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:1px solid #edf0ea!important}
+        .juba-mobile-chat .juba-chat-profile-metrics div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:2px!important;padding:10px 2px!important;border-inline-end:1px solid #edf0ea!important}
+        .juba-mobile-chat .juba-chat-profile-metrics div:last-child{border-inline-end:0!important}
+        .juba-mobile-chat .juba-chat-profile-metrics b{color:#58a91b!important;font-size:14px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics small{color:#999!important;font-size:8px!important}
+        .juba-mobile-chat .juba-chat-side-tools{display:flex!important;border-top:1px solid #edf0ea!important}
+        .juba-mobile-chat .juba-chat-side-tool{flex:1!important;height:42px!important;border:0!important;background:#fff!important;color:#888!important;display:grid!important;place-items:center!important}
+        .juba-mobile-chat .juba-chat-side-tool:hover{color:#58a91b!important;background:#f8fcf6!important}
+        .juba-mobile-chat .juba-chat-side-card{border:1px solid #edf0ea!important;border-radius:12px!important;background:#fff!important;padding:16px!important;margin-bottom:14px!important}
+        .juba-mobile-chat .juba-chat-side-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+        .juba-mobile-chat .juba-chat-side-card-head h3{margin:3px 0 0!important;color:#555!important;font-size:13px!important;font-weight:800!important}
+        .juba-mobile-chat .juba-chat-side-label{color:#999!important;font-size:9px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
+        .juba-mobile-chat .juba-chat-achievement{display:flex!important;gap:10px!important;align-items:center!important;margin-top:13px!important}
+        .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:#eef9df!important;color:#58a91b!important;display:grid!important;place-items:center!important;flex:none!important}
+        .juba-mobile-chat .juba-chat-achievement strong{display:block!important;color:#555!important;font-size:10px!important}
+        .juba-mobile-chat .juba-chat-achievement span{display:block!important;color:#999!important;font-size:8px!important;margin-top:3px!important}
+        .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid #f0f0f0!important;background:#fff!important;text-align:start!important}
+        .juba-mobile-chat .juba-chat-friend-avatar{width:32px!important;height:32px!important;border-radius:50%!important;overflow:hidden!important;background:#f1f3f0!important;display:grid!important;place-items:center!important;color:#888!important;font-size:9px!important;font-weight:800!important;flex:none!important}
+        .juba-mobile-chat .juba-chat-friend-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+        .juba-mobile-chat .juba-chat-friend-copy{min-width:0!important;display:flex!important;flex-direction:column!important;gap:2px!important}
+        .juba-mobile-chat .juba-chat-friend-copy strong{font-size:9px!important;color:#555!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+        .juba-mobile-chat .juba-chat-friend-copy small{font-size:8px!important;color:#aaa!important}
+        @media (max-width:1180px){.juba-mobile-chat .juba-chat-profile-rail{width:245px!important}}
+        @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}}
+      `}</style>
       <style>{`
         /* JUBA LISAN — strict reference chat UI (route scoped) */
         .juba-mobile-chat{background:#fff!important;color:#555!important;gap:0!important}
@@ -623,6 +682,47 @@ export default function ChatPage() {
             )}
           </div>
         </div>
+
+        <aside className="juba-chat-profile-rail" aria-label="Profile">
+          <section className="juba-chat-profile-card">
+            <div className="juba-chat-profile-hero">
+              <div className="juba-chat-profile-photo">
+                ${user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={104} height={104} className="h-full w-full object-cover" /> : <MessageCircle size={30} />}
+              </div>
+              <strong>${user?.displayName || user?.username}</strong>
+              <span>${activeLanguage ? tLang(activeLanguage.code) : tLang('en-GB')}</span>
+            </div>
+            <div className="juba-chat-profile-metrics">
+              <div><b>${xp}</b><small>XP</small></div>
+              <div><b>${streak}</b><small>STREAK</small></div>
+              <div><b>${accuracy}%</b><small>ACCURACY</small></div>
+            </div>
+            <div className="juba-chat-side-tools">
+              <button className="juba-chat-side-tool" type="button" title="Settings"><Settings size={16}/></button>
+              <button className="juba-chat-side-tool" type="button" title="Logout"><LogOut size={16}/></button>
+            </div>
+          </section>
+          <section className="juba-chat-side-card">
+            <div className="juba-chat-side-card-head"><div><span className="juba-chat-side-label">NEXT</span><h3>${t('title')}</h3></div></div>
+            <div className="juba-chat-achievement">
+              <div className="juba-chat-achievement-icon"><Trophy size={24}/></div>
+              <div><strong>${t('continueInVoice')}</strong><span>${streak} day streak</span></div>
+            </div>
+          </section>
+          <section className="juba-chat-side-card">
+            <div className="juba-chat-side-card-head"><div><span className="juba-chat-side-label">FRIENDS</span><h3>Friends</h3></div></div>
+            <div style={{marginTop:8}}>
+              ${friends.map((friend) => (
+                <button key={friend.id} type="button" className="juba-chat-friend" onClick={() => router.push('/friends/chat/' + friend.id)}>
+                  <span className="juba-chat-friend-avatar">
+                    ${friend.avatar ? <AuthAvatarImage avatar={friend.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" /> : (friend.display_name || friend.username || '?')[0].toUpperCase()}
+                  </span>
+                  <span className="juba-chat-friend-copy"><strong>${friend.display_name || friend.username}</strong><small>$@{friend.username}</small></span>
+                </button>
+              ))}
+            </div>
+          </section>
+        </aside>
 
         <ConfirmDialog
           open={deletePending !== null}
