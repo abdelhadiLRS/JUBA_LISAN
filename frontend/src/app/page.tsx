@@ -177,6 +177,11 @@ export default async function Home() {
                 className="juba-busuu-reference-wing juba-busuu-reference-wing-right"
               />
             </div>
+            <div className="juba-busuu-hero-benefits" aria-label={t('navFeatures')}>
+              <span><b aria-hidden="true">✓</b>{t('feature1Title')}</span>
+              <span><b aria-hidden="true">✓</b>{t('feature2Title')}</span>
+              <span><b aria-hidden="true">✓</b>{t('feature3Title')}</span>
+            </div>
           </div>
 
           <div className="juba-busuu-reference-hero-art">
