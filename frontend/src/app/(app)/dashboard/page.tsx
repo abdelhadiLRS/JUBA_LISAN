@@ -594,50 +594,20 @@ export default function DashboardPage() {
           <main className="juba-reference-v3-main">
             <section className="juba-reference-v3-welcome">
               <div className="juba-reference-welcome-copy">
-                <span className="juba-reference-section-label">{t('today')}</span>
-                <h2>{nextLesson?.title || t('startWithAssessment')}</h2>
-                <p>{nextLesson?.objectives?.[0] || t('goToMyPlan')}</p>
+                <span className="juba-reference-section-label">JUBA LISAN</span>
+                <h2>Welcome back, {user?.displayName || user?.username || ''}!</h2>
+                <p>{completedLessonCount}/{Math.max(1, todayLessons.length)} {t('today')}</p>
                 <div className="juba-reference-welcome-meta">
+                  <span>{Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100))}% {t('todayGoal')}</span>
+                  <i aria-hidden="true" />
                   <span>{cefrLevel || 'A1'}</span>
                   <i aria-hidden="true" />
                   <span>{currentDayDisplay}/{totalDays || 0}</span>
-                  <i aria-hidden="true" />
-                  <span>{completedLessonCount}/{todayLessons.length}</span>
                 </div>
               </div>
-              <div className="juba-reference-v3-level" style={{'--level-progress': planCompletion} as React.CSSProperties} aria-label={`${cefrLevel || 'A1'} ${planCompletion}%`}>
+              <div className="juba-reference-v3-level" style={{'--level-progress': planCompletion} as React.CSSProperties} aria-label="${cefrLevel || 'A1'} ${planCompletion}%">
                 <span>{cefrLevel || 'A1'}</span>
                 <small>{planCompletion}%</small>
-              </div>
-            </section>
-
-            <section className="juba-reference-v3-card juba-reference-daily">
-              <div className="juba-reference-v3-card-head">
-                <div>
-                  <span className="juba-reference-section-label">{t('xp')}</span>
-                  <h2>{t('recentPerformance')}</h2>
-                </div>
-                <strong>{xp} XP</strong>
-              </div>
-              <div className="juba-reference-v3-chart">
-                {(progressBars.length ? progressBars : weekDays.map(day => ({day, value:0, active:false}))).map((bar,index,bars) => {
-                  const max = Math.max(1, ...bars.map(item => item.value))
-                  return (
-                    <div key={index} className={`juba-reference-v3-chart-col ${bar.active ? 'active' : ''}`}>
-                      <span style={{height: Math.max(8, Math.round((bar.value / max) * 100)) + '%'}} />
-                      <small>{bar.day}</small>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="juba-reference-v3-chart-footer">
-                <span>{t('streak')}: <b>{streak}</b></span>
-                <span>{t('accuracy')}: <b>{accuracy}%</b></span>
-              </div>
-              <div className="juba-reference-chart-summary">
-                <span><small>{t('xp')}</small><b>{chartEntries.reduce((sum, entry) => sum + entry.xp_earned, 0)}</b></span>
-                <span><small>{t('accuracy')}</small><b>{chartAverage}%</b></span>
-                <span><small>{t('completedToday', { completed: completedLessonCount, total: Math.max(todayLessons.length, completedLessonCount) })}</small><b>{completedLessonCount}</b></span>
               </div>
             </section>
 
