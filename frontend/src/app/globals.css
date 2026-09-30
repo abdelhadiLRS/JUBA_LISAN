@@ -17914,3 +17914,191 @@ html[data-theme='light'] {
     font-size:clamp(24px,7vw,32px);
   }
 }
+
+
+/* JUBA LISAN — dashboard page-family fidelity pass
+ * Shared visual language for every authenticated route.
+ * Scope is limited to .juba-dashboard-workspace; landing/public pages are untouched.
+ */
+.juba-dashboard-workspace .juba-card,
+.juba-dashboard-workspace .juba-panel,
+.juba-dashboard-workspace .card{
+  border:1px solid var(--jl-ui-line);
+  border-radius:var(--jl-ui-radius);
+  background:var(--jl-ui-card);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-page-shell{
+  max-width:1240px;
+  margin-inline:auto;
+  padding:24px clamp(12px,2.5vw,32px) 48px;
+}
+.juba-dashboard-workspace .juba-page-hero{
+  border:1px solid var(--jl-ui-line);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-page-title{
+  color:var(--jl-ui-ink);
+  font-weight:800;
+  letter-spacing:-.03em;
+}
+.juba-dashboard-workspace .juba-page-subtitle{
+  color:var(--jl-ui-muted);
+}
+.juba-dashboard-workspace .juba-eyebrow{
+  color:var(--jl-ui-green-dark);
+  font-weight:800;
+  letter-spacing:.08em;
+}
+.juba-dashboard-workspace .juba-section-title{
+  color:var(--jl-ui-ink);
+  font-weight:800;
+}
+.juba-dashboard-workspace .juba-input{
+  border:1px solid #ccd8cf;
+  border-radius:10px;
+  background:#fff;
+  color:var(--jl-ui-ink);
+}
+.juba-dashboard-workspace .juba-input:focus{
+  border-color:var(--jl-ui-green);
+  box-shadow:0 0 0 3px rgba(88,167,0,.12);
+  outline:none;
+}
+.juba-dashboard-workspace .juba-primary-button{
+  border:1px solid var(--jl-ui-green-dark);
+  border-radius:9px;
+  background:var(--jl-ui-green);
+  color:#fff;
+  box-shadow:0 2px 0 var(--jl-ui-green-dark);
+  font-weight:800;
+}
+.juba-dashboard-workspace .juba-primary-button:hover{
+  background:var(--jl-ui-green-dark);
+}
+.juba-dashboard-workspace .juba-secondary-button{
+  border:1px solid var(--jl-ui-line);
+  border-radius:9px;
+  background:#fff;
+  color:var(--jl-ui-ink);
+}
+.juba-dashboard-workspace .juba-secondary-button:hover{
+  border-color:#b9d69e;
+  background:#f4f9f1;
+}
+.juba-dashboard-workspace .juba-badge{
+  border:1px solid #cfe0c7;
+  border-radius:999px;
+  background:#eef7e8;
+  color:var(--jl-ui-green-dark);
+  font-weight:800;
+}
+
+/* Large feature pages: remove excessive game-like framing while retaining JUBA LISAN identity. */
+.juba-dashboard-workspace .juba-mobile-courses > .juba-card:first-child,
+.juba-dashboard-workspace .juba-mobile-coach .juba-card,
+.juba-dashboard-workspace .juba-mobile-plan > *:first-child{
+  border-radius:14px;
+  border-width:1px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+
+/* Learning-content cards: consistent density and interaction. */
+.juba-dashboard-workspace .juba-mobile-listening .juba-panel,
+.juba-dashboard-workspace .juba-mobile-reading .juba-panel,
+.juba-dashboard-workspace .juba-mobile-flashcards > .rounded-2xl,
+.juba-dashboard-workspace .juba-mobile-settings .juba-panel,
+.juba-dashboard-workspace .juba-mobile-vocabulary .juba-card,
+.juba-dashboard-workspace .juba-mobile-grammar .juba-card{
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-listening a,
+.juba-dashboard-workspace .juba-mobile-reading a,
+.juba-dashboard-workspace .juba-mobile-vocabulary a,
+.juba-dashboard-workspace .juba-mobile-grammar a{
+  text-decoration:none;
+}
+
+/* Assessment / translator / settings: calm workspace rather than isolated promotional screens. */
+.juba-dashboard-workspace .juba-assessment-page{
+  min-height:100%;
+  background:transparent;
+}
+.juba-dashboard-workspace .juba-mobile-assessment > div,
+.juba-dashboard-workspace .juba-mobile-translator .juba-card{
+  border-color:var(--jl-ui-line);
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-mobile-translator textarea{
+  border-width:1px;
+  border-radius:10px;
+}
+.juba-dashboard-workspace .juba-mobile-settings button{
+  border-radius:9px;
+}
+
+/* Resource pages use one compact card language. */
+.juba-dashboard-workspace .juba-mobile-phrasebook .juba-panel,
+.juba-dashboard-workspace .juba-mobile-phrasebook .card,
+.juba-dashboard-workspace .juba-mobile-vocabulary .juba-card,
+.juba-dashboard-workspace .juba-mobile-grammar .juba-card{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-mobile-vocabulary .juba-card:hover,
+.juba-dashboard-workspace .juba-mobile-grammar .juba-card:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(23,33,27,.06);
+}
+
+/* Plan / progress: convert oversized promotional framing into dashboard panels. */
+.juba-dashboard-workspace .juba-mobile-plan,
+.juba-dashboard-workspace .juba-mobile-progress{
+  max-width:1240px;
+}
+.juba-dashboard-workspace .juba-mobile-plan > * + *,
+.juba-dashboard-workspace .juba-mobile-progress > * + *{
+  margin-top:16px;
+}
+
+/* Games: preserve the custom game UI, but anchor its outer surface to the dashboard system. */
+.juba-dashboard-workspace .juba-games{
+  background:var(--jl-ui-bg);
+  color:var(--jl-ui-ink);
+}
+.juba-dashboard-workspace .games-shell{
+  max-width:1240px;
+  margin-inline:auto;
+}
+
+/* Chat and conversation stay focused on task content. */
+.juba-dashboard-workspace .juba-mobile-chat{
+  min-height:100%;
+}
+.juba-dashboard-workspace .juba-mobile-chat .chat-conversations-sidebar{
+  box-shadow:none;
+}
+
+/* Consistent keyboard focus across dashboard controls. */
+.juba-dashboard-workspace a:focus-visible,
+.juba-dashboard-workspace button:focus-visible,
+.juba-dashboard-workspace input:focus-visible,
+.juba-dashboard-workspace textarea:focus-visible,
+.juba-dashboard-workspace select:focus-visible{
+  outline:2px solid var(--jl-ui-green);
+  outline-offset:2px;
+}
+
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-page-shell{
+    padding:18px 10px 32px;
+  }
+  .juba-dashboard-workspace .juba-mobile-plan,
+  .juba-dashboard-workspace .juba-mobile-progress,
+  .juba-dashboard-workspace .juba-mobile-coach,
+  .juba-dashboard-workspace .juba-mobile-courses{
+    padding-top:18px;
+  }
+}
