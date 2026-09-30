@@ -360,7 +360,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-sidebar{width:196px!important;min-width:196px!important}
           .juba-reference-shell .juba-duo-nav-link{padding-inline:9px!important;gap:9px!important}
         }
-      `}</style>
+      `}
+
+        /* Reference fidelity pass 4 — shell finishing */
+        .juba-reference-shell .juba-duo-sidebar{background:#fff!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{border-bottom:1px solid #f3f4f1!important}
+        .juba-reference-shell .juba-duo-nav-link{transition:background-color .16s ease,color .16s ease!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active{position:relative!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active:before{content:""!important;position:absolute!important;inset-inline-start:0!important;top:8px!important;bottom:8px!important;width:3px!important;border-radius:0 4px 4px 0!important;background:#58cc02!important}
+        .juba-reference-shell .juba-duo-user{box-shadow:0 -1px 0 rgba(237,240,234,.55)!important}
+        .juba-reference-shell .juba-duo-page-frame{scroll-behavior:smooth!important}
+        .juba-reference-shell .juba-duo-main{font-synthesis:none!important;-webkit-font-smoothing:antialiased!important}
+        @media (max-width:900px){
+          .juba-reference-shell .juba-duo-mobile-bar{height:56px!important;min-height:56px!important;border-bottom:1px solid #edf0ea!important}
+        }
+      </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
