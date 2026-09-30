@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="container-xl page-body py-4">
+      <div className="juba-utility-page">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
@@ -640,9 +640,9 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 p-6">
+    <div className="juba-utility-page space-y-4">
       {/* Page header */}
-      <div className="border-[var(--duo-line)] border-b pb-4">
+      <div className="juba-utility-header">
         <p className="text-[var(--duo-muted)] mb-1 font-semibold tracking-wide">
           {t('title')}
         </p>
@@ -652,7 +652,7 @@ export default function FeedbackPage() {
       </div>
 
       {/* Tabs */}
-      <div className="border-[var(--duo-line)] flex border-b">
+      <div className="juba-utility-tabs">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
@@ -718,7 +718,7 @@ export default function FeedbackPage() {
       )}
 
       {/* List */}
-      <div className="card">
+      <div className="juba-feedback-list">
         {loading ? (
           <PageLoading
             fullScreen={false}
