@@ -16531,3 +16531,86 @@ html[data-theme='light'] {
     font-size:8px;
   }
 }
+
+/* Landing header: visual language selector */
+.juba-busuu-page .juba-busuu-locale-menu{position:relative}
+.juba-busuu-page .juba-busuu-locale-options{
+  min-width:220px;
+  padding:8px;
+  gap:4px;
+}
+.juba-busuu-page .juba-busuu-locale-options a{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+  min-height:46px;
+  padding:6px 10px;
+  border-radius:12px;
+  color:var(--jl-ink);
+  text-decoration:none;
+  font-weight:700;
+  transition:background .18s ease,transform .18s ease;
+}
+.juba-busuu-page .juba-busuu-locale-options a:hover,
+.juba-busuu-page .juba-busuu-locale-options a[aria-current="page"]{
+  background:rgba(7,95,231,.07);
+}
+.juba-busuu-page .juba-busuu-locale-option-flag{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid rgba(23,33,27,.1);
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 3px 8px rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-locale-option-flag img{
+  width:32px;
+  height:24px;
+  display:block;
+  object-fit:cover;
+}
+.juba-busuu-page .juba-busuu-locale-option-label{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.juba-busuu-page .juba-busuu-locale-option-current{
+  color:var(--jl-green);
+  font-size:16px;
+  font-weight:900;
+}
+.juba-busuu-page .juba-busuu-mobile-locales a{
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr) auto;
+  align-items:center;
+  gap:9px;
+}
+.juba-busuu-page .juba-busuu-mobile-locales .juba-busuu-locale-option-flag{
+  width:28px;
+  height:28px;
+}
+.juba-busuu-page .juba-busuu-mobile-locales .juba-busuu-locale-option-flag img{
+  width:28px;
+  height:21px;
+}
+@media (max-width:1000px){
+  .juba-busuu-page .juba-busuu-nav-actions{
+    display:flex;
+    align-items:center;
+  }
+  .juba-busuu-page .juba-busuu-nav-actions > .juba-busuu-login,
+  .juba-busuu-page .juba-busuu-nav-actions > .juba-busuu-nav-cta,
+  .juba-busuu-page .juba-busuu-nav-actions > .juba-busuu-nav-rule,
+  .juba-busuu-page .juba-busuu-nav-actions > .juba-busuu-locale-menu{
+    display:none;
+  }
+  .juba-busuu-page .juba-busuu-nav-actions > .juba-busuu-visitor-locale{
+    display:inline-flex;
+    min-height:40px;
+  }
+}
