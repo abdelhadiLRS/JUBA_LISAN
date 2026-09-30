@@ -22596,3 +22596,25 @@ html[data-theme='light'] {
 .juba-reference-v3 .juba-reference-v3-rail .juba-reference-goal-card,
 .juba-reference-v3 .juba-reference-v3-rail .juba-reference-xp-card,
 .juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{padding:15px 16px!important}
+
+
+/* DASHBOARD REFERENCE LOCK — final visual pass: dense Duolingo-style dashboard hierarchy */
+.juba-reference-v3 .juba-reference-v3-main{gap:14px!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{min-height:104px!important;padding:18px 22px!important;border-radius:8px!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-daily{border-radius:8px!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-reference-insights{gap:12px!important}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-reference-insights>.juba-reference-insight-card{min-height:126px!important;border-radius:8px!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head h2{font-size:15px!important;font-weight:900!important}
+.juba-reference-v3 .juba-reference-course .juba-reference-progress-meta{font-size:8px!important;color:#999!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{min-height:72px!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node{transition:none!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-path-node{width:36px!important;height:36px!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{font-size:12px!important}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{min-width:100px!important}
+.juba-reference-v3 .juba-reference-v3-rail{gap:12px!important}
+.juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{border-radius:8px!important}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-goal-card{min-height:150px!important}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-xp-card{min-height:132px!important}
+.juba-reference-v3 .juba-reference-v3-rail .juba-reference-achievement-card{min-height:126px!important}
+@media(max-width:900px){.juba-reference-v3 .juba-reference-v3-grid{padding-inline:16px!important}.juba-reference-v3 .juba-reference-v3-rail{gap:12px!important}}
+@media(max-width:680px){.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{min-height:96px!important;padding:16px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{min-height:68px!important}.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{min-width:0!important}}
