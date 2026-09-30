@@ -142,7 +142,7 @@ export default async function Home() {
           <div className="juba-busuu-reference-hero-copy">
             <div className="juba-busuu-hero-meta" aria-hidden="true">
               <span>JUBA LISAN</span>
-              <span>AI LANGUAGE LEARNING</span>
+              <span>{t('heroBadge')}</span>
             </div>
             <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
             <h1 id="landing-hero-title">{t('heroTitle')}</h1>
@@ -235,7 +235,7 @@ export default async function Home() {
 
       <section data-editorial-section="01A" className="juba-busuu-proof-strip" aria-labelledby="landing-proof-title">
         <div className="juba-busuu-proof-inner">
-          <span className="juba-busuu-proof-label" aria-hidden="true">WHY JUBA LISAN</span>
+          <span className="juba-busuu-proof-label">{t('proofSectionLabel')}</span>
           <h2 id="landing-proof-title" className="sr-only">{t('navFeatures')}</h2>
           <div className="juba-busuu-proof-stat">
             <strong>{SUPPORTED_LANGUAGE_COUNT}+</strong>
