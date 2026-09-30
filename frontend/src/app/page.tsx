@@ -198,17 +198,26 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Busuu reference language chooser */}
+      {/* Strong editorial language destination */}
       <section id="languages" className="juba-busuu-reference-languages scroll-mt-24" aria-labelledby="landing-languages-title">
         <div className="juba-busuu-reference-languages-inner">
-          <h2 id="landing-languages-title">{t('navLanguages')}</h2>
-          <LanguageBubbles dir={dir} />
-          <div className="juba-busuu-language-cta">
+          <div className="juba-busuu-language-intro">
+            <div>
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2 id="landing-languages-title">{t('navLanguages')}</h2>
+            </div>
+            <p>{t('heroSub')}</p>
+          </div>
+          <div className="juba-busuu-language-stage">
+            <LanguageBubbles dir={dir} />
+          </div>
+          <div className="juba-busuu-language-bottom">
+            <span>{SUPPORTED_LANGUAGE_COUNT}+ languages</span>
             <Link
               href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               className="juba-busuu-language-cta-link"
             >
-              {hasSession ? t('dashboard') : allowRegistration ? t('ctaStart') : t('signIn')}
+              {hasSession ? t('dashboard') : allowRegistration ? t('ctaStart') : t('signIn')} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
