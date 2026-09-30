@@ -79,7 +79,8 @@ export function LandingReviewsCarousel({
       className="juba-ff-reviews mx-auto w-full max-w-5xl px-6 pb-24 text-[var(--busuu-ink)]"
       aria-labelledby="reviews-title"
     >
-      <div className="mb-8 flex flex-col gap-3 text-center">
+      <div className="juba-busuu-reviews-heading mb-8 flex flex-col gap-3 text-center">
+        <span className="juba-busuu-section-index" aria-hidden="true">04</span>
         <span className="text-[var(--busuu-muted)] font-sans text-xs font-bold tracking-wide">
           {t('eyebrow')}
         </span>
@@ -113,8 +114,9 @@ export function LandingReviewsCarousel({
         {reviews.map((review) => (
           <article
             key={review.id}
-            className="juba-ff-review-card border-[var(--busuu-line)] bg-[var(--busuu-card)] flex min-h-52 w-[280px] flex-none snap-start flex-col border p-5 sm:w-[340px]"
+            className="juba-ff-review-card juba-busuu-review-card border-[var(--busuu-line)] bg-[var(--busuu-card)] flex min-h-52 w-[280px] flex-none snap-start flex-col border p-5 sm:w-[340px]"
           >
+            <span className="juba-busuu-review-quote" aria-hidden="true">“</span>
             <div className="mb-4 flex items-start justify-between gap-4">
               <div className="juba-busuu-review-person">
                 <div className="juba-busuu-review-avatar" aria-hidden="true">
@@ -136,9 +138,13 @@ export function LandingReviewsCarousel({
                 label={t('starsLabel', { rating: review.rating })}
               />
             </div>
-            <p className="text-[var(--busuu-muted)] line-clamp-6 font-sans text-sm leading-7">
+            <p className="juba-busuu-review-copy text-[var(--busuu-muted)] line-clamp-6 font-sans text-sm leading-7">
               {review.comment || t('ratingOnly')}
             </p>
+            <div className="juba-busuu-review-footer" aria-hidden="true">
+              <span />
+              <span>{languageLabel(review.target_language)}</span>
+            </div>
           </article>
         ))}
       </div>
