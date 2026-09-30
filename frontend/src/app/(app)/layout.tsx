@@ -342,6 +342,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-user{padding:11px 14px!important}
         .juba-reference-shell .juba-duo-main{overflow-x:hidden!important}
         @media (max-width:900px){.juba-reference-shell .juba-duo-sidebar{width:100%!important;min-width:0!important}}
+
+        /* Reference fidelity pass 3 — exact visual alignment */
+
+        .juba-reference-shell .juba-duo-sidebar{width:228px!important;min-width:228px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:84px!important;padding:0 20px!important}
+        .juba-reference-shell .juba-duo-logo-mark{width:38px!important;height:38px!important;font-size:12px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{font-size:14px!important;letter-spacing:-.025em!important}
+        .juba-reference-shell .juba-duo-nav{padding:13px 9px!important}
+        .juba-reference-shell .juba-duo-nav-link{min-height:40px!important;padding:8px 11px!important;border-radius:8px!important;gap:11px!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:18px!important;height:18px!important}
+        .juba-reference-shell .juba-duo-resource-toggle{min-height:36px!important;padding:7px 11px!important}
+        .juba-reference-shell .juba-duo-nav-divider{margin-top:4px!important}
+        .juba-reference-shell .juba-duo-user{padding:10px 13px!important}
+        .juba-reference-shell .juba-duo-main{background:#fff!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-reference-shell .juba-duo-sidebar{width:196px!important;min-width:196px!important}
+          .juba-reference-shell .juba-duo-nav-link{padding-inline:9px!important;gap:9px!important}
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
