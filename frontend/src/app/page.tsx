@@ -342,6 +342,16 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      {/* Reviews */}
+      <ScrollReveal>
+        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
+          <div className="juba-busuu-testimonials-inner">
+            <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
+            <LandingReviewsCarousel reviews={reviews} />
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Busuu-style "why learn" editorial section */}
       <ScrollReveal>
         <section className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
@@ -353,12 +363,12 @@ export default async function Home() {
             </div>
             <div className="juba-busuu-why-learn-grid">
               {[
-                { title: t('feature1Title'), desc: t('feature1Desc') },
-                { title: t('feature2Title'), desc: t('feature2Desc') },
-                { title: t('feature3Title'), desc: t('feature3Desc') },
-              ].map(({ title, desc }) => (
+                { number: '01', title: t('feature1Title'), desc: t('feature1Desc') },
+                { number: '02', title: t('feature2Title'), desc: t('feature2Desc') },
+                { number: '03', title: t('feature3Title'), desc: t('feature3Desc') },
+              ].map(({ number, title, desc }) => (
                 <article key={title} className="juba-busuu-why-learn-card">
-                  <span className="juba-busuu-why-learn-number" aria-hidden="true">0</span>
+                  <span className="juba-busuu-why-learn-number" aria-hidden="true">{number}</span>
                   <h3>{title}</h3>
                   <p>{desc}</p>
                 </article>
@@ -372,16 +382,6 @@ export default async function Home() {
                 {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
               </Link>
             </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* Reviews */}
-      <ScrollReveal>
-        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
-          <div className="juba-busuu-testimonials-inner">
-            <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
-            <LandingReviewsCarousel reviews={reviews} />
           </div>
         </section>
       </ScrollReveal>
