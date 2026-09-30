@@ -20169,3 +20169,176 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v25 — app-to-FAQ transition and final-fold hierarchy */
+.juba-busuu-page .juba-busuu-app-section {
+  padding-block: clamp(84px, 9vw, 126px);
+  background:
+    radial-gradient(circle at 78% 34%, rgba(0,168,107,.12), transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(8,119,249,.07), transparent 28%),
+    linear-gradient(180deg, #f6fbf8 0%, #fff 100%);
+}
+.juba-busuu-page .juba-busuu-app-inner {
+  position: relative;
+  width: min(100% - 32px, 1180px);
+  min-height: 380px;
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid rgba(23,33,27,.09);
+  border-radius: 34px;
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 24px 64px rgba(23,33,27,.075);
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-app-inner::before {
+  content: "07";
+  position: absolute;
+  inset-inline-end: 30px;
+  inset-block-start: 24px;
+  color: rgba(23,33,27,.08);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(54px, 8vw, 92px);
+  font-weight: 800;
+  letter-spacing: -.08em;
+  line-height: 1;
+}
+.juba-busuu-page .juba-busuu-app-copy h2 {
+  max-width: 720px;
+}
+.juba-busuu-page .juba-busuu-app-copy p {
+  max-width: 600px;
+}
+.juba-busuu-page .juba-busuu-app-art {
+  min-height: 340px;
+}
+.juba-busuu-page .juba-busuu-app-art::before {
+  content: "";
+  position: absolute;
+  width: min(390px, 90%);
+  aspect-ratio: 1;
+  border: 1px solid rgba(0,168,107,.14);
+  border-radius: 50%;
+  box-shadow: 0 0 0 24px rgba(0,168,107,.025), 0 0 0 48px rgba(8,119,249,.02);
+}
+.juba-busuu-page .juba-busuu-app-convector {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 18px 24px rgba(23,33,27,.10));
+}
+.juba-busuu-page .juba-busuu-app-branch-left,
+.juba-busuu-page .juba-busuu-app-branch-right,
+.juba-busuu-page .juba-busuu-app-triangle-up,
+.juba-busuu-page .juba-busuu-app-triangle-down {
+  z-index: 2;
+}
+.juba-busuu-page .juba-busuu-app-copy .juba-busuu-section-index {
+  margin-bottom: 16px;
+}
+.juba-busuu-page .juba-busuu-app-badges .juba-busuu-app-cta {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 24px;
+  border-radius: 999px;
+  background: var(--jl-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .03em;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(8,119,249,.20);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.juba-busuu-page .juba-busuu-app-badges .juba-busuu-app-cta:hover {
+  transform: translateY(-3px);
+  background: var(--jl-blue-deep);
+  box-shadow: 0 16px 30px rgba(8,119,249,.25);
+}
+.juba-busuu-page .juba-busuu-app-badges .juba-busuu-app-cta:focus-visible {
+  outline: 3px solid rgba(8,119,249,.28);
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-faq-section {
+  padding-block: clamp(84px, 9vw, 116px);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(8,119,249,.055), transparent 25%),
+    radial-gradient(circle at 92% 76%, rgba(255,216,77,.16), transparent 28%),
+    linear-gradient(180deg, #fff 0%, #fbfaf6 100%);
+}
+.juba-busuu-page .juba-busuu-faq-heading {
+  width: min(100% - 32px, 1180px);
+  max-width: none;
+  margin-bottom: 38px;
+}
+.juba-busuu-page .juba-busuu-faq-heading .juba-busuu-section-index {
+  flex: 0 0 auto;
+}
+.juba-busuu-page .juba-busuu-faq-section > .juba-busuu-faq-heading + * {
+  width: min(100% - 32px, 900px);
+}
+.juba-busuu-page .juba-landing-faq-item {
+  border-radius: 18px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 10px 30px rgba(23,33,27,.045);
+}
+.juba-busuu-page .juba-landing-faq-item:hover,
+.juba-busuu-page .juba-landing-faq-item.is-open {
+  border-color: rgba(8,119,249,.16);
+  box-shadow: 0 16px 36px rgba(23,33,27,.075);
+}
+.juba-busuu-page .juba-busuu-footer {
+  background:
+    radial-gradient(circle at 92% 10%, rgba(8,119,249,.055), transparent 22%),
+    #f7faf8;
+}
+@media (max-width: 820px) {
+  .juba-busuu-page .juba-busuu-app-inner {
+    width: min(100% - 32px, 1180px);
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 34px 28px;
+  }
+  .juba-busuu-page .juba-busuu-app-copy {
+    text-align: center;
+  }
+  .juba-busuu-page .juba-busuu-app-copy p {
+    margin-inline: auto;
+  }
+  .juba-busuu-page .juba-busuu-app-badges {
+    justify-content: center;
+  }
+  .juba-busuu-page .juba-busuu-app-art {
+    min-height: 270px;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-app-inner {
+    width: calc(100% - 32px);
+    padding: 28px 20px;
+    border-radius: 26px;
+  }
+  .juba-busuu-page .juba-busuu-app-inner::before {
+    inset-inline-end: 18px;
+    inset-block-start: 18px;
+    font-size: 58px;
+  }
+  .juba-busuu-page .juba-busuu-app-copy h2 {
+    font-size: 37px;
+  }
+  .juba-busuu-page .juba-busuu-app-badges .juba-busuu-app-cta {
+    width: 100%;
+  }
+  .juba-busuu-page .juba-busuu-app-art {
+    min-height: 220px;
+  }
+  .juba-busuu-page .juba-busuu-app-art::before {
+    width: 250px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-app-badges .juba-busuu-app-cta {
+    transition: none;
+  }
+}
