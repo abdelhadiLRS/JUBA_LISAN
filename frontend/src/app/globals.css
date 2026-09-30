@@ -18495,9 +18495,6 @@ html[data-theme='light'] {
 .juba-dashboard-workspace .juba-mobile-plan .rounded-2xl{
   border-radius:10px;
 }
-.juba-dashboard-workspace .juba-mobile-plan .rounded-[22px]{
-  border-radius:14px;
-}
 .juba-dashboard-workspace .juba-mobile-plan button,
 .juba-dashboard-workspace .juba-mobile-plan a{
   border-radius:9px;
@@ -18517,8 +18514,7 @@ html[data-theme='light'] {
   border-radius:12px;
   box-shadow:0 1px 2px rgba(23,33,27,.035);
 }
-.juba-dashboard-workspace .juba-mobile-coach .rounded-3xl,
-.juba-dashboard-workspace .juba-mobile-coach .rounded-[20px]{
+.juba-dashboard-workspace .juba-mobile-coach .rounded-3xl{
   border-radius:12px;
 }
 .juba-dashboard-workspace .juba-mobile-coach a,
@@ -18567,9 +18563,9 @@ html[data-theme='light'] {
   border-color:var(--jl-ui-line);
   box-shadow:0 1px 2px rgba(23,33,27,.035);
 }
-.juba-dashboard-workspace .juba-mobile-listening .rounded-[28px],
-.juba-dashboard-workspace .juba-mobile-reading .rounded-[28px],
-.juba-dashboard-workspace .juba-mobile-vocabulary .rounded-[28px]{
+.juba-dashboard-workspace .juba-mobile-listening,
+.juba-dashboard-workspace .juba-mobile-reading,
+.juba-dashboard-workspace .juba-mobile-vocabulary{
   border-radius:12px;
 }
 .juba-dashboard-workspace .juba-mobile-listening button,
