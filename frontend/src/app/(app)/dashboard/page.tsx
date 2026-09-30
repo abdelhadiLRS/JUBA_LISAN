@@ -431,7 +431,7 @@ export default function DashboardPage() {
               </div>
             </section>
 
-            <<section className="juba-reference-v3-card juba-reference-course">
+            <section className="juba-reference-v3-card juba-reference-course">
               <div className="juba-reference-card-header">
                 <div>
                   <span className="juba-reference-section-label">{t('nextStep')}</span>
