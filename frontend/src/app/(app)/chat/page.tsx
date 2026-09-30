@@ -23,7 +23,7 @@ import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 import { MemorySavedToast } from '@/components/memory/MemorySavedToast'
 import { useTransientToast } from '@/hooks/useTransientToast'
 import { readSseData } from '@/lib/sse'
-import { Users, Trophy, MessageCircle, Settings, LogOut } from 'lucide-react'
+import { Trophy, MessageCircle } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -355,6 +355,8 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:#eef9df!important;color:#58a91b!important;display:grid!important;place-items:center!important;flex:none!important}
         .juba-mobile-chat .juba-chat-achievement strong{display:block!important;color:#555!important;font-size:10px!important}
         .juba-mobile-chat .juba-chat-achievement span{display:block!important;color:#999!important;font-size:8px!important;margin-top:3px!important}
+        .juba-mobile-chat .juba-chat-friends-list{margin-top:8px!important}
+        .juba-mobile-chat .juba-chat-friends-empty{display:block!important;padding:12px 0!important;color:#999!important;font-size:9px!important}
         .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid #f0f0f0!important;background:#fff!important;text-align:start!important}
         .juba-mobile-chat .juba-chat-friend-avatar{width:32px!important;height:32px!important;border-radius:50%!important;overflow:hidden!important;background:#f1f3f0!important;display:grid!important;place-items:center!important;color:#888!important;font-size:9px!important;font-weight:800!important;flex:none!important}
         .juba-mobile-chat .juba-chat-friend-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
@@ -687,39 +689,36 @@ export default function ChatPage() {
           <section className="juba-chat-profile-card">
             <div className="juba-chat-profile-hero">
               <div className="juba-chat-profile-photo">
-                ${user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={104} height={104} className="h-full w-full object-cover" /> : <MessageCircle size={30} />}
+                {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={104} height={104} className="h-full w-full object-cover" /> : <MessageCircle size={30} />}
               </div>
-              <strong>${user?.displayName || user?.username}</strong>
-              <span>${activeLanguage ? tLang(activeLanguage.code) : tLang('en-GB')}</span>
+              <strong>{user?.displayName || user?.username}</strong>
+              <span>{activeLanguage ? tLang(activeLanguage.code) : tLang('en-GB')}</span>
             </div>
             <div className="juba-chat-profile-metrics">
-              <div><b>${xp}</b><small>XP</small></div>
-              <div><b>${streak}</b><small>STREAK</small></div>
-              <div><b>${accuracy}%</b><small>ACCURACY</small></div>
+              <div><b>{xp}</b><small>XP</small></div>
+              <div><b>{streak}</b><small>STREAK</small></div>
+              <div><b>{accuracy}%</b><small>ACCURACY</small></div>
             </div>
-            <div className="juba-chat-side-tools">
-              <button className="juba-chat-side-tool" type="button" title="Settings"><Settings size={16}/></button>
-              <button className="juba-chat-side-tool" type="button" title="Logout"><LogOut size={16}/></button>
-            </div>
+
           </section>
           <section className="juba-chat-side-card">
-            <div className="juba-chat-side-card-head"><div><span className="juba-chat-side-label">NEXT</span><h3>${t('title')}</h3></div></div>
+            <div className="juba-chat-side-card-head"><div><span className="juba-chat-side-label">NEXT</span><h3>{t('title')}</h3></div></div>
             <div className="juba-chat-achievement">
               <div className="juba-chat-achievement-icon"><Trophy size={24}/></div>
-              <div><strong>${t('continueInVoice')}</strong><span>${streak} day streak</span></div>
+              <div><strong>{t('continueInVoice')}</strong><span>{streak} day streak</span></div>
             </div>
           </section>
           <section className="juba-chat-side-card">
             <div className="juba-chat-side-card-head"><div><span className="juba-chat-side-label">FRIENDS</span><h3>Friends</h3></div></div>
-            <div style={{marginTop:8}}>
-              ${friends.map((friend) => (
+            <div className="juba-chat-friends-list">
+              {friends.length ? friends.map((friend) => (
                 <button key={friend.id} type="button" className="juba-chat-friend" onClick={() => router.push('/friends/chat/' + friend.id)}>
                   <span className="juba-chat-friend-avatar">
-                    ${friend.avatar ? <AuthAvatarImage avatar={friend.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" /> : (friend.display_name || friend.username || '?')[0].toUpperCase()}
+                    {friend.avatar ? <AuthAvatarImage avatar={friend.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" /> : (friend.display_name || friend.username || '?')[0].toUpperCase()}
                   </span>
-                  <span className="juba-chat-friend-copy"><strong>${friend.display_name || friend.username}</strong><small>$@{friend.username}</small></span>
+                  <span className="juba-chat-friend-copy"><strong>{friend.display_name || friend.username}</strong><small>@{friend.username}</small></span>
                 </button>
-              ))}
+              )) : <span className="juba-chat-friends-empty">{t("title")}</span>}
             </div>
           </section>
         </aside>
