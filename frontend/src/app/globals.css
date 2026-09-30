@@ -14214,8 +14214,6 @@ html[data-theme='light'] {
   font-weight: 850;
   letter-spacing: .12em;
 }
-.juba-busuu-page .juba-busuu-why-learn-number { font-size: 0; }
-.juba-busuu-page .juba-busuu-why-learn-number::after { font-size: 12px; }
 .juba-busuu-page .juba-busuu-why-learn-card h3 {
   color: var(--busuu-ink);
   font-size: clamp(24px, 2.5vw, 32px);
