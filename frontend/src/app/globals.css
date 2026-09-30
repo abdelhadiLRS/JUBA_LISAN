@@ -19112,3 +19112,150 @@ html[data-theme='light'] {
     grid-column:2;
   }
 }
+
+
+/* ==========================================================================
+   V3 STRICT — TOPBAR / DASHBOARD FRAME FIDELITY
+   ========================================================================== */
+.juba-reference-v3 .juba-reference-topbar{
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  box-sizing:border-box;
+  height:68px!important;
+  min-height:68px!important;
+  padding:0 28px!important;
+  background:#fff!important;
+  border-bottom:1px solid #e7e7e7!important;
+}
+.juba-reference-v3 .juba-reference-topbar-title{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+}
+.juba-reference-v3 .juba-reference-dot{
+  flex:0 0 34px;
+  width:34px!important;
+  height:34px!important;
+  display:grid;
+  place-items:center;
+  border-radius:8px!important;
+  background:#58cc02;
+  color:#fff;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:-.02em;
+  box-shadow:0 2px 0 #46a302;
+}
+.juba-reference-v3 .juba-reference-topbar-title>div{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.juba-reference-v3 .juba-reference-overline{
+  font-size:8px!important;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  color:#a1a1a1;
+  font-weight:850;
+}
+.juba-reference-v3 .juba-reference-topbar h1{
+  margin:4px 0 0!important;
+  font-size:16px!important;
+  line-height:1.15;
+  font-weight:850!important;
+  letter-spacing:-.015em;
+  color:#444;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.juba-reference-v3 .juba-reference-topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:10px!important;
+  flex:0 0 auto;
+}
+.juba-reference-v3 .juba-reference-icon-button{
+  width:32px!important;
+  height:32px!important;
+  border-radius:7px!important;
+  border:1px solid #e1e4e6!important;
+  color:#777;
+  background:#fff;
+}
+.juba-reference-v3 .juba-reference-topbar-link{
+  height:32px;
+  display:flex;
+  align-items:center;
+  padding:0 9px!important;
+  border:1px solid transparent;
+  border-radius:7px;
+  font-size:10px!important;
+  font-weight:850;
+  color:#777;
+}
+.juba-reference-v3 .juba-reference-topbar-link:hover{
+  background:#f1f9eb;
+  color:#58a91b;
+}
+.juba-reference-v3 .juba-reference-profile{
+  min-height:36px!important;
+  padding:3px 7px 3px 4px!important;
+  gap:7px!important;
+  border-radius:8px!important;
+  border:1px solid #e3e5e6!important;
+  box-shadow:none;
+}
+.juba-reference-v3 .juba-reference-profile-avatar{
+  width:28px!important;
+  height:28px!important;
+  background:#eef8e9!important;
+}
+.juba-reference-v3 .juba-reference-profile strong{
+  font-size:10px!important;
+  color:#4f4f4f;
+}
+.juba-reference-v3 .juba-reference-profile span{
+  font-size:8px!important;
+  color:#9a9a9a;
+}
+.juba-reference-v3-grid{
+  width:min(1160px,100%)!important;
+  max-width:1160px!important;
+  margin:0 auto!important;
+  padding:20px 24px 42px!important;
+  grid-template-columns:minmax(0,760px) 292px!important;
+  gap:20px!important;
+}
+.juba-reference-v3-main{
+  gap:14px!important;
+}
+.juba-reference-v3-rail{
+  gap:12px!important;
+}
+@media(max-width:900px){
+  .juba-reference-v3 .juba-reference-topbar{
+    position:relative;
+    height:64px!important;
+    min-height:64px!important;
+    padding:0 14px!important;
+  }
+  .juba-reference-v3-grid{
+    width:100%!important;
+    padding:16px!important;
+  }
+}
+@media(max-width:680px){
+  .juba-reference-v3 .juba-reference-topbar-title{gap:8px}
+  .juba-reference-v3 .juba-reference-dot{width:30px!important;height:30px!important;flex-basis:30px}
+  .juba-reference-v3 .juba-reference-topbar h1{font-size:14px!important}
+  .juba-reference-v3 .juba-reference-icon-button{width:30px!important;height:30px!important}
+}
