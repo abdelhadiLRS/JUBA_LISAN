@@ -286,6 +286,43 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
+
+      <style>{`
+        /* JUBA LISAN app shell — strict reference chrome */
+        .juba-reference-shell{background:#fff!important;color:#555!important}
+        .juba-reference-shell .juba-duo-sidebar{width:220px!important;min-width:220px!important;background:#fff!important;border-right:1px solid #edf0ea!important;box-shadow:none!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:92px!important;padding:0 24px!important;border-bottom:0!important;display:flex!important;align-items:center!important;gap:10px!important}
+        .juba-reference-shell .juba-duo-logo-mark{width:40px!important;height:40px!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;display:grid!important;place-items:center!important;font-weight:950!important;font-size:13px!important;box-shadow:0 3px 0 #46a302!important;flex:none!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{color:#58a91b!important;font-size:15px!important;font-weight:900!important;letter-spacing:-.03em!important;text-transform:none!important}
+        .juba-reference-shell .juba-duo-language{display:none!important}
+        .juba-reference-shell .juba-duo-nav{padding:14px 12px!important}
+        .juba-reference-shell .juba-duo-nav-link{min-height:43px!important;border:0!important;border-radius:10px!important;padding:8px 11px!important;margin:3px 0!important;color:#777!important;font-size:12px!important;font-weight:750!important;letter-spacing:0!important;text-transform:none!important;gap:12px!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:20px!important;height:20px!important}
+        .juba-reference-shell .juba-duo-nav-link:hover{background:#f6fbf3!important;color:#58a91b!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active{background:#eff9e8!important;color:#58a91b!important;box-shadow:none!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(1) svg{color:#58cc02!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(2) svg{color:#38a8e8!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(3) svg{color:#ffb900!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(4) svg{color:#2f9ee7!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(5) svg{color:#9b6be8!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(6) svg{color:#e55b5b!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(7) svg{color:#2aa6e0!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(8) svg{color:#5aa66b!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(9) svg{color:#36a86b!important}
+        .juba-reference-shell .juba-duo-resource-toggle{min-height:38px!important;padding:8px 11px!important;color:#999!important;font-size:10px!important;font-weight:800!important}
+        .juba-reference-shell .juba-duo-nav-divider{border-top:0!important;margin-top:5px!important;padding-top:0!important}
+        .juba-reference-shell .juba-duo-user{border-top:1px solid #f0f0f0!important;background:#fff!important;padding:13px 15px!important}
+        .juba-reference-shell .juba-duo-user-action{color:#999!important;font-size:10px!important}
+        .juba-reference-shell .juba-duo-version{color:#c1c1c1!important;font-size:8px!important}
+        .juba-reference-shell .juba-duo-main{background:#fff!important}
+        .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
+        .juba-reference-shell .juba-duo-mobile-bar{display:none!important}
+        @media (max-width:900px){
+          .juba-reference-shell .juba-duo-sidebar{display:none!important}
+          .juba-reference-shell .juba-duo-main{width:100%!important}
+          .juba-reference-shell .juba-duo-mobile-bar{display:block!important;background:#fff!important;border-bottom:1px solid #edf0ea!important;box-shadow:none!important}
+        }
+      `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
