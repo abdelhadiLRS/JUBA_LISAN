@@ -359,7 +359,6 @@ export default async function Home() {
       <ScrollReveal>
         <section id="reviews" data-editorial-section="04" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
           <div className="juba-busuu-testimonials-inner">
-            <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
             <LandingReviewsCarousel reviews={reviews} />
           </div>
         </section>
