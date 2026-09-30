@@ -19714,3 +19714,32 @@ html[data-theme='light'] {
     flex-basis:58px;
   }
 }
+
+
+/* ==========================================================================
+   V3 STRICT — WELCOME INFORMATION STRIP
+   ========================================================================== */
+.juba-reference-v3 .juba-reference-welcome-copy{min-width:0}
+.juba-reference-v3 .juba-reference-welcome-meta{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:9px;
+  color:#aaa;
+  font-size:8px;
+  font-weight:850;
+}
+.juba-reference-v3 .juba-reference-welcome-meta i{
+  width:3px;
+  height:3px;
+  flex:0 0 3px;
+  border-radius:50%;
+  background:#d0d0d0;
+}
+.juba-reference-v3 .juba-reference-welcome-meta span:first-child{
+  color:#58a91b;
+  font-weight:950;
+}
+@media(max-width:680px){
+  .juba-reference-v3 .juba-reference-welcome-meta{margin-top:7px;gap:6px;font-size:7px}
+}
