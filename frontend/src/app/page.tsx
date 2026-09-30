@@ -170,6 +170,9 @@ export default async function Home() {
                     ? tCommon('start')
                     : t('signIn')}
               </Link>
+              <a href="#languages" className="juba-busuu-reference-secondary">
+                {t('navLanguages')} <span aria-hidden="true">↘</span>
+              </a>
               <img
                 src="/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/right-wing.png"
                 alt=""
