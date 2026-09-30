@@ -496,7 +496,11 @@ export default function DashboardPage() {
                 <Link href="/plan" className="juba-reference-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
-              <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{completedLessonCount}/{todayLessons.length} {t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</span><span>{coursePathCurrentLabel}/{todayLessons.length || 0}</span></div>
+              <div className="juba-reference-progress-meta" style={{display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:8,marginTop:9}}>
+                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('today')}</small><b style={{fontSize:10,color:'#555'}}>{currentDayDisplay}/{totalDays || 0}</b></span>
+                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b style={{fontSize:10,color:'#58a91b'}}>{completedLessonCount}/{todayLessons.length}</b></span>
+                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('nextStep')}</small><b style={{fontSize:10,color:'#555'}}>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
+              </div>
               <div className="juba-reference-lessons juba-reference-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
