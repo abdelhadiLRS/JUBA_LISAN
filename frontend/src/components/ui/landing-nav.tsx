@@ -147,6 +147,7 @@ export function LandingNav({
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
     { href: '#pricing', label: navPricing },
   ]
+  const desktopLinks = links.slice(1)
 
   const handleLocaleKeyDown = (event: React.KeyboardEvent<HTMLDetailsElement>) => {
     if (event.key !== 'Escape' || !localeMenuRef.current?.open) return
@@ -182,8 +183,8 @@ export function LandingNav({
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
-          <span className="juba-busuu-nav-pill">{navFeatures}</span>
-          {links.map((link) => (
+          <a href="#features" className="juba-busuu-nav-pill">{navFeatures}</a>
+          {desktopLinks.map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
