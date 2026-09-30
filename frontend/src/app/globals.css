@@ -18924,3 +18924,33 @@ html[data-theme='light'] {
     filter: none;
   }
 }
+
+/* Landing v19 — accessible review carousel interaction */
+.juba-busuu-page .juba-busuu-reviews-scroller {
+  scroll-padding-inline: 12px;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+.juba-busuu-page .juba-busuu-reviews-scroller > article {
+  scroll-snap-align: start;
+}
+.juba-busuu-page .juba-busuu-reviews-scroller:focus-visible {
+  outline: 3px solid var(--jl-blue);
+  outline-offset: 5px;
+  border-radius: 14px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .juba-busuu-page .juba-busuu-reviews-scroller {
+    cursor: grab;
+  }
+  .juba-busuu-page .juba-busuu-reviews-scroller:active {
+    cursor: grabbing;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reviews-scroller {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+}
