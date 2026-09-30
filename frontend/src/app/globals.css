@@ -29046,3 +29046,93 @@ html[data-theme='light'] {
   .juba-reference-v3 .juba-reference-reference-nav a:nth-child(3){display:none!important}
   .juba-reference-v3 .juba-reference-course-selector span{display:none!important}
 }
+
+
+/* Profile rail — same visual hierarchy as the supplied reference. */
+.juba-reference-v3 .juba-reference-profile-card{
+  padding:12px 12px 0!important;
+  min-height:170px!important;
+}
+.juba-reference-v3 .juba-reference-profile-hero{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+  gap:3px!important;
+}
+.juba-reference-v3 .juba-reference-profile-photo{
+  position:relative!important;
+  width:74px!important;
+  height:74px!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  margin:0 auto 4px!important;
+  border-radius:50%!important;
+  background:#f1f4f1!important;
+  color:#777!important;
+  border:1px solid #e2e5e2!important;
+}
+.juba-reference-v3 .juba-reference-profile-photo::after{
+  content:""!important;
+  position:absolute!important;
+  width:8px!important;
+  height:8px!important;
+  inset-inline-end:2px!important;
+  top:4px!important;
+  border-radius:50%!important;
+  background:#58cc02!important;
+  border:2px solid #fff!important;
+}
+.juba-reference-v3 .juba-reference-profile-photo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+}
+.juba-reference-v3 .juba-reference-profile-hero>strong{
+  color:#454545!important;
+  font-size:11px!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-profile-hero>span{
+  color:#999!important;
+  font-size:7px!important;
+  font-weight:800!important;
+}
+.juba-reference-v3 .juba-reference-profile-metrics{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  margin:11px -12px 0!important;
+  border-top:1px solid #eeeeee!important;
+}
+.juba-reference-v3 .juba-reference-profile-metrics span{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  min-height:42px!important;
+  border-inline-end:1px solid #eeeeee!important;
+}
+.juba-reference-v3 .juba-reference-profile-metrics span:last-child{
+  border-inline-end:0!important;
+}
+.juba-reference-v3 .juba-reference-profile-metrics b{
+  color:#5c5c5c!important;
+  font-size:9px!important;
+  font-weight:950!important;
+}
+.juba-reference-v3 .juba-reference-profile-metrics small{
+  color:#999!important;
+  font-size:6px!important;
+  font-weight:850!important;
+}
+.juba-reference-v3 .juba-reference-goal-card,
+.juba-reference-v3 .juba-reference-xp-card{
+  display:none!important;
+}
+.juba-reference-v3 .juba-reference-achievement-card{
+  min-height:142px!important;
+}
+.juba-reference-v3 .juba-reference-tools-card{
+  min-height:126px!important;
+}
