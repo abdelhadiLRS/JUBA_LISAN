@@ -12624,20 +12624,6 @@ html[data-theme='light'] {
 }
 
 
-/* === Landing refinement: accessible editorial ticker motion === */
-
-@media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-new-languages-track,
-  .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
-    animation: none !important;
-    transform: none !important;
-  }
-  .juba-busuu-page .juba-busuu-new-languages {
-    overflow-x: auto;
-  }
-}
-
-
 /* === Landing fidelity pass: editorial FAQ accordion === */
 .juba-busuu-page .juba-busuu-faq-section {
   padding: clamp(72px, 9vw, 112px) 24px;
