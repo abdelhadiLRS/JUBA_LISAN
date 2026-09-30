@@ -12526,41 +12526,8 @@ html[data-theme='light'] {
 
 /* === Landing accessibility: pause editorial ticker on pointer hover === */
 
-@media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-new-languages-track {
-    animation: none !important;
-    transform: none !important;
-  }
-  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
-    display: none;
-  }
-}
-
-
-/* === Landing accessibility: honor reduced-motion preferences === */
-@media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-new-languages-track {
-    animation: none !important;
-    transform: none !important;
-  }
-  .juba-busuu-page .juba-busuu-new-languages {
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-  }
-  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
-    display: none;
-  }
-  .juba-busuu-page .juba-busuu-reference-primary,
-  .juba-busuu-page .juba-busuu-language-cta-link,
-  .juba-busuu-page .juba-busuu-different-card,
-  .juba-busuu-page .juba-ff-review-card,
-  .juba-busuu-page .juba-busuu-app-store-badge {
-    transition: none !important;
-  }
-}
-
-
-/* === Landing accessibility: visible keyboard focus === */
+/* Reduced-motion behavior is consolidated below with the landing ticker controls. */
+/* Reduced-motion ticker behavior is consolidated below. */
 .juba-busuu-page :where(a, button, [role="button"], input, select, textarea):focus-visible {
   outline: 3px solid #f4b942;
   outline-offset: 4px;
@@ -12588,14 +12555,7 @@ html[data-theme='light'] {
 .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages::after {
   background: linear-gradient(to right, #fff, rgba(255,255,255,0));
 }
-@media (prefers-reduced-motion: reduce) {
-  .juba-busuu-page .juba-busuu-new-languages-track {
-    animation: none !important;
-    transform: none !important;
-    will-change: auto;
-  }
-}
-
+/* Ticker reduced-motion behavior is consolidated in the editorial reading block below. */
 
 /* === Landing accessibility: pause the editorial ticker for reading === */
 
