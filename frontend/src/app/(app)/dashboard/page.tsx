@@ -558,7 +558,6 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-lesson-action{grid-column:2!important;justify-self:start!important}
           .juba-reference-v3 .juba-reference-achievement-strip-progress{width:70px!important}
         }
-      `}
         /* Reference fidelity pass — dashboard composition */
         .juba-reference-v3{background:#fff!important}
         .juba-reference-v3 > section:first-child{max-width:1180px!important;margin-inline:auto!important}
@@ -661,8 +660,7 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-topbar{height:auto!important}
           .juba-reference-v3 .juba-reference-v3-welcome{padding-left:96px!important}
         }
-
-</style>
+      `}</style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
