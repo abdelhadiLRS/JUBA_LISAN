@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import {
@@ -488,7 +488,7 @@ export default function DashboardPage() {
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
               <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{pendingCount} {t('lessonReady')}</span></div>
-              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': completedExpr} as React.CSSProperties}>
+              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': completedExpr} as CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
