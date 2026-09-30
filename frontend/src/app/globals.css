@@ -21945,3 +21945,50 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* Landing v37 — give the featured language row a deliberate focal hierarchy */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured {
+  min-height: 128px;
+  justify-content: center;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured:nth-child(-n+4) {
+  min-height: 142px;
+  border-color: rgba(8,119,249,.16);
+  box-shadow: 0 10px 24px rgba(16,36,62,.06);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured:nth-child(-n+4)::before {
+  content: attr(data-language-index);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 5px;
+  border-radius: 999px;
+  background: rgba(8,119,249,.08);
+  color: var(--jl-blue-deep,#075cae);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--ar:nth-child(-n+14) {
+  border-color: rgba(40,115,74,.20);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--ar:nth-child(-n+14)::after {
+  background: rgba(40,115,74,.28);
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured {
+    min-height: 104px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured:nth-child(-n+4) {
+    min-height: 112px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item--featured img {
+    transition: none;
+  }
+}
