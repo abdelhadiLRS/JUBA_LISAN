@@ -227,6 +227,32 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Busuu-style real-world learning section */}
+      <ScrollReveal>
+        <section className="juba-busuu-real-world" aria-labelledby="landing-real-world-title">
+          <div className="juba-busuu-real-world-inner">
+            <div className="juba-busuu-real-world-heading">
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2 id="landing-real-world-title">{t('heroTitle')}</h2>
+              <p>{t('heroSub')}</p>
+            </div>
+            <div className="juba-busuu-real-world-grid">
+              {[
+                { label: t('feature1Title'), copy: t('feature1Desc'), tone: 'blue' },
+                { label: t('feature2Title'), copy: t('feature2Desc'), tone: 'green' },
+                { label: t('feature3Title'), copy: t('feature3Desc'), tone: 'cream' },
+              ].map(({ label, copy, tone }) => (
+                <article key={label} className={`juba-busuu-real-world-card juba-busuu-real-world-card--${tone}`}>
+                  <div className="juba-busuu-real-world-orb" aria-hidden="true" />
+                  <span>{label}</span>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Busuu-style differentiation section */}
       <ScrollReveal>
         <section id="features" className="juba-busuu-different scroll-mt-16" aria-labelledby="landing-features-title">
@@ -272,22 +298,6 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Pricing */}
-      <ScrollReveal>
-        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
-          <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
-          <PricingSection
-            stripeEnabled={stripeEnabled}
-            trialDays={trialDays}
-            hasSession={hasSession}
-            priceMonthly={priceMonthly}
-            priceYearly={priceYearly}
-            totalPriceMonthly={totalPriceMonthly}
-            totalPriceYearly={totalPriceYearly}
-          />
-        </section>
-      </ScrollReveal>
-
       {/* Busuu-style "why learn" editorial section */}
       <ScrollReveal>
         <section className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
@@ -329,6 +339,22 @@ export default async function Home() {
             <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
             <LandingReviewsCarousel reviews={reviews} />
           </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Pricing */}
+      <ScrollReveal>
+        <section id="pricing" className="juba-busuu-pricing scroll-mt-16" aria-labelledby="landing-pricing-title">
+          <h2 id="landing-pricing-title" className="sr-only">{t('navPricing')}</h2>
+          <PricingSection
+            stripeEnabled={stripeEnabled}
+            trialDays={trialDays}
+            hasSession={hasSession}
+            priceMonthly={priceMonthly}
+            priceYearly={priceYearly}
+            totalPriceMonthly={totalPriceMonthly}
+            totalPriceYearly={totalPriceYearly}
+          />
         </section>
       </ScrollReveal>
 
