@@ -71,7 +71,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
     <ul
       dir={dir}
       className="juba-busuu-language-list"
-      aria-labelledby="language-title"
+      aria-labelledby="landing-languages-title"
       tabIndex={0}
     >
       {featuredLanguages.map((language) => (
