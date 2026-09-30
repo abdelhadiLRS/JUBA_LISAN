@@ -23880,3 +23880,74 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* ── Landing refinement v46: add a stronger atlas rhythm and responsive proof hierarchy ── */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  overflow: hidden;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 3px;
+  background: rgba(23,33,27,.06);
+  transition: background-color .2s ease, height .2s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 1)::before,
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 2)::before {
+  background: rgba(8,119,249,.22);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 3)::before,
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 4)::before {
+  background: rgba(42,166,112,.22);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover::before {
+  height: 4px;
+  background: linear-gradient(90deg, #0877f9, #2aa670);
+}
+.juba-busuu-page .juba-busuu-proof-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding-inline: 9px;
+  border: 1px solid rgba(23,33,27,.08);
+  border-radius: 999px;
+  background: rgba(251,250,246,.9);
+}
+.juba-busuu-page .juba-busuu-proof-stat {
+  min-height: 44px;
+  padding-inline: 10px;
+  border-radius: 12px;
+  background: linear-gradient(180deg,rgba(8,119,249,.055),rgba(8,119,249,.015));
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-proof-stat {
+    padding: 10px 12px;
+    border: 1px solid rgba(8,119,249,.08);
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    min-height: 44px;
+  }
+}
+@media (max-width: 620px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::before {
+    height: 2px;
+  }
+  .juba-busuu-page .juba-busuu-proof-label {
+    margin-bottom: 2px;
+  }
+  .juba-busuu-page .juba-busuu-proof-stat {
+    min-height: 50px;
+    padding-inline: 12px;
+    border-radius: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item::before {
+    transition: none;
+  }
+}
