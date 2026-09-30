@@ -25305,3 +25305,196 @@ html[data-theme='light'] {
   .juba-reference-v3 .juba-reference-course>.juba-reference-progress-row,
   .juba-reference-v3 .juba-reference-course>.juba-reference-progress-meta{margin-inline:14px!important}
 }
+
+
+/* ==========================================================================
+   JUBA LISAN DASHBOARD — STRICT REFERENCE LOCK / FINAL GEOMETRY
+   Authenticated dashboard only. Landing page intentionally excluded.
+   ========================================================================== */
+.juba-reference-v3{
+  --ref-green:#58cc02!important;
+  --ref-green-dark:#46a302!important;
+  --ref-ink:#444!important;
+  --ref-muted:#999!important;
+  --ref-line:#e6e6e6!important;
+  --ref-canvas:#f6f6f6!important;
+}
+.juba-reference-v3 .juba-reference-v3-grid{
+  width:min(1160px,100%)!important;
+  max-width:1160px!important;
+  margin:0 auto!important;
+  padding:20px 24px 44px!important;
+  grid-template-columns:minmax(0,760px) 292px!important;
+  gap:20px!important;
+  align-items:start!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-v3-main>.juba-reference-v3-welcome{
+  min-height:104px!important;
+  padding:18px 20px!important;
+  border:1px solid #dfe7da!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.03)!important;
+}
+.juba-reference-v3 .juba-reference-welcome-copy{
+  min-width:0!important;
+  max-width:620px!important;
+}
+.juba-reference-v3 .juba-reference-v3-welcome h2{
+  font-size:18px!important;
+  line-height:1.18!important;
+  font-weight:900!important;
+  color:#444!important;
+}
+.juba-reference-v3 .juba-reference-v3-welcome p{
+  max-width:600px!important;
+  margin:0!important;
+  color:#999!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+}
+.juba-reference-v3 .juba-reference-v3-level{
+  width:70px!important;
+  height:70px!important;
+  flex:0 0 70px!important;
+  border:5px solid #e5f1df!important;
+  border-top-color:#58cc02!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.035)!important;
+}
+.juba-reference-v3 .juba-reference-course{
+  overflow:hidden!important;
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-course-path{
+  --course-path-progress:0;
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid #e6e6e6!important;
+  border-radius:8px!important;
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before,
+.juba-reference-v3 .juba-reference-course-path::after{
+  inset-inline-start:34px!important;
+  width:2px!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before{
+  background:#e8eee4!important;
+}
+.juba-reference-v3 .juba-reference-course-path::after{
+  background:#58cc02!important;
+  transform:scaleY(var(--course-path-progress))!important;
+  transform-origin:top!important;
+  transition:transform .35s ease!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  min-height:72px!important;
+  padding:10px 16px!important;
+  grid-template-columns:38px minmax(0,1fr) auto!important;
+  gap:13px!important;
+  background:#fff!important;
+  border-bottom:1px solid #f0f0f0!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{
+  background:#fbfdf9!important;
+  box-shadow:inset 3px 0 0 #58cc02!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node{
+  width:32px!important;
+  height:32px!important;
+  border:2px solid #dfe7dc!important;
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.current{
+  transform:scale(1.08)!important;
+  border:3px solid #58cc02!important;
+  background:#f1faeb!important;
+  color:#58a91b!important;
+  box-shadow:0 0 0 4px #f4faef,0 2px 4px rgba(0,0,0,.06)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.done{
+  background:#58cc02!important;
+  border-color:#58cc02!important;
+  color:#fff!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy strong{
+  font-size:11px!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+  color:#4a4a4a!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy span{
+  margin-top:3px!important;
+  color:#aaa!important;
+  font-size:8px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.done .juba-reference-lesson-copy strong{
+  color:#777!important;
+}
+.juba-reference-v3 .juba-reference-daily{
+  min-height:238px!important;
+}
+.juba-reference-v3 .juba-reference-daily .juba-reference-v3-chart{
+  height:112px!important;
+  padding:10px 6px 0!important;
+  border-top:1px solid #f1f1f1!important;
+  border-bottom:1px solid #f1f1f1!important;
+}
+.juba-reference-v3 .juba-reference-reference-insights{
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-insight-card{
+  min-height:138px!important;
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  gap:12px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{
+  border-radius:8px!important;
+  padding:15px!important;
+}
+.juba-reference-v3 .juba-reference-profile-card{
+  min-height:104px!important;
+}
+.juba-reference-v3 .juba-reference-goal-card{
+  min-height:148px!important;
+}
+.juba-reference-v3 .juba-reference-xp-card{
+  min-height:142px!important;
+}
+.juba-reference-v3 .juba-reference-achievement-card{
+  min-height:120px!important;
+}
+.juba-reference-v3 .juba-reference-tools-card{
+  min-height:92px!important;
+}
+@media(max-width:1200px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    grid-template-columns:minmax(0,1fr) 270px!important;
+    padding-inline:18px!important;
+  }
+}
+@media(max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    grid-template-columns:1fr!important;
+    padding:14px 12px 30px!important;
+  }
+  .juba-reference-v3 .juba-reference-v3-rail{
+    gap:12px!important;
+  }
+}
+@media(max-width:700px){
+  .juba-reference-v3 .juba-reference-reference-insights{
+    grid-template-columns:1fr!important;
+  }
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+    grid-template-columns:38px minmax(0,1fr) 74px!important;
+    padding-inline:12px!important;
+  }
+}
