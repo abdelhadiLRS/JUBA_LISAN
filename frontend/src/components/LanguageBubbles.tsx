@@ -83,6 +83,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             src={`https://flagcdn.com/w80/${language.country}.png`}
             alt=""
             aria-hidden="true"
+            className="juba-busuu-language-flag"
             width={80}
             height={60}
             unoptimized
