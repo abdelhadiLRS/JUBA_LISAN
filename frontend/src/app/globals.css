@@ -18841,3 +18841,86 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+/* Landing v18 — closing CTA focal hierarchy */
+.juba-busuu-page .juba-busuu-final-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-final-cta::before {
+  content: "";
+  position: absolute;
+  inset: 18% auto auto -6%;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background: rgba(0,168,107,.12);
+  filter: blur(8px);
+  z-index: -1;
+}
+.juba-busuu-page .juba-busuu-final-cta::after {
+  content: "";
+  position: absolute;
+  inset: auto -5% 4% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 48% 52% 45% 55%;
+  background: rgba(255,216,77,.16);
+  transform: rotate(-12deg);
+  z-index: -1;
+}
+.juba-busuu-page .juba-busuu-final-cta-copy {
+  max-width: 760px;
+}
+.juba-busuu-page .juba-busuu-final-cta-copy .juba-busuu-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--jl-green-deep);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-final-cta-copy .juba-busuu-eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jl-yellow);
+  box-shadow: 0 0 0 5px rgba(255,216,77,.18);
+}
+.juba-busuu-page .juba-busuu-final-cta-copy h2 {
+  max-width: 700px;
+  margin-top: 14px;
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-final-cta-copy p {
+  max-width: 650px;
+  margin-top: 16px;
+  text-wrap: pretty;
+}
+.juba-busuu-page .juba-busuu-final-cta-actions {
+  align-self: end;
+}
+.juba-busuu-page .juba-busuu-final-cta-primary {
+  min-width: 190px;
+}
+@media (max-width: 800px) {
+  .juba-busuu-page .juba-busuu-final-cta-copy h2 {
+    max-width: none;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-actions {
+    align-self: stretch;
+  }
+  .juba-busuu-page .juba-busuu-final-cta-primary {
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-final-cta::before,
+  .juba-busuu-page .juba-busuu-final-cta::after {
+    filter: none;
+  }
+}
