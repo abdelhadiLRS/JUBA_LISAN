@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronDown, Menu, X } from 'lucide-react'
-import { normalizeLocale, type Locale } from '@/lib/locales'
+import { normalizeLocale, type Locale } from '@/lib/locales'\nimport { VisitorLocaleBadge } from '@/components/ui/visitor-locale-badge'
 
 interface LandingNavProps {
   hasSession: boolean
@@ -195,7 +195,7 @@ export function LandingNav({
           <Link href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'} className="juba-busuu-nav-cta">
             {hasSession ? dashboard : allowRegistration ? getStarted : signIn}
           </Link>
-          <span className="juba-busuu-nav-rule" aria-hidden="true" />
+          <VisitorLocaleBadge locale={safeLocale} />\n          <span className="juba-busuu-nav-rule" aria-hidden="true" />
           <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
             <summary
               className="juba-busuu-locale"
