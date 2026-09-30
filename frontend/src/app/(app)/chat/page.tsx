@@ -413,6 +413,16 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-photo{width:68px!important;height:68px!important;border-radius:50%!important}
         .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid #eef1ec!important}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}.juba-mobile-chat .chat-conversations-sidebar{width:min(82vw,300px)!important}}
+
+        /* Reference fidelity pass 2 — message rhythm and profile rail */
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important}
+        .juba-mobile-chat .juba-chat-side-card{overflow:hidden!important}
+        .juba-mobile-chat .juba-chat-side-card-head{min-height:42px!important}
+        .juba-mobile-chat .juba-chat-friend{min-height:48px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:24px 30px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:11px!important}
+        .juba-mobile-chat .max-w-\[75\%\].min-w-\[10rem\]{min-width:0!important}
+        @media (max-width:1023px){.juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:20px 14px!important}}
 </style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
