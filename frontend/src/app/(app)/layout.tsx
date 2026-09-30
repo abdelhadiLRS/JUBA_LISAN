@@ -787,5 +787,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         onCancel={() => setLogoutConfirm(false)}
       />
     </div>
-    </>\n  )
+    </>
+  )
 }
