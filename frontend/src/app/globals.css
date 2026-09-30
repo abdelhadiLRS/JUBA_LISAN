@@ -18616,3 +18616,91 @@ html[data-theme='light'] {
     font-size: 48px;
   }
 }
+
+
+/* Landing v16 — footer hierarchy and final brand lockup */
+.juba-busuu-page .juba-busuu-footer {
+  padding-inline: clamp(18px, 4vw, 40px) !important;
+}
+.juba-busuu-page .juba-busuu-footer-grid {
+  align-items: start;
+  row-gap: 42px;
+}
+.juba-busuu-page .juba-busuu-footer-brand-panel {
+  min-height: 190px;
+  padding-right: 28px;
+}
+.juba-busuu-page .juba-busuu-footer-positioning {
+  color: var(--jl-green-deep);
+  font-size: 9px;
+}
+.juba-busuu-page .juba-busuu-footer-cta {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 17px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--jl-blue);
+  box-shadow: 0 7px 0 var(--jl-blue-deep);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-footer-cta:hover {
+  transform: translateY(-2px);
+  background: var(--jl-blue-deep);
+  box-shadow: 0 9px 0 #04459f;
+}
+.juba-busuu-page .juba-busuu-footer-cta:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #04459f;
+}
+.juba-busuu-page .juba-busuu-footer-cta:focus-visible {
+  outline: 3px solid rgba(8,119,249,.28);
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-footer-heading {
+  position: relative;
+  width: fit-content;
+  padding-bottom: 7px;
+}
+.juba-busuu-page .juba-busuu-footer-heading::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  width: 22px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--jl-yellow);
+}
+.juba-busuu-page .juba-busuu-footer-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+}
+@media (max-width: 1020px) {
+  .juba-busuu-page .juba-busuu-footer-brand-panel {
+    min-height: 0;
+    padding-right: 0;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-footer-grid {
+    row-gap: 34px;
+  }
+  .juba-busuu-page .juba-busuu-footer-brand-panel {
+    grid-column: 1 / -1;
+    padding-bottom: 8px;
+  }
+  .juba-busuu-page .juba-busuu-footer-heading {
+    margin-bottom: 10px !important;
+  }
+  .juba-busuu-page .juba-busuu-footer-link {
+    min-height: 26px;
+  }
+}
