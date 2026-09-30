@@ -368,7 +368,8 @@ export default function DashboardPage() {
               <RefreshCw size={15} className={refreshing ? 'animate-spin' : ''} />
             </button>
           </div>
-        
+        </header>
+
 
         {loadError && (
           <div className="juba-reference-alert" role="alert">
