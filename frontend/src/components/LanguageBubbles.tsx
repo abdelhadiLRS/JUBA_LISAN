@@ -81,7 +81,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
       {featuredLanguages.map((language, index) => (
         <li
           key={language.code}
-          className="juba-busuu-language-item"
+          className={`juba-busuu-language-item juba-busuu-language-item--featured juba-busuu-language-item--${language.code}`}
           data-language-index={String(index + 1).padStart(2, '0')}
         >
           <Image
