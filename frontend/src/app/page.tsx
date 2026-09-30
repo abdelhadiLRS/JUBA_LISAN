@@ -139,6 +139,10 @@ export default async function Home() {
       <section className="juba-busuu-reference-hero" aria-labelledby="landing-hero-title">
         <div className="juba-busuu-reference-hero-inner">
           <div className="juba-busuu-reference-hero-copy">
+            <div className="juba-busuu-hero-meta" aria-hidden="true">
+              <span>JUBA LISAN</span>
+              <span>AI LANGUAGE LEARNING</span>
+            </div>
             <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
             <h1 id="landing-hero-title">{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
