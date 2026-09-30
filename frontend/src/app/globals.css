@@ -16441,19 +16441,6 @@ html[data-theme='light'] {
   isolation:isolate;
 }
 
-.juba-busuu-page main > section[data-editorial-section]::after{
-  content:'';
-  position:absolute;
-  top:0;
-  inset-inline-start:50%;
-  width:1px;
-  height:clamp(28px,3.5vw,48px);
-  background:color-mix(in srgb,var(--jl-ink) 10%,transparent);
-  pointer-events:none;
-}
-.juba-busuu-page .juba-busuu-reference-languages::after{
-  background:color-mix(in srgb,var(--jl-blue) 16%,transparent);
-}
 .juba-busuu-page .juba-busuu-testimonials::before{
   border-color:rgba(255,255,255,.35);
   background:rgba(255,255,255,.1);
@@ -16563,9 +16550,6 @@ html[data-theme='light'] {
   color:rgba(255,255,255,.28);
 }
 @media (max-width:640px){
-  .juba-busuu-page main > section[data-editorial-section]::after{
-    height:18px;
-  }
   .juba-busuu-page .juba-busuu-reference-hero::after{
     width:calc(100% - 32px);
   }
