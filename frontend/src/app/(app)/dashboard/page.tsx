@@ -387,7 +387,7 @@ export default function DashboardPage() {
                   <span>{completedLessonCount}/{todayLessons.length}</span>
                 </div>
               </div>
-              <div className="juba-reference-v3-level" aria-label={`${cefrLevel || 'A1'} ${planCompletion}%`}>
+              <div className="juba-reference-v3-level" style={{'--level-progress': planCompletion} as React.CSSProperties} aria-label={`${cefrLevel || 'A1'} ${planCompletion}%`}>
                 <span>{cefrLevel || 'A1'}</span>
                 <small>{planCompletion}%</small>
               </div>
