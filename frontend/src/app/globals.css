@@ -20980,3 +20980,23 @@ html[data-theme='light'] {
     transform: none;
   }
 }
+
+
+/* Landing v33 — sharpen the footer brand hierarchy */
+.juba-busuu-page .juba-busuu-footer-tagline {
+  color: var(--jl-muted);
+  line-height: 1.7;
+}
+.juba-busuu-page .juba-busuu-footer-brand-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.juba-busuu-page .juba-busuu-footer-brand-panel .juba-busuu-footer-bottom-row {
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-footer-brand-panel {
+    align-items: flex-start;
+  }
+}
