@@ -75,9 +75,8 @@ export function LandingReviewsCarousel({
   }).format(averageRating)
 
   return (
-    <section
-      className="juba-ff-reviews mx-auto w-full max-w-5xl px-6 pb-24 text-[var(--busuu-ink)]"
-      aria-labelledby="reviews-title"
+    <div
+      className="juba-ff-reviews mx-auto w-full max-w-5xl px-6 text-[var(--busuu-ink)]"
     >
       <div className="juba-busuu-reviews-heading mb-8 flex flex-col gap-3 text-center">
         <span className="juba-busuu-section-index" aria-hidden="true">04</span>
@@ -148,6 +147,6 @@ export function LandingReviewsCarousel({
           </article>
         ))}
       </div>
-    </section>
+    </div>
   )
 }
