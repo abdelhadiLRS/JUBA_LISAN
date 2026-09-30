@@ -544,6 +544,25 @@ export default function ChatPage() {
           .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)]{padding:10px 12px 12px!important}
         }
 
+        /* Reference fidelity pass 9 — chat optical hierarchy */
+        .juba-mobile-chat .chat-conversations-sidebar{box-shadow:none!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{transition:background-color .14s ease,border-color .14s ease!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{box-shadow:0 1px 0 rgba(232,237,229,.7)!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{scrollbar-width:thin!important;scrollbar-color:#dfe7da transparent!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4::-webkit-scrollbar{width:7px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important}
+        .juba-mobile-chat .chat-message{line-height:1.55!important}
+        .juba-mobile-chat .juba-chat-profile-rail{overflow-y:auto!important;scrollbar-width:thin!important;scrollbar-color:#dfe7da transparent!important}
+        .juba-mobile-chat .juba-chat-profile-rail::-webkit-scrollbar{width:6px!important}
+        .juba-mobile-chat .juba-chat-profile-rail::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{box-shadow:0 1px 3px rgba(30,50,20,.03)!important}
+        @media (max-width:640px){
+          .juba-mobile-chat>div.flex.flex-1>div:first-child{height:54px!important;min-height:54px!important;padding-inline:14px!important}
+          .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:16px 10px!important}
+          .juba-mobile-chat .word-selectable{max-width:88%!important;font-size:12.5px!important}
+          .juba-mobile-chat input{height:42px!important}
+          .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:42px!important;padding-inline:14px!important}
+        }
       `      </style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
