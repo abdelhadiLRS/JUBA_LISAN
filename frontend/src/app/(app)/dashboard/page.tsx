@@ -660,7 +660,25 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-topbar{height:auto!important}
           .juba-reference-v3 .juba-reference-v3-welcome{padding-left:96px!important}
         }
-      `}</style>
+      `}
+
+        /* Reference fidelity pass 5 — dashboard finishing */
+        .juba-reference-v3 .juba-reference-v3-grid{align-items:start!important}
+        .juba-reference-v3 .juba-reference-v3-main>section{overflow:hidden!important}
+        .juba-reference-v3 .juba-reference-v3-card{overflow:hidden!important}
+        .juba-reference-v3 .juba-reference-topbar-actions button{transition:background .16s ease,border-color .16s ease,color .16s ease!important}
+        .juba-reference-v3 .juba-reference-icon-button:hover{background:#f7faf5!important;border-color:#dfe7db!important;color:#58a91b!important}
+        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{transition:transform .12s ease,filter .12s ease!important}
+        .juba-reference-v3 .juba-reference-outline-button:hover,.juba-reference-v3 .juba-reference-green-button:hover{filter:brightness(.98)!important;transform:translateY(-1px)!important}
+        .juba-reference-v3 .juba-reference-lesson:last-child{border-bottom:0!important}
+        .juba-reference-v3 .juba-reference-friend-row:last-child{border-bottom:0!important}
+        .juba-reference-v3 .juba-reference-v3-rail{top:12px!important}
+        @media (max-width:900px){
+          .juba-reference-v3 .juba-reference-v3-rail{position:static!important}
+          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr)!important}
+          .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{grid-template-columns:1fr!important}
+        }
+      </style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
