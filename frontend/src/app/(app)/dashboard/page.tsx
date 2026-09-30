@@ -623,6 +623,45 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-grid{gap:14px!important}
         }
 
+
+        /* Reference fidelity pass 4 — final proportion pass */
+
+        .juba-reference-v3 .juba-reference-topbar{max-width:1180px!important;height:68px!important}
+        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
+        .juba-reference-v3 .juba-reference-reference-nav a{font-size:11px!important;padding:25px 0 21px!important}
+        .juba-reference-v3 .juba-reference-reference-nav a.is-active:after{bottom:12px!important;height:2px!important}
+        .juba-reference-v3 .juba-reference-topbar-actions{gap:10px!important}
+        .juba-reference-v3 .juba-reference-course-selector{font-size:10px!important}
+        .juba-reference-v3 .juba-reference-course-selector strong{font-size:11px!important}
+        .juba-reference-v3 .juba-reference-icon-button{width:32px!important;height:32px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 18px 17px 106px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:27px!important;width:76px!important;height:76px!important}
+        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important}
+        .juba-reference-v3 .juba-reference-welcome-copy p{font-size:13px!important}
+        .juba-reference-v3 .juba-reference-v3-level{width:86px!important;min-width:86px!important;height:86px!important}
+        .juba-reference-v3 .juba-reference-v3-level:after{inset:7px!important}
+        .juba-reference-v3 .juba-reference-v3-level span{font-size:17px!important}
+        .juba-reference-v3 .juba-reference-daily{padding:18px!important}
+        .juba-reference-v3 .juba-reference-v3-chart{height:142px!important;gap:12px!important;margin-top:13px!important}
+        .juba-reference-v3 .juba-reference-v3-chart-col span{width:20px!important}
+        .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{gap:12px!important}
+        .juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card,.juba-reference-v3 .juba-reference-reference-stats .juba-reference-v3-card{padding:16px!important}
+        .juba-reference-v3 .juba-reference-achievement-strip{padding:12px 14px!important}
+        .juba-reference-v3 .juba-reference-achievement-strip-progress{width:130px!important}
+        .juba-reference-v3 .juba-reference-course{padding:18px!important}
+        .juba-reference-v3 .juba-reference-card-header{gap:12px!important}
+        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{padding:7px 11px!important}
+        .juba-reference-v3 .juba-reference-lesson{min-height:60px!important}
+        .juba-reference-v3 .juba-reference-v3-rail{gap:11px!important}
+        .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{padding:13px!important}
+        .juba-reference-v3 .juba-reference-profile-hero{padding:16px 13px 12px!important}
+        .juba-reference-v3 .juba-reference-profile-photo{width:68px!important;height:68px!important}
+        .juba-reference-v3 .juba-reference-goal-ring{width:88px!important;height:88px!important}
+        @media (max-width:900px){
+          .juba-reference-v3 .juba-reference-topbar{height:auto!important}
+          .juba-reference-v3 .juba-reference-v3-welcome{padding-left:96px!important}
+        }
+
 </style>
       <OnboardingTour />
       <WhatsNew />
