@@ -315,6 +315,12 @@ export default function DashboardPage() {
   const coursePathProgress = todayLessons.length > 1
     ? Math.min(1, completedLessonCount / (todayLessons.length - 1))
     : completedLessonCount > 0 ? 1 : 0
+  const coursePathCompletedCount = todayLessons.filter((lesson) => (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted).length
+  const coursePathCurrentIndex = todayLessons.findIndex((lesson) => {
+    const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+    return !done && (!nextLesson || lesson.id === nextLesson.id)
+  })
+  const coursePathCurrentLabel = coursePathCurrentIndex >= 0 ? `${coursePathCurrentIndex + 1}` : todayLessons.length ? `${todayLessons.length}` : '0'
   const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
   const paymentRecovery = needsPaymentRecovery(user)
   const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
