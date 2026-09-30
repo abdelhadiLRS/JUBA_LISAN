@@ -12351,10 +12351,6 @@ html[data-theme='light'] {
   min-width: 0;
   scroll-snap-align: start;
 }
-.juba-busuu-page #languages .juba-busuu-language-item:focus-within {
-  outline: 3px solid #f3b63f;
-  outline-offset: 3px;
-}
 .juba-busuu-page .juba-busuu-language-cta-link {
   min-width: 180px;
 }
@@ -12377,13 +12373,6 @@ html[data-theme='light'] {
   }
 }
 
-
-/* === Landing accessibility: keyboard focus for horizontal language rail === */
-.juba-busuu-page #languages .juba-busuu-language-list:focus-visible {
-  outline: 3px solid #f3b63f;
-  outline-offset: 5px;
-  border-radius: 12px;
-}
 
 
 /* === Landing accessibility: keyboard skip navigation === */
