@@ -22832,3 +22832,49 @@ html[data-theme='light'] {
   color:#a0a0a0!important;
   font-size:8px!important;
 }
+
+/* V3 STRICT — DASHBOARD CANVAS / SIDEBAR PROPORTIONS */
+.juba-reference-v3.juba-reference-dashboard{
+  min-height:calc(100vh - 70px)!important;
+  background:#f6f6f6!important;
+}
+.juba-reference-v3 .juba-reference-v3-grid{
+  width:min(1160px,calc(100vw - 218px))!important;
+  max-width:1160px!important;
+  padding:20px 24px 42px!important;
+  gap:20px!important;
+}
+.juba-reference-v3 .juba-reference-v3-main{
+  min-width:0!important;
+  gap:14px!important;
+}
+.juba-reference-v3 .juba-reference-v3-main > section{
+  border-radius:8px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail{
+  gap:12px!important;
+}
+.juba-reference-v3 .juba-reference-v3-rail > .juba-reference-v3-card{
+  border-radius:8px!important;
+}
+.juba-reference-shell .juba-duo-sidebar .juba-duo-nav a{
+  border-radius:7px!important;
+  min-height:38px!important;
+  font-size:11px!important;
+  font-weight:800!important;
+}
+.juba-reference-shell .juba-duo-sidebar .juba-duo-nav a.active{
+  box-shadow:none!important;
+}
+@media (max-width:1200px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    width:100%!important;
+    grid-template-columns:minmax(0,1fr) 278px!important;
+  }
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-v3-grid{
+    grid-template-columns:1fr!important;
+    padding:16px!important;
+  }
+}
