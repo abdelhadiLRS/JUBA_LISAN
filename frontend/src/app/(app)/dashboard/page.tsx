@@ -726,6 +726,39 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-welcome{min-height:124px!important}
         }
 
+        /* Reference fidelity pass 9 — dashboard optical hierarchy */
+        .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 280px!important;gap:24px!important}
+        .juba-reference-v3 .juba-reference-topbar{height:68px!important}
+        .juba-reference-v3 .juba-reference-topbar-title{gap:22px!important}
+        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding-left:108px!important}
+        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:27px!important;width:78px!important;height:78px!important}
+        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:29px!important}
+        .juba-reference-v3 .juba-reference-v3-level{width:88px!important;height:88px!important;min-width:88px!important}
+        .juba-reference-v3 .juba-reference-v3-main>section{border-radius:13px!important}
+        .juba-reference-v3 .juba-reference-daily,.juba-reference-v3 .juba-reference-course{padding:18px!important}
+        .juba-reference-v3 .juba-reference-v3-chart{height:148px!important;gap:12px!important}
+        .juba-reference-v3 .juba-reference-v3-chart-col span{width:20px!important}
+        .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{gap:12px!important}
+        .juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card,.juba-reference-v3 .juba-reference-reference-stats .juba-reference-v3-card{padding:16px!important}
+        .juba-reference-v3 .juba-reference-achievement-strip{padding:13px 15px!important}
+        .juba-reference-v3 .juba-reference-achievement-strip-progress{width:136px!important}
+        .juba-reference-v3 .juba-reference-v3-rail{gap:12px!important}
+        @media (max-width:1100px) and (min-width:901px){
+          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 248px!important;gap:18px!important}
+          .juba-reference-v3 .juba-reference-reference-nav{gap:20px!important}
+        }
+        @media (max-width:760px){
+          .juba-reference-v3{padding:0 12px 22px!important}
+          .juba-reference-v3 .juba-reference-topbar{height:60px!important}
+          .juba-reference-v3 .juba-reference-reference-nav{gap:14px!important;overflow-x:auto!important;max-width:100%!important}
+          .juba-reference-v3 .juba-reference-reference-nav a{font-size:10px!important;padding:22px 0 18px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome{min-height:126px!important;padding:18px 14px 18px 88px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome:before{left:8px!important;top:24px!important;width:66px!important;height:66px!important}
+          .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:23px!important}
+          .juba-reference-v3 .juba-reference-v3-level{width:64px!important;height:64px!important;min-width:64px!important}
+          .juba-reference-v3 .juba-reference-v3-level span{font-size:14px!important}
+        }
       `      </style>
       <OnboardingTour />
       <WhatsNew />
