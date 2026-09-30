@@ -559,9 +559,9 @@ export default async function Home() {
           <div className="juba-busuu-final-cta-inner">
             <div className="juba-busuu-final-cta-copy">
               <span className="juba-busuu-section-index" aria-hidden="true">08A</span>
-              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2 id="landing-final-cta-title">{t('heroTitle')}</h2>
-              <p>{t('heroSub')}</p>
+              <span className="juba-busuu-eyebrow">{t('ctaExplore')}</span>
+              <h2 id="landing-final-cta-title">{t('ctaStart')}</h2>
+              <p>{t('builtForLearners')}</p>
             </div>
             <div className="juba-busuu-final-cta-actions">
               <Link href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'} className="juba-busuu-final-cta-primary">
