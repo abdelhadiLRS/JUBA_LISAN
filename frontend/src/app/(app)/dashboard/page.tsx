@@ -486,7 +486,7 @@ export default function DashboardPage() {
                 <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('dailyGoal')}</h3></div>
                 <Flame size={19} />
               </div>
-              <div className="juba-reference-goal-ring">
+              <div className="juba-reference-goal-ring" style={{background: 'conic-gradient(#58cc02 0 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%, #edf2e9 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '% 100%)'}}>
                 <strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)}</span>
               </div>
               <div className="juba-reference-goal-copy">
