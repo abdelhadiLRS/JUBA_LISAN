@@ -18204,3 +18204,68 @@ html[data-theme='light'] {
     gap:8px;
   }
 }
+
+
+/* Final authenticated route-family polish: conversation + games.
+ * Intentionally scoped so the public landing surface is untouched.
+ */
+.juba-dashboard-workspace .juba-duo-conversation-shell{
+  width:100%;
+  max-width:1120px;
+  margin-inline:auto;
+  padding:24px clamp(12px,2.4vw,28px);
+}
+.juba-dashboard-workspace .juba-duo-conversation-shell > .border-b{
+  border-color:var(--jl-ui-line);
+  margin-bottom:20px;
+  padding-bottom:16px;
+}
+.juba-dashboard-workspace .juba-duo-conversation-shell .juba-conversation-card,
+.juba-dashboard-workspace .juba-duo-conversation-shell .border-\[var\(--duo-line\)\]{
+  --conversation-line:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-duo-conversation-shell textarea,
+.juba-dashboard-workspace .juba-duo-conversation-shell input{
+  border-color:var(--jl-ui-line);
+}
+.juba-dashboard-workspace .juba-duo-conversation-shell button:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--jl-ui-green) 42%,transparent);
+  outline-offset:2px;
+}
+.juba-dashboard-workspace .juba-games{
+  padding:24px clamp(12px,2.4vw,28px) 48px;
+}
+.juba-dashboard-workspace .juba-games .games-shell{
+  max-width:1240px;
+}
+.juba-dashboard-workspace .juba-games .games-header{
+  border:1px solid var(--jl-ui-line);
+  border-radius:16px;
+  box-shadow:0 1px 2px rgba(23,33,27,.04);
+}
+.juba-dashboard-workspace .juba-games .stats-grid > div,
+.juba-dashboard-workspace .juba-games .games-panel,
+.juba-dashboard-workspace .juba-games .game-card,
+.juba-dashboard-workspace .juba-games .play-card{
+  border-width:1px;
+  border-color:var(--jl-ui-line);
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+.juba-dashboard-workspace .juba-games .game-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 14px rgba(23,33,27,.07);
+}
+.juba-dashboard-workspace .juba-games .daily-challenge{
+  border-width:1px;
+  border-radius:12px;
+  box-shadow:0 1px 2px rgba(23,33,27,.035);
+}
+@media (max-width:900px){
+  .juba-dashboard-workspace .juba-duo-conversation-shell{
+    padding:18px 10px 32px;
+  }
+  .juba-dashboard-workspace .juba-games{
+    padding:18px 10px 40px;
+  }
+}
