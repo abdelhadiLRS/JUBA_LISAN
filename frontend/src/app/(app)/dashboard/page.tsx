@@ -353,23 +353,22 @@ export default function DashboardPage() {
         <header className="juba-reference-topbar">
           <div className="juba-reference-topbar-title">
             <span className="juba-reference-dot" aria-hidden="true">JL</span>
-            <div>
-              <span className="juba-reference-overline">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
-              <h1>{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
-            </div>
+            <nav className="juba-reference-reference-nav" aria-label={tNav('navigation')}>
+              <Link href="/dashboard" className="is-active">{tNav('home')}</Link>
+              <Link href="/plan">{tNav('myPlan')}</Link>
+              <Link href="/courses">{tNav('courses')}</Link>
+            </nav>
           </div>
           <div className="juba-reference-topbar-actions">
+            <span className="juba-reference-course-selector">
+              <span>{tNav('switchLanguage')}</span>
+              <strong>{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</strong>
+            </span>
             <button type="button" className="juba-reference-icon-button" onClick={refreshDashboardData} disabled={refreshing} aria-label={tError('retry')} title={tError('retry')}>
-              <RefreshCw size={17} className={refreshing ? 'animate-spin' : ''} />
+              <RefreshCw size={15} className={refreshing ? 'animate-spin' : ''} />
             </button>
-            <Link href="/progress" className="juba-reference-topbar-link">{tNav('progress')}</Link>
-            <div className="juba-reference-profile">
-              <div className="juba-reference-profile-avatar">{user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={17} />}</div>
-              <div><strong>{user?.displayName || user?.username}</strong><span>{cefrLevel || 'A1'}</span></div>
-              <ChevronDown size={15} />
-            </div>
           </div>
-        </header>
+        
 
         {loadError && (
           <div className="juba-reference-alert" role="alert">
