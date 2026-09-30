@@ -580,16 +580,26 @@ export default async function Home() {
       {/* Footer */}
       <footer data-editorial-section="09" className="juba-busuu-footer border-t px-6 py-10" aria-labelledby="landing-footer-title">
         <h2 id="landing-footer-title" className="sr-only">{t('footerProduct')}</h2>
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-10 gap-y-10 md:grid-cols-3 lg:grid-cols-6">
-          <div>
+        <div className="juba-busuu-footer-grid mx-auto grid max-w-6xl grid-cols-2 gap-x-10 gap-y-10 md:grid-cols-3 lg:grid-cols-6">
+          <div className="juba-busuu-footer-brand-panel col-span-2">
             <span className="juba-busuu-footer-brand block text-xs font-bold tracking-widest uppercase">
               JUBA LISAN
             </span>
-            <span className="juba-busuu-footer-copyright mt-2 block text-xs leading-relaxed">
+            <span className="juba-busuu-footer-positioning mt-2 block text-xs font-bold uppercase tracking-[0.14em]">
+              {t('footerPositioning')}
+            </span>
+            <span className="juba-busuu-footer-copyright mt-3 block max-w-xs text-xs leading-relaxed">
               {t('footerTagline')}
             </span>
-            <span className="juba-busuu-footer-copyright mt-3 block text-xs leading-relaxed">
-              © {new Date().getFullYear()}
+            <Link
+              href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+              className="juba-busuu-footer-cta mt-5 inline-flex"
+            >
+              {hasSession ? t('dashboard') : allowRegistration ? t('ctaStart') : t('signIn')}
+              <span aria-hidden="true">↗</span>
+            </Link>
+            <span className="juba-busuu-footer-copyright mt-4 block text-xs leading-relaxed">
+              © {new Date().getFullYear()} JUBA LISAN
             </span>
           </div>
           <div>
@@ -597,29 +607,9 @@ export default async function Home() {
               {t('footerProduct')}
             </h4>
             <div className="flex flex-col gap-2">
-              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navFeatures')}
-              </a>
-              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navLanguages')}
-              </a>
-              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navReviews')}
-              </a>
-              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('faqTitle')}
-              </a>
-              <a href="#pricing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navPricing')}
-              </a>
-              <a
-                href="https://github.com/abdelhadiLRS/JUBA_LISAN"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
-              >
-                {t('github')}
-              </a>
+              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFeatures')}</a>
+              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navLanguages')}</a>
+              <a href="#pricing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navPricing')}</a>
             </div>
           </div>
           <div>
@@ -627,29 +617,18 @@ export default async function Home() {
               {t('footerLearning')}
             </h4>
             <div className="flex flex-col gap-2">
-              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navLanguages')}
-              </a>
-              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navFeatures')}
-              </a>
-              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navReviews')}
-              </a>
+              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFeatures')}</a>
+              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>
+              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFAQ')}</a>
             </div>
           </div>
-
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerResources')}
             </h4>
             <div className="flex flex-col gap-2">
-              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navReviews')}
-              </a>
-              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navFAQ')}
-              </a>
+              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFAQ')}</a>
+              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>
               <a
                 href="https://github.com/abdelhadiLRS/JUBA_LISAN"
                 target="_blank"
@@ -661,22 +640,12 @@ export default async function Home() {
             </div>
           </div>
           <div>
-            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
-              {t('footerLegal')}
-            </h4>
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">{t('footerLegal')}</h4>
             <div className="flex flex-col gap-2">
-              <Link href="/privacy?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('privacy')}
-              </Link>
-              <Link href="/terms?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('terms')}
-              </Link>
+              <Link href="/privacy?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('privacy')}</Link>
+              <Link href="/terms?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('terms')}</Link>
             </div>
-          </div>
-          <div>
-            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
-              {t('contact')}
-            </h4>
+            <h4 className="juba-busuu-footer-heading mt-6 mb-3 font-sans text-sm font-bold tracking-tight">{t('contact')}</h4>
             <div className="flex flex-col gap-2">
               <a
                 href="https://www.arturocarreterocalvo.com"
