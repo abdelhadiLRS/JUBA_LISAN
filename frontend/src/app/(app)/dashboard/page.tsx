@@ -406,6 +406,11 @@ export default function DashboardPage() {
                 <span>{t('streak')}: <b>{streak}</b></span>
                 <span>{t('accuracy')}: <b>{accuracy}%</b></span>
               </div>
+              <div className="juba-reference-chart-summary">
+                <span><small>{t('xp')}</small><b>{chartEntries.reduce((sum, entry) => sum + entry.xp_earned, 0)}</b></span>
+                <span><small>{t('accuracy')}</small><b>{chartAverage}%</b></span>
+                <span><small>{t('completedToday', { completed: completedLessonCount, total: Math.max(todayLessons.length, completedLessonCount) })}</small><b>{completedLessonCount}</b></span>
+              </div>
             </section>
 
             <section className="juba-reference-reference-stats">
