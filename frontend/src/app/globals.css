@@ -24040,3 +24040,132 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* ── Landing refinement v48: sharpen the language atlas as a signature section ── */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position: relative;
+  overflow: hidden;
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner {
+  position: relative;
+  z-index: 1;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(23,33,27,.09);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(8,119,249,.08), transparent 25%),
+    radial-gradient(circle at 92% 86%, rgba(42,166,112,.09), transparent 28%),
+    linear-gradient(145deg, #f8fbf9 0%, #ffffff 48%, #fbfaf6 100%);
+  box-shadow: 0 24px 60px rgba(23,33,27,.08);
+}
+.juba-busuu-page .juba-busuu-language-stage::after {
+  content: "LANGUAGE ATLAS";
+  position: absolute;
+  inset-inline-end: 22px;
+  inset-block-start: 18px;
+  z-index: -1;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  color: rgba(23,33,27,.20);
+}
+.juba-busuu-page .juba-busuu-language-list {
+  position: relative;
+  z-index: 2;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-width: 0;
+  border: 1px solid rgba(23,33,27,.08);
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 8px 22px rgba(23,33,27,.045);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease,
+    background-color .2s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:hover,
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:focus-within {
+  transform: translateY(-5px);
+  border-color: rgba(8,119,249,.20);
+  background: #fff;
+  box-shadow: 0 16px 30px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 1),
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 2) {
+  box-shadow: inset 0 2px 0 rgba(8,119,249,.12), 0 8px 22px rgba(23,33,27,.045);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 3),
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(4n + 4) {
+  box-shadow: inset 0 2px 0 rgba(42,166,112,.12), 0 8px 22px rgba(23,33,27,.045);
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.juba-busuu-page .juba-busuu-language-count {
+  color: var(--jl-muted,#53615a);
+  font-weight: 800;
+}
+.juba-busuu-page .juba-busuu-language-count::before {
+  content: "●";
+  display: inline-block;
+  margin-inline-end: 7px;
+  color: #2aa670;
+  font-size: 8px;
+  vertical-align: middle;
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(8,119,249,.08);
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-proof-strip::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(8,119,249,.16), rgba(42,166,112,.16), transparent);
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-language-stage {
+    border-radius: 26px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::after {
+    inset-inline-end: 16px;
+    inset-block-start: 14px;
+  }
+}
+@media (max-width: 620px) {
+  .juba-busuu-page .juba-busuu-language-stage {
+    border-radius: 24px;
+    box-shadow: 0 16px 38px rgba(23,33,27,.07);
+  }
+  .juba-busuu-page .juba-busuu-language-stage::after {
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+  .juba-busuu-page .juba-busuu-language-bottom {
+    padding-top: 16px;
+  }
+  .juba-busuu-page .juba-busuu-language-count {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+}
