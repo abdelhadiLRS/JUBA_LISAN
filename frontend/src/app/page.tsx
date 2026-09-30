@@ -620,7 +620,7 @@ export default async function Home() {
             </h4>
             <div className="flex flex-col gap-2">
               <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFeatures')}</a>
-              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>
+              {reviews.length > 0 && <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>}
               <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFAQ')}</a>
             </div>
           </div>
@@ -630,7 +630,7 @@ export default async function Home() {
             </h4>
             <div className="flex flex-col gap-2">
               <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navFAQ')}</a>
-              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>
+              {reviews.length > 0 && <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">{t('navReviews')}</a>}
               <a
                 href="https://github.com/abdelhadiLRS/JUBA_LISAN"
                 target="_blank"
