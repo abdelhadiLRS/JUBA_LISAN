@@ -12852,11 +12852,6 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility: keyboard-scrollable language rail === */
-.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list:focus-visible {
-  outline: 3px solid #116eee;
-  outline-offset: 3px;
-  border-radius: 12px;
-}
 .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list:focus-visible .juba-busuu-language-item {
   scroll-snap-stop: always;
 }
@@ -12927,11 +12922,6 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility pass: language chooser focus states === */
-.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list:focus-visible {
-  outline: 3px solid var(--busuu-green);
-  outline-offset: 5px;
-  border-radius: 12px;
-}
 .juba-busuu-page .juba-busuu-language-cta-link:focus-visible {
   outline: 3px solid var(--busuu-ink);
   outline-offset: 4px;
@@ -13084,10 +13074,6 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-nav-cta:focus-visible,
 .juba-busuu-page .juba-busuu-open-source-cta:focus-visible {
   outline-color: #f4b942;
-  outline-offset: 5px;
-}
-.juba-busuu-page .juba-busuu-language-list:focus-visible {
-  outline: 3px solid #f4b942;
   outline-offset: 5px;
 }
 @media (forced-colors: active) {
