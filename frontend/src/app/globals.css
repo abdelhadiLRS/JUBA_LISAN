@@ -17540,3 +17540,69 @@ html[data-theme='light'] {
     padding-block: 68px 82px;
   }
 }
+
+
+/* ── Landing v9: hero proof chips + stronger conversion hierarchy ── */
+.juba-busuu-page .juba-busuu-hero-benefits {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+  max-width:760px;
+}
+.juba-busuu-page .juba-busuu-hero-benefits span {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:0 12px 0 9px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  color:rgba(255,255,255,.88);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.01em;
+  backdrop-filter:blur(10px);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-hero-benefits span:hover {
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.38);
+}
+.juba-busuu-page .juba-busuu-hero-benefits b {
+  display:grid;
+  width:20px;
+  height:20px;
+  place-items:center;
+  border-radius:50%;
+  background:var(--jl-yellow);
+  color:var(--jl-ink);
+  font-size:11px;
+  line-height:1;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy::after {
+  content:"";
+  display:block;
+  width:72px;
+  height:5px;
+  margin-top:28px;
+  border-radius:999px;
+  background:var(--jl-yellow);
+  transform:rotate(-2deg);
+}
+@media (max-width:640px) {
+  .juba-busuu-page .juba-busuu-hero-benefits {
+    display:grid;
+    grid-template-columns:1fr;
+    margin-top:16px;
+  }
+  .juba-busuu-page .juba-busuu-hero-benefits span {
+    width:fit-content;
+    max-width:100%;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-copy::after {
+    margin-top:22px;
+  }
+}
