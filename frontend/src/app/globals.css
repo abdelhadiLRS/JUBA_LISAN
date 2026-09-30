@@ -26031,3 +26031,122 @@ html[data-theme='light'] {
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* V3 STRICT — DASHBOARD CHECKPOINT / REFERENCE FIDELITY */
+.juba-reference-v3 .juba-reference-course{
+  overflow:hidden!important;
+}
+.juba-reference-v3 .juba-reference-course .juba-reference-v3-card-head{
+  min-height:54px!important;
+  padding-bottom:12px!important;
+  border-bottom:1px solid #ededed!important;
+}
+.juba-reference-v3 .juba-reference-course-path{
+  margin-top:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before,
+.juba-reference-v3 .juba-reference-course-path::after{
+  inset-inline-start:33px!important;
+}
+.juba-reference-v3 .juba-reference-course-path::before{
+  width:3px!important;
+  background:#edf0eb!important;
+}
+.juba-reference-v3 .juba-reference-course-path::after{
+  width:3px!important;
+  background:#58cc02!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+  grid-template-columns:42px minmax(0,1fr) 104px!important;
+  min-height:72px!important;
+  padding:11px 18px 11px 12px!important;
+  gap:11px!important;
+  transition:background .16s ease,transform .16s ease!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson:hover{
+  background:#fbfdf9!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current{
+  background:#f8fcf5!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node{
+  width:34px!important;
+  height:34px!important;
+  border-width:2px!important;
+  font-size:10px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.current{
+  width:38px!important;
+  height:38px!important;
+  margin-inline-start:-2px!important;
+  border-width:3px!important;
+  background:#fff!important;
+  box-shadow:0 0 0 5px #edf8e8!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-path-node.done{
+  box-shadow:0 1px 2px rgba(0,0,0,.08)!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy strong{
+  color:#444!important;
+  font-size:11px!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-copy span{
+  color:#a0a0a0!important;
+  font-size:8px!important;
+  line-height:1.25!important;
+  font-weight:750!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson.current .juba-reference-lesson-copy strong{
+  color:#58a91b!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-lesson-action{
+  min-width:104px!important;
+  display:flex!important;
+  justify-content:flex-end!important;
+  align-items:center!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-green-button{
+  min-width:84px!important;
+  height:30px!important;
+  padding:0 12px!important;
+  border-radius:7px!important;
+  font-size:8px!important;
+  font-weight:950!important;
+  box-shadow:0 2px 0 #46a302!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-completed{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:4px!important;
+  color:#58a91b!important;
+  font-size:8px!important;
+  font-weight:900!important;
+}
+.juba-reference-v3 .juba-reference-course-path .juba-reference-locked{
+  width:30px!important;
+  height:30px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid #e8e8e8!important;
+  border-radius:7px!important;
+  color:#b6b6b6!important;
+  background:#fff!important;
+}
+@media (max-width:900px){
+  .juba-reference-v3 .juba-reference-course-path .juba-reference-lesson{
+    grid-template-columns:40px minmax(0,1fr) auto!important;
+    padding-inline:12px!important;
+  }
+}
