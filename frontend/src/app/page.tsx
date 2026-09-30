@@ -136,11 +136,11 @@ export default async function Home() {
 
       <main id="main-content">
       {/* Busuu reference hero: centered blue composition with the visual anchored below the CTA */}
-      <section className="juba-busuu-reference-hero">
+      <section className="juba-busuu-reference-hero" aria-labelledby="landing-hero-title">
         <div className="juba-busuu-reference-hero-inner">
           <div className="juba-busuu-reference-hero-copy">
             <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
-            <h1>{t('heroTitle')}</h1>
+            <h1 id="landing-hero-title">{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
             <div className="juba-busuu-reference-actions">
               <img
@@ -187,9 +187,9 @@ export default async function Home() {
       </section>
 
       {/* Busuu reference language chooser */}
-      <section id="languages" className="juba-busuu-reference-languages scroll-mt-24">
+      <section id="languages" className="juba-busuu-reference-languages scroll-mt-24" aria-labelledby="landing-languages-title">
         <div className="juba-busuu-reference-languages-inner">
-          <h2 id="language-title">{t('navLanguages')}</h2>
+          <h2 id="landing-languages-title">{t('navLanguages')}</h2>
           <LanguageBubbles dir={dir} />
           <div className="juba-busuu-language-cta">
             <Link
@@ -202,8 +202,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-proof-strip" aria-label={t('navFeatures')}>
+      <section className="juba-busuu-proof-strip" aria-labelledby="landing-proof-title">
         <div className="juba-busuu-proof-inner">
+          <h2 id="landing-proof-title" className="sr-only">{t('navFeatures')}</h2>
           <div className="juba-busuu-proof-stat">
             <strong>{SUPPORTED_LANGUAGE_COUNT}+</strong>
             <span>{t('navLanguages')}</span>
@@ -228,11 +229,11 @@ export default async function Home() {
 
       {/* Busuu-style differentiation section */}
       <ScrollReveal>
-        <section id="features" className="juba-busuu-different scroll-mt-16">
+        <section id="features" className="juba-busuu-different scroll-mt-16" aria-labelledby="landing-features-title">
           <div className="juba-busuu-different-inner">
             <div className="juba-busuu-different-heading">
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-              <h2>{t('navFeatures')}</h2>
+              <h2 id="landing-features-title">{t('navFeatures')}</h2>
             </div>
 
             <div className="juba-busuu-different-grid">
@@ -273,11 +274,11 @@ export default async function Home() {
 
       {/* Busuu reference editorial bridge */}
       <ScrollReveal>
-        <section className="juba-busuu-editorial-bridge" aria-label={t('ctaStart')}>
+        <section className="juba-busuu-editorial-bridge" aria-labelledby="landing-bridge-title">
           <div className="juba-busuu-editorial-bridge-inner">
             <div className="juba-busuu-editorial-copy">
               <span className="juba-busuu-editorial-kicker">{tCommon('tagline')}</span>
-              <h2>{t('heroTitle')}</h2>
+              <h2 id="landing-bridge-title">{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
               <div className="juba-busuu-editorial-cta-row">
                 <img
@@ -312,8 +313,9 @@ export default async function Home() {
 
       {/* Reviews */}
       <ScrollReveal>
-        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16">
+        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16" aria-labelledby="landing-reviews-title">
           <div className="juba-busuu-testimonials-inner">
+            <h2 id="landing-reviews-title" className="sr-only">{t('navReviews')}</h2>
             <LandingReviewsCarousel reviews={reviews} />
           </div>
         </section>
