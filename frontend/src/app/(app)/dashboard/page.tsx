@@ -481,14 +481,16 @@ export default function DashboardPage() {
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
               <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{pendingCount} {t('lessonReady')}</span></div>
-              <div className="juba-reference-lessons">
+              <div className="juba-reference-lessons juba-reference-course-path">
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
                   return (
                     <div key={lesson.id ?? lesson.title} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`}>
-                      <div className={`juba-reference-lesson-number ${done ? 'done' : current ? 'current' : ''}`}>
-                        {done ? <Check size={17} strokeWidth={3} /> : current ? <Play size={17} fill="currentColor" /> : <span>{index + 1}</span>}
+                      <div className="juba-reference-path-rail" aria-hidden="true">
+                        <span className={`juba-reference-path-node ${done ? 'done' : current ? 'current' : ''}`}>
+                          {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
+                        </span>
                       </div>
                       <div className="juba-reference-lesson-copy"><strong>{lesson.title}</strong><span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span></div>
                       <div className="juba-reference-lesson-action">
