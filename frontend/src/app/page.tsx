@@ -263,6 +263,7 @@ export default async function Home() {
         <section data-editorial-section="02" className="juba-busuu-real-world" aria-labelledby="landing-real-world-title">
           <div className="juba-busuu-real-world-inner">
             <div className="juba-busuu-real-world-heading">
+              <span className="juba-busuu-section-index" aria-hidden="true">02</span>
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2 id="landing-real-world-title">{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
@@ -312,6 +313,7 @@ export default async function Home() {
         <section id="features" data-editorial-section="03" className="juba-busuu-different scroll-mt-16" aria-labelledby="landing-features-title">
           <div className="juba-busuu-different-inner">
             <div className="juba-busuu-different-heading">
+              <span className="juba-busuu-section-index" aria-hidden="true">03</span>
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2 id="landing-features-title">{t('navFeatures')}</h2>
             </div>
@@ -367,6 +369,7 @@ export default async function Home() {
         <section data-editorial-section="05" className="juba-busuu-why-learn" aria-labelledby="landing-why-learn-title">
           <div className="juba-busuu-why-learn-inner">
             <div className="juba-busuu-why-learn-heading">
+              <span className="juba-busuu-section-index" aria-hidden="true">05</span>
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2 id="landing-why-learn-title">{t('navFeatures')}</h2>
               <p>{t('heroSub')}</p>
@@ -417,6 +420,7 @@ export default async function Home() {
         <section data-editorial-section="07" className="juba-busuu-app-section" aria-labelledby="app-download-title">
           <div className="juba-busuu-app-inner">
             <div className="juba-busuu-app-copy">
+              <span className="juba-busuu-section-index" aria-hidden="true">07</span>
               <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
               <h2 id="app-download-title">{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
@@ -540,9 +544,12 @@ export default async function Home() {
       {/* FAQ */}
       <ScrollReveal>
         <section id="faq" data-editorial-section="08" className="juba-busuu-faq-section scroll-mt-16" aria-labelledby="landing-faq-title">
-          <h2 id="landing-faq-title" className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
+          <div className="juba-busuu-faq-heading">
+            <span className="juba-busuu-section-index" aria-hidden="true">08</span>
+            <h2 id="landing-faq-title" className="juba-busuu-faq-title mb-8 text-center font-sans text-sm font-bold tracking-wide">
             {t('faqTitle')}
-          </h2>
+            </h2>
+          </div>
           <LandingFAQ dir={dir} />
         </section>
       </ScrollReveal>
