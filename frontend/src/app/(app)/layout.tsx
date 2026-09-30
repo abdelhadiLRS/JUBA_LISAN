@@ -374,6 +374,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         @media (max-width:900px){
           .juba-reference-shell .juba-duo-mobile-bar{height:56px!important;min-height:56px!important;border-bottom:1px solid #edf0ea!important}
         }
+        /* Reference fidelity pass 6 — final surface polish */
+        .juba-reference-shell .juba-duo-sidebar{isolation:isolate!important}
+        .juba-reference-shell .juba-duo-nav-link{font-family:inherit!important;letter-spacing:-.005em!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active:before{inset-inline-start:-1px!important}
+        .juba-reference-shell .juba-duo-user{background:#fff!important}
+        .juba-reference-shell .juba-duo-main{background:#fff!important}
+        .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
+        .juba-reference-shell a:focus-visible,.juba-reference-shell button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
+        @media (max-width:900px){.juba-reference-shell .juba-duo-mobile-bar{box-shadow:0 1px 8px rgba(30,50,20,.035)!important}}
       </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
