@@ -69,10 +69,6 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
 
   return (
     <>
-      <div className="juba-busuu-language-stage-header" aria-hidden="true">
-        <span className="juba-busuu-language-stage-label">JUBA LISAN · LANGUAGES</span>
-        <span className="juba-busuu-language-stage-count">{featuredLanguages.length} featured</span>
-      </div>
       <ul
       dir={dir}
       className="juba-busuu-language-list"
