@@ -380,6 +380,15 @@ export default function ChatPage() {
           .juba-mobile-chat .juba-chat-profile-rail{display:none!important}
           .juba-mobile-chat .chat-conversations-sidebar{box-shadow:4px 0 18px rgba(30,50,20,.05)!important}
         }
+        /* Reference fidelity pass 6 — final chat surface polish */
+        .juba-mobile-chat{background:#fff!important}
+        .juba-mobile-chat .chat-conversations-sidebar{border-color:#edf0ea!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{border-color:#edf0ea!important;background:#fff!important}
+        .juba-mobile-chat .word-selectable{border-radius:10px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{background:#fff!important;border-color:#edf0ea!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:#edf0ea!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-mobile-chat .juba-chat-profile-card:hover,.juba-mobile-chat .juba-chat-side-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.04)!important}
+        .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
       </style>
       <style>{`
         /* JUBA LISAN — strict reference chat UI (route scoped) */
