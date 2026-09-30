@@ -15,6 +15,7 @@ interface LandingNavProps {
   navLanguages: string
   interfaceLanguages: string
   navReviews: string
+  navPricing: string
   showReviews: boolean
   signIn: string
   dashboard: string
@@ -34,6 +35,7 @@ export function LandingNav({
   navLanguages,
   interfaceLanguages,
   navReviews,
+  navPricing,
   showReviews,
   signIn,
   dashboard,
@@ -144,6 +146,7 @@ export function LandingNav({
     { href: '#features', label: navFeatures },
     { href: '#languages', label: navLanguages },
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
+    { href: '#pricing', label: navPricing },
   ]
 
   const handleLocaleKeyDown = (event: React.KeyboardEvent<HTMLDetailsElement>) => {
