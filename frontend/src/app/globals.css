@@ -22761,3 +22761,157 @@ html[data-theme='light'] {
     transition:none;
   }
 }
+
+
+/* ── Landing v22: premium language showcase ── */
+.juba-busuu-page .juba-busuu-reference-languages {
+  position:relative;
+  overflow:hidden;
+  padding-block:clamp(78px,9vw,124px);
+  background:
+    radial-gradient(circle at 8% 20%, rgba(8,119,249,.07), transparent 28%),
+    radial-gradient(circle at 92% 78%, rgba(42,166,112,.08), transparent 30%),
+    #fff;
+}
+.juba-busuu-page .juba-busuu-reference-languages-inner {
+  position:relative;
+  z-index:1;
+  width:min(1180px,100%);
+}
+.juba-busuu-page .juba-busuu-language-intro {
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(280px,.7fr);
+  align-items:end;
+  gap:48px;
+  margin-bottom:42px;
+}
+.juba-busuu-page .juba-busuu-language-intro h2 {
+  max-width:760px;
+  margin:10px 0 0;
+  text-align:start;
+  font-size:clamp(42px,5.6vw,72px);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+.juba-busuu-page .juba-busuu-language-intro p {
+  max-width:470px;
+  margin:0;
+  color:var(--busuu-muted);
+  font-size:clamp(15px,1.35vw,18px);
+  line-height:1.75;
+}
+.juba-busuu-page .juba-busuu-language-stage {
+  position:relative;
+  padding:clamp(18px,3vw,32px);
+  border:1px solid rgba(23,33,27,.1);
+  border-radius:32px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 28px 80px rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-language-stage::before {
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px dashed rgba(8,119,249,.13);
+  border-radius:24px;
+  pointer-events:none;
+}
+.juba-busuu-page .juba-busuu-language-list {
+  position:relative;
+  z-index:1;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:10px;
+}
+.juba-busuu-page .juba-busuu-language-item {
+  min-height:108px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fff 0%,#f8faf8 100%);
+  box-shadow:0 5px 18px rgba(23,33,27,.045);
+}
+.juba-busuu-page .juba-busuu-language-item span {
+  line-height:1.25;
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n+1) {
+  transform:translateY(-5px);
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n+3) {
+  transform:translateY(5px);
+}
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n+1):hover,
+.juba-busuu-page .juba-busuu-language-item:nth-child(4n+3):hover {
+  transform:translateY(-1px);
+}
+.juba-busuu-page .juba-busuu-language-bottom {
+  position:relative;
+  z-index:1;
+  margin-top:26px;
+  padding:18px 4px 0;
+  border-top:1px solid rgba(23,33,27,.09);
+}
+.juba-busuu-page .juba-busuu-language-cta-link {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:44px;
+  padding:0 18px;
+  border:1px solid rgba(8,119,249,.18);
+  border-radius:999px;
+  background:rgba(8,119,249,.06);
+  color:var(--busuu-green-dark);
+  text-decoration:none;
+  transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:hover {
+  transform:translateY(-2px);
+  border-color:rgba(8,119,249,.32);
+  background:rgba(8,119,249,.1);
+}
+@media(max-width:1000px) {
+  .juba-busuu-page .juba-busuu-language-list {
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+}
+@media(max-width:700px) {
+  .juba-busuu-page .juba-busuu-language-intro {
+    grid-template-columns:1fr;
+    gap:18px;
+    margin-bottom:28px;
+  }
+  .juba-busuu-page .juba-busuu-language-intro h2 {
+    font-size:clamp(40px,11vw,58px);
+  }
+  .juba-busuu-page .juba-busuu-language-stage {
+    padding:14px;
+    border-radius:24px;
+  }
+  .juba-busuu-page .juba-busuu-language-stage::before {
+    inset:8px;
+    border-radius:18px;
+  }
+  .juba-busuu-page .juba-busuu-language-list {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-item:nth-child(4n+1),
+  .juba-busuu-page .juba-busuu-language-item:nth-child(4n+3) {
+    min-height:96px;
+    transform:none;
+  }
+  .juba-busuu-page .juba-busuu-language-bottom {
+    align-items:stretch;
+  }
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    justify-content:center;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .juba-busuu-page .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition:none;
+  }
+  .juba-busuu-page .juba-busuu-language-item:nth-child(4n+1),
+  .juba-busuu-page .juba-busuu-language-item:nth-child(4n+3) {
+    transform:none;
+  }
+}
