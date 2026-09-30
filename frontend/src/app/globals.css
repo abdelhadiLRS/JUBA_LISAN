@@ -17816,3 +17816,54 @@ html[data-theme='light'] {
     margin-top:18px;
   }
 }
+
+
+/* ── Landing v12: proof rail + language count hierarchy ── */
+.juba-busuu-page .juba-busuu-language-count {
+  display:inline-flex;
+  align-items:baseline;
+  gap:7px;
+  color:var(--jl-muted);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.juba-busuu-page .juba-busuu-language-count strong {
+  color:var(--jl-ink);
+  font-size:24px;
+  line-height:1;
+  letter-spacing:-.05em;
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  position:relative;
+  padding-top:22px;
+}
+.juba-busuu-page .juba-busuu-proof-label {
+  position:absolute;
+  inset-inline-start:0;
+  inset-block-start:0;
+  color:var(--jl-green-deep);
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.18em;
+}
+.juba-busuu-page .juba-busuu-proof-stat strong {
+  font-size:clamp(28px,3vw,40px);
+  letter-spacing:-.06em;
+}
+.juba-busuu-page .juba-busuu-proof-item {
+  position:relative;
+  transition:transform .18s ease;
+}
+.juba-busuu-page .juba-busuu-proof-item:hover {
+  transform:translateY(-2px);
+}
+@media (max-width:640px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    padding-top:34px;
+  }
+  .juba-busuu-page .juba-busuu-proof-label {
+    inset-inline-start:50%;
+    transform:translateX(-50%);
+  }
+}
