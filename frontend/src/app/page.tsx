@@ -605,7 +605,7 @@ export default async function Home() {
             <span className="juba-busuu-footer-positioning mt-2 block text-xs font-bold uppercase tracking-[0.14em]">
               {t('footerPositioning')}
             </span>
-            <span className="juba-busuu-footer-copyright mt-3 block max-w-xs text-xs leading-relaxed">
+            <span className="juba-busuu-footer-tagline mt-3 block max-w-xs text-xs leading-relaxed">
               {t('footerTagline')}
             </span>
             <Link
