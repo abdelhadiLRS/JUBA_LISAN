@@ -322,7 +322,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-main{width:100%!important}
           .juba-reference-shell .juba-duo-mobile-bar{display:block!important;background:#fff!important;border-bottom:1px solid #edf0ea!important;box-shadow:none!important}
         }
-      `}
         /* Reference fidelity pass — shared geometry only; landing page untouched */
         .juba-reference-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{height:88px!important;padding:0 22px!important}
@@ -360,8 +359,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-sidebar{width:196px!important;min-width:196px!important}
           .juba-reference-shell .juba-duo-nav-link{padding-inline:9px!important;gap:9px!important}
         }
-
-</style>
+      `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
