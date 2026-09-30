@@ -491,7 +491,7 @@ export default function DashboardPage() {
               </div>
               <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
               <div className="juba-reference-progress-meta"><span>{currentDayDisplay}/{totalDays || 0} {t('today')}</span><span>{completedLessonCount}/{todayLessons.length} {t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</span></div>
-              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': String(coursePathProgress)} as CSSProperties}>
+              <div className="juba-reference-lessons juba-reference-course-path" style={{'--course-path-progress': String(coursePathProgress)} as React.CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
