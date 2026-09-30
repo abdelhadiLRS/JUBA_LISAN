@@ -14818,3 +14818,109 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-busuu-real-world-card { transition: none; }
   .juba-busuu-page .juba-busuu-real-world-card:hover { transform: none; }
 }
+
+
+/* ── Final landing transformation: unmistakable editorial navigation ── */
+.juba-busuu-page .juba-busuu-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 76px;
+  background: rgba(255,255,255,.96) !important;
+  border-bottom: 1px solid #dfe5e1 !important;
+  box-shadow: 0 1px 0 rgba(21,28,24,.03);
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  width: min(1240px, calc(100% - 48px));
+  min-height: 76px;
+  gap: 32px;
+}
+.juba-busuu-page .juba-busuu-brand img { width: 142px; }
+.juba-busuu-page .juba-busuu-nav-links { gap: 30px; }
+.juba-busuu-page .juba-busuu-nav-links a {
+  position: relative;
+  color: #263029;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+}
+.juba-busuu-page .juba-busuu-nav-links a::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -8px;
+  height: 2px;
+  background: var(--busuu-green);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .2s ease;
+}
+.juba-busuu-page .juba-busuu-nav-links a:hover::after,
+.juba-busuu-page .juba-busuu-nav-links a:focus-visible::after { transform: scaleX(1); }
+.juba-busuu-page .juba-busuu-nav-cta {
+  min-height: 44px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  background: var(--busuu-green) !important;
+  color: #fff !important;
+  font-weight: 850;
+  box-shadow: none !important;
+}
+.juba-busuu-page .juba-busuu-nav-cta:hover { background: var(--busuu-green-dark) !important; }
+.juba-busuu-page .juba-busuu-login {
+  color: #17201b;
+  font-weight: 750;
+}
+.juba-busuu-page .juba-busuu-locale-menu { margin-inline-start: 4px; }
+
+/* Hero is intentionally oversized: this is the visual anchor of the page. */
+.juba-busuu-page .juba-busuu-reference-hero {
+  min-height: 690px;
+  padding-top: clamp(68px, 7vw, 96px);
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy h1 {
+  font-size: clamp(58px, 7.8vw, 104px);
+  max-width: 11ch;
+}
+.juba-busuu-page .juba-busuu-reference-hero-copy p { max-width: 650px; }
+.juba-busuu-page .juba-busuu-reference-primary {
+  min-height: 58px;
+  padding-inline: 34px;
+  font-size: 15px;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art {
+  width: min(1020px, 100%);
+  margin-top: 54px;
+}
+.juba-busuu-page .juba-busuu-reference-hero-art img { max-height: 450px; }
+
+/* Language rail: visually reads as a destination picker, not a generic section. */
+.juba-busuu-page .juba-busuu-reference-languages { padding-block: 76px 92px; }
+.juba-busuu-page .juba-busuu-reference-languages h2 { margin-bottom: 34px; }
+.juba-busuu-page .juba-busuu-language-cta-link { font-size: 14px; }
+
+/* Proof band becomes a strong editorial separator. */
+.juba-busuu-page .juba-busuu-proof-inner { padding-block: 34px; }
+
+/* Busuu-like differentiation section: image first, typography second. */
+.juba-busuu-page .juba-busuu-different-heading h2 { max-width: 10ch; }
+.juba-busuu-page .juba-busuu-different-card { background: #f3f4ef; }
+.juba-busuu-page .juba-busuu-different-copy { padding: 28px 26px 34px; }
+
+/* Testimonials should feel like a calm editorial break between major stories. */
+.juba-busuu-page .juba-busuu-testimonials { padding-block: 104px; }
+
+/* App band gets a stronger visual break instead of looking like a normal CTA. */
+.juba-busuu-page .juba-busuu-app-section { min-height: 520px; }
+
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-nav-inner { width: min(100% - 32px, 1240px); }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1 { font-size: clamp(50px, 11vw, 76px); }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-nav-inner { min-height: 68px; }
+  .juba-busuu-page .juba-busuu-brand img { width: 124px; }
+  .juba-busuu-page .juba-busuu-reference-hero { min-height: 0; padding-top: 52px; }
+  .juba-busuu-page .juba-busuu-reference-hero-copy h1 { font-size: clamp(46px, 14vw, 66px); }
+  .juba-busuu-page .juba-busuu-reference-hero-art { margin-top: 42px; }
+}
