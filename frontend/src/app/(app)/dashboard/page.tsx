@@ -436,6 +436,15 @@ export default function DashboardPage() {
               </div>
             </section>
 
+            <section className="juba-reference-v3-card juba-reference-achievement-strip">
+              <div className="juba-reference-achievement-strip-icon"><Trophy size={20}/></div>
+              <div className="juba-reference-achievement-strip-copy">
+                <span className="juba-reference-section-label">{t('nextStep')}</span>
+                <strong>{nextLesson?.title || t('startWithAssessment')}</strong>
+                <small>{cefrLevel || 'A1'} · {planCompletion}%</small>
+              </div>
+              <div className="juba-reference-achievement-strip-progress"><span style={{width: planCompletion + '%'}} /></div>
+            </section>
             <section className="juba-reference-v3-card juba-reference-course">
               <div className="juba-reference-card-header">
                 <div>
