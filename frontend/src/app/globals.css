@@ -11277,10 +11277,7 @@ html[data-theme='light'] {
   width: max-content;
   animation: juba-busuu-new-languages 30s linear infinite;
 }
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page .juba-busuu-new-languages-group {
   display: flex;
   align-items: center;
@@ -12309,10 +12306,7 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-new-languages-track {
   backface-visibility: hidden;
 }
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
 .juba-busuu-page .juba-busuu-reference-primary:focus-visible,
 .juba-busuu-page .juba-busuu-nav a:focus-visible,
@@ -12532,10 +12526,7 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility: pause editorial ticker on pointer hover === */
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 @media (prefers-reduced-motion: reduce) {
   .juba-busuu-page .juba-busuu-new-languages-track {
     animation: none !important;
@@ -12709,10 +12700,7 @@ html[data-theme='light'] {
 .juba-busuu-page .juba-busuu-new-languages-track {
   will-change: transform;
 }
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page .juba-busuu-new-languages-group span {
   overflow-wrap: normal;
 }
@@ -12757,10 +12745,7 @@ html[data-theme='light'] {
     transparent 100%
   );
 }
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages {
   -webkit-mask-image: linear-gradient(
     to left,
@@ -12821,10 +12806,7 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility: motion controls and visible keyboard focus === */
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page a:focus-visible,
 .juba-busuu-page button:focus-visible,
 .juba-busuu-page [role="button"]:focus-visible {
@@ -13084,10 +13066,7 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility refinement: ticker motion and RTL edge fades === */
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages::before {
   background: linear-gradient(to left, #fff, rgba(255,255,255,0));
 }
@@ -13104,10 +13083,7 @@ html[data-theme='light'] {
 
 
 /* === Landing accessibility: pause the editorial ticker for reading === */
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 @media (prefers-reduced-motion: reduce) {
   .juba-busuu-page .juba-busuu-new-languages-track,
   .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
@@ -13134,10 +13110,7 @@ html[data-theme='light'] {
 
 
 /* === Landing refinement: accessible editorial ticker motion === */
-.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
-.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
-  animation-play-state: paused;
-}
+
 @media (prefers-reduced-motion: reduce) {
   .juba-busuu-page .juba-busuu-new-languages-track,
   .juba-busuu-page[dir="rtl"] .juba-busuu-new-languages-track {
@@ -13318,6 +13291,11 @@ html[data-theme='light'] {
   }
 }
 
+
+.juba-busuu-page .juba-busuu-new-languages:hover .juba-busuu-new-languages-track,
+.juba-busuu-page .juba-busuu-new-languages:focus-within .juba-busuu-new-languages-track {
+  animation-play-state: paused;
+}
 
 /* === Landing-only cleanup: consolidate repeated ticker/accessibility overrides === */
 .juba-busuu-page .juba-busuu-new-languages {
