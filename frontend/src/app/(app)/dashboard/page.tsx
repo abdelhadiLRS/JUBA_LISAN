@@ -800,7 +800,7 @@ export default function DashboardPage() {
             <section className="juba-reference-v3-card juba-reference-friends-card">
               <div className="juba-reference-v3-card-head">
                 <div><span className="juba-reference-section-label"><Users size={13} /> {tNav('friends')}</span><h3>{tNav('friends')}</h3></div>
-                <Link href="/friends" className="juba-reference-mini-link">{t('viewAll')}</Link>
+                <Link href="/friends" className="juba-reference-mini-link">VIEW ALL</Link>
               </div>
               <div className="juba-reference-friends-list">
                 {friends.length ? friends.map((friend) => (
