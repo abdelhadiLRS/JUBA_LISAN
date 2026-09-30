@@ -23619,3 +23619,72 @@ html[data-theme='light'] {
     padding-inline: 16px;
   }
 }
+
+
+/* ── Landing refinement v45: give the language atlas a stronger focal hierarchy ── */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-stage {
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-stage::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 18px;
+  inset-block-start: 18px;
+  width: 72px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0877f9, #2aa670);
+  opacity: .72;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  position: relative;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(-n+4)::after {
+  content: "";
+  position: absolute;
+  inset-inline: 14px;
+  inset-block-end: 9px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(8,119,249,.10);
+  transition: background-color .2s ease, transform .2s ease;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(-n+4):hover::after {
+  background: rgba(8,119,249,.34);
+  transform: scaleX(.78);
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:focus-within {
+  outline: 3px solid rgba(8,119,249,.16);
+  outline-offset: 2px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(23,33,27,.08);
+  border-radius: 999px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-count::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2aa670;
+  box-shadow: 0 0 0 4px rgba(42,166,112,.10);
+}
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-stage::before {
+    inset-inline-start: 14px;
+    inset-block-start: 14px;
+    width: 54px;
+  }
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(-n+4)::after {
+    inset-inline: 10px;
+    inset-block-end: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:nth-child(-n+4)::after {
+    transition: none;
+  }
+}
