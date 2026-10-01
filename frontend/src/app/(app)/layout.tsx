@@ -1044,6 +1044,69 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-panel,
           .juba-reference-shell .juba-card{border-radius:12px!important}
         }
+
+        /* Reference fidelity pass 17 — exact legacy-utility neutralization */
+        /* Eliminate legacy Duolingo-heavy utility geometry inside inner app pages. */
+        .juba-reference-shell .juba-page-shell .border-2,
+        .juba-reference-shell .juba-mobile-courses .border-2,
+        .juba-reference-shell .juba-mobile-grammar .border-2,
+        .juba-reference-shell .juba-mobile-vocabulary .border-2,
+        .juba-reference-shell .juba-mobile-translator .border-2,
+        .juba-reference-shell .juba-mobile-listening .border-2,
+        .juba-reference-shell .juba-mobile-reading .border-2,
+        .juba-reference-shell .juba-mobile-settings .border-2,
+        .juba-reference-shell .juba-mobile-friends .border-2,
+        .juba-reference-shell .juba-admin-shell .border-2,
+        .juba-reference-shell .juba-admin-reviews-shell .border-2,
+        .juba-reference-shell .juba-admin-system-shell .border-2,
+        .juba-reference-shell .juba-admin-users-shell .border-2{border-width:1px!important}
+        .juba-reference-shell .juba-page-shell [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-courses [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-grammar [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-vocabulary [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-translator [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-listening [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-reading [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-settings [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-friends [class*="rounded-["],
+        .juba-reference-shell .juba-admin-shell [class*="rounded-["],
+        .juba-reference-shell .juba-admin-reviews-shell [class*="rounded-["],
+        .juba-reference-shell .juba-admin-system-shell [class*="rounded-["],
+        .juba-reference-shell .juba-admin-users-shell [class*="rounded-["]{border-radius:13px!important}
+        .juba-reference-shell .juba-page-shell [class*="shadow-[0_4px_0_var(--duo-line)"],
+        .juba-reference-shell .juba-page-shell [class*="shadow-[0_3px_0_var(--duo-line)"],
+        .juba-reference-shell .juba-mobile-courses [class*="shadow-[0_4px_0_var(--duo-line)"],
+        .juba-reference-shell .juba-mobile-grammar [class*="shadow-[0_4px_0_var(--duo-line)"],
+        .juba-reference-shell .juba-mobile-vocabulary [class*="shadow-[0_4px_0_var(--duo-line)"],
+        .juba-reference-shell .juba-mobile-translator [class*="shadow-[0_4px_0_var(--duo-line)"]{box-shadow:0 1px 3px rgba(32,48,24,.06)!important}
+        .juba-reference-shell .juba-mobile-translator textarea,
+        .juba-reference-shell .juba-mobile-translator select,
+        .juba-reference-shell .juba-mobile-translator input,
+        .juba-reference-shell .juba-mobile-translator [role="textbox"]{border-radius:10px!important;border-width:1px!important}
+        .juba-reference-shell .juba-mobile-translator .juba-hero-glow{opacity:.16!important}
+        .juba-reference-shell .juba-mobile-translator h1{font-size:clamp(30px,4vw,46px)!important;letter-spacing:-.045em!important;line-height:1.05!important}
+        .juba-reference-shell .juba-mobile-translator .juba-card{background:#fff!important}
+        .juba-reference-shell .juba-mobile-vocabulary .juba-card a,
+        .juba-reference-shell .juba-mobile-grammar .juba-card a{transition:transform .16s ease,box-shadow .16s ease!important}
+        .juba-reference-shell .juba-mobile-vocabulary .juba-card:hover,
+        .juba-reference-shell .juba-mobile-grammar .juba-card:hover{box-shadow:0 6px 18px rgba(32,48,24,.07)!important}
+        .juba-reference-shell .juba-mobile-vocabulary input,
+        .juba-reference-shell .juba-mobile-grammar input,
+        .juba-reference-shell .juba-mobile-courses input{min-height:42px!important;border-radius:10px!important;border-width:1px!important}
+        .juba-reference-shell .juba-mobile-vocabulary button,
+        .juba-reference-shell .juba-mobile-grammar button,
+        .juba-reference-shell .juba-mobile-courses button{min-height:36px!important}
+        @media(max-width:900px){
+          .juba-reference-shell .juba-page-shell,
+          .juba-reference-shell .juba-mobile-courses,
+          .juba-reference-shell .juba-mobile-grammar,
+          .juba-reference-shell .juba-mobile-vocabulary,
+          .juba-reference-shell .juba-mobile-translator,
+          .juba-reference-shell .juba-mobile-listening,
+          .juba-reference-shell .juba-mobile-reading,
+          .juba-reference-shell .juba-mobile-settings,
+          .juba-reference-shell .juba-mobile-friends{padding-left:14px!important;padding-right:14px!important}
+        }
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
