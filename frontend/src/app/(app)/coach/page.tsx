@@ -113,7 +113,7 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)]">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-[13px] bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-sm">
                 <Sparkles className="h-10 w-10" />
                 <span className="absolute -end-1 -top-1 h-4 w-4 rounded-full border border-white bg-[var(--duo-yellow)]" />
               </div>
@@ -211,7 +211,7 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-3">
+    <div className="rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-3">
       <div className="mb-2 h-4 w-4 text-[var(--duo-green-dark)]">{icon}</div>
       <p className="text-lg font-black text-[var(--duo-ink)]">{value}</p>
       <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--duo-muted)]">{label}</p>
@@ -223,7 +223,7 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
       </div>
       <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--duo-muted)]">{title}</p>
