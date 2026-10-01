@@ -81,8 +81,8 @@ function CategoryCard({
 
   return (
     <div className="juba-card overflow-hidden p-0 transition-shadow hover:shadow-sm">
-      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-3.5">
-        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[#f8faf7] text-sm">{cat.icon}</span>
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
             {cat.situation}
@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-1.5 px-5 py-3.5 transition-colors hover:bg-[#f8faf7]">
+          <li key={i} className="group space-y-1.5 px-5 py-3 transition-colors hover:bg-[var(--duo-bg)]">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -285,7 +285,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="rounded-[8px] px-2 py-1 font-sans text-xs text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)] hover:text-[var(--duo-ink)]"
+      className="min-h-8 rounded-[8px] px-2 py-1 font-sans text-xs text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)] hover:text-[var(--duo-ink)]"
       title="Copy"
       aria-label="Copy phrase"
     >
@@ -364,7 +364,7 @@ export default function PhrasebookPage() {
   return (
     <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-page-hero">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
             <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">{t('title')}</h1>
@@ -377,13 +377,13 @@ export default function PhrasebookPage() {
         </div>
       </section>
       <div className="juba-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] px-5 py-3">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
           </span>
         </div>
-        <div className="space-y-5 px-5 py-5">
+        <div className="space-y-4 px-5 py-4">
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="space-y-2">
               <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
@@ -398,7 +398,7 @@ export default function PhrasebookPage() {
               />
             </div>
             <div className="flex items-end justify-start">
-              <span className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-3 py-2 font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+              <span className="min-h-9 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-3 py-2 font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                 {filteredCategories.length} {t('title')}
               </span>
             </div>
@@ -465,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-3 xl:grid-cols-2">
+            <div className="grid gap-3 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
