@@ -650,8 +650,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell [class*="juba-admin-"] a{
           transition:color .16s ease,background-color .16s ease,border-color .16s ease,transform .16s ease,box-shadow .16s ease!important;
         }
-        .juba-reference-shell [class*="juba-mobile-"] .border-2,
-        .juba-reference-shell [class*="juba-admin-"] .border-2{
+        .juba-reference-shell [class*="juba-mobile-"] .border,
+        .juba-reference-shell [class*="juba-admin-"] .border{
           border-width:1px!important;
         }
         .juba-reference-shell [class*="juba-mobile-"] .shadow-\[0_4px_0_var\(--duo-line\)\],
@@ -793,7 +793,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-mobile-friends input{
           min-height:42px!important;
         }
-        .juba-reference-shell .juba-mobile-friends [class*="rounded-[20px]"]{
+        .juba-reference-shell .juba-mobile-friends [class*="rounded-[13px]"]{
           border-radius:13px!important;
           box-shadow:0 1px 3px rgba(35,55,25,.035)!important;
         }
@@ -999,9 +999,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-mobile-settings .juba-panel>div{
           border-radius:11px!important;
         }
-        .juba-reference-shell .juba-mobile-friends [class*="rounded-[20px]"],
-        .juba-reference-shell .juba-mobile-settings [class*="rounded-[28px]"],
-        .juba-reference-shell .juba-mobile-settings [class*="rounded-[20px]"]{
+        .juba-reference-shell .juba-mobile-friends [class*="rounded-[13px]"],
+        .juba-reference-shell .juba-mobile-settings [class*="rounded-[13px]"],
+        .juba-reference-shell .juba-mobile-settings [class*="rounded-[13px]"]{
           border-radius:10px!important;
           box-shadow:none!important;
         }
@@ -1047,19 +1047,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         /* Reference fidelity pass 17 — exact legacy-utility neutralization */
         /* Eliminate legacy Duolingo-heavy utility geometry inside inner app pages. */
-        .juba-reference-shell .juba-page-shell .border-2,
-        .juba-reference-shell .juba-mobile-courses .border-2,
-        .juba-reference-shell .juba-mobile-grammar .border-2,
-        .juba-reference-shell .juba-mobile-vocabulary .border-2,
-        .juba-reference-shell .juba-mobile-translator .border-2,
-        .juba-reference-shell .juba-mobile-listening .border-2,
-        .juba-reference-shell .juba-mobile-reading .border-2,
-        .juba-reference-shell .juba-mobile-settings .border-2,
-        .juba-reference-shell .juba-mobile-friends .border-2,
-        .juba-reference-shell .juba-admin-shell .border-2,
-        .juba-reference-shell .juba-admin-reviews-shell .border-2,
-        .juba-reference-shell .juba-admin-system-shell .border-2,
-        .juba-reference-shell .juba-admin-users-shell .border-2{border-width:1px!important}
+        .juba-reference-shell .juba-page-shell .border,
+        .juba-reference-shell .juba-mobile-courses .border,
+        .juba-reference-shell .juba-mobile-grammar .border,
+        .juba-reference-shell .juba-mobile-vocabulary .border,
+        .juba-reference-shell .juba-mobile-translator .border,
+        .juba-reference-shell .juba-mobile-listening .border,
+        .juba-reference-shell .juba-mobile-reading .border,
+        .juba-reference-shell .juba-mobile-settings .border,
+        .juba-reference-shell .juba-mobile-friends .border,
+        .juba-reference-shell .juba-admin-shell .border,
+        .juba-reference-shell .juba-admin-reviews-shell .border,
+        .juba-reference-shell .juba-admin-system-shell .border,
+        .juba-reference-shell .juba-admin-users-shell .border{border-width:1px!important}
         .juba-reference-shell .juba-page-shell [class*="rounded-["],
         .juba-reference-shell .juba-mobile-courses [class*="rounded-["],
         .juba-reference-shell .juba-mobile-grammar [class*="rounded-["],
