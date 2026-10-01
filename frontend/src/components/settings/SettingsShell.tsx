@@ -22,7 +22,7 @@ export function SettingsPanel({ id, title, children }: { id?: string; title?: st
 
 export function SettingsActionCard({ href, label, description, icon: Icon }: { href: string; label: string; description: string; icon: LucideIcon }) {
   return <Link href={href} className="group block rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm transition-colors hover:border-[var(--duo-green)]">
-    <div className="mb-4 flex items-center justify-between gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-[18px] w-[18px]" aria-hidden="true" /></span><span className="text-[var(--duo-muted)] transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true">→</span></div>
+    <div className="mb-4 flex items-center justify-between gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-[18px] w-[18px]" aria-hidden="true" /></span><span className="text-[var(--duo-muted)] transition-colors group-hover:text-[var(--duo-green-dark)] rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true">→</span></div>
     <p className="text-sm font-bold text-[var(--duo-ink)]">{label}</p><p className="mt-1.5 text-xs leading-relaxed text-[var(--duo-muted)]">{description}</p>
   </Link>
 }
