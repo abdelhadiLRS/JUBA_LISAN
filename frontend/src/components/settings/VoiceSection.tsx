@@ -93,7 +93,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
   if (ttsProvider !== 'openai') return null
 
   return (
-    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+    <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
       <div className="mb-5 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
