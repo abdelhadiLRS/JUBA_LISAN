@@ -323,7 +323,7 @@ export default function PlanPage() {
       <section className="juba-page-hero relative overflow-hidden px-5 py-5 sm:px-6 sm:py-6">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
-        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
         <div className="relative z-10 max-w-4xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <span className="rounded-[10px] bg-[var(--duo-card)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
@@ -367,7 +367,7 @@ export default function PlanPage() {
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green-dark)] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              className="juba-primary-button"
             >
               {t('resume')} →
             </button>
@@ -390,7 +390,7 @@ export default function PlanPage() {
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
+                className="group flex items-center gap-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-sm transition-colors hover:border-[var(--duo-green)]"
               >
                 <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] text-sm font-black ${i % 2 === 0 ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'} text-[var(--duo-ink)]`}>
                   {String(i + 1).padStart(2, '0')}
@@ -416,7 +416,7 @@ export default function PlanPage() {
         <div className="relative space-y-4">
           <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] sm:block" />
           {units.length === 0 && (
-            <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-12 text-center shadow-sm">
+            <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-12 text-center shadow-sm">
               <p className="text-sm font-black text-[var(--duo-muted)]">{t('noUnitsForLevel', { level })}</p>
               <p className="mt-2 text-xs font-medium text-[var(--duo-muted)]">{t('noUnitsDesc')}</p>
             </div>
@@ -476,7 +476,7 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7">
+        <section className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[var(--duo-muted)]">
             {t('testScore')} <span className="font-black text-[var(--duo-ink)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
