@@ -75,7 +75,7 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   const cls = STATUS_STYLES[status] ?? STATUS_STYLES.pending
   return (
     <span
-      className={`text-[var(--duo-muted)] rounded-full border px-2 py-0.5 font-semibold tracking-wide ${cls}`}
+      className={`text-[var(--duo-muted)] rounded-[10px] border px-2 py-0.5 font-semibold tracking-wide ${cls}`}
     >
       {label}
     </span>
@@ -145,7 +145,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="card w-full max-w-md border bg-white shadow-2xl"
+        className="card w-full max-w-md rounded-[13px] border bg-white shadow-sm"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
