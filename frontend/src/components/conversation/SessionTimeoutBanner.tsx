@@ -8,5 +8,5 @@ export default function SessionTimeoutBanner({ seconds }: Props) {
   const [remaining, setRemaining] = useState(seconds)
   useEffect(() => { setRemaining(seconds) }, [seconds])
   useEffect(() => { if (remaining <= 0) return; const id = setInterval(() => setRemaining((r) => Math.max(0, r - 1)), 1000); return () => clearInterval(id) }, [remaining])
-  return <div role="alert" aria-live="polite" className="mb-4 flex items-center gap-3 rounded-[13px] border border-[color-mix(in_srgb,var(--duo-red)_25%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 font-sans text-sm font-semibold text-[var(--duo-red)] shadow-sm"><AlertTriangle size={17} aria-hidden="true" className="shrink-0 animate-pulse" /><span>{t('warningTimeout', { seconds: remaining })}</span></div>
+  return <div role="alert" aria-live="polite" className="mb-4 flex min-h-10 items-center gap-2.5 rounded-[10px] border border-[color-mix(in_srgb,var(--duo-red)_22%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_6%,transparent)] px-3.5 py-2.5 font-sans text-[0.72rem] font-semibold leading-5 text-[var(--duo-red)] shadow-sm sm:px-4"><AlertTriangle size={15} aria-hidden="true" className="shrink-0 animate-pulse" /><span>{t('warningTimeout', { seconds: remaining })}</span></div>
 }
