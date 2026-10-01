@@ -81,8 +81,8 @@ function CategoryCard({
 
   return (
     <div className="juba-card overflow-hidden p-0">
-      <div className="flex min-h-[48px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
-        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
+      <div className="flex min-h-[50px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+        <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
             {cat.situation}
@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-1.5 px-4 py-3 transition-colors hover:bg-[var(--duo-bg)] sm:px-5">
+          <li key={i} className="group space-y-1.5 px-4 py-3.5 transition-colors hover:bg-[var(--duo-bg)] sm:px-5">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -241,7 +241,7 @@ function CategoryCard({
               </TargetLanguageText>
               <div className="flex shrink-0 items-center gap-1">
                 <span
-                  className={`text-[var(--duo-ink)] font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-[var(--duo-ink)] font-sans text-[10px] font-semibold tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
