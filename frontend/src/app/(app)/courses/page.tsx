@@ -123,14 +123,14 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-green)] p-7 text-white shadow-[0_5px_0_var(--duo-green-dark)] sm:p-10">
+        <section className="juba-card relative overflow-hidden rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-green)] p-7 text-white shadow-sm sm:p-10">
           <div className="relative z-10 max-w-3xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[14px] bg-[var(--duo-card)] px-5 py-3 font-black text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-green-dark)] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[14px] border-2 border-white/25 bg-[var(--duo-card)]/10 px-5 py-3 font-black text-white transition hover:bg-[var(--duo-card)]/20">Find my level</Link>
+              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[10px] border border-white/25 bg-[var(--duo-card)]/10 px-5 py-3 font-black text-white transition hover:bg-[var(--duo-card)]/20">Find my level</Link>
             </div>
           </div>
           <div className="juba-hero-glow" aria-hidden="true" />
@@ -138,7 +138,7 @@ export default function CoursesPage() {
 
         <section className="grid gap-4 md:grid-cols-3">
           {skills.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="juba-card rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-[0_4px_0_var(--duo-line)]">
+            <div key={title} className="juba-card rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-5 w-5" /></div>
               <h2 className="mt-4 text-xl font-black text-[var(--duo-ink)]">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">{text}</p>
@@ -154,7 +154,7 @@ export default function CoursesPage() {
 
           {loading ? (
             <div className="grid gap-5 lg:grid-cols-2" aria-label="Loading courses">
-              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-6" />)}
+              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6" />)}
             </div>
           ) : (
             <div className="grid gap-5 lg:grid-cols-2">
