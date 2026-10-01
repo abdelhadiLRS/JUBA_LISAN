@@ -67,7 +67,7 @@ export default function UnitDrawer({
     <div className="bg-[color-mix(in_srgb,var(--duo-ink)_48%,transparent)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[13px] border shadow-lg sm:max-w-xl sm:rounded-[13px]"
+        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[10px] border shadow-lg sm:max-w-xl sm:rounded-[10px]"
       >
         {/* Header */}
         <div className="border-[var(--duo-line)] bg-[var(--duo-card)] sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
