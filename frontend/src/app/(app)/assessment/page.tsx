@@ -338,7 +338,7 @@ export default function AssessmentPage() {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
       <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-        <div className={cardClass}>
+        <div className={`${cardClass} juba-reference-assessment-card`}>
           <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">A</span>
             <div>
@@ -351,7 +351,7 @@ export default function AssessmentPage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('currentLevel')}</p>
               <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{existingPlan.cefr_level}</p>
             </div>
-            <div className={panelClass}>
+            <div className={`${panelClass} juba-reference-assessment-panel`}>
               <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('assessedOn')}</p>
               <p className="mt-1 text-sm text-[var(--duo-ink)]">{assessedDate}</p>
             </div>
@@ -403,8 +403,8 @@ export default function AssessmentPage() {
 
   if (step === 'quiz' && currentQuestion) {
     return (
-      <div className="juba-mobile-assessment mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-        <div className="mb-5 flex items-center justify-between rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
+      <div className="juba-reference-page juba-mobile-assessment mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <div className="mb-5 flex items-center justify-between juba-card rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[var(--duo-ink)]">{currentLevel}</p>
