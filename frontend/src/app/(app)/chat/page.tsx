@@ -658,7 +658,7 @@ export default function ChatPage() {
         @media (max-width:900px){.juba-mobile-chat{background:#fff!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#fff!important}}
 
 </style>
-      <style>{\`
+      <style>{`
         /* Reference fidelity pass 13 — compact chat proportions */
         .juba-mobile-chat .chat-conversations-sidebar{width:270px!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:60px!important;padding-inline:15px!important}
@@ -680,7 +680,7 @@ export default function ChatPage() {
           .juba-mobile-chat>div.flex.flex-1>div:first-child{padding-inline:14px!important}
           .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:10px 12px!important}
         }
-      \`}</style>
+      `}</style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
           visible={memoryToast}
