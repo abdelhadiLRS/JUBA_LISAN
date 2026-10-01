@@ -13,7 +13,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="juba-card group block rounded-[24px] border-2 border-[var(--duo-line)] p-0 transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="juba-card group block rounded-[13px] border border-[var(--duo-line)] p-0 transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
@@ -97,7 +97,7 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="juba-mobile-grammar mx-auto max-w-6xl space-y-8 p-4 sm:p-6">
-      <div className="juba-card rounded-[30px] border-2 border-[var(--duo-line)] p-0 shadow-[0_3px_0_var(--duo-line)]">
+      <div className="juba-card rounded-[13px] border border-[var(--duo-line)] p-0 shadow-sm">
         <div className="border-b border-[var(--duo-line)] px-6 py-4">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[var(--duo-green)]" />
@@ -108,7 +108,7 @@ export default function GrammarIndexPage() {
           <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
             {topics.length} topics · A1 – C2
           </p>
-          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
           <div className="flex flex-wrap gap-2">
             <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[var(--duo-ink)] text-[white]' : 'border border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[var(--duo-line)]'}`}>
               {t('allCategories')}
@@ -144,7 +144,7 @@ export default function GrammarIndexPage() {
       {filtered.length === 0 && (
         <div className="juba-card space-y-4 px-6 py-10 text-center">
           <p className="text-xs font-bold tracking-widest text-[var(--duo-muted)] uppercase">{t('noResults')}</p>
-          {(search || activeCategory !== 'All') && <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="rounded-full border border-[var(--duo-line)] px-4 py-2 text-xs font-bold text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)]">{tCommon('clearFilters')}</button>}
+          {(search || activeCategory !== 'All') && <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="rounded-[10px] border border-[var(--duo-line)] px-4 py-2 text-xs font-bold text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)]">{tCommon('clearFilters')}</button>}
         </div>
       )}
     </div>
