@@ -85,7 +85,7 @@ export default function WhatsNew() {
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
+      <div className="relative z-10 w-full max-w-md rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 pt-5 pb-4">
           <Sparkles
