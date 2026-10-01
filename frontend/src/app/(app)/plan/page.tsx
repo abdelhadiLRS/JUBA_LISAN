@@ -320,11 +320,11 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto w-full max-w-[1480px] space-y-6 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-6 py-6 text-[var(--duo-ink)] shadow-sm sm:px-8 sm:py-7">
+      <section className="juba-page-hero relative overflow-hidden px-5 py-5 sm:px-6 sm:py-6">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
-        <div className="relative z-10 max-w-3xl">
+        <div className="relative z-10 max-w-4xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <span className="rounded-[10px] bg-[var(--duo-card)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
               {t('learningRoadmap')}
@@ -333,16 +333,16 @@ export default function PlanPage() {
               {level}
             </span>
           </div>
-          <h1 className="max-w-2xl text-3xl font-black tracking-[-0.045em] sm:text-4xl">
+          <h1 className="max-w-2xl text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">
             {langName ? `${langName} · ${t('level')}` : t('level')}
           </h1>
-          <p className="mt-3 max-w-xl text-sm font-medium leading-6 text-white/80 sm:text-base">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--duo-muted)]">
             {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <div className="rounded-[10px] bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
-              <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
-              <p className="mt-0.5 text-xl font-black">{units.length}</p>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            <div className="rounded-[10px] bg-white px-3.5 py-2.5">
+              <p className="text-[10px] font-semibold text-[var(--duo-muted)]">{t('unitsLabel')}</p>
+              <p className="mt-0.5 text-lg font-extrabold">{units.length}</p>
             </div>
             <div className="rounded-[10px] bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
@@ -358,16 +358,16 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[13px] bg-[var(--duo-green)] px-6 py-5 shadow-sm sm:px-8">
+        <section className="juba-card relative overflow-hidden px-5 py-5 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-ink)]">{t('learningRoadmap')}</p>
-              <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--duo-ink)]">{t('resume')}</h2>
+              <p className="juba-eyebrow">{t('learningRoadmap')}</p>
+              <h2 className="mt-1 text-xl font-extrabold tracking-tight text-[var(--duo-ink)]">{t('resume')}</h2>
               <p className="mt-1 text-sm font-medium text-[var(--duo-ink)]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-2.5 text-sm font-black text-[var(--duo-ink)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green-dark)] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
             >
               {t('resume')} →
             </button>
@@ -381,7 +381,7 @@ export default function PlanPage() {
           <div className="mb-4 flex items-end justify-between gap-4 px-1">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('pendingLessons')}</p>
-              <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--duo-ink)]">{t('learningRoadmap')}</h2>
+              <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-[var(--duo-ink)]">{t('learningRoadmap')}</h2>
             </div>
             <span className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-black text-[var(--duo-green-dark)]">{pendingLessons.length}</span>
           </div>
