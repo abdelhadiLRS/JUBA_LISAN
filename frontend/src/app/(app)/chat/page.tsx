@@ -389,6 +389,27 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:#edf0ea!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-card:hover,.juba-mobile-chat .juba-chat-side-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.04)!important}
         .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
+
+        /* Reference fidelity pass 30 — final chat geometry consolidation */
+        .juba-mobile-chat .chat-conversations-sidebar{width:250px!important;border-right:1px solid #e8ede5!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:60px!important;min-height:60px!important;padding:0 15px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important;border-bottom:1px solid #f0f2ee!important;border-inline-start:3px solid transparent!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\\[var\\(--duo-line\\)\\]{background:#edf8e6!important;border-inline-start-color:#58cc02!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding:0 18px!important;border-bottom:1px solid #e8ede5!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:960px!important;padding:22px 28px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:10px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-8.w-8{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px #e7ebe4!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{min-width:0!important;max-width:72%!important}
+        .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{max-width:960px!important;width:100%!important;margin:0 auto!important;padding:11px 24px 14px!important;border-top:1px solid #e8ede5!important}
+        .juba-mobile-chat input{height:42px!important;padding:10px 13px!important;border-radius:10px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid #e8ede5!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
+        @media (max-width:1023px){
+          .juba-mobile-chat .chat-conversations-sidebar{width:min(84vw,300px)!important}
+          .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 14px!important}
+          .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{padding:10px 12px 12px!important}
+          .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{max-width:82%!important}
+        }
       </style>
       <style>{`
         /* JUBA LISAN — strict reference chat UI (route scoped) */
