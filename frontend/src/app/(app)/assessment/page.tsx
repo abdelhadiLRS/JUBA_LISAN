@@ -349,7 +349,7 @@ export default function AssessmentPage() {
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('currentLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{existingPlan.cefr_level}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{existingPlan.cefr_level}</p>
             </div>
             <div className={panelClass}>
               <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('assessedOn')}</p>
@@ -433,7 +433,7 @@ export default function AssessmentPage() {
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{aiLevel}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{aiLevel}</p>
             </div>
             <div className={panelClass}>
               <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{tCommon('score')}</p>
@@ -500,7 +500,7 @@ export default function AssessmentPage() {
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{selectedLevel}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
               <p className="mb-2 font-semibold text-[var(--duo-ink)]">{t('voiceTrialTitle')}</p>
