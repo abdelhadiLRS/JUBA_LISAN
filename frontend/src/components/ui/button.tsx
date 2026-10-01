@@ -2,15 +2,15 @@ import { Button as ButtonPrimitive } from '@base-ui/react/button'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const buttonVariants = cva("group/button inline-flex shrink-0 items-center justify-center rounded-[14px] border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color] outline-none select-none focus-visible:ring-3 focus-visible:ring-[var(--duo-blue)]/20 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-[var(--duo-red)] aria-invalid:ring-3 aria-invalid:ring-[var(--duo-red)]/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", {
+const buttonVariants = cva("group/button inline-flex shrink-0 items-center justify-center rounded-[10px] border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-[box-shadow,background-color,border-color] outline-none select-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]/20 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-[var(--duo-red)] aria-invalid:ring-2 aria-invalid:ring-[var(--duo-red)]/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", {
   variants: {
     variant: {
-      default: 'border-[var(--duo-blue)] bg-[var(--duo-blue)] text-white shadow-[0_5px_0_var(--duo-blue-dark)] hover:-translate-y-px hover:shadow-[0_6px_0_var(--duo-blue-dark)]',
-      outline: 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-line)] hover:bg-[var(--duo-bg)] hover:-translate-y-px',
-      secondary: 'border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-blue-dark)] shadow-none hover:bg-[color-mix(in_srgb,var(--duo-green)_14%,transparent)] hover:-translate-y-px',
+      default: 'border-[var(--duo-green)] bg-[var(--duo-green)] text-white shadow-sm hover:bg-[var(--duo-green-dark)]',
+      outline: 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm hover:bg-[var(--duo-bg)]',
+      secondary: 'border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)] shadow-none hover:bg-[color-mix(in_srgb,var(--duo-green)_14%,transparent)]',
       ghost: 'text-[var(--duo-muted)] hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]',
       destructive: 'border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 text-[var(--duo-red)] hover:bg-[var(--duo-red)]/20 focus-visible:ring-[var(--duo-red)]/20',
-      link: 'text-[var(--duo-blue-dark)] underline-offset-4 hover:underline',
+      link: 'text-[var(--duo-green-dark)] underline-offset-4 hover:underline',
     },
     size: {
       default: 'h-9 gap-1.5 px-3.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3',
