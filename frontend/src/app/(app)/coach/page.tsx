@@ -85,25 +85,25 @@ export default function CoachPage() {
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
-    <main className="juba-mobile-coach min-h-screen bg-[var(--duo-bg)] px-4 py-6 sm:px-6 lg:px-8">
+    <main className="juba-mobile-coach min-h-screen bg-[var(--duo-bg)] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="mx-auto w-full max-w-[1480px] space-y-6">
-        <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <header className="juba-page-hero flex min-h-[112px] flex-col gap-4 px-5 py-5 sm:px-6 sm:py-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-[var(--duo-green-dark)]">
               <BrainCircuit className="h-4 w-4" />
               Your AI Learning Coach
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-[var(--duo-ink)] sm:text-4xl">
+            <h1 className="text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">
               {user?.displayName || user?.username || 'Learner'}, here is your next best move.
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--duo-muted)] sm:text-base">
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--duo-muted)]">
               JUBA LISAN turns your activity into a focused daily plan instead of asking you to decide what to study next.
             </p>
           </div>
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
