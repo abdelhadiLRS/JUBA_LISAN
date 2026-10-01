@@ -127,7 +127,7 @@ function CategoryCard({
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.usage_tips.map((tip, i) => (
-                          <li key={i} className="text-[var(--duo-muted)] text-sm">
+                          <li key={i} className="text-[var(--duo-muted)] text-sm leading-relaxed">
                             <span className="text-[var(--duo-muted)] me-2">·</span>
                             {tip}
                           </li>
@@ -138,7 +138,7 @@ function CategoryCard({
 
                   {nativeHelp.register_notes.length > 0 && (
                     <div className="border-[var(--duo-line)] space-y-1 border-t pt-3">
-                      <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+                      <p className="font-sans text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--duo-muted)]">
                         {tCommon('nativeHelpRegisterNotes')}
                       </p>
                       {nativeHelp.register_notes.map((note, i) => (
@@ -257,7 +257,7 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-[var(--duo-muted)] italic"
+                className="text-[var(--duo-muted)] text-sm italic"
               >
                 {phrase.context}
               </TargetLanguageText>
@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
       <div className="juba-card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
@@ -370,8 +370,8 @@ export default function PhrasebookPage() {
             {t('title')}
           </span>
         </div>
-        <div className="space-y-4 px-5 py-4">
-          <p className="text-[var(--duo-muted)] font-sans text-xs leading-relaxed">
+        <div className="space-y-5 px-5 py-5">
+          <p className="max-w-3xl text-[var(--duo-muted)] font-sans text-sm leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,
@@ -450,7 +450,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-5 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
