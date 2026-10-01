@@ -13,7 +13,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="juba-card group block rounded-[10px] border border-[var(--duo-line)] p-0 transition-colors  hover:shadow-sm"
+      className="juba-card juba-reference-list-card group block rounded-[10px] border border-[var(--duo-line)] p-0 transition-colors hover:shadow-sm"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
@@ -88,7 +88,7 @@ export default function GrammarIndexPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6">
         <p className="text-[var(--duo-muted)] text-sm">{tCommon('error')}</p>
-        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="rounded-full bg-[var(--duo-bg)] px-4 py-2 text-xs font-bold tracking-widest text-[var(--duo-green-dark)] uppercase transition-colors hover:bg-[var(--duo-green-dark)] hover:text-white">
+        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="juba-secondary-button text-xs font-bold tracking-widest uppercase transition-colors">
           {tCommon('retry')}
         </button>
       </div>
@@ -96,8 +96,8 @@ export default function GrammarIndexPage() {
   }
 
   return (
-    <div className="juba-mobile-grammar mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="juba-card rounded-[10px] border border-[var(--duo-line)] p-0 shadow-sm">
+    <div className="juba-reference-page juba-mobile-grammar mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-card juba-reference-filter-panel rounded-[10px] border border-[var(--duo-line)] p-0 shadow-sm">
         <div className="border-b border-[var(--duo-line)] px-6 py-4">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[var(--duo-green)]" />
@@ -109,7 +109,7 @@ export default function GrammarIndexPage() {
             {topics.length} topics · A1 – C2
           </p>
           <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
-          <div className="flex flex-wrap gap-2">
+          <div className="juba-reference-tabs flex flex-wrap gap-2">
             <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[var(--duo-ink)] text-[white]' : 'border border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[var(--duo-line)]'}`}>
               {t('allCategories')}
             </button>
@@ -128,7 +128,7 @@ export default function GrammarIndexPage() {
         const levelTopics = filtered.filter((t) => t.level === level)
         if (!levelTopics.length) return null
         return (
-          <section key={level} className="space-y-3">
+          <section key={level} className="juba-reference-list-section space-y-3">
             <div className="flex items-center gap-3">
               <span className="text-[var(--duo-ink)] text-base font-bold tracking-widest">{level}</span>
               <div className="h-px flex-1 bg-[var(--duo-line)]" />
