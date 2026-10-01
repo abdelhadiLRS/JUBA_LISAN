@@ -112,7 +112,7 @@ export function DashboardAnnouncement() {
         <section
           role="status"
           dir={isArabic ? 'rtl' : 'ltr'}
-          className={`relative mb-5 rounded-[13px] border border-[var(--duo-line)] p-4 pe-12 shadow-sm ${
+          className={`relative mb-5 rounded-[10px] border border-[var(--duo-line)] p-4 pe-12 shadow-sm ${
             syncNotice.status === 'synced'
               ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--duo-card))]'
               : 'bg-[var(--duo-card)]'
