@@ -158,7 +158,7 @@ export default function AdminReviewsPage() {
     )
 
   return (
-    <div className="juba-admin-reviews-shell mx-auto max-w-6xl space-y-4 p-4 sm:p-6">
+    <div className="juba-admin-reviews-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <AdminPageHeader
         title={t('title')}
         eyebrow={`${tAdmin('title')} / ${tAdmin('reviews')}`}
@@ -220,7 +220,7 @@ export default function AdminReviewsPage() {
       </AdminPanel>
 
       {error && (
-        <div className="rounded-[13px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[rgba(7,7,9,.08)]">
+        <div className="rounded-[10px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
