@@ -1137,7 +1137,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-page-frame{padding-top:56px!important}
           .juba-reference-shell .juba-duo-main{min-height:100dvh!important}
         }
-</style>
+`}</style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
         {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
