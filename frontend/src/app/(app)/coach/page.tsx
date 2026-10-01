@@ -103,7 +103,7 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -115,7 +115,7 @@ export default function CoachPage() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
               <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)]">
                 <Sparkles className="h-10 w-10" />
-                <span className="absolute -end-1 -top-1 h-4 w-4 rounded-full border-2 border-white bg-[var(--duo-yellow)]" />
+                <span className="absolute -end-1 -top-1 h-4 w-4 rounded-full border border-white bg-[var(--duo-yellow)]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--duo-green-dark)]">Coach insight</p>
@@ -124,10 +124,10 @@ export default function CoachPage() {
                   Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[13px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[13px] border border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                     View my plan
                   </Link>
                 </div>
@@ -169,8 +169,8 @@ export default function CoachPage() {
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] ${lesson.is_completed ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -180,7 +180,7 @@ export default function CoachPage() {
                   <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[20px] border border-dashed border-[var(--duo-line)] p-6 text-center text-sm text-[var(--duo-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[13px] border border-dashed border-[var(--duo-line)] p-6 text-center text-sm text-[var(--duo-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
             </div>
           </div>
 
@@ -190,7 +190,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[20px] border-2 border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[13px] border border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--duo-ink)]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--duo-muted)]">{scenario.desc}</p>
