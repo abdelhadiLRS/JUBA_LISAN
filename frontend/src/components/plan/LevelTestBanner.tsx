@@ -14,7 +14,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
   const router = useRouter()
 
   return (
-    <div className="mt-2 overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
+    <div className="mt-2 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
       <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4 sm:px-6">
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]">
           <Award className="h-4.5 w-4.5" aria-hidden="true" />
