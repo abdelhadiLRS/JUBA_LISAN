@@ -9,10 +9,10 @@ export function AppearanceSection({ title }: { title?: string } = {}) {
   const setTheme = useThemeStore((s) => s.setTheme)
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
       <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
-        <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[var(--duo-muted)] text-xs font-semibold tracking-wide uppercase">
           {title ?? t('sectionAppearance')}
         </span>
       </div>
@@ -34,10 +34,10 @@ export function AppearanceSection({ title }: { title?: string } = {}) {
             <button
               key={opt}
               onClick={() => setTheme(opt)}
-              className={`text-[var(--duo-ink)] border px-3 py-2 font-mono tracking-widest uppercase transition-colors ${
+              className={`text-[var(--duo-ink)] border px-3 py-2 text-xs font-semibold tracking-wide uppercase transition-colors ${
                 theme === opt
-                  ? 'border-[var(--duo-line)]-2 text-[var(--duo-ink)] bg-[var(--duo-card)]-2'
-                  : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-line)]-2 hover:text-[var(--duo-ink)]'
+                  ? 'border-[var(--duo-green)] text-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
+                  : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-ink)]'
               }`}
             >
               {opt === 'system'
