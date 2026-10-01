@@ -136,7 +136,7 @@ export default function VocabularyPage() {
       </div>
 
       {guestItems.length > 0 && (
-        <section className="juba-card rounded-[13px] border border-[var(--juba-violet)] bg-[var(--juba-yellow)] p-5 dark:border-white dark:bg-lime-300">
+        <section className="juba-card rounded-[10px] border border-[var(--juba-violet)] bg-[var(--juba-yellow)] p-5 dark:border-white dark:bg-lime-300">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-950/60">
@@ -151,8 +151,7 @@ export default function VocabularyPage() {
             </div>
             <Link
               href="/register"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition hover:-translate-y-0.5"
-            >
+              className="inline-flex shrink-0 items-center justify-center rounded-full border border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition             >
               Create account to sync
             </Link>
           </div>
@@ -160,7 +159,7 @@ export default function VocabularyPage() {
             {guestItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-start justify-between gap-3 rounded-[13px] border border-neutral-950/80 bg-white/80 px-4 py-3"
+                className="flex items-start justify-between gap-3 rounded-[10px] border border-neutral-950/80 bg-white/80 px-4 py-3"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
