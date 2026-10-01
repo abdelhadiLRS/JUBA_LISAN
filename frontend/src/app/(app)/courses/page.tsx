@@ -121,24 +121,24 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-green)] p-7 text-white shadow-sm sm:p-10">
-          <div className="relative z-10 max-w-3xl">
+    <main className="juba-mobile-courses min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1480px] space-y-6">
+        <section className="juba-page-hero relative overflow-hidden p-5 sm:p-6">
+          <div className="relative z-10 max-w-4xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
-            <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">Learn language you can actually use.</h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/80 sm:text-base">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[13px] bg-[var(--duo-card)] px-5 py-3 font-black text-[var(--duo-green-dark)] shadow-sm transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[10px] border border-white/25 bg-[var(--duo-card)]/10 px-5 py-3 font-black text-white transition hover:bg-[var(--duo-card)]/20">Find my level</Link>
+            <h1 className="mt-2 text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">Learn language you can actually use.</h1>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--duo-muted)]">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[10px] bg-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)]">Find my level</Link>
             </div>
           </div>
           <div className="juba-hero-glow" aria-hidden="true" />
         </section>
 
-        <section className="grid gap-4 md:grid-cols-3">
+        <section className="grid gap-3 md:grid-cols-3">
           {skills.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="juba-card rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm">
+            <div key={title} className="juba-card rounded-[13px] p-5">
               <div className="flex h-11 w-11 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-5 w-5" /></div>
               <h2 className="mt-4 text-xl font-black text-[var(--duo-ink)]">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">{text}</p>
@@ -147,14 +147,14 @@ export default function CoursesPage() {
         </section>
 
         <section>
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div><p className="juba-eyebrow">Your roadmap</p><h2 className="mt-2 text-3xl font-black text-[var(--duo-ink)] sm:text-4xl">One path. Six levels.</h2></div>
-            <span className="rounded-full border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-2 text-sm font-bold text-[var(--duo-muted)]">CEFR · {CEFR_LEVELS.length} levels</span>
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div><p className="juba-eyebrow">Your roadmap</p><h2 className="mt-1 text-2xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">One path. Six levels.</h2></div>
+            <span className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-3 py-2 text-xs font-bold text-[var(--duo-muted)]">CEFR · {CEFR_LEVELS.length} levels</span>
           </div>
 
           {loading ? (
-            <div className="grid gap-5 lg:grid-cols-2" aria-label="Loading courses">
-              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6" />)}
+            <div className="grid gap-4 lg:grid-cols-2" aria-label="Loading courses">
+              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[13px] p-6" />)}
             </div>
           ) : (
             <div className="grid gap-5 lg:grid-cols-2">
@@ -172,7 +172,7 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm transition hover:-translate-y-0.5 ${current ? 'ring-1 ring-[var(--duo-green)]' : ''}`}>
+                  <article key={level} className={`juba-card relative rounded-[13px] p-6 transition hover:-translate-y-0.5 ${current ? 'ring-1 ring-[var(--duo-green)]' : ''}`}>
                     {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-sm">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">{LEVEL_META[level].title}</h3></div>
@@ -197,14 +197,14 @@ export default function CoursesPage() {
           )}
         </section>
 
-        <section className="juba-card rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm sm:p-7">
+        <section className="juba-card rounded-[13px] p-5 sm:p-6">
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[var(--duo-green-dark)] underline underline-offset-4">See my journey</Link></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {places.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] p-4 transition-colors hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]"><span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]" aria-hidden="true"><Icon className="h-5 w-5" /></span><p className="mt-3 font-black text-[var(--duo-ink)]">{title}</p><p className="mt-1 text-sm text-[var(--duo-muted)]">{text}</p></div>)}
           </div>
         </section>
 
-        <section className="juba-card rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm sm:p-7">
+        <section className="juba-card rounded-[13px] p-5 sm:p-6">
           <div className="flex items-center gap-3"><Sparkles className="h-6 w-6 text-[var(--duo-green-dark)]" /><h2 className="text-2xl font-black text-[var(--duo-ink)]">The JUBA rhythm</h2></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-4">{['Learn', 'Practice', 'Recall', 'Review'].map((step, i) => <div key={step} className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] p-4"><span className="text-xs font-bold text-[var(--duo-muted)]">0{i + 1}</span><p className="mt-2 font-black text-[var(--duo-ink)]">{step}</p></div>)}</div>
         </section>
