@@ -25,7 +25,7 @@ interface CardData {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
   'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]'
 
@@ -144,7 +144,7 @@ export default function FlashcardsPage() {
   return (
     <div className="juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="rounded-2xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-[0_3px_0_var(--duo-line)] sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="rounded-2xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-[var(--duo-ink)] text-xl font-bold tracking-tight">
             {t('title')}
@@ -313,7 +313,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     !speakingMode
-                      ? 'text-[var(--duo-ink)] bg-[white] shadow-[0_3px_0_var(--duo-line)]'
+                      ? 'text-[var(--duo-ink)] bg-[white] shadow-sm'
                       : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
@@ -328,7 +328,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     speakingMode
-                      ? 'text-[var(--duo-ink)] bg-[white] shadow-[0_3px_0_var(--duo-line)]'
+                      ? 'text-[var(--duo-ink)] bg-[white] shadow-sm'
                       : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
@@ -351,7 +351,7 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="juba-card cursor-pointer select-none overflow-hidden border border-[var(--duo-line)] shadow-[0_3px_0_var(--duo-line)]"
+                className="juba-card cursor-pointer select-none overflow-hidden border border-[var(--duo-line)] shadow-sm"
                 onClick={() => setFlipped(!flipped)}
                 role="button"
                 tabIndex={0}
