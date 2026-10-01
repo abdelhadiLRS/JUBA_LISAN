@@ -80,7 +80,7 @@ function CategoryCard({
   }
 
   return (
-    <div className="juba-card overflow-hidden p-0">
+    <div className="juba-reference-list-card juba-card overflow-hidden p-0">
       <div className="flex min-h-[50px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
         <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
