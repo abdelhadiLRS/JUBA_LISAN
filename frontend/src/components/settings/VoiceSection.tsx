@@ -93,8 +93,8 @@ export function VoiceSection({ title }: { title?: string } = {}) {
   if (ttsProvider !== 'openai') return null
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
-      <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+      <div className="mb-5 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionVoice')}
@@ -107,7 +107,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
         <select
           value={selectedVoice}
           onChange={(e) => selectVoice(e.target.value)}
-          className="flex-1 appearance-none border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 font-mono text-sm tracking-widest uppercase text-[var(--duo-ink)] transition-colors focus:border-[var(--duo-line)] focus:outline-none"
+          className="min-h-11 flex-1 appearance-none rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-3 font-mono text-sm tracking-widest uppercase text-[var(--duo-ink)] transition-colors focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15"
         >
           {OPENAI_VOICES.map((voice) => (
             <option key={voice} value={voice}>
@@ -119,7 +119,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => void togglePreview(selectedVoice)}
           disabled={loadingVoice === selectedVoice}
-          className="whitespace-nowrap border border-[var(--duo-line)] px-4 py-3 font-mono tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-line)] hover:text-[var(--duo-ink)] disabled:opacity-40"
+          className="min-h-11 whitespace-nowrap rounded-[10px] border border-[var(--duo-line)] px-4 py-3 font-mono tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] disabled:opacity-40"
         >
           {loadingVoice === selectedVoice
             ? '...'
