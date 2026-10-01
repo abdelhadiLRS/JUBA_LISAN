@@ -428,7 +428,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         @media (max-width:640px){
           .juba-reference-shell .juba-duo-main{width:100%!important}
         }
-      `}        /* Reference fidelity pass 10 — screenshot-level shell geometry */
+      /* Reference fidelity pass 10 — screenshot-level shell geometry */
         .juba-reference-shell .juba-duo-sidebar{width:216px!important;min-width:216px!important;flex-basis:216px!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{height:78px!important;padding-inline:18px!important}
         .juba-reference-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;font-size:11px!important}
