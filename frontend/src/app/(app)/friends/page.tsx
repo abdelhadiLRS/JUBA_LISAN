@@ -73,8 +73,8 @@ export default function FriendsPage() {
   }
 
   return (
-    <div className="juba-page-shell juba-mobile-friends mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-page-hero">
+    <div className="juba-reference-page juba-page-shell juba-mobile-friends mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <section className="juba-reference-hero juba-page-hero">
         <div>
           <p className="juba-eyebrow"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
           <h1 className="juba-page-title">Friends</h1>
@@ -82,7 +82,7 @@ export default function FriendsPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
+      <section className="juba-reference-section grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
         <div className="juba-panel space-y-4">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
@@ -95,7 +95,7 @@ export default function FriendsPage() {
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
             <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex flex-wrap gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
-          {error && <p className="rounded-[13px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
+          {error && <p className="rounded-[10px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
         </div>
 
         <div className="juba-panel">
@@ -112,7 +112,7 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-sm">
+  return <div className="flex items-center gap-3 juba-reference-list-card rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3">
     <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[var(--duo-bg)]">
       {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[var(--duo-muted)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
