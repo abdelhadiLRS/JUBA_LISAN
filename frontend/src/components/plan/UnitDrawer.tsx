@@ -84,7 +84,7 @@ export default function UnitDrawer({
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-[13px] p-2 transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-[10px] p-2 transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -158,7 +158,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-[10px] px-3 py-2 text-xs font-bold shadow-sm transition-colors"
+                      className="shrink-0 bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-[10px] px-3 py-2 text-xs font-bold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -178,13 +178,13 @@ export default function UnitDrawer({
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               onClick={onStartUnit}
-              className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-[10px] px-5 py-3 text-xs font-bold shadow-sm transition-colors"
+              className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-[10px] px-5 py-3 text-xs font-bold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
             >
               {tCommon('start')} →
             </button>
             <button
               onClick={onClose}
-              className="border border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] w-full rounded-xl px-5 py-3 text-xs font-bold transition-colors"
+              className="border border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] w-full rounded-[10px] px-5 py-3 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
             >
               {tCommon('close')}
             </button>
