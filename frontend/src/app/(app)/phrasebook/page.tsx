@@ -82,7 +82,7 @@ function CategoryCard({
   return (
     <div className="juba-card overflow-hidden p-0">
       <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
-        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--duo-line)] text-sm">{cat.icon}</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#edf7f1] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
             {cat.situation}
@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <div className="juba-card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
@@ -370,7 +370,7 @@ export default function PhrasebookPage() {
             {t('title')}
           </span>
         </div>
-        <div className="space-y-4 px-5 py-4.5">
+        <div className="space-y-4 px-5 py-4">
           <p className="text-[var(--duo-muted)] font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
@@ -400,7 +400,7 @@ export default function PhrasebookPage() {
                   onClick={() => setActiveLevel(lvl)}
                   className={`text-[var(--duo-ink)] rounded-[10px] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
-                      ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
+                      ? 'border-[var(--duo-green-dark)] bg-[var(--duo-green-dark)] text-white'
                       : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
