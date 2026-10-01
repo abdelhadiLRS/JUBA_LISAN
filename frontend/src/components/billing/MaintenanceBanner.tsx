@@ -10,8 +10,8 @@ export function MaintenanceBanner() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="w-full max-w-md rounded-[13px] border border-[var(--duo-yellow)] bg-[var(--duo-card)] p-8 shadow-[5px_5px_0_var(--duo-line)]">
-        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-[13px] border border-[var(--duo-ink)] bg-[var(--duo-yellow)] shadow-[3px_3px_0_var(--duo-ink)]"><Wrench className="h-5 w-5" aria-hidden="true" /></div>
+      <div className="w-full max-w-md rounded-[10px] border border-[var(--duo-yellow)] bg-[var(--duo-card)] p-8 shadow-sm">
+        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-[10px] border border-[var(--duo-ink)] bg-[var(--duo-yellow)] shadow-sm"><Wrench className="h-5 w-5" aria-hidden="true" /></div>
 
         <p className="mb-3 inline-flex items-center rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-yellow)_14%,transparent)] px-3 py-1 text-xs font-extrabold uppercase tracking-[.12em] text-[var(--duo-ink)]">
           {t('label')}
