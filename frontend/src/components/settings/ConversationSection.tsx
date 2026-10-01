@@ -57,8 +57,8 @@ export function ConversationSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
-      <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+      <div className="mb-5 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionConversation')}
@@ -76,10 +76,10 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvMaxDuration(val)}
-                className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
+                className={`flex-1 rounded-[10px] border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
                   convMaxDuration === val
                     ? 'border-[var(--duo-green)] bg-[var(--duo-green)] text-white'
-                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-line)]-2 hover:text-[var(--duo-ink)]'
+                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-ink)]'
                 }`}
               >
                 {val === 900 ? t('min15') : t('min30')}
@@ -98,10 +98,10 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvInactivityTimeout(val)}
-                className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
+                className={`flex-1 rounded-[10px] border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
                   convInactivityTimeout === val
                     ? 'border-[var(--duo-green)] bg-[var(--duo-green)] text-white'
-                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-line)]-2 hover:text-[var(--duo-ink)]'
+                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-ink)]'
                 }`}
               >
                 {val === 60 ? t('min1') : val === 180 ? t('min3') : t('min5')}
@@ -112,7 +112,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
 
         {convMessage && (
           <div
-            className={`border px-4 py-3 font-mono text-xs ${convMessage.type === 'ok' ? 'border-[var(--duo-line)] text-[var(--duo-muted)]' : 'border-[var(--duo-red)]/40 text-[var(--duo-red)]'}`}
+            className={`rounded-[10px] border px-4 py-3 font-mono text-xs ${convMessage.type === 'ok' ? 'border-[var(--duo-line)] text-[var(--duo-muted)]' : 'border-[var(--duo-red)]/40 text-[var(--duo-red)]'}`}
           >
             {convMessage.type === 'ok' ? '✓ ' : '✕ '}
             {convMessage.text}
@@ -122,7 +122,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         <button
           onClick={handleSaveConversation}
           disabled={savingConv}
-          className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+          className="w-full rounded-[10px] bg-[var(--duo-green)] py-3 font-mono text-xs font-bold tracking-widest uppercase text-white transition-colors hover:bg-[var(--duo-green-dark)] disabled:opacity-40"
         >
           {savingConv ? t('saving') : t('saveConversation')}
         </button>
