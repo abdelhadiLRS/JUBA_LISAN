@@ -93,7 +93,7 @@ export default function AdminOverviewPage() {
   }, [t])
 
   return (
-    <div className="juba-admin-shell mx-auto max-w-6xl space-y-5 p-4 sm:p-6">
+    <div className="juba-admin-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <AdminPageHeader
         eyebrow={`${t('title')} / ${t('overview')}`}
         title={t('title')}
@@ -165,7 +165,7 @@ export default function AdminOverviewPage() {
           </div>
           <Link
             href="/admin/system"
-            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-purple)] ms-auto border px-3 py-2 font-semibold tracking-wide transition-colors"
+            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-green)] ms-auto border px-3 py-2 font-semibold tracking-wide transition-colors"
           >
             {t('openSystemControls')}
           </Link>
