@@ -132,7 +132,7 @@ export function VisitorTranslator() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('open')}
-        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-[13px] border border-[var(--duo-ink)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
+        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
       >
         <Languages className="h-4 w-4" aria-hidden="true" />
         {t('translate')}
@@ -150,11 +150,11 @@ export function VisitorTranslator() {
             aria-modal="true"
             aria-labelledby="visitor-translator-title"
             aria-describedby="visitor-translator-description"
-            className="w-full max-w-6xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_var(--duo-line)]"
+            className="w-full max-w-6xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm"
           >
             <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4 sm:px-7">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--duo-green)] text-white">
+                <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--duo-green)] text-white">
                   <Languages className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div>
@@ -259,7 +259,7 @@ export function VisitorTranslator() {
                   </div>
                   <div className="flex flex-1 items-start px-5 py-5">
                     {error ? (
-                      <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700" role="alert">{error}</p>
+                      <p className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700" role="alert">{error}</p>
                     ) : translation ? (
                       <div className="w-full">
                         <p className="text-lg leading-8 text-[var(--duo-ink)] sm:text-xl">{translation}</p>
@@ -289,7 +289,7 @@ export function VisitorTranslator() {
                 <button
                   type="submit"
                   disabled={!text.trim() || loading}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--duo-green)] px-7 py-3 text-sm font-black text-white transition hover:opacity-90 disabled:opacity-45"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] bg-[var(--duo-green)] px-7 py-3 text-sm font-black text-white transition hover:opacity-90 disabled:opacity-45"
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Languages className="h-4 w-4" aria-hidden="true" />}
                   {loading ? t('translating') : t('translate')}
