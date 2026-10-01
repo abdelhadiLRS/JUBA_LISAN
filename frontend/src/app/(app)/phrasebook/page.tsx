@@ -98,7 +98,7 @@ function CategoryCard({
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
+            className="flex w-full items-center justify-between font-sans text-[10px] tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:text-[var(--duo-ink)]"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -411,7 +411,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+            <p className="font-sans text-[10px] tracking-widest uppercase text-[var(--duo-muted)]">
               {t('register')}
             </p>
             <div className="flex flex-wrap gap-2">
