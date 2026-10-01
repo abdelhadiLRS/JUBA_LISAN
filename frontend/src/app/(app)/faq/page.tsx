@@ -127,7 +127,7 @@ export default function FAQPage() {
           <div key={i} className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green-dark)]/30"
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--duo-green-dark)]/30"
             >
               <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
               <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
