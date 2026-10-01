@@ -185,10 +185,10 @@ export function ProfileSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-5 border p-6">
-      <div className="border-[var(--duo-line)] flex items-center gap-2 border-b pb-4">
+    <div className="space-y-5 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
+      <div className="flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
-        <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {title ?? t('sectionProfile')}
         </span>
       </div>
@@ -199,7 +199,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={avatarUploading}
-          className="border-[var(--duo-line)] hover:border-[var(--duo-line)]-2 relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border transition-colors focus:outline-none disabled:opacity-60"
+          className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-[var(--duo-line)] transition-colors hover:border-[var(--duo-green)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] disabled:opacity-60"
         >
           {user?.avatar ? (
             <AuthAvatarImage
@@ -209,7 +209,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               height={64}
               className="h-full w-full object-cover"
               fallback={
-                <div className="bg-[var(--duo-card)]-2 flex h-full w-full items-center justify-center">
+                <div className="bg-[var(--duo-mint)] flex h-full w-full items-center justify-center">
                   <span className="text-[var(--duo-muted)] font-mono text-xl select-none">
                     {(user?.displayName ||
                       user?.username ||
@@ -227,7 +227,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           )}
           {avatarUploading && (
             <div className="bg-[var(--duo-bg)]/70 absolute inset-0 flex items-center justify-center">
-              <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] animate-pulse font-mono">
+              <span className="animate-pulse text-xs text-[var(--duo-muted)]">
                 ...
               </span>
             </div>
@@ -238,7 +238,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={avatarUploading}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] block font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+            className="block text-xs font-semibold text-[var(--duo-muted)] transition-colors hover:text-[var(--duo-ink)] disabled:opacity-40"
           >
             {avatarUploading ? t('avatarUploading') : t('avatarChange')}
           </button>
@@ -246,7 +246,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             <button
               type="button"
               onClick={handleAvatarRemove}
-              className="text-[var(--duo-muted)] hover:text-[var(--duo-red)] block font-mono tracking-widest uppercase transition-colors"
+              className="block text-xs font-semibold text-[var(--duo-muted)] transition-colors hover:text-[var(--duo-red)]"
             >
               {t('avatarRemove')}
             </button>
@@ -261,7 +261,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         />
       </div>
       {avatarError && (
-        <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border px-4 py-3 font-mono text-xs">
+        <div className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-card)] px-4 py-3 text-xs text-[var(--duo-red)]">
           ✕ {avatarError}
         </div>
       )}
@@ -276,7 +276,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         { label: t('email'), value: email, onChange: setEmail, type: 'email' },
       ].map((field) => (
         <div key={field.label}>
-          <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+          <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
             {field.label}
           </label>
           <input
@@ -286,7 +286,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             autoCorrect={field.type === 'email' ? 'off' : undefined}
             autoCapitalize={field.type === 'email' ? 'none' : undefined}
             spellCheck={field.type === 'email' ? false : undefined}
-            className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+            className="juba-input w-full"
           />
         </div>
       ))}
@@ -301,9 +301,9 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           rows={3}
           maxLength={500}
           placeholder={t('bioPlaceholder')}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 min-h-[74px] w-full resize-y border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="juba-input min-h-[74px] w-full resize-y"
         />
-        <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mt-1 font-mono">
+        <p className="mt-1 text-xs text-[var(--duo-muted)]">
           {t('bioHint')}
         </p>
       </div>
@@ -315,7 +315,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         <select
           value={nativeLanguage}
           onChange={(e) => setNativeLanguage(e.target.value)}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="juba-input w-full appearance-none"
         >
           {[...LANGUAGES]
             .sort((a, b) => getLanguageLabel(tLang, a).localeCompare(getLanguageLabel(tLang, b)))
@@ -378,7 +378,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none disabled:opacity-30"
+          className="juba-input w-full disabled:opacity-30"
         />
       </div>
 
@@ -394,7 +394,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+        className="w-full rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-4 py-3 text-xs font-bold text-white transition-colors hover:bg-[var(--duo-green-dark)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] disabled:opacity-40"
       >
         {saving ? t('saving') : t('saveChanges')}
       </button>
