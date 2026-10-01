@@ -139,8 +139,8 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        backdropFilter: 'blur(2px)',
+        backgroundColor: 'rgba(0,0,0,0.45)',
+        backdropFilter: 'blur(4px)',
       }}
       onClick={onClose}
     >
@@ -640,16 +640,16 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Page header */}
-      <div className="juba-page-hero">
+      <section className="juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <p className="juba-eyebrow mb-1">
           {t('title')}
         </p>
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">
           {t('subtitle')}
         </h1>
-      </div>
+      </section>
 
       {/* Tabs */}
       <div className="juba-card flex flex-wrap items-center gap-1 p-2.5">
@@ -735,7 +735,7 @@ export default function FeedbackPage() {
               return (
                 <div
                   key={entry.id}
-                  className={`hover:bg-[#f1f7ed] flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
+                  className={`hover:bg-[var(--duo-bg)] flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
                     i < entries.length - 1 ? 'border-[var(--duo-line)] border-b' : ''
                   }`}
                   onClick={() => setSelectedEntry(entry)}
