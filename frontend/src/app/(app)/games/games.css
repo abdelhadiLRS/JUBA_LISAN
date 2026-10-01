@@ -235,3 +235,43 @@
   .game-card:nth-child(4n+3) { background: linear-gradient(145deg, var(--duo-card), color-mix(in srgb, var(--duo-green) 8%, var(--duo-card))); }
   .game-card:nth-child(4n) { background: linear-gradient(145deg, var(--duo-card), color-mix(in srgb, var(--duo-red) 8%, var(--duo-card))); }
 }
+
+
+/* Reference shell reconciliation: games uses the same compact geometry as the app reference. */
+.juba-games.juba-reference-page { padding: 0; }
+.juba-games .juba-reference-page-inner { max-width: 1480px; }
+.juba-games .games-header.juba-reference-hero { border-radius: 12px; margin-bottom: 16px; padding: 24px; }
+.juba-games .games-brand { border-radius: 10px; }
+.juba-games .stats-grid { gap: 12px; margin-bottom: 22px; }
+.juba-games .stats-grid > div,
+.juba-games .games-panel,
+.juba-games .game-card,
+.juba-games .play-card,
+.juba-games .daily-challenge,
+.juba-games .achievement-toast { border-radius: 10px; }
+.juba-games .game-grid { gap: 14px; }
+.juba-games .game-card { min-height: 214px; transition: border-color .15s ease, background-color .15s ease; }
+.juba-games .game-card:hover { transform: none; border-color: color-mix(in srgb, var(--duo-green) 42%, var(--duo-line)); }
+.juba-games .daily-challenge { transition: border-color .15s ease, background-color .15s ease; }
+.juba-games .daily-challenge:hover { transform: none; }
+.juba-games .games-dashboard { gap: 14px; margin-top: 16px; }
+.juba-games .games-panel { padding: 18px; }
+.juba-games .games-skill-summary span { border-radius: 10px; }
+.juba-games .play-card { padding: 28px; }
+.juba-games .choice { border-radius: 10px; transition: border-color .15s ease, background-color .15s ease; }
+.juba-games .choice:hover { transform: none; }
+.juba-games .next { border-radius: 10px; transition: background-color .15s ease; }
+@media (max-width:760px) {
+  .juba-games .games-header.juba-reference-hero { border-radius: 12px; padding: 22px; }
+  .juba-games .game-card { min-height: 200px; }
+  .juba-games .play-card { padding: 22px; }
+}
+@media (max-width:640px) {
+  .juba-games.juba-reference-page { padding: 0; }
+  .juba-games .games-header.juba-reference-hero { border-radius: 12px; }
+  .juba-games .stats-grid > div,
+  .juba-games .daily-challenge,
+  .juba-games .game-card,
+  .juba-games .games-panel,
+  .juba-games .play-card { border-radius: 10px; }
+}
