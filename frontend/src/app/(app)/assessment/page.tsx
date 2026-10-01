@@ -403,7 +403,7 @@ export default function AssessmentPage() {
 
   if (step === 'quiz' && currentQuestion) {
     return (
-      <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
+      <div className="juba-mobile-assessment mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="mb-5 flex items-center justify-between rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
