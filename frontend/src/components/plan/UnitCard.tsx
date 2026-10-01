@@ -33,18 +33,18 @@ function StatusBadge({ status, index }: { status: UnitStatus; index: number }): 
   const palette = palettes[index % palettes.length]
 
   if (status.isLevelTest) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-ink)]"><Ribbon className="h-7 w-7" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-ink)]"><Ribbon className="h-7 w-7" /></span>
   }
   if (status.completed) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--duo-green)] text-white shadow-[0_6px_0_var(--duo-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[13px] bg-[var(--duo-green)] text-white shadow-[0_6px_0_var(--duo-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
   }
   if (status.active) {
-    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-line)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--duo-card)] text-[var(--duo-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
+    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-[13px] text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-line)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--duo-card)] text-[var(--duo-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
   }
   if (status.locked) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--duo-bg)] text-[var(--duo-muted)]"><Lock className="h-5 w-5" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[13px] bg-[var(--duo-bg)] text-[var(--duo-muted)]"><Lock className="h-5 w-5" /></span>
   }
-  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--duo-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
+  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[13px] text-[var(--duo-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
 }
 
 export default function UnitCard({ title, index, lessonCount, grammarCount, competency, status, onClick, onStartLesson }: Props) {
@@ -58,7 +58,7 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
       <button
         onClick={onClick}
         disabled={status.locked}
-        className={`w-full rounded-2xl p-5 text-start sm:p-6 ${status.locked ? 'cursor-default' : 'hover:-translate-y-0.5'} transition-transform`}
+        className={`w-full rounded-[13px] p-5 text-start sm:p-6 ${status.locked ? 'cursor-default' : 'hover:-translate-y-0.5'} transition-transform`}
         aria-label={t('unitAriaLabel', { index: index + 1, title })}
       >
         <div className="flex items-center gap-4">
