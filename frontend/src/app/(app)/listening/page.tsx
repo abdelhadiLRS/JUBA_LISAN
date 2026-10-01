@@ -334,7 +334,7 @@ function ListeningPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="juba-panel rounded-[13px] p-4"
+                className="juba-panel rounded-[10px] p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -415,7 +415,7 @@ function ListeningPage() {
     return (
       <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
-        <div className="juba-panel rounded-[13px] p-5">
+        <div className="juba-panel rounded-[10px] p-5">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
@@ -447,7 +447,7 @@ function ListeningPage() {
           <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
             {t('transcript')}
           </p>
-          <div className="juba-panel rounded-[13px] p-4">
+          <div className="juba-panel rounded-[10px] p-4">
             <TargetLanguageText
               as="p"
               languageCode={exercise.target_language}
@@ -475,7 +475,7 @@ function ListeningPage() {
             return (
               <div
                 key={q.index}
-                className={`rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm ${
+                className={`rounded-[10px] border p-4 shadow-sm ${
                   isCorrect
                     ? 'border-[color-mix(in_srgb,var(--duo-green)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
                     : 'border-[color-mix(in_srgb,var(--duo-red)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)]'
@@ -518,13 +518,13 @@ function ListeningPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="juba-primary-button flex-1 border border-[var(--duo-green-dark)] py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="juba-primary-button flex-1 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="juba-secondary-button border border-[var(--duo-line)] px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="juba-secondary-button px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -585,7 +585,7 @@ function ListeningPage() {
             </p>
             <button
               onClick={handleGenerate}
-              className="juba-primary-button border border-[var(--duo-line)] px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="juba-primary-button px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -625,7 +625,7 @@ function ListeningPage() {
       ) : (
         <>
           {/* Topic */}
-          <div className="juba-panel rounded-[13px] px-4 py-3">
+          <div className="juba-panel rounded-[10px] px-4 py-3">
             <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
               {t('topic')}
             </p>
@@ -651,7 +651,7 @@ function ListeningPage() {
               {exercise.questions.map((q) => (
                 <div
                   key={q.index}
-                  className="juba-panel rounded-[13px] p-4"
+                  className="juba-panel rounded-[10px] p-4"
                 >
                   <TargetLanguageText
                     as="p"
@@ -707,7 +707,7 @@ function ListeningPage() {
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || submitting}
-            className="juba-primary-button w-full border border-[var(--duo-green-dark)] py-3 font-sans text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+            className="juba-primary-button w-full py-3 font-sans text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? tCommon('checking') : t('submit')}
           </button>
