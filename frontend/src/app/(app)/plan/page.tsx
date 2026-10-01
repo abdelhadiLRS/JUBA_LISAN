@@ -320,7 +320,7 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto w-full max-w-[1480px] space-y-6 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-6 text-[var(--duo-ink)] shadow-sm sm:px-7 sm:py-7">
+      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-6 py-6 text-[var(--duo-ink)] shadow-sm sm:px-8 sm:py-7">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
@@ -358,7 +358,7 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[13px] bg-[var(--duo-green)] px-5 py-5 shadow-sm sm:px-7">
+        <section className="relative overflow-hidden rounded-[13px] bg-[var(--duo-green)] px-6 py-5 shadow-sm sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-ink)]">{t('learningRoadmap')}</p>
@@ -367,7 +367,7 @@ export default function PlanPage() {
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-6 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-1"
+              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-2.5 text-sm font-black text-[var(--duo-ink)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
             >
               {t('resume')} →
             </button>
@@ -392,7 +392,7 @@ export default function PlanPage() {
                 onClick={() => void launchLesson(lesson.id)}
                 className="group flex items-center gap-4 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'} text-[var(--duo-ink)]`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] text-sm font-black ${i % 2 === 0 ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'} text-[var(--duo-ink)]`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 flex-1">
