@@ -226,7 +226,7 @@ export function VoiceRecorder({
       disabled={disabled || state === 'transcribing'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
       aria-busy={state === 'transcribing'}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border-2 px-4 py-2.5 text-xs font-semibold shadow-[2px_2px_0_var(--duo-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--duo-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--duo-line)] disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--duo-line)] ${colorClass} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border px-4 py-2.5 text-xs font-semibold shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:${colorClass} ${className}`}
     >
       {label}
     </button>
