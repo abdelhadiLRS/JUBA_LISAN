@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-[10px] border px-3.5 py-2.5 text-center font-sans text-[0.68rem] font-semibold tracking-wide">
+        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-3 rounded-[10px] border px-3.5 py-2.5 text-center font-sans text-[0.68rem] font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1058,7 +1058,7 @@ export default function ConversationMode({
       <MemorySavedToast visible={memoryToast} announcementId={memoryToastId} />
 
       {/* Transcript area */}
-      <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
+      <div className="mb-3 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
           <p className="py-7 text-center font-sans text-xs text-[var(--duo-muted)]">
             {t('tapToStart')}
@@ -1114,7 +1114,7 @@ export default function ConversationMode({
       {!trialMode &&
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
-          <div className="mb-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-3">
+          <div className="mb-3 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-3">
             <p className="text-[var(--duo-muted)] mb-2 text-center font-sans text-[0.66rem] font-semibold tracking-[0.1em] uppercase">
               {t('startersHint')}
             </p>
@@ -1140,7 +1140,7 @@ export default function ConversationMode({
         )}
 
       {/* Controls */}
-      <div className="flex flex-col items-center gap-2.5 pb-1">
+      <div className="flex flex-col items-center gap-2 pb-1">
         {/* Timeout warning */}
         {warningSeconds !== null && (
           <div className="w-full">
