@@ -587,7 +587,7 @@ export default function ChatPage() {
           .juba-mobile-chat input{height:42px!important}
           .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:42px!important;padding-inline:14px!important}
         }
-      `              /* Reference fidelity pass 10 — chat screenshot geometry */
+              /* Reference fidelity pass 10 — chat screenshot geometry */
         .juba-mobile-chat{background:#fff!important}
         .juba-mobile-chat .chat-conversations-sidebar{width:216px!important;min-width:216px!important;background:#fff!important;border-right:1px solid #edf0ea!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:56px!important;padding-inline:14px!important;background:#fff!important;border-bottom:1px solid #edf0ea!important}
