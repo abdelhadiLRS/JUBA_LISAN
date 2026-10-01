@@ -35,8 +35,8 @@ export function BillingSection() {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
-      <div className="border-[var(--duo-line)] mb-4 flex items-center gap-2 border-b pb-4">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+      <div className="mb-4 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
           {tBilling('section')}
@@ -111,7 +111,7 @@ export function BillingSection() {
           )}
 
         {paymentRecovery && (
-          <div className="border border-[color-mix(in_srgb,var(--duo-yellow)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_5%,transparent)] p-3">
+          <div className="rounded-[10px] border border-[color-mix(in_srgb,var(--duo-yellow)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_5%,transparent)] p-3">
             <p className="font-mono text-xs font-bold tracking-widest text-[var(--duo-yellow)] uppercase">
               {tBilling('pastDueTitle')}
             </p>
@@ -126,7 +126,7 @@ export function BillingSection() {
           <button
             onClick={handleManageSubscription}
             disabled={portalLoading}
-            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full border py-2.5 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="w-full rounded-[10px] border border-[var(--duo-line)] py-2.5 font-mono text-xs font-bold tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] disabled:opacity-50"
           >
             {portalLoading
               ? '...'
