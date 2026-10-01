@@ -178,13 +178,13 @@ export function ExerciseAudioPlayer({
           disabled={state === 'loading'}
           aria-busy={state === 'loading'}
           aria-label={label}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] font-sans text-sm font-bold shadow-[2px_2px_0_var(--juba-app-line)] transition-colors hover:bg-[var(--juba-app-green)] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-mint)] text-[var(--duo-green-dark)] font-sans text-sm font-bold shadow-sm transition-colors hover:bg-[var(--duo-green)] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
           {state === 'loading' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : state === 'playing' ? <Pause className="h-4 w-4" aria-hidden="true" /> : <Play className="h-4 w-4" aria-hidden="true" />}
         </button>
 
         <div
-          className="h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-[var(--juba-app-green-soft)]"
+          className="h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-[var(--duo-mint)]"
           onClick={handleSeek}
           onKeyDown={(e) => {
             const audio = audioRef.current
@@ -221,13 +221,13 @@ export function ExerciseAudioPlayer({
           aria-valuemax={100}
         >
           <div
-            className="h-full rounded-full bg-[var(--juba-app-green)] transition-all"
+            className="h-full rounded-full bg-[var(--duo-green)] transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {duration > 0 && (
-          <span className="shrink-0 rounded-lg bg-[var(--juba-app-green-soft)] px-2 py-1 text-xs font-medium tabular-nums text-[var(--juba-app-muted)]">
+          <span className="shrink-0 rounded-lg bg-[var(--duo-mint)] px-2 py-1 text-xs font-medium tabular-nums text-[var(--duo-muted)]">
             {Math.ceil(duration)}s
           </span>
         )}
