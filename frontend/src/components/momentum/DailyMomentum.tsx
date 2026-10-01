@@ -23,9 +23,9 @@ interface DailyMomentumProps {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white transition-all disabled:opacity-50 shadow-sm hover:shadow-sm active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50 shadow-sm hover:shadow-sm active:scale-[0.98]'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-all hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
 
 export function DailyMomentum({
   nextAction,
@@ -78,7 +78,7 @@ export function DailyMomentum({
 
   return (
     <section 
-      className={`mb-6 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm transition-all duration-500 ${
+      className={`mb-6 overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm transition-colors duration-500 ${
         isCelebrating ? 'ring-2 ring-[var(--duo-yellow)] ring-offset-2 ring-offset-[var(--duo-bg)]' : ''
       }`}
       aria-label={t('dailyMomentum')}
@@ -110,7 +110,7 @@ export function DailyMomentum({
       {/* Three core questions grid */}
       <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
         {/* What should I do now? */}
-        <div className="group relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
+        <div className="group relative overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
@@ -154,7 +154,7 @@ export function DailyMomentum({
         </div>
         
         {/* What is due for review? */}
-        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-green)]">
+        <div className="group relative overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-300 hover:border-[var(--duo-green)]">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
@@ -193,7 +193,7 @@ export function DailyMomentum({
         </div>
         
         {/* How close to today's goal? */}
-        <div className="group relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
+        <div className="group relative overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
@@ -221,7 +221,7 @@ export function DailyMomentum({
             {/* Animated progress bar */}
             <div className="bg-[var(--duo-line)] relative h-3 w-full overflow-hidden rounded-full">
               <div 
-                className="absolute inset-y-0 start-0 rounded-full transition-all duration-300"
+                className="absolute inset-y-0 start-0 rounded-full transition-colors duration-300"
                 style={{ 
                   width: `${animatedProgress}%`,
                   background: goalProgress.current >= goalProgress.target 
