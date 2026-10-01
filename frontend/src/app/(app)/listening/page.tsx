@@ -308,8 +308,8 @@ function ListeningPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-        <div className="mb-6 flex items-center justify-between">
+      <div className="juba-reference-page juba-mobile-listening mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <div className="juba-reference-section-head mb-5 flex items-center justify-between">
           <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
@@ -334,7 +334,7 @@ function ListeningPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="juba-panel rounded-[10px] p-4"
+                className="juba-panel juba-reference-list-card rounded-[10px] p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -413,7 +413,7 @@ function ListeningPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-reference-page juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
         <div className="juba-panel rounded-[10px] p-5">
           <div className="flex items-center justify-between">
@@ -625,7 +625,7 @@ function ListeningPage() {
       ) : (
         <>
           {/* Topic */}
-          <div className="juba-panel rounded-[10px] px-4 py-3">
+          <div className="juba-panel juba-reference-section rounded-[10px] px-4 py-3">
             <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
               {t('topic')}
             </p>
