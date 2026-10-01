@@ -261,7 +261,7 @@ export function AudioPlayer({
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
       aria-busy={state === 'loading'}
       disabled={state === 'loading'}
-      className={`inline-flex items-center justify-center rounded-full border-2 font-semibold shadow-[2px_2px_0_var(--duo-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80 ${colorClass} ${sizeClass} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full border font-semibold shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
