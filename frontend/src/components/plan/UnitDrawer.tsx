@@ -67,7 +67,7 @@ export default function UnitDrawer({
     <div className="bg-[color-mix(in_srgb,var(--duo-ink)_48%,transparent)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_var(--duo-line)] sm:max-w-xl sm:rounded-[13px]"
+        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[13px] border shadow-lg sm:max-w-xl sm:rounded-[13px]"
       >
         {/* Header */}
         <div className="border-[var(--duo-line)] bg-[var(--duo-card)] sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
@@ -158,7 +158,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-xl px-3 py-2 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
+                      className="shrink-0 bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-[10px] px-3 py-2 text-xs font-bold shadow-sm transition-colors"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -178,7 +178,7 @@ export default function UnitDrawer({
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               onClick={onStartUnit}
-              className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-xl px-5 py-3 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
+              className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-[10px] px-5 py-3 text-xs font-bold shadow-sm transition-colors"
             >
               {tCommon('start')} →
             </button>
