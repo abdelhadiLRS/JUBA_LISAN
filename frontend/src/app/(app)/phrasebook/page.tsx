@@ -82,13 +82,13 @@ function CategoryCard({
   return (
     <div className="juba-panel p-0">
       <div className="border-[var(--duo-line)] flex items-center gap-3 border-b px-5 py-4">
-        <span className="text-xl">{cat.icon}</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--duo-line)] text-base">{cat.icon}</span>
         <div className="min-w-0 flex-1">
-          <p className="text-[var(--duo-ink)] truncate font-sans text-xs font-bold tracking-wide">
+          <p className="text-[var(--duo-ink)] truncate font-sans text-sm font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border-[var(--duo-line)] text-[var(--duo-muted)] shrink-0 rounded-[10px] border px-2.5 py-1 font-sans text-[10px] font-bold tracking-widest uppercase">
           {cat.level}
         </span>
       </div>
@@ -122,7 +122,7 @@ function CategoryCard({
 
                   {nativeHelp.usage_tips.length > 0 && (
                     <div className="space-y-1">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+                      <p className="text-[var(--duo-muted)] font-sans text-[10px] font-bold tracking-widest uppercase">
                         {tCommon('nativeHelpUsageTips')}
                       </p>
                       <ul className="space-y-1">
@@ -467,7 +467,7 @@ export default function PhrasebookPage() {
 
       {filteredCategories.length === 0 && (
         <div className="juba-panel space-y-4 px-6 py-10 text-center">
-          <p className="text-[var(--duo-muted)] font-sans text-xs tracking-widest uppercase">
+          <p className="text-[var(--duo-muted)] font-sans text-[11px] tracking-widest uppercase">
             {t('noResults')}
           </p>
           {hasActiveFilters && (
@@ -477,7 +477,7 @@ export default function PhrasebookPage() {
                 setActiveRegister('All')
                 setSearch('')
               }}
-              className="text-[var(--duo-ink)] border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="rounded-[10px] border border-[var(--duo-line)] px-4 py-2 font-sans text-[11px] font-bold tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]"
             >
               {tCommon('clearFilters')}
             </button>
