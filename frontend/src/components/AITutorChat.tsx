@@ -77,7 +77,7 @@ const AITutorChat: React.FC = () => {
 
   return (
     <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm flex h-[600px] flex-col overflow-hidden">
-      <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] p-4 sm:p-5">
+      <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] p-4 sm:p-5">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-[13px] border border-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] shadow-sm">
             <Bot className="h-5 w-5 text-[var(--duo-ink)]" aria-hidden="true" />
@@ -85,7 +85,7 @@ const AITutorChat: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-black text-[var(--duo-ink)]">المدرس الذكي</h3>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] px-2 py-1 text-[10px] font-bold text-[var(--duo-purple)]"><Sparkles className="h-3 w-3" />AI</span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] px-2 py-1 text-[10px] font-bold text-[var(--duo-green)]"><Sparkles className="h-3 w-3" />AI</span>
             </div>
             <p className="text-xs font-semibold text-[var(--duo-muted)]">متصل الآن · تدريب محادثة</p>
           </div>
@@ -94,7 +94,7 @@ const AITutorChat: React.FC = () => {
         <select
           value={selectedLanguage}
           onChange={(e) => setSelectedLanguage(e.target.value)}
-          className="rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-none outline-none transition focus:border-[var(--duo-purple)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--duo-purple)_10%,transparent)] w-auto min-w-[125px] px-3 py-2 text-sm font-bold outline-none"
+          className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-none outline-none transition focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] w-auto min-w-[125px] px-3 py-2 text-sm font-bold outline-none"
           aria-label="لغة المحادثة"
         >
           <option value="العربية">العربية</option>
@@ -116,7 +116,7 @@ const AITutorChat: React.FC = () => {
             <div
               className={`max-w-[82%] rounded-[13px] border p-4 shadow-sm ${
                 message.role === 'user'
-                  ? 'rounded-br-md border-[var(--duo-ink)] bg-[var(--duo-purple)] text-white'
+                  ? 'rounded-br-md border-[var(--duo-ink)] bg-[var(--duo-green)] text-white'
                   : 'rounded-bl-md border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)]'
               }`}
             >
@@ -141,7 +141,7 @@ const AITutorChat: React.FC = () => {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
             <div className="rounded-[13px] rounded-bl-md border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm">
               <div className="flex items-center gap-1.5" aria-label="جاري الرد">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-purple)]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-green)]" />
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] [animation-delay:150ms]" />
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-ink)] [animation-delay:300ms]" />
               </div>
@@ -158,7 +158,7 @@ const AITutorChat: React.FC = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="اكتب رسالتك هنا..."
-            className="rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-none outline-none transition focus:border-[var(--duo-purple)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--duo-purple)_10%,transparent)] flex-1 px-3 py-3"
+            className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-none outline-none transition focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] flex-1 px-3 py-3"
             disabled={isLoading}
           />
           <motion.button
@@ -166,7 +166,7 @@ const AITutorChat: React.FC = () => {
             onClick={sendMessage}
             disabled={isLoading || !input.trim()}
             aria-label="إرسال الرسالة"
-            className="rounded-[14px] bg-[var(--duo-green)] text-white shadow-sm transition hover:bg-[var(--duo-purple)] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
+            className="rounded-[10px] bg-[var(--duo-green)] text-white shadow-sm transition hover:bg-[var(--duo-green)] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
             whileHover={{ scale: isLoading ? 1 : 1.03 }}
             whileTap={{ scale: isLoading ? 1 : 0.96 }}
           >
