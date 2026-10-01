@@ -362,8 +362,8 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-page-hero py-5 sm:py-6">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <section className="juba-page-hero">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
@@ -384,7 +384,7 @@ export default function PhrasebookPage() {
           </span>
         </div>
         <div className="space-y-4 px-5 py-5">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="space-y-2">
               <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                 {t('searchPlaceholder')}
@@ -465,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-2.5 xl:grid-cols-2">
+            <div className="grid gap-3 xl:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
@@ -481,7 +481,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="juba-panel space-y-3 px-6 py-10 text-center">
+        <div className="juba-panel space-y-3 px-5 py-10 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-[11px] tracking-widest uppercase">
             {t('noResults')}
           </p>
