@@ -43,7 +43,7 @@ export function PageLoading({
   if (!fullScreen) {
     return (
       <span
-        className={`text-[var(--juba-app-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase ${className}`}
+        className={`text-[var(--duo-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase ${className}`}
         role="status"
         aria-busy="true"
         aria-label={text}
@@ -61,13 +61,13 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="card flex min-w-52 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-6 py-5 shadow-[4px_4px_0_var(--juba-app-line)]">
-        <span className="inline-flex items-center rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-[var(--juba-app-green-dark)] text-xs font-semibold tracking-[0.08em] uppercase">
+      <div className="card flex min-w-52 flex-col items-center gap-3 border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-5 shadow-sm">
+        <span className="inline-flex items-center rounded-full border border-[var(--duo-line)] bg-[var(--duo-mint)] px-3 py-1.5 text-[var(--duo-green-dark)] text-xs font-semibold tracking-[0.08em] uppercase">
           {showDot && <i className="ti ti-loader-2 icon icon-spin" aria-hidden="true" />}
           {text}
         </span>
         {subtext && (
-          <p className="flex items-center gap-1.5 text-[var(--juba-app-muted)] max-w-xs text-center text-xs leading-5">
+          <p className="flex items-center gap-1.5 text-[var(--duo-muted)] max-w-xs text-center text-xs leading-5">
             {subtext}
           </p>
         )}
