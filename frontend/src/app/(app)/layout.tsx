@@ -323,6 +323,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link{min-height:46px!important;margin:0!important;padding:10px 16px!important;border-bottom:1px solid #f2f4f0!important;border-radius:0!important}
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link.is-active{background:#eff8e9!important}
         .juba-reference-shell .juba-page-shell,.juba-reference-shell .juba-mobile-courses,.juba-reference-shell .juba-mobile-grammar,.juba-reference-shell .juba-mobile-vocabulary,.juba-reference-shell .juba-mobile-translator,.juba-reference-shell .juba-mobile-listening,.juba-reference-shell .juba-mobile-reading,.juba-reference-shell .juba-mobile-settings,.juba-reference-shell .juba-mobile-friends,.juba-reference-shell .juba-admin-shell,.juba-reference-shell .juba-admin-reviews-shell,.juba-reference-shell .juba-admin-system-shell,.juba-reference-shell .juba-admin-users-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important}
+        .juba-reference-shell .juba-reference-translator-grid{max-width:1180px!important;margin-inline:auto!important;width:100%!important}
+        .juba-reference-shell .juba-reference-translator-panel{border-radius:12px!important}
+        .juba-reference-shell .juba-reference-assessment-card{width:min(100%,720px)!important;border-radius:12px!important}
+        .juba-reference-shell .juba-reference-assessment-panel{border-radius:10px!important}
+        .juba-reference-shell .juba-reference-card-header{min-height:52px!important}
+        .juba-reference-shell .juba-reference-card-body{min-height:220px!important}
+        .juba-reference-shell .juba-reference-action{min-height:42px!important}
         .juba-reference-shell .juba-reference-page{color:#242b25!important}
         .juba-reference-shell .juba-reference-page-inner{display:flex!important;flex-direction:column!important}
         .juba-reference-shell .juba-reference-hero{min-height:132px!important;display:flex!important;align-items:center!important}
