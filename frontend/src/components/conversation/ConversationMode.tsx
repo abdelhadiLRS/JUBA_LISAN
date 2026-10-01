@@ -1028,7 +1028,7 @@ export default function ConversationMode({
   return (
     <div className="juba-duo-conversation-shell mx-auto flex h-full w-full max-w-[1480px] flex-col overflow-hidden px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Header */}
-      <div className="border-[var(--duo-line)] mb-5 flex min-h-[60px] items-end justify-between border-b pb-3">
+      <div className="border-[var(--duo-line)] mb-4 flex min-h-[58px] items-end justify-between border-b pb-3">
         <div>
           <p className="text-[var(--duo-muted)] mb-1 font-sans text-[11px] font-semibold tracking-[0.12em] uppercase">
             {t('subtitle')}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
+        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-3.5 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-3.5 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1114,7 +1114,7 @@ export default function ConversationMode({
       {!trialMode &&
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
-          <div className="mb-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5">
+          <div className="mb-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-3">
             <p className="text-[var(--duo-muted)] mb-2 text-center font-sans text-[0.66rem] font-semibold tracking-[0.1em] uppercase">
               {t('startersHint')}
             </p>
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[8px] border px-2.5 py-1.5 font-sans text-[0.68rem] tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] bg-white hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[8px] border px-3 py-1.5 font-sans text-[0.68rem] font-medium tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
