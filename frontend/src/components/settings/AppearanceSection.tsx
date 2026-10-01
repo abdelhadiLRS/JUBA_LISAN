@@ -9,7 +9,7 @@ export function AppearanceSection({ title }: { title?: string } = {}) {
   const setTheme = useThemeStore((s) => s.setTheme)
 
   return (
-    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
+    <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
       <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[var(--duo-muted)] text-xs font-semibold tracking-wide uppercase">
