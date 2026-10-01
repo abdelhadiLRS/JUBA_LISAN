@@ -71,7 +71,7 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('monthly')}
           disabled={loading !== null}
-          className="border-2 border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] flex-1 rounded-xl px-4 py-2.5 text-xs font-bold transition-colors disabled:opacity-50"
+          className="border border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] flex-1 rounded-xl px-4 py-2.5 text-xs font-bold transition-colors disabled:opacity-50"
         >
           {loading === 'monthly' ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
