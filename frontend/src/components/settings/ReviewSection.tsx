@@ -123,7 +123,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
               </p>
             )}
             {deleted && (
-              <p className="text-[var(--duo-purple)] px-5 pb-5 font-mono text-xs">
+              <p className="px-5 pb-5 text-xs font-semibold text-[var(--duo-green-dark)]">
                 {t('reviewDeleted')}
               </p>
             )}
