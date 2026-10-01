@@ -116,10 +116,10 @@ export default function SettingsMemoriesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <nav
         aria-label={t('memoryBreadcrumb')}
-        className="text-[#202127] text-[rgba(32,33,39,.52)] mb-8 flex items-center gap-2 font-sans"
+        className="juba-reference-section-head text-[#202127] text-[rgba(32,33,39,.52)] mb-6 flex items-center gap-2 font-sans"
       >
         <Link
           href="/settings"
@@ -133,7 +133,7 @@ export default function SettingsMemoriesPage() {
         </h1>
       </nav>
 
-      <div className="card p-6">
+      <div className="juba-reference-list-card card p-6">
         <div className="border-[#ededff] mb-4 flex items-center gap-2 border-b pb-4">
           <span aria-hidden="true" className="text-[#202127] text-[rgba(32,33,39,.52)]">
             ●
@@ -167,7 +167,7 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="border-[#ededff] bg-[#ededff]/40 text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] mb-2 w-full resize-y border p-3 font-sans text-sm outline-none"
+            className="juba-input border-[#ededff] bg-[#ededff]/40 text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] mb-2 w-full resize-y border p-3 font-sans text-sm outline-none"
           />
           <div className="flex items-center justify-between gap-4">
             <p
