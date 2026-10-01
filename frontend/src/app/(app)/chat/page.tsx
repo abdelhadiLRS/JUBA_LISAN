@@ -404,6 +404,9 @@ export default function ChatPage() {
         .juba-mobile-chat input{height:42px!important;padding:10px 13px!important;border-radius:10px!important}
         .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid #e8ede5!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
+        .juba-mobile-chat .juba-chat-profile-hero strong{font-size:14px!important;font-weight:800!important}
+        .juba-mobile-chat .juba-chat-profile-metrics b{font-size:13px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics small{font-size:8px!important}
         @media (max-width:1023px){
           .juba-mobile-chat .chat-conversations-sidebar{width:min(84vw,300px)!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 14px!important}
