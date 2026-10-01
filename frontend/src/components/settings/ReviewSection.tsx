@@ -61,7 +61,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
 
   return (
     <>
-      <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
+      <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
         <div className="mb-4 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
           <span className="text-[var(--duo-muted)]">●</span>
           <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
