@@ -81,7 +81,7 @@ function CategoryCard({
 
   return (
     <div className="juba-card overflow-hidden p-0">
-      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
         <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#edf7f1] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-1 px-5 py-3">
+          <li key={i} className="group space-y-1 px-5 py-3.5 transition-colors hover:bg-[#fbfcfa]">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       <section className="juba-page-hero">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
@@ -398,7 +398,7 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-[var(--duo-line)] juba-input w-full font-sans text-xs"
+              className="juba-input w-full font-sans text-sm"
             />
           </div>
 
@@ -463,7 +463,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-3.5 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
