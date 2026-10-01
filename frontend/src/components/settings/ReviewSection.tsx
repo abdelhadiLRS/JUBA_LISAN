@@ -61,31 +61,31 @@ export function ReviewSection({ title }: { title?: string } = {}) {
 
   return (
     <>
-      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
-        <div className="border-[var(--duo-line)] mb-4 flex items-center gap-2 border-b pb-4">
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">●</span>
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
+      <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
+        <div className="mb-4 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
+          <span className="text-[var(--duo-muted)]">●</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
             {title ?? t('sectionReview')}
           </span>
         </div>
 
-        <p className="text-[var(--duo-muted)] mb-1 font-mono text-sm leading-relaxed">
+        <p className="mb-1 text-sm leading-relaxed text-[var(--duo-muted)]">
           {t('reviewDescription')}
         </p>
         {review?.is_approved === false && (
-          <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mb-4 font-mono tracking-widest uppercase">
+          <p className="mb-4 text-xs font-semibold text-[var(--duo-muted)]">
             {t('reviewPending')}
           </p>
         )}
 
         {loading ? (
-          <div className="text-[var(--duo-muted)] flex items-center gap-2 py-5 font-mono text-xs">
+          <div className="flex items-center gap-2 py-5 text-xs text-[var(--duo-muted)]">
             <Loader2 className="size-4 animate-spin" /> {tReview('checking')}
           </div>
         ) : error ? (
-          <p className="text-[var(--duo-red)]-fg py-5 font-mono text-xs">{error}</p>
+          <p className="py-5 text-xs text-[var(--duo-red)]">{error}</p>
         ) : (
-          <div className="-mx-5">
+          <div className="-mx-5 border-t border-[var(--duo-line)] pt-1">
             <ReviewForm
               initialReview={review}
               submitLabel={review ? t('reviewUpdate') : tReview('submit')}
@@ -106,7 +106,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
                   type="button"
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="border-[var(--duo-red)]/30 text-[var(--duo-red)]-fg text-[var(--duo-ink)] hover:bg-[var(--duo-red)]/10 flex w-full items-center justify-center gap-2 border py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+                  className="flex w-full items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-red)]/30 px-4 py-3 text-xs font-bold uppercase tracking-[0.08em] text-[var(--duo-red)] transition-colors hover:bg-[var(--duo-red)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-red)] disabled:opacity-60"
                 >
                   {deleting ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -118,7 +118,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
               </div>
             )}
             {saved && (
-              <p className="text-[var(--duo-purple)] px-5 pb-5 font-mono text-xs">
+              <p className="px-5 pb-5 text-xs font-semibold text-[var(--duo-green-dark)]">
                 {t('reviewSaved')}
               </p>
             )}
