@@ -323,6 +323,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link{min-height:46px!important;margin:0!important;padding:10px 16px!important;border-bottom:1px solid #f2f4f0!important;border-radius:0!important}
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link.is-active{background:#eff8e9!important}
         .juba-reference-shell .juba-page-shell,.juba-reference-shell .juba-mobile-courses,.juba-reference-shell .juba-mobile-grammar,.juba-reference-shell .juba-mobile-vocabulary,.juba-reference-shell .juba-mobile-translator,.juba-reference-shell .juba-mobile-listening,.juba-reference-shell .juba-mobile-reading,.juba-reference-shell .juba-mobile-settings,.juba-reference-shell .juba-mobile-friends,.juba-reference-shell .juba-admin-shell,.juba-reference-shell .juba-admin-reviews-shell,.juba-reference-shell .juba-admin-system-shell,.juba-reference-shell .juba-admin-users-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important}
+        .juba-reference-shell .juba-reference-page{color:#242b25!important}
+        .juba-reference-shell .juba-reference-page-inner{display:flex!important;flex-direction:column!important}
+        .juba-reference-shell .juba-reference-hero{min-height:132px!important;display:flex!important;align-items:center!important}
+        .juba-reference-shell .juba-reference-hero h1{font-size:30px!important;line-height:1.12!important;letter-spacing:-.035em!important}
+        .juba-reference-shell .juba-reference-actions{gap:8px!important}
+        .juba-reference-shell .juba-reference-section-head h2{font-size:24px!important;line-height:1.15!important}
+        .juba-reference-shell .juba-reference-filter-panel{overflow:hidden!important}
+        .juba-reference-shell .juba-reference-filter-panel>div:first-child{min-height:52px!important;align-items:center!important}
+        .juba-reference-shell .juba-reference-filter-panel input{height:42px!important;max-width:460px!important}
+        .juba-reference-shell .juba-reference-tabs{padding-top:2px!important}
+        .juba-reference-shell .juba-reference-list-section>div:first-child{min-height:30px!important}
+        .juba-reference-shell .juba-reference-list-card{min-height:104px!important}
+        .juba-reference-shell .juba-reference-list-card:hover{border-color:#dce8d5!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-reference-shell .juba-reference-section{box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-reference-shell .juba-page-shell{padding:24px 28px 36px!important}
         .juba-reference-shell .juba-page-hero{background:#fff!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-reference-shell .juba-page-title{color:#242b25!important;letter-spacing:-.035em!important}
@@ -746,7 +760,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             ) : (
               <button
                 onClick={handleResendVerification}
-                className="text-[var(--duo-green)] font-sans text-xs underline transition-all hover:no-underline"
+                className="text-[var(--duo-green)] font-sans text-xs underline transition-colors hover:no-underline"
               >
                 {tCommon('resendVerification')}
               </button>
