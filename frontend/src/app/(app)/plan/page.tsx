@@ -318,22 +318,22 @@ export default function PlanPage() {
     units.length > 0 && units.every((u) => (competencies[u.id] ?? 0) >= 0.8)
 
   return (
-    <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
+    <div className="juba-mobile-plan mx-auto w-full max-w-[1480px] space-y-6 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-7 text-[var(--duo-ink)] shadow-sm sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-6 text-[var(--duo-ink)] shadow-sm sm:px-7 sm:py-7">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
-        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
         <div className="relative z-10 max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-[var(--duo-card)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
+            <span className="rounded-[10px] bg-[var(--duo-card)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
               {t('learningRoadmap')}
             </span>
-            <span className="rounded-full bg-[var(--duo-green)] px-3 py-1.5 text-xs font-black text-[var(--duo-ink)]">
+            <span className="rounded-[10px] bg-[var(--duo-green)] px-3 py-1.5 text-xs font-black text-[var(--duo-ink)]">
               {level}
             </span>
           </div>
-          <h1 className="max-w-2xl text-3xl font-black tracking-[-0.045em] sm:text-5xl">
+          <h1 className="max-w-2xl text-3xl font-black tracking-[-0.045em] sm:text-4xl">
             {langName ? `${langName} · ${t('level')}` : t('level')}
           </h1>
           <p className="mt-3 max-w-xl text-sm font-medium leading-6 text-white/80 sm:text-base">
@@ -383,7 +383,7 @@ export default function PlanPage() {
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('pendingLessons')}</p>
               <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--duo-ink)]">{t('learningRoadmap')}</h2>
             </div>
-            <span className="rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-black text-[var(--duo-green-dark)]">{pendingLessons.length}</span>
+            <span className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-black text-[var(--duo-green-dark)]">{pendingLessons.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
