@@ -14,5 +14,5 @@ export default function StatusIndicator({ status, userSpeaking, assistantSpeakin
   const isPositive = status === 'ready' || status === 'live'
   const isError = status === 'error'
   const surfaceClass = isError ? 'border-[var(--duo-red)]/20 bg-[color-mix(in_srgb,var(--duo-red)_7%,transparent)]' : isPositive ? 'border-[var(--duo-green)]/20 bg-[color-mix(in_srgb,var(--duo-green)_9%,transparent)]' : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
-  return <div role="status" aria-live="polite" aria-atomic="true" className={'flex min-h-8 items-center gap-1.5 rounded-full border px-2.5 py-1 ' + surfaceClass}><span className={'text-[0.62rem] leading-none ' + dotClass + (pulse ? ' animate-pulse' : '')} aria-hidden="true">●</span><span className="text-[0.64rem] font-semibold tracking-[0.04em] text-[var(--duo-muted)] uppercase">{label}</span></div>
+  return <div role="status" aria-live="polite" aria-atomic="true" className={'flex min-h-7 items-center gap-1.5 rounded-full border px-2.5 py-1 ' + surfaceClass}><span className={'text-[0.58rem] leading-none ' + dotClass + (pulse ? ' animate-pulse' : '')} aria-hidden="true">●</span><span className="text-[0.61rem] font-semibold tracking-[0.035em] text-[var(--duo-muted)] uppercase">{label}</span></div>
 }
