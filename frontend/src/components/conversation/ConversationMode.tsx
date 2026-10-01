@@ -119,7 +119,7 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-xl border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
+        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-[10px] border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
           alert
             ? 'border-[var(--duo-red)]/50 text-[var(--duo-red)] hover:border-[var(--duo-red)]'
             : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
@@ -130,7 +130,7 @@ function QuotaPill({
       </button>
 
       {open && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_var(--duo-line)]">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-[13px] border border-t-0 px-4 py-3 shadow-sm">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,7 +191,7 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_var(--duo-line)]">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[13px] border p-5 text-center shadow-sm">
       <p className="text-[var(--duo-muted)] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
@@ -205,7 +205,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-xl px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase shadow-[0_3px_0_var(--duo-green-dark)] transition-colors disabled:opacity-50"
+          className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-[10px] px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase shadow-sm transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] hover:border-[var(--duo-green)] w-full rounded-xl border-2 px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase transition-colors disabled:opacity-50"
+          className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] hover:border-[var(--duo-green)] w-full rounded-[10px] border px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -235,7 +235,7 @@ function TrialPremiumCta() {
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] mt-5 w-full rounded-xl px-3 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
+        className="text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] mt-5 w-full rounded-[10px] px-3 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
+        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-[13px] border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-[13px] border px-4 py-3 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-[13px] border px-4 py-3 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-xl border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[10px] border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
