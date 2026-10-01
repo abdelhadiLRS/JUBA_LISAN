@@ -906,7 +906,7 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-welcome:before{display:none!important}
           .juba-reference-v3 .juba-reference-v3-level{width:68px!important;height:68px!important;min-width:68px!important}
         }
-</style>
+`}</style>
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
