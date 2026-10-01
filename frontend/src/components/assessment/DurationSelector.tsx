@@ -62,7 +62,7 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-6 py-4">
           <span className="text-xs text-[var(--duo-muted)]">●</span>
           <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
@@ -82,10 +82,10 @@ export default function DurationSelector({
                   type="button"
                   key={opt.weeks}
                   onClick={() => onSelectDuration(opt)}
-                  className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
+                  className={`rounded-[13px] border px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_3px_0_var(--duo-blue-dark)]'
-                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
+                      ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)] shadow-sm'
+                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)]'
                   }`}
                 >
                   <p className="font-sans text-xs font-bold tracking-widest uppercase">
@@ -126,10 +126,10 @@ export default function DurationSelector({
                   type="button"
                   key={g.id}
                   onClick={() => onToggleGoal(g.id)}
-                  className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
+                  className={`rounded-full border px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_3px_0_var(--duo-blue-dark)]'
-                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
+                      ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)] shadow-sm'
+                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)]'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -142,7 +142,7 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="space-y-1 rounded-[18px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
+          <div className="space-y-1 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-[var(--duo-ink)] font-bold">{cefr_level}</span>
@@ -177,7 +177,7 @@ export default function DurationSelector({
             <div
               role="alert"
               aria-live="polite"
-              className="rounded-[18px] border-2 border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--duo-red)]"
+              className="rounded-[13px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--duo-red)]"
             >
               ✕ {error}
             </div>
@@ -187,7 +187,7 @@ export default function DurationSelector({
             <button
               type="button"
               onClick={onBack}
-              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-ink)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)] flex-1 rounded-[14px] border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-ink)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)] flex-1 rounded-[10px] border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               ← {tCommon('back')}
             </button>
@@ -195,7 +195,7 @@ export default function DurationSelector({
               type="button"
               onClick={onConfirm}
               disabled={loading || selectedGoals.length === 0}
-              className="bg-[var(--duo-blue)] text-white hover:bg-[var(--duo-blue-dark)] flex-[2] rounded-[14px] py-3 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-blue-dark)] flex-[2] rounded-[10px] py-3 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
             >
               {loading ? t('buildingPlan') : `${t('startMyPlan')} →`}
             </button>
