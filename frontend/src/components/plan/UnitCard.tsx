@@ -32,6 +32,5 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
       {!status.locked && <div className="juba-ff-unit-progress mt-5 h-2 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${barWidth}%`, background: barColor }} /></div>}
     </button>
     {status.active && onStartLesson && <div className="juba-ff-unit-action flex justify-end px-5 pb-5 sm:px-6"><button onClick={onStartLesson} className="rounded-full bg-[var(--duo-green)] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2">{tCommon('start')} →</button></div>}
-  </div>
-)
+  </div>)
 }
