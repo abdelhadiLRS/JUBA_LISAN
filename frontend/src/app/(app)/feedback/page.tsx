@@ -640,7 +640,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Page header */}
       <div className="juba-page-hero">
         <p className="juba-eyebrow mb-1">
@@ -652,12 +652,12 @@ export default function FeedbackPage() {
       </div>
 
       {/* Tabs */}
-      <div className="juba-card flex flex-wrap items-center gap-1 p-2">
+      <div className="juba-card flex flex-wrap items-center gap-1 p-2.5">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
             onClick={() => setTab(tabOption)}
-            className={`text-[var(--duo-ink)] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--duo-ink)] -mb-px border-b px-5 py-2 font-semibold tracking-wide transition-colors ${
               tab === tabOption
                 ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)]'
                 : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] border-transparent'
