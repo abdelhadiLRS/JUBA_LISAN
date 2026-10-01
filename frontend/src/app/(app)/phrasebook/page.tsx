@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <div className="juba-card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
@@ -443,14 +443,14 @@ export default function PhrasebookPage() {
         const cats = filteredCategories.filter((c) => c.level === level)
         if (!cats.length) return null
         return (
-          <section key={level} className="space-y-3">
+          <section key={level} className="space-y-2.5">
             <div className="flex items-center gap-3">
               <span className="font-sans text-xs font-bold tracking-[0.18em] text-[var(--duo-ink)]">
                 {level}
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-5 lg:grid-cols-2">
+            <div className="grid gap-4 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
@@ -466,7 +466,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="juba-panel space-y-4 px-6 py-9 text-center">
+        <div className="juba-panel space-y-3 px-6 py-8 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-[11px] tracking-widest uppercase">
             {t('noResults')}
           </p>
