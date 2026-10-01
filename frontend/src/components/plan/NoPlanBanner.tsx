@@ -27,7 +27,7 @@ export default function NoPlanBanner() {
 
         <button
           onClick={() => router.push('/assessment')}
-          className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-xl px-5 py-3 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
+          className="w-full rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-3 text-xs font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
         >
           {t('startAssessment')}
         </button>
