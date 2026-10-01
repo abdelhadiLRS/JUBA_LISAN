@@ -362,15 +362,15 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto max-w-4xl space-y-6 p-6">
-      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
-        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
+      <div className="juba-panel">
+        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-4">
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
-        <div className="space-y-4 px-6 py-5">
+        <div className="space-y-4 px-5 py-5">
           <p className="text-[var(--duo-muted)] font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
@@ -385,7 +385,7 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-[var(--duo-line)] bg-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
+              className="border-[var(--duo-line)] juba-input w-full font-sans text-xs"
             />
           </div>
 
@@ -398,7 +398,7 @@ export default function PhrasebookPage() {
                 <button
                   key={lvl}
                   onClick={() => setActiveLevel(lvl)}
-                  className={`text-[var(--duo-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--duo-ink)] rounded-[10px] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
                       ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
                       : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
@@ -419,7 +419,7 @@ export default function PhrasebookPage() {
                 <button
                   key={reg}
                   onClick={() => setActiveRegister(reg)}
-                  className={`text-[var(--duo-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--duo-ink)] rounded-[10px] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
                       ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
                       : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
@@ -466,7 +466,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-4 border px-6 py-10 text-center">
+        <div className="juba-panel space-y-4 px-6 py-10 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
