@@ -601,6 +601,76 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-games{background:#fff!important}
         }
 
+
+        /* Pass 14 — page-level reference treatment */
+        .juba-reference-shell [class*="juba-mobile-"],
+        .juba-reference-shell [class*="juba-admin-"],
+        .juba-reference-shell [class*="juba-page-"]{
+          --juba-bg:#f8faf7;
+          --juba-card:#ffffff;
+          --juba-border:#edf1ea;
+        }
+        .juba-reference-shell [class*="juba-mobile-"]{
+          color:#30362f;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .juba-card,
+        .juba-reference-shell [class*="juba-admin-"] .juba-card{
+          border-color:#edf1ea!important;
+          border-radius:13px!important;
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+          background:#fff!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .juba-card:hover,
+        .juba-reference-shell [class*="juba-admin-"] .juba-card:hover{
+          border-color:#e4eadf!important;
+          box-shadow:0 4px 14px rgba(35,55,25,.055)!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] input:not([type="checkbox"]):not([type="radio"]),
+        .juba-reference-shell [class*="juba-mobile-"] textarea,
+        .juba-reference-shell [class*="juba-mobile-"] select,
+        .juba-reference-shell [class*="juba-admin-"] input:not([type="checkbox"]):not([type="radio"]),
+        .juba-reference-shell [class*="juba-admin-"] textarea,
+        .juba-reference-shell [class*="juba-admin-"] select{
+          border-color:#e5ebe1!important;
+          border-radius:10px!important;
+          background:#fff!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] input:focus,
+        .juba-reference-shell [class*="juba-mobile-"] textarea:focus,
+        .juba-reference-shell [class*="juba-mobile-"] select:focus{
+          border-color:#9bd878!important;
+          box-shadow:0 0 0 3px rgba(88,204,2,.12)!important;
+          outline:none!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .juba-eyebrow,
+        .juba-reference-shell [class*="juba-admin-"] .juba-eyebrow{
+          color:#58a91b!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] a:not(.juba-primary-button),
+        .juba-reference-shell [class*="juba-admin-"] a{
+          transition:color .16s ease,background-color .16s ease,border-color .16s ease,transform .16s ease,box-shadow .16s ease!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .border-2,
+        .juba-reference-shell [class*="juba-admin-"] .border-2{
+          border-width:1px!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .shadow-\[0_4px_0_var\(--duo-line\)\],
+        .juba-reference-shell [class*="juba-mobile-"] .shadow-\[0_3px_0_var\(--duo-line\)\]{
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .rounded-\[20px\],
+        .juba-reference-shell [class*="juba-mobile-"] .rounded-\[24px\],
+        .juba-reference-shell [class*="juba-mobile-"] .rounded-\[28px\],
+        .juba-reference-shell [class*="juba-mobile-"] .rounded-\[32px\]{
+          border-radius:13px!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-progress"] .rounded-\[32px\]{
+          border-radius:14px!important;
+        }
+        @media(max-width:900px){
+          .juba-reference-shell [class*="juba-mobile-"]{background:#fff!important}
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
