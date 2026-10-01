@@ -221,7 +221,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         <p className="interactive-instruction">{t.chooseLeft} → {t.chooseRight}</p>
         <div className="matching-board">{retryInstruction && <p className="interactive-retry" role="status">{retryInstruction}</p>}
           <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''} ${matchingRetryCount(item.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
-          <div>{challenge.right.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${right === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('right', item.id)}>{item.label}</button>)}</div>
+          <div>{challenge.right.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${right === item.id ? 'selected' : ''} ${matchingRetryCount(item.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => chooseMatching('right', item.id)}>{item.label}</button>)}</div>
         </div>
       </>}
 
@@ -237,7 +237,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         })}</div>
         <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
         <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
-        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
+        <button type="button" className="interactive-secondary interactive-submit" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
       </>}
 
       {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Reset and try again.</p><button type="button" onClick={reset}>{t.reset}</button></div>}
