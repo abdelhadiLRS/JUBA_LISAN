@@ -132,7 +132,7 @@ export function VisitorTranslator() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('open')}
-        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-2xl border border-[var(--duo-ink)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-[0_8px_24px_var(--duo-line)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_var(--duo-line)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
+        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-[13px] border border-[var(--duo-ink)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
       >
         <Languages className="h-4 w-4" aria-hidden="true" />
         {t('translate')}
@@ -150,7 +150,7 @@ export function VisitorTranslator() {
             aria-modal="true"
             aria-labelledby="visitor-translator-title"
             aria-describedby="visitor-translator-description"
-            className="w-full max-w-6xl overflow-hidden rounded-[22px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_var(--duo-line)]"
+            className="w-full max-w-6xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_var(--duo-line)]"
           >
             <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4 sm:px-7">
               <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export function VisitorTranslator() {
             </div>
 
             <form onSubmit={translate} className="p-4 sm:p-7">
-              <div className="grid overflow-hidden rounded-2xl border border-[var(--duo-line)] lg:grid-cols-[1fr_auto_1fr]">
+              <div className="grid overflow-hidden rounded-[13px] border border-[var(--duo-line)] lg:grid-cols-[1fr_auto_1fr]">
                 <section className="flex min-h-[360px] flex-col bg-[var(--duo-card)]">
                   <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--duo-line)] px-4 py-3 sm:px-5">
                     <label className="sr-only" htmlFor="visitor-translator-source">{t('sourceLanguage')}</label>
