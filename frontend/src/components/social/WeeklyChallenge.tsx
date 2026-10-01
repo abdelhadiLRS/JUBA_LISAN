@@ -37,7 +37,7 @@ export default function WeeklyChallenge() {
   const percent = Math.min(100, Math.round((progress / target) * 100))
 
   return (
-    <div className="mx-auto max-w-4xl rounded-[28px] border-2 border-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] bg-[var(--duo-bg)] p-8 shadow-[0_3px_0_var(--duo-line)]">
+    <div className="mx-auto max-w-4xl rounded-[13px] border border-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] bg-[var(--duo-bg)] p-8 shadow-sm">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <span className="juba-eyebrow">Weekly Challenge</span>
@@ -48,7 +48,7 @@ export default function WeeklyChallenge() {
             {challenge?.description ?? 'Complete focused learning activities this week and build consistent practice habits.'}
           </p>
         </div>
-        <div className="rounded-2xl bg-[var(--duo-purple)] px-4 py-3 text-center text-white">
+        <div className="rounded-[13px] bg-[var(--duo-green)] px-4 py-3 text-center text-white">
           <div className="text-2xl font-black">+{challenge?.xp_reward ?? 100}</div>
           <div className="text-xs uppercase tracking-wide">XP</div>
         </div>
@@ -58,7 +58,7 @@ export default function WeeklyChallenge() {
         <span>{percent}%</span>
       </div>
       <div className="h-4 overflow-hidden rounded-full bg-[var(--duo-line)]">
-        <div className="h-full rounded-full bg-[var(--duo-purple)] transition-[width] duration-500" style={{ width: percent + '%' }} />
+        <div className="h-full rounded-full bg-[var(--duo-green)] transition-[width] duration-500" style={{ width: percent + '%' }} />
       </div>
     </div>
   )
