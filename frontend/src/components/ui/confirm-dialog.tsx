@@ -81,14 +81,14 @@ export function ConfirmDialog({
     >
       <div
         ref={dialogRef}
-        className="card w-full max-w-sm overflow-hidden border-2 border-[var(--duo-line)] shadow-[5px_5px_0_var(--duo-line)]"
+        className="card w-full max-w-sm overflow-hidden rounded-[13px] border border-[var(--duo-line)] shadow-sm"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
           <span
             className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--duo-red)_12%,var(--duo-card))] text-[var(--duo-red)]' : 'bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]'}`}
             aria-hidden="true"
@@ -111,7 +111,7 @@ export function ConfirmDialog({
           )}
         </div>
 
-        <div className="flex gap-3 border-t-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
+        <div className="flex gap-3 border-t border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
           <button
             type="button"
             ref={cancelRef}
@@ -126,7 +126,7 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--duo-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`flex-1 rounded-[10px] border border-transparent px-4 py-2.5 text-sm font-semibold shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
                 ? 'bg-[var(--duo-red)] text-white hover:opacity-90 focus-visible:ring-[var(--duo-red)]'
                 : 'bg-[var(--duo-green-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--duo-green)]'
