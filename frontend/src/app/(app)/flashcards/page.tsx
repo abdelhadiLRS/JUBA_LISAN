@@ -275,7 +275,7 @@ export default function FlashcardsPage() {
       {cards.length === 0 && (
         <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] border px-6 py-12 text-center">
           <span
-            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
+            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[13px]"
             style={{
               color: 'var(--duo-green-dark)',
               background: 'color-mix(in srgb, var(--duo-green) 12%, transparent)',
@@ -303,7 +303,7 @@ export default function FlashcardsPage() {
                 {current + 1} / {cards.length} due
               </span>
               {/* Mode toggle */}
-              <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] inline-flex rounded-xl p-1">
+              <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] inline-flex rounded-[10px] p-1">
                 <button
                   type="button"
                   aria-pressed={!speakingMode}
@@ -455,7 +455,7 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="border border-[var(--duo-line)] bg-[var(--duo-card)] rounded-2xl">
+            <div className="border border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px]">
               <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 py-3.5">
                 <p className="text-[var(--duo-muted)] text-xs font-semibold tracking-wide uppercase">
                   {t('speakingMode')}
