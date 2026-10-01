@@ -185,7 +185,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="space-y-5 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
+    <div className="space-y-5 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6">
       <div className="flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
