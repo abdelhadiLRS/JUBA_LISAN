@@ -277,9 +277,9 @@ export default function GamesPage() {
   }
 
   return (
-    <main className="juba-games" dir={direction}>
-      <section className="games-shell">
-        <header className="games-header">
+    <main className="juba-games juba-reference-page" dir={direction}>
+      <section className="games-shell juba-reference-page-inner">
+        <header className="games-header juba-reference-hero">
           <div>
             <div className="games-brand">{t.title}</div>
             <h1>{t.subtitle}</h1>
@@ -294,7 +294,7 @@ export default function GamesPage() {
           </div>
         </header>
 
-        <section className="stats-grid" aria-label="progress">
+        <section className="stats-grid juba-reference-section" aria-label="progress">
           <div><span>⭐</span><strong>{xp}</strong><small>{t.points}</small></div>
           <div><span>🔥</span><strong>{streak}</strong><small>{t.streak}</small></div>
           <div><span>🏆</span><strong>{level}</strong><small>{t.level}</small></div>
@@ -311,12 +311,12 @@ export default function GamesPage() {
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
             </button>
 
-            <div className="section-heading">
+            <div className="section-heading juba-reference-section-head">
               <h2>{t.games}</h2>
               <button className="reset" onClick={reset}>{t.reset}</button>
             </div>
 
-            <section className="game-grid">
+            <section className="game-grid juba-reference-section">
               {gameCards.map((card) => (
                 <button key={card.id} className="game-card" onClick={() => startGame(card.id)}>
                   <span className="game-icon">{card.icon}</span>
@@ -327,7 +327,7 @@ export default function GamesPage() {
               ))}
             </section>
 
-            <section className="games-dashboard">
+            <section className="games-dashboard juba-reference-section">
               <div className="games-panel">
                 <h3>{t.stats}</h3>
                 <div className="mini-stats">
@@ -361,7 +361,7 @@ export default function GamesPage() {
             </div>
           </>
         ) : (
-          <section className="play-card">
+          <section className="play-card juba-reference-assessment-card">
             <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
             {question && (
