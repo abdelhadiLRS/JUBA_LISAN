@@ -81,10 +81,10 @@ function CategoryCard({
 
   return (
     <div className="juba-card overflow-hidden p-0">
-      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--duo-line)] text-base">{cat.icon}</span>
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--duo-line)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
-          <p className="text-[var(--duo-ink)] truncate font-sans text-sm font-bold tracking-wide">
+          <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
             {cat.situation}
           </p>
         </div>
@@ -364,13 +364,13 @@ export default function PhrasebookPage() {
   return (
     <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
       <div className="juba-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] px-5 py-4">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
           </span>
         </div>
-        <div className="space-y-4 px-5 py-5">
+        <div className="space-y-4 px-5 py-4.5">
           <p className="text-[var(--duo-muted)] font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
@@ -390,7 +390,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+            <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
               {t('level')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -445,12 +445,12 @@ export default function PhrasebookPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="font-sans text-sm font-bold tracking-widest text-[var(--duo-ink)]">
+              <span className="font-sans text-xs font-bold tracking-[0.18em] text-[var(--duo-ink)]">
                 {level}
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
@@ -466,7 +466,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="juba-panel space-y-4 px-6 py-10 text-center">
+        <div className="juba-panel space-y-4 px-6 py-9 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-[11px] tracking-widest uppercase">
             {t('noResults')}
           </p>
