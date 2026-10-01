@@ -634,6 +634,29 @@ export default function ChatPage() {
         @media (max-width:900px){.juba-mobile-chat{background:#fff!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#fff!important}}
 
 </style>
+      <style>{\`
+        /* Reference fidelity pass 13 — compact chat proportions */
+        .juba-mobile-chat .chat-conversations-sidebar{width:270px!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:60px!important;padding-inline:15px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{min-height:60px!important;padding:0 18px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 22px!important;gap:12px!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4>div{margin-top:0!important}
+        .juba-mobile-chat .word-selectable{padding:11px 14px!important;border-radius:10px!important}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:12px 16px!important}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child input{min-height:42px!important;border-radius:10px!important}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child button{min-height:42px!important;border-radius:10px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;padding-inline:13px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-mobile-chat .juba-chat-profile-rail{width:244px!important}
+        }
+        @media (max-width:900px){
+          .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:14px 14px!important}
+          .juba-mobile-chat>div.flex.flex-1>div:first-child{padding-inline:14px!important}
+          .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:10px 12px!important}
+        }
+      \`}</style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
           visible={memoryToast}
