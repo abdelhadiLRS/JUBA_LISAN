@@ -328,7 +328,7 @@ export default function AssessmentPage() {
 
   const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm'
   const panelClass = 'rounded-[13px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]/45 p-4'
-  const actionClass = 'w-full rounded-[14px] bg-[var(--duo-green)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--duo-green)] transition hover:-translate-y-0.5 hover:bg-[var(--duo-green)]'
+  const actionClass = 'w-full rounded-[10px] bg-[var(--duo-green)] px-4 py-3 font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -340,7 +340,7 @@ export default function AssessmentPage() {
       <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">A</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">A</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
               <p className="text-xs text-[var(--duo-muted)]">{t('currentLevel')}</p>
@@ -365,9 +365,9 @@ export default function AssessmentPage() {
                 </button>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
+            {error && <div className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[10px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]">← {tCommon('backToDashboard')}</button>
               <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -409,7 +409,7 @@ export default function AssessmentPage() {
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[var(--duo-ink)]">{currentLevel}</p>
           </div>
-          <div className="rounded-[14px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--duo-green-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--duo-green-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -424,7 +424,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">✓</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">✓</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('resultStep')}</p>
               <p className="text-xs text-[var(--duo-muted)]">{t('cefrLevel')}</p>
@@ -443,7 +443,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[10px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -453,16 +453,16 @@ export default function AssessmentPage() {
             {result.strengths.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--duo-green-dark)]">{s}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--duo-green-dark)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[var(--duo-red)]/25 bg-[var(--duo-red)]/10 px-3 py-1.5 text-xs font-medium text-[var(--duo-red)]">{w}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[10px] border border-[var(--duo-red)]/25 bg-[var(--duo-red)]/10 px-3 py-1.5 text-xs font-medium text-[var(--duo-red)]">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
+            {error && <div className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
             <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
@@ -494,7 +494,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">◉</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">◉</span>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
