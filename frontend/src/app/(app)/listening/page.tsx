@@ -675,7 +675,7 @@ function ListeningPage() {
                               [String(q.index)]: k,
                             }))
                           }
-                          className={`w-full border rounded-2xl border border-[var(--duo-line)] px-3 py-2 text-left transition-colors ${
+                          className={`w-full rounded-[10px] border border-[var(--duo-line)] px-3 py-2 text-left transition-colors ${
                             selected
                               ? 'border-[var(--duo-green-dark)] bg-[var(--duo-line)] text-[var(--duo-ink)]'
                               : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-line)]'
