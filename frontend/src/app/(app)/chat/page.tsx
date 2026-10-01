@@ -412,7 +412,7 @@ export default function ChatPage() {
           .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{padding:10px 12px 12px!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{max-width:82%!important}
         }
-      </style>
+      `}</style>
       <style>{`
         /* JUBA LISAN — strict reference chat UI (route scoped) */
         .juba-mobile-chat{background:#fff!important;color:#555!important;gap:0!important}
