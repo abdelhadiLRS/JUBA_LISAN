@@ -614,6 +614,25 @@ export default function ChatPage() {
           .juba-mobile-chat{height:calc(100dvh - 54px)!important}
         }
 
+
+        /* Reference fidelity pass 12 — chat surface hierarchy */
+        .juba-mobile-chat{background:#f8faf7!important}
+        .juba-mobile-chat .chat-conversations-sidebar,
+        .juba-mobile-chat>div.flex.flex-1>div:first-child,
+        .juba-mobile-chat .juba-chat-profile-rail{background:#fff!important}
+        .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid #edf1ea!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{border-bottom:1px solid #edf1ea!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#f8faf7!important}
+        .juba-mobile-chat .word-selectable{background:#fff!important;border:1px solid #edf1ea!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:#edf1ea!important;background:#fff!important}
+        .juba-mobile-chat .juba-chat-side-label{color:#92988f!important;letter-spacing:.09em!important}
+        .juba-mobile-chat .juba-chat-profile-hero strong{color:#30362f!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid #f0f2ed!important}
+        .juba-mobile-chat .juba-chat-friend{transition:background-color .14s ease!important}
+        .juba-mobile-chat .juba-chat-friend:hover{background:#f7fbf4!important}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child{background:#fff!important;border-top:1px solid #edf1ea!important}
+        @media (max-width:900px){.juba-mobile-chat{background:#fff!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#fff!important}}
+
 </style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
