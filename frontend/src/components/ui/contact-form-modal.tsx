@@ -114,7 +114,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="w-full max-w-md overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm"
+        className="w-full max-w-md overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-mint)] px-6 py-4">
