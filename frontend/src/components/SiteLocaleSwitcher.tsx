@@ -84,7 +84,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={locale === 'ar' ? 'تغيير المنطقة ولغة الموقع' : 'Change region and site language'}
-          className="flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)]/90 px-3 py-2 text-xs font-bold text-[var(--duo-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
+          className="flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)]/90 px-3 py-2 text-xs font-bold text-[var(--duo-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm"
         >
           <span className="text-base" aria-hidden="true">{countryFlag(country)}</span>
           <span className="rounded-md border border-[var(--duo-line)] px-2 py-1 text-[10px] font-black">{country}</span>
@@ -93,7 +93,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
         </button>
 
         {open && (
-          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute end-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-xl">
+          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute end-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-sm">
             <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--duo-muted)]">
               <Globe2 className="h-3.5 w-3.5" aria-hidden="true" />
               {locale === 'ar' ? 'المنطقة واللغة' : 'Region & language'}
