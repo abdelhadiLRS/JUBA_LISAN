@@ -27,7 +27,7 @@ export default function TranscriptBubble({
 
   return (
     <div
-      className={`flex items-end gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+      className={`flex items-end gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
       {/* Avatar */}
       <div className="relative mb-0 flex-shrink-0">
@@ -38,13 +38,13 @@ export default function TranscriptBubble({
               : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="h-[30px] w-[30px] overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-sm">
+        <div className="h-8 w-8 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-sm">
           {!isUser ? (
             <Image
               src="/logo_head.png"
               alt="Tutor"
-              width={30}
-              height={30}
+              width={32}
+              height={32}
               className="h-full w-full object-cover"
             />
           ) : userAvatar ? (
@@ -81,7 +81,7 @@ export default function TranscriptBubble({
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`rounded-[10px] border px-3 py-2 leading-relaxed break-words shadow-sm ${
+          className={`rounded-[10px] border px-3.5 py-2.5 leading-relaxed break-words shadow-sm ${
             isUser
               ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)]'
               : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
