@@ -151,7 +151,7 @@ export default function VocabularyPage() {
             </div>
             <Link
               href="/register"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition             >
+              className="inline-flex shrink-0 items-center justify-center rounded-full border border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-sm transition-colors"             >
               Create account to sync
             </Link>
           </div>
