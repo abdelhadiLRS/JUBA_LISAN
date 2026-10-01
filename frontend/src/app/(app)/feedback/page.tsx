@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-reference-page mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
@@ -640,9 +640,9 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Page header */}
-      <section className="juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
+      <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <p className="juba-eyebrow mb-1">
           {t('title')}
         </p>
