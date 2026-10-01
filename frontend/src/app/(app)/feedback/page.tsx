@@ -100,9 +100,9 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
   const [error, setError] = useState('')
 
   const inputCls =
-    'w-full bg-[var(--duo-bg)] border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-none'
+    'w-full rounded-[10px] bg-white border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-none'
   const textareaCls =
-    'w-full bg-[var(--duo-bg)] border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-y min-h-[106px]'
+    'w-full rounded-[10px] bg-white border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-y min-h-[106px]'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -169,7 +169,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3 p-6">
           {error && (
-            <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border px-4 py-3 text-sm">
+            <div className="rounded-[10px] border border-[var(--duo-red)]/40 px-4 py-3 text-sm text-[var(--duo-red)]">
               ✕ {error}
             </div>
           )}
@@ -214,7 +214,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-green-dark)] flex-1 border px-4 py-3 text-sm tracking-widest uppercase transition-colors"
+              className="flex-1 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]"
             >
               {t('cancel')}
             </button>
@@ -441,7 +441,7 @@ function DetailView({
           className="border-[var(--duo-line)] space-y-2 border-t px-6 py-4"
         >
           {error && (
-            <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border px-4 py-2 text-sm">
+            <div className="rounded-[10px] border border-[var(--duo-red)]/40 px-4 py-2 text-sm text-[var(--duo-red)]">
               ✕ {error}
             </div>
           )}
@@ -684,7 +684,7 @@ export default function FeedbackPage() {
           <button
             key={s}
             onClick={() => setSort(s)}
-            className={`text-[var(--duo-muted)] border px-3 py-1 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--duo-muted)] rounded-[10px] border px-3 py-1 font-semibold tracking-wide transition-colors ${
               sort === s
                 ? 'border-[var(--duo-green-dark)]/40 text-[var(--duo-ink)]'
                 : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
