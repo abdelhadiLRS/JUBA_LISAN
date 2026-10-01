@@ -144,7 +144,7 @@ export default function FlashcardsPage() {
   return (
     <div className="juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-[var(--duo-ink)] text-xl font-bold tracking-tight">
             {t('title')}
@@ -180,7 +180,7 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] p-5">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[10px] p-5">
           <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
             {t('generate')}
           </p>
@@ -273,9 +273,9 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] border px-6 py-12 text-center">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[10px] border px-6 py-12 text-center">
           <span
-            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[13px]"
+            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[10px]"
             style={{
               color: 'var(--duo-green-dark)',
               background: 'color-mix(in srgb, var(--duo-green) 12%, transparent)',
@@ -338,7 +338,7 @@ export default function FlashcardsPage() {
             </div>
             <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] h-1.5 overflow-hidden rounded-full">
               <div
-                className="h-full rounded-full transition-all duration-500"
+                className="h-full rounded-full transition-colors duration-500"
                 style={{
                   width: `${sessionProgress}%`,
                   background: 'var(--duo-green-dark)',
@@ -442,7 +442,7 @@ export default function FlashcardsPage() {
                       type="button"
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="w-full min-w-0 rounded-[10px] border border-[var(--duo-line)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
+                      className="w-full min-w-0 rounded-[10px] border border-[var(--duo-line)] py-3 text-sm font-semibold transition-colors hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
                       style={style}
                     >
                       {t(key)}
@@ -455,7 +455,7 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="border border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px]">
+            <div className="border border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[10px]">
               <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 py-3.5">
                 <p className="text-[var(--duo-muted)] text-xs font-semibold tracking-wide uppercase">
                   {t('speakingMode')}
