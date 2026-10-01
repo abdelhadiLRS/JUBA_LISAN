@@ -318,9 +318,9 @@ export default function PlanPage() {
     units.length > 0 && units.every((u) => (competencies[u.id] ?? 0) >= 0.8)
 
   return (
-    <div className="juba-mobile-plan mx-auto w-full max-w-[1480px] space-y-6 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-plan juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Hero */}
-      <section className="juba-page-hero relative overflow-hidden px-5 py-5 sm:px-6 sm:py-6">
+      <section className="juba-page-hero juba-reference-hero relative overflow-hidden px-5 py-5 sm:px-6 sm:py-6">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
@@ -358,7 +358,7 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="juba-card relative overflow-hidden px-5 py-5 sm:px-6">
+        <section className="juba-card juba-reference-section relative overflow-hidden px-5 py-5 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="juba-eyebrow">{t('learningRoadmap')}</p>
@@ -476,7 +476,7 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7">
+        <section className="juba-reference-section rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[var(--duo-muted)]">
             {t('testScore')} <span className="font-black text-[var(--duo-ink)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
