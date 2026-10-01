@@ -367,7 +367,7 @@ export default function PhrasebookPage() {
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
-            <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">{t('title')}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-[32px]">{t('title')}</h1>
             <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('statsLine', { situationCount: categories.length, phraseCount: totalPhrases, range: `${CEFR_LEVELS[0]} – ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}` })}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 sm:min-w-[236px] lg:min-w-[248px]">
@@ -465,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-3.5 xl:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
