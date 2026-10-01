@@ -19,17 +19,17 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
   }, [])
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
-      <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">●</span>
-        <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+      <div className="mb-5 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
+        <span className="text-[var(--duo-muted)]">●</span>
+        <span className="font-mono tracking-widest uppercase text-[var(--duo-muted)]">
           {title ?? t('sectionUsageLimits')}
         </span>
       </div>
       {quota === null ? (
         <div className="animate-pulse space-y-3">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="bg-[var(--duo-card)]-2 h-4" />
+            <div key={i} className="h-4 rounded-[6px] bg-[var(--duo-line)]" />
           ))}
         </div>
       ) : (
@@ -71,7 +71,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
             const exceeded = !unlimited && limit > 0 && used >= limit
             return (
               <div key={label} className="flex items-center gap-3">
-                <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
+                <span className="w-36 shrink-0 font-mono tracking-widest uppercase text-[var(--duo-muted)]">
                   {label}
                 </span>
                 {unlimited ? (
@@ -80,9 +80,9 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
                   </span>
                 ) : (
                   <>
-                    <div className="bg-[var(--duo-card)]-2 h-1 flex-1 overflow-hidden">
+                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--duo-line)]">
                       <div
-                        className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-purple)]'}`}
+                        className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -96,7 +96,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
               </div>
             )
           })}
-          <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] pt-1 font-mono">
+          <p className="pt-1 font-mono text-[var(--duo-muted)]">
             {t('quotaHint')}
           </p>
         </div>
