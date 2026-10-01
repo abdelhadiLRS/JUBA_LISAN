@@ -32,7 +32,7 @@ export default function TranscriptBubble({
       {/* Avatar */}
       <div className="relative mb-0.5 flex-shrink-0">
         <span
-          className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 ${
+          className={`pointer-events-none absolute inset-[-5px] rounded-full border transition-[border-color,opacity] duration-700 ${
             speaking
               ? 'border-[color-mix(in_srgb,var(--duo-green)_65%,transparent)] animate-halo-speaking'
               : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
