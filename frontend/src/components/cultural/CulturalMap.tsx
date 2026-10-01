@@ -23,7 +23,7 @@ const CulturalMap: React.FC = () => {
         {regions.map((region, index) => (
           <motion.div
             key={region.name}
-            className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 text-[var(--duo-ink)] shadow-sm transition-shadow hover:shadow-md"
+            className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 text-[var(--duo-ink)] shadow-sm transition-colors hover:border-[var(--duo-green)]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.08, duration: 0.3 }}
