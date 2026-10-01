@@ -213,7 +213,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex flex-1 items-center justify-center rounded-full border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
+                className="inline-flex flex-1 items-center justify-center rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
               >
                 {isLoading ? (
                   <span className="inline-flex items-center">
