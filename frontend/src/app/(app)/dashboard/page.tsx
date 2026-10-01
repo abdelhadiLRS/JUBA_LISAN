@@ -856,6 +856,56 @@ export default function DashboardPage() {
         .juba-reference-dashboard .juba-reference-premium{box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
         @media (max-width:900px){.juba-reference-dashboard.juba-reference-v3{background:#fff!important}}
 
+
+        /* Reference fidelity pass 10 — dashboard surface finishing */
+        .juba-reference-v3{padding:0 24px 32px!important;background:#fff!important}
+        .juba-reference-v3 .juba-reference-topbar{max-width:1480px!important;height:68px!important}
+        .juba-reference-v3 .juba-reference-v3-grid{max-width:1480px!important;grid-template-columns:minmax(0,1fr) 300px!important;gap:24px!important}
+        .juba-reference-v3 .juba-reference-v3-main>section{margin-bottom:16px!important}
+        .juba-reference-v3 .juba-reference-v3-main>section,
+        .juba-reference-v3 .juba-reference-v3-card{border-color:#e9eee7!important;border-radius:12px!important;box-shadow:0 1px 5px rgba(35,55,25,.025)!important}
+        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 20px 18px 108px!important}
+        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important;color:#4f4f4f!important}
+        .juba-reference-v3 .juba-reference-v3-level{width:88px!important;height:88px!important}
+        .juba-reference-v3 .juba-reference-v3-card-head{min-height:38px!important}
+        .juba-reference-v3 .juba-reference-section-label{font-size:9px!important;color:#969b95!important}
+        .juba-reference-v3 .juba-reference-v3-card-head h2,
+        .juba-reference-v3 .juba-reference-v3-card-head h3{color:#505450!important}
+        .juba-reference-v3 .juba-reference-reference-insights,
+        .juba-reference-v3 .juba-reference-reference-stats{gap:14px!important}
+        .juba-reference-v3 .juba-reference-insight-card,
+        .juba-reference-v3 .juba-reference-stat-card{padding:16px!important}
+        .juba-reference-v3 .juba-reference-course{padding:18px!important}
+        .juba-reference-v3 .juba-reference-course-path{margin-top:14px!important}
+        .juba-reference-v3 .juba-reference-lesson{min-height:66px!important;padding:10px 12px!important}
+        .juba-reference-v3 .juba-reference-lesson-copy strong{font-size:12px!important;color:#4f534f!important}
+        .juba-reference-v3 .juba-reference-lesson-copy>span{font-size:9px!important;color:#969b95!important}
+        .juba-reference-v3 .juba-reference-green-button{border-radius:8px!important;box-shadow:0 2px 0 #46a302!important}
+        .juba-reference-v3 .juba-reference-v3-rail{gap:14px!important}
+        .juba-reference-v3 .juba-reference-profile-card,
+        .juba-reference-v3 .juba-reference-goal-card,
+        .juba-reference-v3 .juba-reference-xp-card,
+        .juba-reference-v3 .juba-reference-achievement-card,
+        .juba-reference-v3 .juba-reference-tools-card,
+        .juba-reference-v3 .juba-reference-friends-card{padding:16px!important}
+        .juba-reference-v3 .juba-reference-profile-hero{padding-bottom:13px!important}
+        .juba-reference-v3 .juba-reference-profile-photo{width:52px!important;height:52px!important;border-radius:50%!important}
+        .juba-reference-v3 .juba-reference-profile-metrics{border-top-color:#edf1eb!important}
+        .juba-reference-v3 .juba-reference-tools-card>a{min-height:36px!important;border-radius:8px!important}
+        .juba-reference-v3 .juba-reference-friend-row{min-height:48px!important;border-radius:8px!important}
+        @media (max-width:1100px) and (min-width:901px){
+          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 250px!important;gap:18px!important}
+          .juba-reference-v3{padding-inline:18px!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-v3{padding:8px 12px 24px!important}
+          .juba-reference-v3 .juba-reference-topbar{height:58px!important}
+          .juba-reference-v3 .juba-reference-v3-grid{display:block!important}
+          .juba-reference-v3 .juba-reference-v3-rail{margin-top:14px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome{padding:18px!important;min-height:118px!important}
+          .juba-reference-v3 .juba-reference-v3-welcome:before{display:none!important}
+          .juba-reference-v3 .juba-reference-v3-level{width:68px!important;height:68px!important;min-width:68px!important}
+        }
 </style>
       <OnboardingTour />
       <WhatsNew />
