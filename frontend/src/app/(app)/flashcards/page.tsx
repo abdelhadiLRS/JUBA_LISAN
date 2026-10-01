@@ -142,7 +142,7 @@ export default function FlashcardsPage() {
     cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
 
   return (
-    <div className="juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
+    <div className="juba-reference-page juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
       <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -363,7 +363,7 @@ export default function FlashcardsPage() {
                 }}
                 aria-label={flipped ? t('tapToHide') : t('tapToReveal')}
               >
-                <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-6 py-3.5">
+                <div className="juba-reference-card-header border-[var(--duo-line)] flex items-center justify-between border-b px-6 py-3.5">
                   <span className="text-[var(--duo-muted)] text-xs font-semibold tracking-wide uppercase">
                     {flipped ? t('back') : t('front')}
                   </span>
@@ -372,7 +372,7 @@ export default function FlashcardsPage() {
                   </span>
                 </div>
 
-                <div className="flex flex-col items-center justify-center gap-4 p-10 text-center">
+                <div className="juba-reference-card-body flex flex-col items-center justify-center gap-4 p-10 text-center">
                   {!flipped ? (
                     <div className="flex items-center gap-3">
                       <TargetLanguageText
@@ -442,7 +442,7 @@ export default function FlashcardsPage() {
                       type="button"
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="w-full min-w-0 rounded-[10px] border border-[var(--duo-line)] py-3 text-sm font-semibold transition-colors hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
+                      className="juba-reference-action w-full min-w-0 rounded-[10px] border border-[var(--duo-line)] py-3 text-sm font-semibold transition-colors hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
                       style={style}
                     >
                       {t(key)}
