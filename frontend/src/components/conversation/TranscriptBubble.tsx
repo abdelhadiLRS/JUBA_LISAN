@@ -38,7 +38,7 @@ export default function TranscriptBubble({
               : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="h-7 w-7 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-[0_4px_12px_color-mix(in_srgb,var(--duo-green-dark)_10%,transparent)]">
+        <div className="h-7 w-7 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-sm">
           {!isUser ? (
             <Image
               src="/logo_head.png"
@@ -81,7 +81,7 @@ export default function TranscriptBubble({
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`rounded-2xl border px-4 py-3 leading-relaxed break-words shadow-[0_4px_14px_var(--duo-line)] ${
+          className={`rounded-[13px] border px-4 py-3 leading-relaxed break-words shadow-sm ${
             isUser
               ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)]'
               : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
