@@ -25,9 +25,9 @@ interface CardData {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]'
 
 export default function FlashcardsPage() {
   const t = useTranslations('flashcards')
@@ -144,7 +144,7 @@ export default function FlashcardsPage() {
   return (
     <div className="juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="rounded-2xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-[var(--duo-ink)] text-xl font-bold tracking-tight">
             {t('title')}
@@ -180,13 +180,13 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-2xl p-5">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] p-5">
           <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
             {t('generate')}
           </p>
           {genError && (
             <div
-              className="mb-4 rounded-xl px-4 py-3 text-sm"
+              className="mb-4 rounded-[10px] px-4 py-3 text-sm"
               role="alert"
               style={{
                 color: 'var(--duo-red)',
@@ -211,7 +211,7 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] w-full rounded-xl border px-4 py-3 text-sm transition-colors focus:outline-none"
+                className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] w-full rounded-[10px] border px-4 py-3 text-sm transition-colors focus:outline-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -223,7 +223,7 @@ export default function FlashcardsPage() {
                   id="flashcard-count"
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[var(--duo-green)]/15 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+                  className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[var(--duo-green)]/15 w-full rounded-[10px] border px-4 py-3 text-sm focus:outline-none"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -240,7 +240,7 @@ export default function FlashcardsPage() {
                   id="flashcard-level"
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[var(--duo-green)]/15 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+                  className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-green)] focus:ring-2 focus:ring-[var(--duo-green)]/15 w-full rounded-[10px] border px-4 py-3 text-sm focus:outline-none"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -273,7 +273,7 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-2xl border px-6 py-12 text-center">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] border px-6 py-12 text-center">
           <span
             className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
             style={{
@@ -442,7 +442,7 @@ export default function FlashcardsPage() {
                       type="button"
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="w-full min-w-0 rounded-xl border border-[var(--duo-line)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
+                      className="w-full min-w-0 rounded-[10px] border border-[var(--duo-line)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]"
                       style={style}
                     >
                       {t(key)}
