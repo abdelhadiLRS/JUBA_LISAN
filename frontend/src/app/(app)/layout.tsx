@@ -323,12 +323,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link{min-height:46px!important;margin:0!important;padding:10px 16px!important;border-bottom:1px solid #f2f4f0!important;border-radius:0!important}
         .juba-reference-shell .juba-duo-mobile-menu .juba-duo-nav-link.is-active{background:#eff8e9!important}
         .juba-reference-shell .juba-page-shell,.juba-reference-shell .juba-mobile-courses,.juba-reference-shell .juba-mobile-grammar,.juba-reference-shell .juba-mobile-vocabulary,.juba-reference-shell .juba-mobile-translator,.juba-reference-shell .juba-mobile-listening,.juba-reference-shell .juba-mobile-reading,.juba-reference-shell .juba-mobile-settings,.juba-reference-shell .juba-mobile-friends,.juba-reference-shell .juba-admin-shell,.juba-reference-shell .juba-admin-reviews-shell,.juba-reference-shell .juba-admin-system-shell,.juba-reference-shell .juba-admin-users-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important}
-        .juba-reference-shell .juba-page-hero{background:#fff!important;border:1px solid #e8eee4!important;border-radius:14px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-reference-shell .juba-page-shell{padding:24px 28px 36px!important}
+        .juba-reference-shell .juba-page-hero{background:#fff!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-reference-shell .juba-page-title{color:#242b25!important;letter-spacing:-.035em!important}
         .juba-reference-shell .juba-page-subtitle{color:#7b827c!important}
         .juba-reference-shell .juba-eyebrow{color:#58a91b!important;font-weight:850!important;letter-spacing:.12em!important}
-        .juba-reference-shell .juba-card,.juba-reference-shell .juba-panel{background:#fff!important;border:1px solid #e8eee4!important;border-radius:13px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
-        .juba-reference-shell .juba-card:hover,.juba-reference-shell .juba-panel:hover{border-color:#dfe8d9!important;box-shadow:0 4px 14px rgba(42,64,34,.055)!important}
+        .juba-reference-shell .juba-card,.juba-reference-shell .juba-panel{background:#fff!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-reference-shell .juba-card:hover,.juba-reference-shell .juba-panel:hover{border-color:#dfe8d9!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-reference-shell .juba-input{min-height:42px!important;background:#fff!important;border:1px solid #e1e7de!important;border-radius:10px!important;color:#303730!important;box-shadow:none!important}
         .juba-reference-shell .juba-input:focus{border-color:#58cc02!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
         .juba-reference-shell .juba-primary-button,.juba-reference-shell .juba-secondary-button{border-radius:10px!important}
