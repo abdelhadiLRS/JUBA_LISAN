@@ -320,7 +320,7 @@ function ReadingPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="juba-panel rounded-[13px] p-6 text-center">
+          <div className="juba-panel rounded-[10px] p-6 text-center">
             <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
@@ -433,7 +433,7 @@ function ReadingPage() {
             return (
               <div
                 key={q.index}
-                className={`rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm ${
+                className={`rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm ${
                   isCorrect
                     ? 'border-[color-mix(in_srgb,var(--duo-green)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
                     : 'border-[color-mix(in_srgb,var(--duo-red)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)]'
@@ -482,7 +482,7 @@ function ReadingPage() {
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="juba-secondary-button border border-[var(--duo-line)] px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="juba-secondary-button px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -527,7 +527,7 @@ function ReadingPage() {
             </p>
             <button
               onClick={handleGenerate}
-              className="juba-primary-button border border-[var(--duo-line)] px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="juba-primary-button px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -633,7 +633,7 @@ function ReadingPage() {
                             className={`w-full border border-[var(--duo-line)] px-3 py-2 text-left transition-colors ${
                               selected
                                 ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
-                                : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-juba-muted hover:text-[var(--duo-ink)]'
+                                : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                             }`}
                           >
                             <span className="text-[var(--duo-ink)] font-sans font-bold">
