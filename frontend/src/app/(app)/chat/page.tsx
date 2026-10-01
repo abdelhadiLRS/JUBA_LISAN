@@ -594,6 +594,26 @@ export default function ChatPage() {
           .juba-mobile-chat .word-selectable{max-width:90%!important;border-radius:12px!important}
           .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:8px 10px 10px!important}
         }
+
+        /* Reference fidelity pass 11 — chat optical alignment */
+        .juba-chat-profile-rail{width:264px!important;min-width:264px!important}
+        .juba-chat-profile-card,.juba-chat-side-card{border-radius:13px!important;box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
+        .juba-chat-profile-hero{min-height:92px!important}
+        .juba-chat-profile-photo{width:52px!important;height:52px!important}
+        .juba-chat-profile-metrics{gap:8px!important}
+        .juba-chat-side-card-head{min-height:30px!important}
+        .juba-chat-friend{min-height:50px!important}
+        .juba-chat-friend-avatar{width:34px!important;height:34px!important}
+        .juba-chat-friend-copy{min-width:0!important}
+        .juba-chat-achievement{min-height:74px!important;border-radius:11px!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-chat-profile-rail{width:244px!important;min-width:244px!important}
+        }
+        @media (max-width:900px){
+          .juba-chat-profile-rail{display:none!important}
+          .juba-mobile-chat{height:calc(100dvh - 54px)!important}
+        }
+
 </style>
       <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
