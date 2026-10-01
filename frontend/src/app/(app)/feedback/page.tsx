@@ -145,14 +145,14 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="card w-full max-w-md rounded-[13px] border bg-white shadow-sm"
+        className="juba-card w-full max-w-md overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-6 py-4">
           <div className="flex items-center gap-2">
             <span className="text-[var(--duo-muted)]">●</span>
-            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
+            <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
               {type === 'feature'
                 ? t('modalCreateTitleFeature')
                 : t('modalCreateTitleBug')}
@@ -221,7 +221,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             <button
               type="submit"
               disabled={submitting}
-              className="bg-[var(--duo-green-dark)] text-white hover:bg-[var(--duo-green-dark)]/90 flex-1 py-3 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="flex-1 rounded-[10px] bg-[var(--duo-green-dark)] py-2.5 font-sans text-[10px] font-bold tracking-widest uppercase text-white transition-colors hover:opacity-90 disabled:opacity-50"
             >
               {submitting ? t('submitting') : t('submit')}
             </button>
@@ -358,8 +358,8 @@ function DetailView({
       </button>
 
       {/* Entry card */}
-      <div className="card">
-        <div className="border-[var(--duo-line)] space-y-3 border-b px-6 py-5">
+      <div className="juba-card overflow-hidden">
+        <div className="border-[var(--duo-line)] space-y-3 border-b bg-white px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="text-[var(--duo-ink)] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
               {entry.title}
@@ -369,7 +369,7 @@ function DetailView({
           <p className="text-[var(--duo-muted)] text-sm leading-relaxed whitespace-pre-wrap">
             {entry.description}
           </p>
-          <div className="flex flex-wrap items-center gap-3 pt-1">
+          <div className="flex flex-wrap items-center gap-2.5 pt-1">
             <span className="text-[var(--duo-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
               <span>
                 {t('by')} {entry.author.display_name}
@@ -451,12 +451,12 @@ function DetailView({
             onChange={(e) => setCommentBody(e.target.value)}
             placeholder={t('commentPlaceholder')}
             maxLength={2000}
-            className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] form-control"
+            className="juba-input w-full"
           />
           <button
             type="submit"
             disabled={postingComment || !commentBody.trim()}
-            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-green-dark)] border px-4 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-[10px] border border-[var(--duo-line)] px-4 py-2 font-sans text-[10px] font-bold tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)] disabled:cursor-not-allowed disabled:opacity-30"
           >
             {postingComment ? t('postingComment') : t('postComment')}
           </button>
@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="juba-utility-page">
+      <div className="mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
@@ -640,19 +640,19 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="juba-utility-page space-y-4">
+    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Page header */}
-      <div className="juba-utility-header">
-        <p className="text-[var(--duo-muted)] mb-1 font-semibold tracking-wide">
+      <div className="juba-page-hero">
+        <p className="juba-eyebrow mb-1">
           {t('title')}
         </p>
-        <h1 className="text-[var(--duo-ink)] font-sans text-2xl font-bold tracking-tight">
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">
           {t('subtitle')}
         </h1>
       </div>
 
       {/* Tabs */}
-      <div className="juba-utility-tabs">
+      <div className="juba-card flex flex-wrap items-center gap-1 p-2">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
@@ -669,14 +669,14 @@ export default function FeedbackPage() {
         <div className="flex-1" />
         <button
           onClick={() => setShowCreate(true)}
-          className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] px-4 py-2 font-semibold tracking-wide transition-colors"
+          className="rounded-[10px] px-3 py-2 font-sans text-[10px] font-bold tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]"
         >
           {tab === 'feature' ? t('newFeature') : t('newBug')}
         </button>
       </div>
 
       {/* Filters + sort row */}
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2.5">
         <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
           {t('sortBy')}
         </span>
@@ -694,13 +694,13 @@ export default function FeedbackPage() {
           </button>
         ))}
 
-        <span className="text-[var(--duo-muted)] ml-2 font-semibold tracking-wide">
+        <span className="ml-2 font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
           {t('filterStatus')}
         </span>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] form-select"
+          className="h-9 rounded-[10px] border border-[var(--duo-line)] bg-white px-3 text-xs text-[var(--duo-muted)] outline-none transition-colors focus:border-[var(--duo-green-dark)]"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -718,7 +718,7 @@ export default function FeedbackPage() {
       )}
 
       {/* List */}
-      <div className="juba-feedback-list">
+      <div className="juba-card overflow-hidden">
         {loading ? (
           <PageLoading
             fullScreen={false}
