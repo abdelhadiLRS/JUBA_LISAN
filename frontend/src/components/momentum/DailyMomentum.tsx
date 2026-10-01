@@ -159,14 +159,14 @@ export function DailyMomentum({
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
-              <Clock className="h-4 w-4 text-[var(--duo-blue)]" />
+              <Clock className="h-4 w-4 text-[var(--duo-green)]" />
               <p className="text-[var(--duo-muted)] text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
             </div>
             
             {reviewDueCount > 0 ? (
               <>
                 <div className="mb-2 flex items-baseline gap-2">
-                  <h3 className="text-[var(--duo-ink)] text-3xl font-bold text-[var(--duo-blue)]">
+                  <h3 className="text-[var(--duo-ink)] text-3xl font-bold text-[var(--duo-green)]">
                     {reviewDueCount}
                   </h3>
                   <span className="text-[var(--duo-muted)] text-sm">{t('itemsToReview')}</span>
@@ -198,7 +198,7 @@ export function DailyMomentum({
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
-              <Zap className={`h-4 w-4 ${goalProgress.current >= goalProgress.target ? 'text-[var(--duo-yellow)]' : 'text-[var(--duo-blue)]'}`} />
+              <Zap className={`h-4 w-4 ${goalProgress.current >= goalProgress.target ? 'text-[var(--duo-yellow)]' : 'text-[var(--duo-green)]'}`} />
               <p className="text-[var(--duo-muted)] text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
             </div>
             
@@ -226,7 +226,7 @@ export function DailyMomentum({
                   width: `${animatedProgress}%`,
                   background: goalProgress.current >= goalProgress.target 
                     ? 'var(--duo-yellow)' 
-                    : 'linear-gradient(90deg, var(--duo-blue), var(--duo-yellow))'
+                    : 'linear-gradient(90deg, var(--duo-green), var(--duo-yellow))'
                 }}
               />
               {/* Shimmer effect on completion */}
