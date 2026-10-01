@@ -80,8 +80,8 @@ function CategoryCard({
   }
 
   return (
-    <div className="juba-card overflow-hidden p-0 transition-shadow hover:shadow-[0_8px_24px_rgba(38,50,56,0.06)]">
-      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+    <div className="juba-card overflow-hidden p-0 transition-shadow hover:shadow-sm">
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-3.5">
         <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[#f8faf7] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-page-hero">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
@@ -376,7 +376,7 @@ export default function PhrasebookPage() {
           </div>
         </div>
       </section>
-      <div className="juba-card overflow-hidden shadow-sm">
+      <div className="juba-card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
