@@ -112,7 +112,7 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-[20px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-[0_3px_0_var(--duo-line)]">
+  return <div className="flex items-center gap-3 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-sm">
     <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[var(--duo-bg)]">
       {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[var(--duo-muted)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
@@ -120,4 +120,4 @@ function PersonCard({person,children}:{person:Person;children:React.ReactNode}) 
     {children}
   </div>
 }
-function Empty({text}:{text:string}) { return <div className="rounded-[20px] border border-dashed border-[var(--duo-line)] bg-[var(--duo-bg)] p-6 text-center text-sm text-[var(--duo-muted)]">{text}</div> }
+function Empty({text}:{text:string}) { return <div className="rounded-[10px] border border-dashed border-[var(--duo-line)] bg-[var(--duo-bg)] p-6 text-center text-sm text-[var(--duo-muted)]">{text}</div> }
