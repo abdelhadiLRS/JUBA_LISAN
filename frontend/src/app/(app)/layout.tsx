@@ -469,6 +469,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-mobile-bar{height:54px!important;min-height:54px!important}
         }
 
+
+        /* Reference fidelity pass 12 — screenshot color rhythm and navigation detail */
+        .juba-reference-shell .juba-duo-sidebar{background:#fff!important}
+        .juba-reference-shell .juba-duo-nav-link{color:#70766f!important;font-weight:700!important}
+        .juba-reference-shell .juba-duo-nav-link svg{stroke-width:2.15!important;transition:color .16s ease,transform .16s ease!important}
+        .juba-reference-shell .juba-duo-nav-link:hover svg{transform:translateX(1px)!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(1) svg{color:#58cc02!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(2) svg{color:#ff9600!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(3) svg{color:#1cb0f6!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(4) svg{color:#ce82ff!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(5) svg{color:#ff4b4b!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(6) svg{color:#1cb0f6!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(7) svg{color:#58cc02!important}
+        .juba-reference-shell .juba-duo-nav-link:nth-child(n+8) svg{color:#8b95a1!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active svg{color:#58cc02!important}
+        .juba-reference-shell .juba-duo-nav-link.is-active{background:#eaf8e5!important}
+        .juba-reference-shell .juba-duo-resource-toggle{color:#8a9088!important;font-weight:800!important;letter-spacing:.08em!important}
+        .juba-reference-shell .juba-duo-user{background:#fff!important}
+        @media (min-width:901px){
+          .juba-reference-shell .juba-duo-page-frame{background:#f8faf7!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
