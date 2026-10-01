@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-2 px-5 py-3.5 transition-colors hover:bg-[var(--duo-bg)]">
+          <li key={i} className="group space-y-2 px-5 py-3 transition-colors hover:bg-[var(--duo-bg)]">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-page-hero">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
@@ -465,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-3 lg:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
