@@ -1277,7 +1277,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="juba-duo-mobile-bar fixed inset-x-0 top-0 z-50 border-b-2 border-[var(--duo-line)] bg-[var(--duo-bg)] shadow-[0_2px_0_var(--duo-line)]">
+      <div className="juba-duo-mobile-bar fixed inset-x-0 top-0 z-50 border-b border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
@@ -1413,7 +1413,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 {tNav('admin')}
               </Link>
             )}
-            <div className="mx-5 mt-2 border-t-2 border-[var(--duo-line)] pt-3">
+            <div className="mx-5 mt-2 border-t border-[var(--duo-line)] pt-3">
               <div className="mb-2 flex items-center gap-3">
                 <div className="border-[var(--duo-line)] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                   {user?.avatar ? (
