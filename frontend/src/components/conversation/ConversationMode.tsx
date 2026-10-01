@@ -119,7 +119,7 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-[10px] border px-3 py-2 rounded-[9px] px-2.5 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors ${
+        className={`flex min-h-9 w-full items-center justify-between rounded-[9px] border px-2.5 py-2 font-sans text-[0.68rem] font-semibold tracking-wide text-[var(--duo-muted)] uppercase transition-all ${
           alert
             ? 'border-[var(--duo-red)]/50 text-[var(--duo-red)] hover:border-[var(--duo-red)]'
             : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
@@ -130,7 +130,7 @@ function QuotaPill({
       </button>
 
       {open && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-[13px] border border-t-0 px-4 py-3 shadow-sm">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-[10px] border border-t-0 px-3 py-2.5 shadow-sm">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,14 +191,14 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[13px] border p-5 text-center shadow-sm">
-      <p className="text-[var(--duo-muted)] mb-2 font-sans tracking-wide uppercase">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[11px] border p-4 text-center shadow-sm sm:p-5">
+      <p className="mb-1.5 font-sans text-[0.68rem] font-semibold tracking-[0.06em] text-[var(--duo-muted)] uppercase">
         {tConversation('trialCtaLabel')}
       </p>
       <h2 className="text-[var(--duo-ink)] mb-2 font-sans text-base font-bold">
         {tConversation('trialCtaTitle')}
       </h2>
-      <p className="text-[var(--duo-muted)] mb-5 font-sans text-xs leading-relaxed">
+      <p className="mb-4 font-sans text-xs leading-relaxed text-[var(--duo-muted)]">
         {tConversation('trialCtaDesc')}
       </p>
       <div className="flex flex-col gap-3">
