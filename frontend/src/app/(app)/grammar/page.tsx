@@ -13,7 +13,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="juba-card group block rounded-[13px] border border-[var(--duo-line)] p-0 transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="juba-card group block rounded-[13px] border border-[var(--duo-line)] p-0 transition-all hover:-translate-y-0.5 hover:shadow-sm"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
