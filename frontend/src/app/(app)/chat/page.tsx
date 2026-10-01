@@ -656,7 +656,7 @@ export default function ChatPage() {
         .juba-mobile-chat>div.flex.flex-1>div:last-child{background:#fff!important;border-top:1px solid #edf1ea!important}
         @media (max-width:900px){.juba-mobile-chat{background:#fff!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#fff!important}}
 
-</style>
+      `}</style>
       <style>{`
         /* Reference fidelity pass 13 — compact chat proportions */
         .juba-mobile-chat .chat-conversations-sidebar{width:270px!important}
