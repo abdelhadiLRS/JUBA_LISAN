@@ -41,7 +41,7 @@ export function FreemiumQuotaBanner({
   if (trial) {
     return (
       <div
-        className={`juba-billing-quota flex items-center justify-between border px-3 py-2 text-xs ${className}`}
+        className={`juba-billing-quota flex min-h-10 items-center justify-between rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 text-xs shadow-sm ${className}`}
       >
         <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-muted)]">
           <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function FreemiumQuotaBanner({
   if (info.limit === 0) {
     return (
       <div
-        className={`border-[var(--duo-line)] bg-[var(--duo-card)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
+        className={`flex min-h-10 items-center justify-between rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 font-sans text-xs shadow-sm ${className}`}
       >
         <span className="font-semibold text-[var(--duo-muted)]">{info.label}</span>
         <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-green-dark)]">
