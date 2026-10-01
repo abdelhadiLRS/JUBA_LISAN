@@ -62,7 +62,7 @@ function QuotaBar({
         <>
           <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] h-1 flex-1 overflow-hidden rounded-full">
             <div
-              className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
+              className={`h-full transition-colors ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -119,7 +119,7 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`flex min-h-9 w-full items-center justify-between rounded-[9px] border px-2.5 py-2 font-sans text-[0.68rem] font-semibold tracking-wide text-[var(--duo-muted)] uppercase transition-all ${
+        className={`flex min-h-9 w-full items-center justify-between rounded-[9px] border px-2.5 py-2 font-sans text-[0.68rem] font-semibold tracking-wide text-[var(--duo-muted)] uppercase transition-colors ${
           alert
             ? 'border-[var(--duo-red)]/50 text-[var(--duo-red)] hover:border-[var(--duo-red)]'
             : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
