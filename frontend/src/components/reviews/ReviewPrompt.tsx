@@ -106,7 +106,7 @@ export function ReviewForm({
                 aria-checked={rating === value}
                 aria-label={`${value} ${t(value === 1 ? 'star' : 'stars')}`}
                 onClick={() => setRating(value)}
-                className={`border px-3 py-2 transition-colors ${
+                className={`rounded-[10px] border px-3 py-2 transition-colors ${
                   value <= rating
                     ? 'border-[var(--duo-yellow)] text-[var(--duo-yellow)]'
                     : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)]'
@@ -131,7 +131,7 @@ export function ReviewForm({
             onChange={(event) => setComment(event.target.value)}
             maxLength={2000}
             rows={4}
-            className="border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-purple)] w-full resize-none border px-3 py-2 font-mono text-sm outline-none"
+            className="border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] w-full resize-none rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 font-mono text-sm outline-none"
             placeholder={t('commentPlaceholder')}
           />
         </div>
@@ -144,7 +144,7 @@ export function ReviewForm({
           <button
             type="button"
             onClick={onCancel}
-            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
+            className="flex-1 rounded-[10px] border border-[var(--duo-line)] py-3 font-mono font-bold tracking-widest text-[var(--duo-muted)] uppercase transition-colors hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]"
           >
             {cancelLabel ?? t('cancel')}
           </button>
@@ -153,7 +153,7 @@ export function ReviewForm({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="bg-[var(--duo-yellow)] text-[var(--duo-ink)] hover:bg-[var(--duo-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+          className="flex flex-1 items-center justify-center gap-2 rounded-[10px] bg-[var(--duo-green)] py-3 font-mono font-bold tracking-widest text-white uppercase shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] disabled:opacity-60"
         >
           {submitting && <Loader2 className="size-3.5 animate-spin" />}
           {submitLabel ?? t('submit')}
@@ -206,9 +206,9 @@ export function ReviewPrompt({
   }
 
   return (
-    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-[color-mix(in_srgb,var(--duo-ink)_70%,transparent)] p-4 backdrop-blur-sm">
-      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-md border shadow-[0_8px_24px_var(--duo-line)]">
-        <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 py-4">
+    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-[color-mix(in_srgb,var(--duo-ink)_55%,transparent)] p-4 backdrop-blur-sm">
+      <div className="w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+        <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4">
           <div>
             <p className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('eyebrow')}
