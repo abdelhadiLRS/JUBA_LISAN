@@ -326,8 +326,8 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_4px_0_var(--duo-line)]'
-  const panelClass = 'rounded-[20px] border-2 border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]/45 p-4'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm'
+  const panelClass = 'rounded-[13px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]/45 p-4'
   const actionClass = 'w-full rounded-[14px] bg-[var(--duo-green)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--duo-green)] transition hover:-translate-y-0.5 hover:bg-[var(--duo-green)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
@@ -404,7 +404,7 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-5 flex items-center justify-between rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[var(--duo-ink)]">{currentLevel}</p>
