@@ -308,7 +308,7 @@ function ListeningPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="juba-mobile-listening mx-auto max-w-6xl px-4 py-6 md:px-8">
+      <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
@@ -557,7 +557,7 @@ function ListeningPage() {
   // ── Idle (no exercises available) ─────────────────────────────────────────
   if (pageState === 'idle') {
     return (
-      <div className="juba-mobile-listening mx-auto max-w-6xl px-4 py-6 md:px-8">
+      <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
