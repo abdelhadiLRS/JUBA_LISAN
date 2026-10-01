@@ -707,7 +707,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
+                    className="rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -831,16 +831,16 @@ export default function ChatPage() {
                       <Image
                         src="/logo_head.png"
                         alt="Tutor"
-                        width={28}
-                        height={28}
+                        width={32}
+                        height={32}
                         className="h-full w-full object-cover"
                       />
                     ) : user?.avatar ? (
                       <AuthAvatarImage
                         avatar={user.avatar}
                         alt=""
-                        width={28}
-                        height={28}
+                        width={32}
+                        height={32}
                         className="h-full w-full object-cover"
                         fallback={
                           <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
@@ -862,7 +862,7 @@ export default function ChatPage() {
                       </div>
                     )}
                   </div>
-                  <div className={`max-w-[75%] min-w-[10rem] text-left`}>
+                  <div className={`max-w-[72%] min-w-[8rem] text-left`}>
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
@@ -908,7 +908,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t-2 border-[var(--duo-line)] bg-[var(--duo-bg)]/70 shrink-0 px-4 py-4">
+          <div className="border-t border-[var(--duo-line)] bg-[var(--duo-bg)]/70 shrink-0 px-4 py-3">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -924,7 +924,7 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-sm transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
