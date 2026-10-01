@@ -88,9 +88,9 @@ export default function OnboardingTour() {
       />
 
       {/* Modal */}
-      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] relative z-10 w-full max-w-md border shadow-2xl">
+      <div className="relative z-10 w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         {/* Top bar */}
-        <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 pt-5 pb-4">
+        <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 pt-5 pb-4">
           {/* Progress dots */}
           <div className="flex gap-1.5">
             {Array.from({ length: totalSteps }).map((_, i) => (
@@ -104,7 +104,7 @@ export default function OnboardingTour() {
           </div>
           <button
             onClick={dismiss}
-            className="text-[var(--duo-muted)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-mono tracking-widest uppercase transition-colors"
+            className="font-mono tracking-widest text-[var(--duo-muted)] uppercase transition-colors hover:text-[var(--duo-ink)]"
           >
             {t('skip')}
           </button>
@@ -149,7 +149,7 @@ export default function OnboardingTour() {
           {isLast ? (
             <button
               onClick={dismiss}
-              className="text-[var(--duo-muted)] bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
+              className="rounded-[10px] bg-[var(--duo-green)] px-5 py-2 font-mono font-bold tracking-widest text-white uppercase shadow-sm transition-colors hover:bg-[var(--duo-green-dark)]"
             >
               {t('done')}
             </button>
