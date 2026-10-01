@@ -12,7 +12,7 @@ export interface TooltipPos { x: number; y: number }
 export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }: { word: string; pos: TooltipPos; saveState: SaveState; onSave: () => void; onDismiss: () => void; labels: { saveWord: string; wordSaved: string; wordSaveError: string } }) {
   return (
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 max-w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-full">
-      <div className="rounded-[13px] bg-[var(--duo-card)] flex max-w-full flex-wrap items-center gap-3 border border-[var(--duo-line)] px-3 py-2.5 text-xs shadow-sm">
+      <div className="rounded-[10px] bg-[var(--duo-card)] flex max-w-full flex-wrap items-center gap-3 border border-[var(--duo-line)] px-3 py-2.5 text-xs shadow-sm">
         <span className="text-[var(--duo-ink)] font-semibold">{word}</span>
         {saveState === 'idle' && <button type="button" onClick={onSave} className="inline-flex items-center gap-1.5 border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-green-dark)] hover:bg-[var(--duo-green)] rounded-[10px] px-2.5 py-1 shadow-sm text-[11px] font-semibold tracking-wide uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-1"><Save className="h-3.5 w-3.5" aria-hidden="true" />{labels.saveWord}</button>}
         {saveState === 'saving' && <span className="inline-flex items-center gap-1.5 text-[var(--duo-muted)] tracking-widest uppercase"><Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />Saving</span>}
