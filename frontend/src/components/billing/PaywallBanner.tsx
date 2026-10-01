@@ -158,7 +158,7 @@ export function PaywallBanner({
           <button
             onClick={handleManageBilling}
             disabled={portalLoading}
-            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-xl border-2 border-[var(--duo-ink)] px-4 py-3 shadow-[3px_3px_0_var(--duo-ink)] font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
+            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-xl border border-[var(--duo-ink)] px-4 py-3 shadow-[3px_3px_0_var(--duo-ink)] font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
@@ -185,7 +185,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('monthly')}
               disabled={loading !== null}
-              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full rounded-xl border-2 px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full rounded-xl border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'monthly'
                 ? '...'
