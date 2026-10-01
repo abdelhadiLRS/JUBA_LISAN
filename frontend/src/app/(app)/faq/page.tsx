@@ -105,18 +105,18 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="max-w-3xl space-y-2">
           <p className="juba-eyebrow">{t('title')}</p>
-          <h1 className="text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">
+          <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">
             {t('subtitle')}
           </h1>
         </div>
       </section>
 
       <section className="juba-card overflow-hidden transition-shadow duration-200">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">●</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
@@ -127,7 +127,7 @@ export default function FAQPage() {
           <div key={i} className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="flex w-full items-center justify-between px-5 py-3.5 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--duo-green-dark)]/30"
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--duo-green-dark)]/30"
             >
               <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
               <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
