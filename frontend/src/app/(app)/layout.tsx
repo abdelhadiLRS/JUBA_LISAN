@@ -446,6 +446,29 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-nav-link svg{width:16px!important;height:16px!important}
         }
         @media (max-width:900px){.juba-reference-shell .juba-duo-mobile-bar{height:54px!important;min-height:54px!important}}
+
+        /* Reference fidelity pass 11 — final optical alignment */
+        .juba-reference-shell .juba-duo-sidebar{width:216px!important;min-width:216px!important;flex-basis:216px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:78px!important;padding-inline:18px!important}
+        .juba-reference-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;font-size:11px!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{font-size:14px!important}
+        .juba-reference-shell .juba-duo-nav{padding:11px 8px!important}
+        .juba-reference-shell .juba-duo-nav-link{min-height:38px!important;padding:7px 10px!important;border-radius:8px!important;gap:10px!important;font-size:11.5px!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:17px!important;height:17px!important}
+        .juba-reference-shell .juba-duo-resource-toggle{min-height:34px!important;padding:7px 10px!important}
+        .juba-reference-shell .juba-duo-user{padding:10px 12px!important}
+        .juba-reference-shell .juba-duo-user-action{transition:color .16s ease,background-color .16s ease!important;border-radius:6px!important;padding:2px 4px!important}
+        .juba-reference-shell .juba-duo-user-action:hover{background:#f6fbf3!important;color:#58a91b!important}
+        .juba-reference-shell .juba-duo-main{background:#fff!important}
+        .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-reference-shell .juba-duo-sidebar{width:192px!important;min-width:192px!important;flex-basis:192px!important}
+          .juba-reference-shell .juba-duo-nav-link{font-size:10.5px!important;padding-inline:8px!important;gap:8px!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-shell .juba-duo-mobile-bar{height:54px!important;min-height:54px!important}
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
