@@ -85,8 +85,8 @@ export default function CoachPage() {
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
-    <main className="juba-mobile-coach min-h-screen bg-[var(--duo-bg)] px-4 py-8 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-7xl space-y-8">
+    <main className="juba-mobile-coach min-h-screen bg-[var(--duo-bg)] px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1480px] space-y-6">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-[var(--duo-green-dark)]">
@@ -103,14 +103,14 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
           </button>
         </header>
 
-        <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+        <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
               <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-[13px] bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-sm">
@@ -151,21 +151,21 @@ export default function CoachPage() {
           </div>
         </section>
 
-        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <CoachCard icon={<Mic />} title="Speak" value="10 min" detail="Build fluency with live correction." href="/conversation" />
           <CoachCard icon={<Volume2 />} title="Listen" value="8 min" detail="Train comprehension with targeted audio." href="/listening" />
           <CoachCard icon={<RefreshCw />} title="Review" value={`${Math.max(0, 15 - (plan.pending_count ?? 0))} cards`} detail="Refresh the words most likely to fade." href="/flashcards" />
           <CoachCard icon={<TrendingUp />} title="Progress" value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} words mastered so far.`} href="/progress" />
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
+        <section className="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
           <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Adaptive queue</p>
                 <h2 className="mt-1 text-2xl font-black text-[var(--duo-ink)]">Your best work for today</h2>
               </div>
-              <span className="rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-bold text-[var(--duo-muted)]">{completed}/{total} complete</span>
+              <span className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-bold text-[var(--duo-muted)]">{completed}/{total} complete</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
