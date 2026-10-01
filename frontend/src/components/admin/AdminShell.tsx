@@ -42,9 +42,9 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="juba-admin-panel rounded-[26px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
+    <div className="juba-admin-panel rounded-[13px] border border-[#e9eee5] bg-white shadow-sm">
       {(title || meta) && (
-        <div className="juba-admin-panel-head border-[var(--duo-line)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
+        <div className="juba-admin-panel-head border-[#e9eee5] flex flex-wrap items-center gap-2 border-b px-5 py-3.5">
           {title && (
             <>
               <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
@@ -71,7 +71,7 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="juba-admin-metric rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)] flex items-center justify-between gap-3 border px-4 py-3">
+    <div className="juba-admin-metric rounded-[13px] border border-[#e9eee5] bg-white shadow-sm flex items-center justify-between gap-3 px-4 py-3">
       <div className="min-w-0">
         <p className="juba-admin-metric-label text-[10px] text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
           {label}
@@ -100,7 +100,7 @@ export function AdminBadge({
 
   return (
     <span
-      className={`juba-admin-badge text-[10px] inline-flex border px-2 py-0.5 font-sans tracking-widest uppercase ${toneClass}`}
+      className={`juba-admin-badge text-[10px] inline-flex rounded-[7px] border px-2 py-0.5 font-sans tracking-widest uppercase ${toneClass}`}
     >
       {children}
     </span>
