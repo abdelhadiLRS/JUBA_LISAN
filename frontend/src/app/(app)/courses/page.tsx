@@ -122,14 +122,14 @@ export default function CoursesPage() {
 
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="mx-auto w-full max-w-[1480px] space-y-6">
+      <div className="mx-auto w-full max-w-[1480px] space-y-5">
         <section className="juba-page-hero relative overflow-hidden p-5 sm:p-6">
           <div className="relative z-10 max-w-4xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-2 text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">Learn language you can actually use.</h1>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--duo-muted)]">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-5 flex flex-wrap gap-2.5">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[10px] bg-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[9px] bg-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition">Continue journey <ArrowRight className="h-4 w-4" /></Link>
               <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)]">Find my level</Link>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function CoursesPage() {
 
         <section className="grid gap-3 md:grid-cols-3">
           {skills.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="juba-card rounded-[13px] p-5">
+            <div key={title} className="juba-card p-5">
               <div className="flex h-11 w-11 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-5 w-5" /></div>
               <h2 className="mt-4 text-xl font-black text-[var(--duo-ink)]">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">{text}</p>
@@ -154,7 +154,7 @@ export default function CoursesPage() {
 
           {loading ? (
             <div className="grid gap-4 lg:grid-cols-2" aria-label="Loading courses">
-              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[13px] p-6" />)}
+              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse p-6" />)}
             </div>
           ) : (
             <div className="grid gap-5 lg:grid-cols-2">
@@ -172,7 +172,7 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative rounded-[13px] p-6 transition hover:-translate-y-0.5 ${current ? 'ring-1 ring-[var(--duo-green)]' : ''}`}>
+                  <article key={level} className={`juba-card relative rounded-[13px] p-6 transition  ${current ? 'ring-1 ring-[var(--duo-green)]' : ''}`}>
                     {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-sm">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">{LEVEL_META[level].title}</h3></div>
