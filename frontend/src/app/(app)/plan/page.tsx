@@ -320,7 +320,7 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[22px] border-2 border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-7 text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)] sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[13px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-7 text-[var(--duo-ink)] shadow-sm sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
@@ -340,15 +340,15 @@ export default function PlanPage() {
             {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-[10px] bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
               <p className="mt-0.5 text-xl font-black">{units.length}</p>
             </div>
-            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-[10px] bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
               <p className="mt-0.5 text-xl font-black">{pendingLessons.length}</p>
             </div>
-            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-[10px] bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('level')}</p>
               <p className="mt-0.5 text-xl font-black">{Math.round((competencies[currentUnitId] ?? 0) * 100)}%</p>
             </div>
@@ -358,7 +358,7 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[20px] bg-[var(--duo-green)] px-5 py-5 shadow-[0_3px_0_var(--duo-line)] sm:px-7">
+        <section className="relative overflow-hidden rounded-[13px] bg-[var(--duo-green)] px-5 py-5 shadow-sm sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-ink)]">{t('learningRoadmap')}</p>
@@ -367,7 +367,7 @@ export default function PlanPage() {
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-2xl border-[3px] border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-6 py-3 text-sm font-black text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-green-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+              className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-6 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-1"
             >
               {t('resume')} →
             </button>
@@ -390,7 +390,7 @@ export default function PlanPage() {
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-[0_3px_0_var(--duo-line)] transition-all hover:-translate-y-1 hover:border-[var(--duo-green)]"
+                className="group flex items-center gap-4 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
               >
                 <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'} text-[var(--duo-ink)]`}>
                   {String(i + 1).padStart(2, '0')}
@@ -416,7 +416,7 @@ export default function PlanPage() {
         <div className="relative space-y-4">
           <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] sm:block" />
           {units.length === 0 && (
-            <div className="rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-12 text-center shadow-[0_3px_0_var(--duo-line)]">
+            <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-12 text-center shadow-sm">
               <p className="text-sm font-black text-[var(--duo-muted)]">{t('noUnitsForLevel', { level })}</p>
               <p className="mt-2 text-xs font-medium text-[var(--duo-muted)]">{t('noUnitsDesc')}</p>
             </div>
@@ -476,7 +476,7 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-[0_3px_0_var(--duo-line)] sm:px-7">
+        <section className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[var(--duo-muted)]">
             {t('testScore')} <span className="font-black text-[var(--duo-ink)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
