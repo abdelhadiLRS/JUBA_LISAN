@@ -671,6 +671,166 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell [class*="juba-mobile-"]{background:#fff!important}
         }
 
+
+        /* Reference fidelity pass 15 — inner-page system, headers, controls and states */
+        .juba-reference-shell [class*="juba-mobile-"]{
+          --juba-page-bg:#f8faf7;
+          --juba-page-card:#fff;
+          --juba-page-border:#e9eee5;
+          color:var(--duo-ink);
+        }
+        .juba-reference-shell .juba-mobile-courses,
+        .juba-reference-shell .juba-mobile-grammar,
+        .juba-reference-shell .juba-mobile-vocabulary,
+        .juba-reference-shell .juba-mobile-translator,
+        .juba-reference-shell .juba-mobile-listening,
+        .juba-reference-shell .juba-mobile-reading,
+        .juba-reference-shell .juba-mobile-settings,
+        .juba-reference-shell .juba-mobile-friends{
+          max-width:1480px!important;
+          margin-inline:auto!important;
+          padding-top:24px!important;
+          padding-bottom:32px!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .juba-card,
+        .juba-reference-shell [class*="juba-mobile-"] .juba-panel{
+          background:#fff!important;
+          border:1px solid #e9eee5!important;
+          border-radius:13px!important;
+          box-shadow:0 1px 3px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] h1{
+          letter-spacing:-.035em!important;
+          line-height:1.08!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] h2,
+        .juba-reference-shell [class*="juba-mobile-"] h3{
+          letter-spacing:-.025em!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] input,
+        .juba-reference-shell [class*="juba-mobile-"] select,
+        .juba-reference-shell [class*="juba-mobile-"] textarea{
+          border:1px solid #e3e9df!important;
+          border-radius:10px!important;
+          background:#fff!important;
+          box-shadow:none!important;
+          transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] input:focus,
+        .juba-reference-shell [class*="juba-mobile-"] select:focus,
+        .juba-reference-shell [class*="juba-mobile-"] textarea:focus{
+          border-color:#58cc02!important;
+          box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;
+          outline:none!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] button:not([aria-label*="menu"]){
+          transition:transform .16s ease,background-color .16s ease,border-color .16s ease,box-shadow .16s ease,color .16s ease!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] button:not(:disabled):hover{
+          transform:translateY(-1px);
+        }
+        .juba-reference-shell [class*="juba-mobile-"] button:disabled{
+          cursor:not-allowed!important;
+        }
+        .juba-reference-shell [class*="juba-mobile-"] .juba-eyebrow{
+          color:#58a91b!important;
+          font-size:10px!important;
+          font-weight:850!important;
+          letter-spacing:.12em!important;
+        }
+        .juba-reference-shell .juba-mobile-grammar,
+        .juba-reference-shell .juba-mobile-vocabulary{
+          gap:24px!important;
+        }
+        .juba-reference-shell .juba-mobile-grammar .juba-card:first-child,
+        .juba-reference-shell .juba-mobile-vocabulary > .juba-card:first-child{
+          overflow:hidden!important;
+        }
+        .juba-reference-shell .juba-mobile-grammar .juba-card:first-child > div:first-child,
+        .juba-reference-shell .juba-mobile-vocabulary .juba-card > div:first-child{
+          border-color:#edf1ea!important;
+        }
+        .juba-reference-shell .juba-mobile-grammar .juba-card a,
+        .juba-reference-shell .juba-mobile-vocabulary .juba-card a{
+          text-decoration:none!important;
+        }
+        .juba-reference-shell .juba-mobile-grammar .juba-card:hover,
+        .juba-reference-shell .juba-mobile-vocabulary .juba-card:hover,
+        .juba-reference-shell .juba-mobile-friends .juba-card:hover{
+          border-color:#dfe8d9!important;
+          box-shadow:0 4px 12px rgba(35,55,25,.06)!important;
+        }
+        .juba-reference-shell .juba-mobile-listening,
+        .juba-reference-shell .juba-mobile-reading{
+          padding-inline:24px!important;
+        }
+        .juba-reference-shell .juba-mobile-listening .juba-panel,
+        .juba-reference-shell .juba-mobile-reading .juba-panel{
+          border-radius:13px!important;
+          border:1px solid #e9eee5!important;
+          box-shadow:0 1px 3px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-mobile-listening [class*="rounded-["],
+        .juba-reference-shell .juba-mobile-reading [class*="rounded-["]{
+          border-radius:13px!important;
+        }
+        .juba-reference-shell .juba-mobile-settings{
+          padding-top:24px!important;
+        }
+        .juba-reference-shell .juba-mobile-settings > *{
+          min-width:0!important;
+        }
+        .juba-reference-shell .juba-mobile-settings .juba-panel{
+          overflow:hidden!important;
+        }
+        .juba-reference-shell .juba-mobile-settings button,
+        .juba-reference-shell .juba-mobile-settings a{
+          min-height:40px;
+        }
+        .juba-reference-shell .juba-mobile-friends{
+          padding-inline:24px!important;
+        }
+        .juba-reference-shell .juba-mobile-friends input{
+          min-height:42px!important;
+        }
+        .juba-reference-shell .juba-mobile-friends [class*="rounded-[20px]"]{
+          border-radius:13px!important;
+          box-shadow:0 1px 3px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-mobile-translator .juba-card{
+          border-radius:13px!important;
+        }
+        .juba-reference-shell .juba-mobile-translator textarea,
+        .juba-reference-shell .juba-mobile-translator select{
+          border-width:1px!important;
+        }
+        .juba-reference-shell .juba-mobile-translator > section:first-child{
+          min-height:132px!important;
+        }
+        .juba-reference-shell .juba-mobile-translator button{
+          border-radius:10px!important;
+        }
+        @media (max-width:900px){
+          .juba-reference-shell [class*="juba-mobile-"]{
+            background:#fff!important;
+            padding-inline:14px!important;
+            padding-top:18px!important;
+            padding-bottom:24px!important;
+          }
+          .juba-reference-shell .juba-mobile-listening,
+          .juba-reference-shell .juba-mobile-reading,
+          .juba-reference-shell .juba-mobile-friends{
+            padding-inline:14px!important;
+          }
+          .juba-reference-shell [class*="juba-mobile-"] h1{
+            font-size:32px!important;
+          }
+          .juba-reference-shell [class*="juba-mobile-"] .juba-card,
+          .juba-reference-shell [class*="juba-mobile-"] .juba-panel{
+            border-radius:12px!important;
+          }
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
