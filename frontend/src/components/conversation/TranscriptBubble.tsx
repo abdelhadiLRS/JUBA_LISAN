@@ -27,24 +27,24 @@ export default function TranscriptBubble({
 
   return (
     <div
-      className={`flex items-end gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+      className={`flex items-end gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
       {/* Avatar */}
-      <div className="relative mb-0.5 flex-shrink-0">
+      <div className="relative mb-0 flex-shrink-0">
         <span
-          className={`pointer-events-none absolute inset-[-5px] rounded-full border transition-[border-color,opacity] duration-700 ${
+          className={`pointer-events-none absolute inset-[-4px] rounded-full border transition-[border-color,opacity] duration-700 ${
             speaking
               ? 'border-[color-mix(in_srgb,var(--duo-green)_65%,transparent)] animate-halo-speaking'
               : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="h-8 w-8 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-sm">
+        <div className="h-[30px] w-[30px] overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-sm">
           {!isUser ? (
             <Image
               src="/logo_head.png"
               alt="Tutor"
-              width={32}
-              height={32}
+              width={30}
+              height={30}
               className="h-full w-full object-cover"
             />
           ) : userAvatar ? (
@@ -73,15 +73,15 @@ export default function TranscriptBubble({
       </div>
 
       <div
-        className={`flex max-w-[82%] flex-col gap-1 sm:max-w-[72%] ${isUser ? 'items-end' : 'items-start'}`}
+        className={`flex max-w-[80%] flex-col gap-0.5 sm:max-w-[70%] ${isUser ? 'items-end' : 'items-start'}`}
       >
-        <span className="text-[var(--duo-muted)] font-sans text-[11px] font-bold tracking-wide uppercase">
+        <span className="text-[var(--duo-muted)] font-sans text-[10px] font-bold tracking-wide uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`rounded-[11px] border px-3.5 py-2.5 leading-relaxed break-words shadow-sm ${
+          className={`rounded-[10px] border px-3 py-2 leading-relaxed break-words shadow-sm ${
             isUser
               ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)]'
               : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
