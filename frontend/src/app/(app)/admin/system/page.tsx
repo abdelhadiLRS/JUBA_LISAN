@@ -195,22 +195,22 @@ export default function AdminSystemPage() {
   const sourceComplete = Object.values(source).every((value) => value.trim())
 
   return (
-    <div className="juba-admin-system-shell mx-auto max-w-6xl space-y-4 p-4 sm:p-6">
-      <AdminPageHeader
+    <div className="juba-admin-system-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-reference-hero"><AdminPageHeader
         eyebrow={`${t('title')} / ${t('system')}`}
         title={t('system')}
-      />
+      /></div>
 
       <AdminNav />
 
       {maintenanceError && (
-        <div className="border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
+        <div className="juba-reference-list-card border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {maintenanceError}
         </div>
       )}
 
       <div
-        className={`juba-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[rgba(7,7,9,.08)] bg-[#fff]'}`}
+        className={`juba-reference-list-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[rgba(7,7,9,.08)] bg-[#fff]'}`}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
@@ -241,11 +241,11 @@ export default function AdminSystemPage() {
           <button
             onClick={toggleMaintenance}
             disabled={maintenanceLoading}
-            className={`inline-flex shrink-0 items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors ${
+            className={`juba-primary-button inline-flex shrink-0 items-center justify-center gap-2 disabled:opacity-50 ${
               maintenanceMode
                 ? 'bg-[#202127] text-white hover:opacity-90'
                 : 'bg-[#5862e2] text-white hover:bg-[#5862e2]/90'
-            } disabled:opacity-50`}
+            }`}
           >
             {maintenanceLoading && (
               <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
@@ -255,7 +255,7 @@ export default function AdminSystemPage() {
         </div>
       </div>
 
-      <section className="juba-card border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
+      <section className="juba-reference-list-card border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
         <div className="border-[rgba(7,7,9,.08)] mb-5 flex gap-3 border-b pb-4">
           <Megaphone
             className="text-[#5862e2] mt-0.5 size-5 shrink-0"
@@ -287,7 +287,7 @@ export default function AdminSystemPage() {
               </p>
             )}
             {bannerSuccess && (
-              <p className="border-[#5862e2]/30 text-[#5862e2] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
+              <p className="juba-reference-list-card border-[#5862e2]/30 text-[#5862e2] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
                 {bannerSuccess}
               </p>
             )}
@@ -302,7 +302,7 @@ export default function AdminSystemPage() {
                   onChange={(event) =>
                     setSourceLocale(event.target.value as BannerLocale)
                   }
-                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2"
+                  className="juba-input w-full"
                 >
                   {BANNER_LOCALES.map((locale) => (
                     <option key={locale} value={locale}>
@@ -343,7 +343,7 @@ export default function AdminSystemPage() {
                     }))
                   }
                   maxLength={160}
-                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2 font-sans text-sm"
+                  className="juba-input w-full"
                 />
               </label>
               <label className="space-y-2 font-sans text-xs">
@@ -376,7 +376,7 @@ export default function AdminSystemPage() {
                   }
                   maxLength={2000}
                   rows={5}
-                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full resize-y border px-3 py-2 font-sans text-sm"
+                  className="juba-input min-h-28 w-full resize-y"
                 />
               </label>
               <div>
@@ -384,7 +384,7 @@ export default function AdminSystemPage() {
                   type="button"
                   onClick={translateBanner}
                   disabled={translating || !sourceComplete}
-                  className="bg-[#5862e2] text-fl-bg hover:bg-[#5862e2] inline-flex items-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                  className="juba-primary-button inline-flex items-center gap-2 disabled:opacity-40"
                 >
                   {translating && (
                     <Loader2
@@ -409,7 +409,7 @@ export default function AdminSystemPage() {
                       onChange={(event) =>
                         setEditorLocale(event.target.value as BannerLocale)
                       }
-                      className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] min-w-52 border px-3 py-2"
+                      className="juba-input min-w-52"
                     >
                       {BANNER_LOCALES.map((locale) => {
                         const complete = Object.values(
@@ -499,7 +499,7 @@ export default function AdminSystemPage() {
                     disabled={
                       saving || completedLocales !== BANNER_LOCALES.length
                     }
-                    className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex items-center justify-center gap-2 px-5 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                    className="juba-primary-button inline-flex items-center justify-center gap-2 disabled:opacity-40"
                   >
                     {saving && (
                       <Loader2
