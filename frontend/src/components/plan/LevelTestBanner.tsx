@@ -14,7 +14,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
   const router = useRouter()
 
   return (
-    <div className="mt-2 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+    <div className="mt-2 overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
       <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4 sm:px-6">
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]">
           <Award className="h-4.5 w-4.5" aria-hidden="true" />
@@ -35,7 +35,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
         <button
           type="button"
           onClick={() => router.push(`/assessment/level-test?plan=${planId}`)}
-          className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
+          className="rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
         >
           {t('beginLevelTest')} →
         </button>
