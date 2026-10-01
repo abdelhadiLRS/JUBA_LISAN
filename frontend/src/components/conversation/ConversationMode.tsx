@@ -119,7 +119,7 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-[10px] border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
+        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-[10px] border px-3 py-2 rounded-[9px] px-2.5 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors ${
           alert
             ? 'border-[var(--duo-red)]/50 text-[var(--duo-red)] hover:border-[var(--duo-red)]'
             : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
@@ -1026,14 +1026,14 @@ export default function ConversationMode({
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="juba-duo-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-3 sm:p-4 md:p-6">
+    <div className="juba-duo-conversation-shell mx-auto flex h-full w-full max-w-[1480px] flex-col overflow-hidden px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Header */}
-      <div className="border-[var(--duo-line)] mb-6 flex items-end justify-between border-b pb-4">
+      <div className="border-[var(--duo-line)] mb-5 flex min-h-[60px] items-end justify-between border-b pb-3">
         <div>
-          <p className="text-[var(--duo-muted)] mb-1 font-sans tracking-wide uppercase">
+          <p className="text-[var(--duo-muted)] mb-1 font-sans text-[11px] font-semibold tracking-[0.12em] uppercase">
             {t('subtitle')}
           </p>
-          <h1 className="text-[var(--duo-ink)] font-sans text-2xl font-bold tracking-tight">
+          <h1 className="text-[var(--duo-ink)] font-sans text-xl font-bold tracking-tight sm:text-2xl">
             {t('title')}
           </h1>
         </div>
@@ -1058,7 +1058,7 @@ export default function ConversationMode({
       <MemorySavedToast visible={memoryToast} announcementId={memoryToastId} />
 
       {/* Transcript area */}
-      <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto px-1 sm:px-2">
+      <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
           <p className="text-[var(--duo-muted)] py-8 text-center font-sans">
             {t('tapToStart')}
@@ -1114,8 +1114,8 @@ export default function ConversationMode({
       {!trialMode &&
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
-          <div className="mb-4">
-            <p className="text-[var(--duo-muted)] mb-3 text-center font-sans tracking-wide uppercase">
+          <div className="mb-4 rounded-[11px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-3">
+            <p className="text-[var(--duo-muted)] mb-2.5 text-center font-sans text-[11px] font-semibold tracking-[0.1em] uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[10px] border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[9px] border px-3 py-1.5 font-sans text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
@@ -1140,7 +1140,7 @@ export default function ConversationMode({
         )}
 
       {/* Controls */}
-      <div className="flex flex-col items-center gap-4 pb-2">
+      <div className="flex flex-col items-center gap-3 pb-1">
         {/* Timeout warning */}
         {warningSeconds !== null && (
           <div className="w-full">
