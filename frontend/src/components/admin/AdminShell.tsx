@@ -42,7 +42,7 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="juba-admin-panel rounded-[13px] border border-[#e9eee5] bg-white shadow-sm">
+    <div className="juba-admin-panel rounded-[10px] border border-[#e9eee5] bg-white shadow-sm">
       {(title || meta) && (
         <div className="juba-admin-panel-head border-[#e9eee5] flex flex-wrap items-center gap-2 border-b px-5 py-3.5">
           {title && (
@@ -71,7 +71,7 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="juba-admin-metric rounded-[13px] border border-[#e9eee5] bg-white shadow-sm flex items-center justify-between gap-3 px-4 py-3">
+    <div className="juba-admin-metric rounded-[10px] border border-[#e9eee5] bg-white shadow-sm flex items-center justify-between gap-3 px-4 py-3">
       <div className="min-w-0">
         <p className="juba-admin-metric-label text-[10px] text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
           {label}
