@@ -362,7 +362,6 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-friend-copy small{font-size:8px!important;color:#aaa!important}
         @media (max-width:1180px){.juba-mobile-chat .juba-chat-profile-rail{width:245px!important}}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}}
-      `}
 
         /* Reference fidelity pass 5 — chat finishing */
         .juba-mobile-chat .chat-conversations-sidebar{overflow:hidden!important}
