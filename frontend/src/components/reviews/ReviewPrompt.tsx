@@ -207,7 +207,7 @@ export function ReviewPrompt({
 
   return (
     <div className="fixed inset-0 z-[180] flex items-center justify-center bg-[color-mix(in_srgb,var(--duo-ink)_55%,transparent)] p-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+      <div className="w-full max-w-md rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4">
           <div>
             <p className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
