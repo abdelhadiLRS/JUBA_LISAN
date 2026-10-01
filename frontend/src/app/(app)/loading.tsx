@@ -28,7 +28,7 @@ export default function AppLoading() {
 
         <main aria-busy="true" className="min-h-screen bg-duo-bg px-3 py-5 sm:px-6 sm:py-8">
           <div className="mx-auto max-w-6xl space-y-5">
-            <section className="rounded-[13px] border border-duo-line bg-white p-5 sm:p-7">
+            <section className="rounded-[10px] border border-duo-line bg-white p-5 sm:p-7">
               <div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-28 rounded-lg" />
               <div className="juba-loading-pill bg-duo-bg animate-pulse mt-3 h-8 w-2/3 max-w-md rounded-lg" />
               <div className="juba-loading-pill bg-duo-bg animate-pulse mt-3 h-4 w-full max-w-xl rounded-lg" />
@@ -39,23 +39,23 @@ export default function AppLoading() {
             </section>
 
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
-              <section className="rounded-[13px] border border-duo-line bg-white p-5 sm:p-7">
+              <section className="rounded-[10px] border border-duo-line bg-white p-5 sm:p-7">
                 <div className="flex items-center justify-between gap-3"><div className="juba-loading-pill bg-duo-bg animate-pulse h-5 w-32 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-16 rounded-lg" /></div>
                 <div className="mt-5 h-2 overflow-hidden rounded-[10px] bg-duo-bg"><div className="juba-loading-pill bg-duo-green/20 animate-pulse h-full w-1/3 rounded-[10px]" /></div>
                 <div className="mt-5 space-y-4">
-                  <div className="flex items-center gap-4 rounded-[13px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-3/5 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
-                  <div className="flex items-center gap-4 rounded-[13px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-2/3 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-1/2 rounded-lg" /></div></div>
-                  <div className="flex items-center gap-4 rounded-[13px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-1/2 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
+                  <div className="flex items-center gap-4 rounded-[10px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-3/5 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
+                  <div className="flex items-center gap-4 rounded-[10px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-2/3 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-1/2 rounded-lg" /></div></div>
+                  <div className="flex items-center gap-4 rounded-[10px] border border-duo-line p-4"><div className="juba-loading-pill bg-duo-bg animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-duo-bg animate-pulse h-4 w-1/2 rounded-lg" /><div className="juba-loading-pill bg-duo-bg animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
                 </div>
               </section>
 
               <aside className="space-y-4">
-                <div className="rounded-[13px] border border-duo-line bg-white p-5">
+                <div className="rounded-[10px] border border-duo-line bg-white p-5">
                   <div className="juba-loading-pill bg-duo-bg animate-pulse h-5 w-28 rounded-lg" />
                   <div className="juba-loading-pill bg-duo-bg animate-pulse mt-4 h-3 w-full rounded-lg" />
                   <div className="juba-loading-pill bg-duo-bg animate-pulse mt-2 h-3 w-4/5 rounded-lg" />
                 </div>
-                <div className="rounded-[13px] border border-duo-line bg-white p-5">
+                <div className="rounded-[10px] border border-duo-line bg-white p-5">
                   <div className="juba-loading-pill bg-duo-bg animate-pulse h-5 w-36 rounded-lg" />
                   <div className="juba-loading-pill bg-duo-bg animate-pulse mt-4 h-3 w-full rounded-lg" />
                   <div className="juba-loading-pill bg-duo-bg animate-pulse mt-2 h-3 w-3/5 rounded-lg" />
