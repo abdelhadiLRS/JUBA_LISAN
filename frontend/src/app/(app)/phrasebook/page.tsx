@@ -383,7 +383,7 @@ export default function PhrasebookPage() {
             {t('title')}
           </span>
         </div>
-        <div className="space-y-5 px-5 py-5">
+        <div className="space-y-4 px-5 py-5">
           <p className="max-w-3xl text-[var(--duo-muted)] font-sans text-sm leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
@@ -434,7 +434,7 @@ export default function PhrasebookPage() {
                   onClick={() => setActiveRegister(reg)}
                   className={`text-[var(--duo-ink)] rounded-[10px] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
-                      ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
+                      ? 'border-[var(--duo-green-dark)] bg-[var(--duo-green-dark)] text-white'
                       : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
