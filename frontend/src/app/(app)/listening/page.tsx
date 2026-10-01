@@ -324,7 +324,7 @@ function ListeningPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="juba-panel rounded-[13px] p-6 text-center">
+          <div className="juba-panel rounded-[12px] p-6 text-center">
             <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
@@ -413,7 +413,7 @@ function ListeningPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="juba-mobile-listening mx-auto max-w-6xl space-y-5 px-4 py-6 md:px-8">
+      <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
         <div className="juba-panel rounded-[13px] p-5">
           <div className="flex items-center justify-between">
