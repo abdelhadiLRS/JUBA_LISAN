@@ -88,7 +88,7 @@ export default function OnboardingTour() {
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+      <div className="relative z-10 w-full max-w-md rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         {/* Top bar */}
         <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 pt-5 pb-4">
           {/* Progress dots */}
@@ -112,7 +112,7 @@ export default function OnboardingTour() {
 
         {/* Step content */}
         <div
-          className={`px-6 py-7 transition-all duration-150 ${
+          className={`px-6 py-7 transition-colors duration-150 ${
             leaving
               ? dir === 'next'
                 ? '-translate-x-3 opacity-0'
