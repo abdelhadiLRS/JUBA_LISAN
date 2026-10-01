@@ -103,7 +103,7 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 juba-secondary-button disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -113,7 +113,7 @@ export default function CoachPage() {
         <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-[13px] bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-sm">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-[10px] bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-sm">
                 <Sparkles className="h-10 w-10" />
                 <span className="absolute -end-1 -top-1 h-4 w-4 rounded-full border border-white bg-[var(--duo-yellow)]" />
               </div>
@@ -124,10 +124,10 @@ export default function CoachPage() {
                   Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[13px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[10px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[13px] border border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
+                  <Link href="/plan" className="juba-secondary-button">
                     View my plan
                   </Link>
                 </div>
@@ -169,8 +169,8 @@ export default function CoachPage() {
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] ${lesson.is_completed ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition hover:border-[var(--duo-green-dark)]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] ${lesson.is_completed ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -180,7 +180,7 @@ export default function CoachPage() {
                   <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[13px] border border-dashed border-[var(--duo-line)] p-6 text-center text-sm text-[var(--duo-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[10px] border border-dashed border-[var(--duo-line)] p-6 text-center text-sm text-[var(--duo-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
             </div>
           </div>
 
@@ -190,7 +190,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[13px] border border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[10px] border border-[var(--duo-line)] p-4 transition hover:border-[var(--duo-green-dark)] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--duo-ink)]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--duo-muted)]">{scenario.desc}</p>
@@ -211,7 +211,7 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-3">
+    <div className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-3">
       <div className="mb-2 h-4 w-4 text-[var(--duo-green-dark)]">{icon}</div>
       <p className="text-lg font-black text-[var(--duo-ink)]">{value}</p>
       <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--duo-muted)]">{label}</p>
@@ -223,7 +223,7 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
       </div>
       <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--duo-muted)]">{title}</p>
