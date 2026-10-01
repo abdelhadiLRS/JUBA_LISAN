@@ -101,7 +101,7 @@ export default function MyLanguagesPage() {
   const hasMultiple = userLanguages.length > 1
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
@@ -126,7 +126,7 @@ export default function MyLanguagesPage() {
       </nav>
 
       {/* Header + Add button */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="juba-reference-hero mb-6 flex items-center justify-between">
         <h1 className="text-[var(--juba-text)] font-mono text-xl font-bold tracking-widest uppercase">
           {t('myLanguages')}
         </h1>
@@ -166,7 +166,7 @@ export default function MyLanguagesPage() {
               return (
                 <div
                   key={ulang.target_language}
-                  className={`bg-white border p-5 ${
+                  className={`juba-reference-list-card bg-white border p-5 ${
                     isActive ? 'border-[var(--juba-violet)]/50' : 'border-[var(--juba-lilac)]'
                   }`}
                 >
@@ -260,7 +260,7 @@ export default function MyLanguagesPage() {
       {/* Add language modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] w-full max-w-lg border p-6 shadow-xl">
+          <div className="juba-reference-list-card bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] w-full max-w-lg border p-6 shadow-sm">
             <h2 className="text-[var(--juba-text)] mb-4 font-mono text-sm font-bold tracking-widest uppercase">
               {t('selectLanguage')}
             </h2>
