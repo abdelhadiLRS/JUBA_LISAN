@@ -80,21 +80,21 @@ function CategoryCard({
   }
 
   return (
-    <div className="juba-panel p-0">
-      <div className="border-[var(--duo-line)] flex items-center gap-3 border-b px-5 py-4">
+    <div className="juba-card overflow-hidden p-0">
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
         <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--duo-line)] text-base">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="text-[var(--duo-ink)] truncate font-sans text-sm font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-[var(--duo-line)] text-[var(--duo-muted)] shrink-0 rounded-[10px] border px-2.5 py-1 font-sans text-[10px] font-bold tracking-widest uppercase">
+        <span className="shrink-0 rounded-[10px] border border-[var(--duo-line)] px-2.5 py-1 font-sans text-[10px] font-bold tracking-widest uppercase text-[var(--duo-muted)]">
           {cat.level}
         </span>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-[var(--duo-line)] border-b px-5 py-3">
+        <div className="border-b border-[var(--duo-line)] px-5 py-3">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
@@ -138,7 +138,7 @@ function CategoryCard({
 
                   {nativeHelp.register_notes.length > 0 && (
                     <div className="border-[var(--duo-line)] space-y-1 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+                      <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                         {tCommon('nativeHelpRegisterNotes')}
                       </p>
                       {nativeHelp.register_notes.map((note, i) => (
@@ -151,7 +151,7 @@ function CategoryCard({
 
                   {nativeHelp.phrase_notes.length > 0 && (
                     <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+                      <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                         {tCommon('nativeHelpPhraseNotes')}
                       </p>
                       {nativeHelp.phrase_notes.map((item, i) => (
@@ -170,7 +170,7 @@ function CategoryCard({
 
                   {nativeHelp.common_traps.length > 0 && (
                     <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+                      <p className="font-sans text-xs font-bold tracking-widest uppercase text-[var(--duo-ink)]">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
@@ -186,7 +186,7 @@ function CategoryCard({
 
                   {nativeHelp.mini_glossary.length > 0 && (
                     <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+                      <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
@@ -285,7 +285,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] px-1 font-sans transition-colors"
+      className="rounded-[8px] px-2 py-1 font-sans text-xs text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)] hover:text-[var(--duo-ink)]"
       title="Copy"
       aria-label="Copy phrase"
     >
@@ -363,9 +363,9 @@ export default function PhrasebookPage() {
 
   return (
     <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <div className="juba-panel">
-        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-4">
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
+      <div className="juba-card overflow-hidden">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] px-5 py-4">
+          <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
@@ -434,7 +434,7 @@ export default function PhrasebookPage() {
       </div>
 
       {hasActiveFilters && (
-        <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans">
+        <p className="font-sans text-xs text-[var(--duo-muted)]">
           {t('situationsShown', { count: filteredCategories.length })}
         </p>
       )}
@@ -445,7 +445,7 @@ export default function PhrasebookPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[var(--duo-ink)] font-sans text-base font-bold tracking-widest">
+              <span className="font-sans text-sm font-bold tracking-widest text-[var(--duo-ink)]">
                 {level}
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
