@@ -23,7 +23,7 @@ const CulturalMap: React.FC = () => {
         {regions.map((region, index) => (
           <motion.div
             key={region.name}
-            className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 text-[var(--duo-ink)] shadow-sm transition-shadow hover:shadow-md"
+            className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 text-[var(--duo-ink)] shadow-sm transition-shadow hover:shadow-md"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.08, duration: 0.3 }}
@@ -53,7 +53,7 @@ const CulturalMap: React.FC = () => {
         ))}
       </div>
 
-      <motion.div className="mt-6 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div className="mt-6 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <div className="flex items-start gap-3">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-yellow)_24%,transparent)] text-lg">💡</span>
           <div>
