@@ -97,7 +97,7 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
+                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[13px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
               >
                 {tCommon('logout')}
               </button>
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  className="w-full rounded-[13px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
                     color: 'var(--duo-red)',
                     borderColor:
@@ -143,7 +143,7 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[28px] border p-6">
+          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] border p-6">
             <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
