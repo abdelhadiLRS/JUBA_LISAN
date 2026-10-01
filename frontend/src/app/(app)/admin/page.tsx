@@ -93,7 +93,7 @@ export default function AdminOverviewPage() {
   }, [t])
 
   return (
-    <div className="juba-admin-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-admin-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <AdminPageHeader
         eyebrow={`${t('title')} / ${t('overview')}`}
         title={t('title')}
@@ -134,13 +134,13 @@ export default function AdminOverviewPage() {
       </div>
 
       {statsError && (
-        <div className="rounded-[13px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[var(--duo-card)] px-4 py-3 font-sans text-xs text-[var(--duo-red)]">
+        <div className="rounded-[10px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[var(--duo-card)] px-4 py-3 font-sans text-xs text-[var(--duo-red)]">
           {statsError}
         </div>
       )}
 
       <div
-        className={`rounded-[13px] border px-5 py-4 shadow-sm ${
+        className={`rounded-[10px] border px-5 py-4 shadow-sm ${
           maintenanceMode
             ? 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_8%,transparent)]'
             : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
@@ -228,7 +228,7 @@ export default function AdminOverviewPage() {
             <Link
               key={action.href}
               href={action.href}
-              className="border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-[13px] border p-5 shadow-sm transition-colors"
+              className="border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-[10px] border p-5 shadow-sm transition-colors"
             >
               <div className="mb-5 flex items-center justify-between">
                 <Icon
