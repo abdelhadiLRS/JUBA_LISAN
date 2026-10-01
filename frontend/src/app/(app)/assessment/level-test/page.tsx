@@ -352,7 +352,7 @@ export default function LevelTestPage() {
                     </span>
                     <div className="bg-fl-border h-1.5 flex-1">
                       <div
-                        className={`h-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
+                        className={`h-full transition-colors ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
                         style={{ width: `${skillPct}%` }}
                       />
                     </div>
@@ -428,7 +428,7 @@ export default function LevelTestPage() {
           {/* Progress bar */}
           <div className="bg-fl-border h-0.5">
             <div
-              className="bg-fl-fg h-full transition-all duration-300"
+              className="bg-fl-fg h-full transition-colors duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
