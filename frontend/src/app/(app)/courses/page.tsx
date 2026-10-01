@@ -121,16 +121,16 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <main className="juba-mobile-courses min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="mx-auto w-full max-w-[1480px] space-y-5">
-        <section className="juba-page-hero relative overflow-hidden p-5 sm:p-6">
+    <main className="juba-reference-page juba-mobile-courses min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-reference-page-inner mx-auto w-full max-w-[1480px] space-y-5">
+        <section className="juba-page-hero juba-reference-hero relative overflow-hidden p-5 sm:p-6">
           <div className="relative z-10 max-w-4xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-2 text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">Learn language you can actually use.</h1>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--duo-muted)]">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
-            <div className="mt-5 flex flex-wrap gap-2.5">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[9px] bg-[var(--duo-green-dark)] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition">Continue journey <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/assessment" className="inline-flex items-center gap-2 juba-secondary-button text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)]">Find my level</Link>
+            <div className="juba-reference-actions mt-5 flex flex-wrap gap-2.5">
+              <Link href="/learning-journey" className="juba-primary-button inline-flex items-center gap-2 text-sm font-bold transition-colors">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/assessment" className="juba-secondary-button inline-flex items-center gap-2 text-sm font-bold text-[var(--duo-ink)] transition-colors">Find my level</Link>
             </div>
           </div>
           <div className="juba-hero-glow" aria-hidden="true" />
@@ -147,7 +147,7 @@ export default function CoursesPage() {
         </section>
 
         <section>
-          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div className="juba-reference-section-head mb-4 flex flex-wrap items-end justify-between gap-3">
             <div><p className="juba-eyebrow">Your roadmap</p><h2 className="mt-1 text-2xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">One path. Six levels.</h2></div>
             <span className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-3 py-2 text-xs font-bold text-[var(--duo-muted)]">CEFR · {CEFR_LEVELS.length} levels</span>
           </div>
@@ -197,7 +197,7 @@ export default function CoursesPage() {
           )}
         </section>
 
-        <section className="juba-card p-5 sm:p-6">
+        <section className="juba-card juba-reference-section p-5 sm:p-6">
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[var(--duo-green-dark)] underline underline-offset-4">See my journey</Link></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {places.map(({ icon: Icon, title, text }) => <div key={title} className="juba-panel p-4 transition-colors hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]"><span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]" aria-hidden="true"><Icon className="h-5 w-5" /></span><p className="mt-3 font-black text-[var(--duo-ink)]">{title}</p><p className="mt-1 text-sm text-[var(--duo-muted)]">{text}</p></div>)}
