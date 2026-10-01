@@ -254,7 +254,7 @@ export default function LevelTestPage() {
             </p>
             <button
               onClick={() => router.push('/plan')}
-              className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border-2 py-3 text-sm tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border py-3 text-sm tracking-widest uppercase transition-colors"
             >
               ← Back to Plan
             </button>
@@ -350,7 +350,7 @@ export default function LevelTestPage() {
                     <span className="text-[var(--juba-text)] text-[var(--juba-muted)] w-24 font-semibold tracking-wide">
                       {SKILL_LABELS[skill] ?? skill}
                     </span>
-                    <div className="bg-fl-border-2 h-1.5 flex-1">
+                    <div className="bg-fl-border h-1.5 flex-1">
                       <div
                         className={`h-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
                         style={{ width: `${skillPct}%` }}
@@ -368,7 +368,7 @@ export default function LevelTestPage() {
             </div>
 
             {/* Recommendation */}
-            <div className="border-[var(--juba-lilac)] space-y-3 border-2 p-6">
+            <div className="border-[var(--juba-lilac)] space-y-3 border p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
                 <span className="text-[var(--juba-text)] text-[var(--juba-text)] font-mono font-bold tracking-widest uppercase">
@@ -390,7 +390,7 @@ export default function LevelTestPage() {
               </button>
               <button
                 onClick={() => router.push('/plan')}
-                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border-2 py-3 text-sm tracking-widest uppercase transition-colors"
+                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border py-3 text-sm tracking-widest uppercase transition-colors"
               >
                 ← Back to Plan
               </button>
@@ -426,7 +426,7 @@ export default function LevelTestPage() {
             </span>
           </div>
           {/* Progress bar */}
-          <div className="bg-fl-border-2 h-0.5">
+          <div className="bg-fl-border h-0.5">
             <div
               className="bg-fl-fg h-full transition-all duration-300"
               style={{ width: `${progress}%` }}
@@ -434,10 +434,10 @@ export default function LevelTestPage() {
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
               {q.difficulty}
             </span>
           </div>
@@ -453,7 +453,7 @@ export default function LevelTestPage() {
           <div className="space-y-2">
             {q.options.map((option, i) => {
               let style =
-                'w-full text-left border-2 text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
+                'w-full text-left border text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
 
               if (!answerConfirmed) {
                 style +=
@@ -499,7 +499,7 @@ export default function LevelTestPage() {
           ) : (
             <div className="space-y-3">
               <div
-                className={`border-2 p-3 text-sm leading-relaxed ${
+                className={`border p-3 text-sm leading-relaxed ${
                   answers.at(-1)?.correct
                     ? 'border-green-500 text-green-600 dark:text-green-400'
                     : 'border-red-500 text-red-500'
