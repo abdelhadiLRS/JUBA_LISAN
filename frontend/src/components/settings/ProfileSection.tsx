@@ -219,7 +219,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               }
             />
           ) : (
-            <div className="bg-[var(--duo-card)]-2 flex h-full w-full items-center justify-center">
+            <div className="bg-[var(--duo-mint)] flex h-full w-full items-center justify-center">
               <span className="text-[var(--duo-muted)] font-mono text-xl select-none">
                 {(user?.displayName || user?.username || '?')[0].toUpperCase()}
               </span>
@@ -292,7 +292,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       ))}
 
       <div>
-        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {t('bio')}
         </label>
         <textarea
@@ -309,7 +309,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       </div>
 
       <div>
-        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {t('nativeLanguage')}
         </label>
         <select
@@ -328,13 +328,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       </div>
 
       <div>
-        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {t('uiLocale')}
         </label>
         <select
           value={uiLocale}
           onChange={(e) => setUiLocale(e.target.value)}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-green)] w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         >
           {[...SUPPORTED_LOCALES]
             .sort((a, b) => tLang(a).localeCompare(tLang(b)))
@@ -350,7 +350,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       </div>
 
       <div>
-        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {t('newPassword')}
         </label>
         <input
@@ -361,12 +361,12 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         />
       </div>
 
       <div>
-        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--duo-muted)]">
           {t('confirmPassword')}
         </label>
         <input
