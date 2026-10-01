@@ -479,7 +479,7 @@ export default function AdminUsersPage() {
       )}
 
       {error && (
-        <div className="rounded-2xl border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
+        <div className="rounded-[13px] border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
@@ -700,7 +700,7 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setDeletePending(u)}
                             disabled={u.id === currentUserId}
-                            className="rounded-2xl border border-red-200/50/30 text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
+                            className="rounded-[13px] border border-red-200/50/30 text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
                             aria-label={t('delete')}
                             title={
                               u.id === currentUserId
@@ -796,7 +796,7 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setDeletePending(u)}
                       disabled={u.id === currentUserId}
-                      className="rounded-2xl border border-red-200/50/30 text-[#202127] text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
+                      className="rounded-[13px] border border-red-200/50/30 text-[#202127] text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
                     >
                       {actionBusy === `delete-${u.id}` && (
                         <Loader2
@@ -873,7 +873,7 @@ export default function AdminUsersPage() {
               className="space-y-4 px-6 py-5"
             >
               {error && (
-                <div className="rounded-2xl border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
+                <div className="rounded-[13px] border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
                   {error}
                 </div>
               )}
