@@ -76,10 +76,10 @@ const AITutorChat: React.FC = () => {
   };
 
   return (
-    <div className="rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)] flex h-[600px] flex-col overflow-hidden">
+    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm flex h-[600px] flex-col overflow-hidden">
       <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] p-4 sm:p-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[16px] border border-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] shadow-[0_3px_0_var(--duo-line)]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-[13px] border border-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] shadow-sm">
             <Bot className="h-5 w-5 text-[var(--duo-ink)]" aria-hidden="true" />
           </div>
           <div>
@@ -114,7 +114,7 @@ const AITutorChat: React.FC = () => {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[82%] rounded-[18px] border p-4 shadow-[0_3px_0_var(--duo-line)] ${
+              className={`max-w-[82%] rounded-[13px] border p-4 shadow-sm ${
                 message.role === 'user'
                   ? 'rounded-br-md border-[var(--duo-ink)] bg-[var(--duo-purple)] text-white'
                   : 'rounded-bl-md border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)]'
@@ -139,7 +139,7 @@ const AITutorChat: React.FC = () => {
 
         {isLoading && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-            <div className="rounded-[18px] rounded-bl-md border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-[0_3px_0_var(--duo-line)]">
+            <div className="rounded-[13px] rounded-bl-md border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm">
               <div className="flex items-center gap-1.5" aria-label="جاري الرد">
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-purple)]" />
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] [animation-delay:150ms]" />
@@ -166,7 +166,7 @@ const AITutorChat: React.FC = () => {
             onClick={sendMessage}
             disabled={isLoading || !input.trim()}
             aria-label="إرسال الرسالة"
-            className="rounded-[14px] bg-[var(--duo-green)] text-white shadow-[0_3px_0_var(--duo-green-dark)] transition hover:bg-[var(--duo-purple)] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
+            className="rounded-[14px] bg-[var(--duo-green)] text-white shadow-sm transition hover:bg-[var(--duo-purple)] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
             whileHover={{ scale: isLoading ? 1 : 1.03 }}
             whileTap={{ scale: isLoading ? 1 : 0.96 }}
           >
