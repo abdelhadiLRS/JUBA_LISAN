@@ -158,7 +158,7 @@ export function PaywallBanner({
           <button
             onClick={handleManageBilling}
             disabled={portalLoading}
-            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-xl border border-[var(--duo-ink)] px-4 py-3 shadow-[3px_3px_0_var(--duo-ink)] font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
+            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-[10px] border border-[var(--duo-ink)] px-4 py-3 shadow-[3px_3px_0_var(--duo-ink)] font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
@@ -185,7 +185,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('monthly')}
               disabled={loading !== null}
-              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full rounded-xl border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full rounded-[10px] border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'monthly'
                 ? '...'
@@ -195,7 +195,7 @@ export function PaywallBanner({
         )}
 
         {error && (
-          <p className="mt-4 rounded-xl border border-[var(--duo-red)]/25 bg-red-50 px-3 py-2 font-sans text-xs leading-5 text-[var(--duo-red)]">{error}</p>
+          <p className="mt-4 rounded-[10px] border border-[var(--duo-red)]/25 bg-red-50 px-3 py-2 font-sans text-xs leading-5 text-[var(--duo-red)]">{error}</p>
         )}
 
         {!paymentRecovery && (
