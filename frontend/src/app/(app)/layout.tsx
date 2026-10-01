@@ -291,15 +291,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <style>{`
         /* JUBA LISAN — single reference design system for authenticated app chrome */
         .juba-reference-shell{--juba-bg:#f8faf7;--juba-border:#e8eee4;--juba-ink:#30362f;--juba-muted:#7d857c;--juba-green:#58cc02;background:var(--juba-bg)!important;color:var(--juba-ink)!important;min-height:100dvh}
-        .juba-reference-shell .juba-duo-sidebar{width:216px!important;min-width:216px!important;flex:0 0 216px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:#fff!important;border-right:1px solid var(--juba-border)!important;box-shadow:none!important}
-        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:78px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid #f0f3ed!important;background:#fff!important}
+        .juba-reference-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:#fff!important;border-right:1px solid var(--juba-border)!important;box-shadow:none!important}
+        .juba-reference-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid #f0f3ed!important;background:#fff!important}
         .juba-reference-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 #46a302!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child>span:last-child{color:#58a91b!important;font-size:14px!important;font-weight:900!important;letter-spacing:-.025em!important;text-transform:none!important}
         .juba-reference-shell .juba-duo-language{display:none!important}
-        .juba-reference-shell .juba-duo-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:11px 8px!important;scrollbar-width:none!important}
+        .juba-reference-shell .juba-duo-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:14px 10px 12px!important;scrollbar-width:none!important}
         .juba-reference-shell .juba-duo-nav::-webkit-scrollbar{display:none!important}
-        .juba-reference-shell .juba-duo-nav-link{position:relative!important;display:flex!important;align-items:center!important;min-height:38px!important;margin:1px 0!important;padding:7px 10px!important;gap:10px!important;border:0!important;border-radius:8px!important;color:#70766f!important;background:transparent!important;font-size:11.5px!important;font-weight:700!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important;transition:background-color .16s ease,color .16s ease!important}
-        .juba-reference-shell .juba-duo-nav-link svg{width:17px!important;height:17px!important;flex:none!important;stroke-width:2.15!important}
+        .juba-reference-shell .juba-duo-nav-link{position:relative!important;display:flex!important;align-items:center!important;min-height:40px!important;margin:2px 0!important;padding:8px 11px!important;gap:10px!important;border:0!important;border-radius:9px!important;color:#70766f!important;background:transparent!important;font-size:11.5px!important;font-weight:700!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important;transition:background-color .16s ease,color .16s ease!important}
+        .juba-reference-shell .juba-duo-nav-link svg{width:17px!important;height:17px!important;flex:none!important;stroke-width:2.15!important}\n        .juba-reference-shell .juba-duo-nav-section-label{margin:13px 10px 5px!important;color:#a0a79f!important;font-size:8px!important;font-weight:850!important;line-height:1!important;letter-spacing:.12em!important;text-transform:uppercase!important}
+
         .juba-reference-shell .juba-duo-nav-link:hover{background:#f5faef!important;color:#4f9718!important;transform:none!important}
         .juba-reference-shell .juba-duo-nav-link.is-active{background:#eaf8e5!important;color:#4f9718!important;font-weight:850!important;box-shadow:none!important}
         .juba-reference-shell .juba-duo-nav-link.is-active:before{content:""!important;position:absolute!important;inset-inline-start:0!important;top:7px!important;bottom:7px!important;width:2px!important;border-radius:0 4px 4px 0!important;background:#58cc02!important}
@@ -360,22 +361,32 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Nav */}
         <nav className="juba-duo-nav" aria-label={tNav('primaryNavigation')}>
           {/* Main items */}
-          {mainNavItems.map((item) => {
+          {mainNavItems.map((item, index) => {
             const active =
               pathname === item.href || pathname.startsWith(item.href + '/')
+            const group =
+              index === 0
+                ? (locale === 'ar' ? 'التعلّم' : 'LEARN')
+                : index === 3
+                  ? (locale === 'ar' ? 'الممارسة' : 'PRACTICE')
+                  : index === 7
+                    ? (locale === 'ar' ? 'اكتشاف' : 'DISCOVER')
+                    : null
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
-                aria-current={active ? 'page' : undefined}
-              >
-                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[var(--duo-muted)]'}`} />
-                {item.label}
-                {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                  <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
-                )}
-              </Link>
+              <div key={item.href}>
+                {group && <div className="juba-duo-nav-section-label">{group}</div>}
+                <Link
+                  href={item.href}
+                  className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[var(--duo-muted)]'}`} />
+                  <span className="truncate">{item.label}</span>
+                  {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
+                    <span className="text-[var(--duo-green)] ms-auto shrink-0 text-xs">★</span>
+                  )}
+                </Link>
+              </div>
             )
           })}
 
