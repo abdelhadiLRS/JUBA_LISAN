@@ -67,7 +67,7 @@ export default function UnitDrawer({
     <div className="bg-[color-mix(in_srgb,var(--duo-ink)_48%,transparent)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_var(--duo-line)] sm:max-w-xl sm:rounded-[28px]"
+        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_var(--duo-line)] sm:max-w-xl sm:rounded-[13px]"
       >
         {/* Header */}
         <div className="border-[var(--duo-line)] bg-[var(--duo-card)] sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
@@ -84,7 +84,7 @@ export default function UnitDrawer({
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-2xl p-2 transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-[13px] p-2 transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -184,7 +184,7 @@ export default function UnitDrawer({
             </button>
             <button
               onClick={onClose}
-              className="border-2 border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] w-full rounded-xl px-5 py-3 text-xs font-bold transition-colors"
+              className="border border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] w-full rounded-xl px-5 py-3 text-xs font-bold transition-colors"
             >
               {tCommon('close')}
             </button>
