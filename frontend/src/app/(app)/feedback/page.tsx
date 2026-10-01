@@ -657,10 +657,10 @@ export default function FeedbackPage() {
           <button
             key={tabOption}
             onClick={() => setTab(tabOption)}
-            className={`text-[var(--duo-ink)] -mb-px border-b px-5 py-2 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--duo-ink)] rounded-[10px] px-4 py-2 font-semibold tracking-wide transition-colors ${
               tab === tabOption
-                ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)]'
-                : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] border-transparent'
+                ? 'bg-[var(--duo-green-dark)] text-white'
+                : 'text-[var(--duo-muted)] hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]'
             }`}
           >
             {tabOption === 'feature' ? t('tabFeatures') : t('tabBugs')}
@@ -712,7 +712,7 @@ export default function FeedbackPage() {
 
       {/* Error */}
       {error && (
-        <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border px-4 py-3 text-sm">
+        <div className="rounded-[10px] border border-[var(--duo-red)]/40 px-4 py-3 text-sm text-[var(--duo-red)]">
           ✕ {error}
         </div>
       )}
@@ -764,7 +764,7 @@ export default function FeedbackPage() {
                             )
                           }
                         }}
-                        className={`border px-2 py-1 text-sm leading-none transition-colors ${
+                        className={`rounded-[10px] border px-2 py-1 text-sm leading-none transition-colors ${
                           entry.voted_by_me
                             ? 'border-[var(--duo-green-dark)]/60 text-[var(--duo-green-dark)] bg-[var(--duo-green-dark)]/10'
                             : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
@@ -792,7 +792,7 @@ export default function FeedbackPage() {
                         label={getStatusLabel(entry.status)}
                       />
                       {entry.unread_by_me && (
-                        <span className="border border-[var(--duo-red)]/30 bg-[#fff5f4] px-2 py-0.5 font-sans text-[10px] leading-none font-bold tracking-wide text-[var(--duo-red)] uppercase">
+                        <span className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[#fff5f4] px-2 py-0.5 font-sans text-[10px] leading-none font-bold tracking-wide text-[var(--duo-red)] uppercase">
                           {t('unread')}
                         </span>
                       )}
