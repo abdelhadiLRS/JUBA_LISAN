@@ -19,7 +19,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
   }, [])
 
   return (
-    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
+    <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm">
       <div className="mb-5 flex items-center gap-2 border-b border-[var(--duo-line)] pb-4">
         <span className="text-[var(--duo-muted)]">●</span>
         <span className="font-mono tracking-widest uppercase text-[var(--duo-muted)]">
@@ -82,7 +82,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
                   <>
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--duo-line)]">
                       <div
-                        className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
+                        className={`h-full transition-colors ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
