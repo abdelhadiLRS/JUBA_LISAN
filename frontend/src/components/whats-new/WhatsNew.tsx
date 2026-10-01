@@ -85,11 +85,11 @@ export default function WhatsNew() {
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-[0_6px_0_var(--duo-line)]" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
+      <div className="relative z-10 w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
         {/* Header */}
-        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] px-5 pt-5 pb-4">
+        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 pt-5 pb-4">
           <Sparkles
-            className="text-[var(--duo-purple)] h-[1.125rem] w-[1.125rem]"
+            className="text-[var(--duo-green)] h-[1.125rem] w-[1.125rem]"
             aria-hidden="true"
           />
           <div>
@@ -107,7 +107,7 @@ export default function WhatsNew() {
           {entries.map((entry) => (
             <div key={entry.key} className="flex gap-3">
               <CircleDot
-                className="text-[var(--duo-purple)] mt-0.5 h-3.5 w-3.5 shrink-0"
+                className="text-[var(--duo-green)] mt-0.5 h-3.5 w-3.5 shrink-0"
                 aria-hidden="true"
               />
               <div>
@@ -129,12 +129,12 @@ export default function WhatsNew() {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end border-t-2 border-[var(--duo-line)] px-5 pt-3 pb-5">
+        <div className="flex justify-end border-t border-[var(--duo-line)] px-5 pt-3 pb-5">
           <button
             ref={closeButtonRef}
             type="button"
             onClick={dismiss}
-            className="text-xs rounded-xl bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] px-5 py-2.5 font-bold tracking-widest uppercase shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
+            className="rounded-[10px] bg-[var(--duo-green)] px-5 py-2.5 text-xs font-bold tracking-widest text-white uppercase shadow-sm transition-colors hover:bg-[var(--duo-green-dark)]"
           >
             {t('cta')} →
           </button>
