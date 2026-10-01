@@ -1040,7 +1040,7 @@ export default function ConversationMode({
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] font-sans tracking-wide uppercase transition-colors"
+            className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[9px] border px-2.5 py-1.5 font-sans text-[0.68rem] font-semibold tracking-wide uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1150,7 +1150,7 @@ export default function ConversationMode({
         {/* Quota pill — freemium gets a simplified voice counter, premium gets full quota bars */}
         {freemiumVoiceRemaining != null && freemiumVoiceLimit != null ? (
           <span
-            className={`text-[var(--duo-ink)] font-sans tracking-wide uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[var(--duo-red)]' : 'text-[var(--duo-muted)]'}`}
+            className={`border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[9px] border px-3 py-1.5 font-sans text-[0.68rem] font-semibold tracking-wide uppercase ${freemiumVoiceRemaining <= 0 ? 'border-[var(--duo-red)]/40 text-[var(--duo-red)]' : 'text-[var(--duo-muted)]'}`}
           >
             {t('freemiumVoiceRemaining', {
               remaining: freemiumVoiceRemaining,
