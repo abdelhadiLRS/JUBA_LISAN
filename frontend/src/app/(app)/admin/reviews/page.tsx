@@ -220,7 +220,7 @@ export default function AdminReviewsPage() {
       </AdminPanel>
 
       {error && (
-        <div className="rounded-2xl border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[rgba(7,7,9,.08)]">
+        <div className="rounded-[13px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
