@@ -30,7 +30,7 @@ export default function AdaptiveQuizCard({
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2">
@@ -52,7 +52,7 @@ export default function AdaptiveQuizCard({
         {/* Progress bar */}
         <div className="h-1 bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]">
           <div
-            className="h-1 bg-[var(--duo-green)] transition-all duration-300"
+            className="h-1 bg-[var(--duo-green)] transition-colors duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -75,7 +75,7 @@ export default function AdaptiveQuizCard({
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="flex w-full items-start gap-3 rounded-[16px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-all hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)] hover:shadow-sm"
+                  className="flex w-full items-start gap-3 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)] "
                 >
                   <span className="text-xs text-[var(--duo-muted)] shrink-0 font-sans">
                     {labels[i]}.
