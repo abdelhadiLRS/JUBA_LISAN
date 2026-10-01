@@ -80,9 +80,9 @@ function CategoryCard({
   }
 
   return (
-    <div className="juba-card overflow-hidden p-0 transition-shadow hover:shadow-sm">
-      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#edf7f1] text-sm">{cat.icon}</span>
+    <div className="juba-card overflow-hidden p-0 transition-shadow hover:shadow-[0_8px_24px_rgba(38,50,56,0.06)]">
+      <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+        <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[#f8faf7] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
             {cat.situation}
@@ -362,29 +362,29 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-page-hero">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
             <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">{t('title')}</h1>
             <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('statsLine', { situationCount: categories.length, phraseCount: totalPhrases, range: `${CEFR_LEVELS[0]} – ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}` })}</p>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:min-w-[220px] lg:min-w-[240px]">
+          <div className="grid grid-cols-2 gap-2 sm:min-w-[220px] lg:min-w-[250px]">
             <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-green-dark)]">{categories.length}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Situations</p></div>
             <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-ink)]">{totalPhrases}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Phrases</p></div>
           </div>
         </div>
       </section>
-      <div className="juba-card overflow-hidden">
+      <div className="juba-card overflow-hidden shadow-sm">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
           </span>
         </div>
-        <div className="space-y-4 px-5 py-5">
-          <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="space-y-5 px-5 py-5">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="space-y-2">
               <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
                 {t('searchPlaceholder')}
