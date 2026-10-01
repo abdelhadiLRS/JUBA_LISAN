@@ -839,6 +839,23 @@ export default function DashboardPage() {
           .juba-reference-dashboard .juba-reference-profile-photo{width:48px!important;height:48px!important}
         }
 
+
+        /* Reference fidelity pass 12 — dashboard surface hierarchy */
+        .juba-reference-dashboard.juba-reference-v3{background:#f8faf7!important}
+        .juba-reference-dashboard .juba-reference-topbar{background:transparent!important}
+        .juba-reference-dashboard .juba-reference-topbar-title{color:#31372f!important}
+        .juba-reference-dashboard .juba-reference-reference-nav a{color:#8a9088!important;font-weight:750!important;transition:color .16s ease,background-color .16s ease!important}
+        .juba-reference-dashboard .juba-reference-reference-nav a:hover{color:#58a91b!important}
+        .juba-reference-dashboard .juba-reference-reference-nav a[aria-current="page"]{color:#58a91b!important}
+        .juba-reference-dashboard .juba-reference-v3-welcome{background:#fff!important;border:1px solid #edf1ea!important;box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
+        .juba-reference-dashboard .juba-reference-v3-card{background:#fff!important;border:1px solid #edf1ea!important}
+        .juba-reference-dashboard .juba-reference-v3-card-head h3{color:#30362f!important}
+        .juba-reference-dashboard .juba-reference-section-label{color:#92988f!important}
+        .juba-reference-dashboard .juba-reference-icon-button{background:#fff!important;border:1px solid #e9eee6!important;box-shadow:0 1px 1px rgba(35,55,25,.025)!important}
+        .juba-reference-dashboard .juba-reference-course-selector{background:#fff!important;border:1px solid #e9eee6!important}
+        .juba-reference-dashboard .juba-reference-premium{box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
+        @media (max-width:900px){.juba-reference-dashboard.juba-reference-v3{background:#fff!important}}
+
 </style>
       <OnboardingTour />
       <WhatsNew />
