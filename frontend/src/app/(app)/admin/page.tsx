@@ -94,10 +94,12 @@ export default function AdminOverviewPage() {
 
   return (
     <div className="juba-admin-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-      <AdminPageHeader
-        eyebrow={`${t('title')} / ${t('overview')}`}
-        title={t('title')}
-      />
+      <div className="juba-reference-hero">
+        <AdminPageHeader
+          eyebrow={`${t('title')} / ${t('overview')}`}
+          title={t('title')}
+        />
+      </div>
 
       <AdminNav />
 
@@ -140,7 +142,7 @@ export default function AdminOverviewPage() {
       )}
 
       <div
-        className={`rounded-[10px] border px-5 py-4 shadow-sm ${
+        className={`juba-reference-list-card rounded-[10px] border px-5 py-4 shadow-sm ${
           maintenanceMode
             ? 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_8%,transparent)]'
             : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
@@ -172,7 +174,7 @@ export default function AdminOverviewPage() {
         </div>
       </div>
 
-      <AdminPanel title={t('operationalAlerts')}>
+      <div className="juba-reference-section"><AdminPanel title={t('operationalAlerts')}>
         <div className="divide-[var(--duo-line)] divide-y border-[var(--duo-line)]">
           <Link
             href="/admin/feedback?status=pending&type=bug"
@@ -219,7 +221,7 @@ export default function AdminOverviewPage() {
             </AdminBadge>
           </Link>
         </div>
-      </AdminPanel>
+      </AdminPanel></div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {actions.map((action) => {
@@ -228,7 +230,7 @@ export default function AdminOverviewPage() {
             <Link
               key={action.href}
               href={action.href}
-              className="border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-[10px] border p-5 shadow-sm transition-colors"
+              className="juba-reference-list-card border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-[10px] border p-5 shadow-sm transition-colors"
             >
               <div className="mb-5 flex items-center justify-between">
                 <Icon
