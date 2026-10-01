@@ -63,11 +63,12 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="juba-mobile-settings mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <SettingsPageHeader
+    <div className="juba-reference-page juba-mobile-settings mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-reference-hero"><SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
       />
+      </div>
 
       <SettingsNav items={navItems} />
 
@@ -97,7 +98,7 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[13px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
+                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[10px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
               >
                 {tCommon('logout')}
               </button>
@@ -106,7 +107,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="w-full rounded-[13px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  className="w-full rounded-[10px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
                     color: 'var(--duo-red)',
                     borderColor:
@@ -143,7 +144,7 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[13px] border p-6">
+          <div className="juba-reference-list-card border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[10px] border p-6">
             <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
