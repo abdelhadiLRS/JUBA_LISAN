@@ -10,8 +10,8 @@ export default function NoPlanBanner() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="w-full max-w-md rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-8 shadow-sm">
-        <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-[13px] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)]">
+      <div className="w-full max-w-md rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-8 shadow-sm">
+        <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)]">
           <BookOpen className="h-6 w-6" aria-hidden="true" />
         </span>
 
@@ -27,7 +27,7 @@ export default function NoPlanBanner() {
 
         <button
           onClick={() => router.push('/assessment')}
-          className="w-full rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-3 text-xs font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
+          className="w-full rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-3 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
         >
           {t('startAssessment')}
         </button>
