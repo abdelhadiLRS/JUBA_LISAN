@@ -173,7 +173,7 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="relative mb-5 rounded-[13px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--duo-card))] p-5 pe-14 shadow-sm"
+          className="relative mb-5 rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--duo-card))] p-5 pe-14 shadow-sm"
         >
           <div className="flex gap-3">
             <Megaphone
