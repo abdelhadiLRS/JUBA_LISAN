@@ -19,7 +19,7 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
 
   return (
     <motion.div
-      className="cursor-pointer overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm transition-shadow hover:shadow-md"
+      className="cursor-pointer overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-sm transition-shadow hover:shadow-md"
       whileHover={{ y: -2 }}
       onClick={() => setIsExpanded(!isExpanded)}
       initial={{ opacity: 0, y: 20 }}
