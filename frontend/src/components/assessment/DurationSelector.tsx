@@ -62,7 +62,7 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
         <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-6 py-4">
           <span className="text-xs text-[var(--duo-muted)]">●</span>
           <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
@@ -82,7 +82,7 @@ export default function DurationSelector({
                   type="button"
                   key={opt.weeks}
                   onClick={() => onSelectDuration(opt)}
-                  className={`rounded-[13px] border px-4 py-4 text-left transition-all ${
+                  className={`rounded-[10px] border px-4 py-4 text-left transition-colors ${
                     selectedWeeks === opt.weeks
                       ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)] shadow-sm'
                       : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)]'
@@ -126,7 +126,7 @@ export default function DurationSelector({
                   type="button"
                   key={g.id}
                   onClick={() => onToggleGoal(g.id)}
-                  className={`rounded-full border px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
+                  className={`rounded-full border px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-colors ${
                     selectedGoals.includes(g.id)
                       ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)] shadow-sm'
                       : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)]'
@@ -142,7 +142,7 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="space-y-1 rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
+          <div className="space-y-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-[var(--duo-ink)] font-bold">{cefr_level}</span>
@@ -177,7 +177,7 @@ export default function DurationSelector({
             <div
               role="alert"
               aria-live="polite"
-              className="rounded-[13px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--duo-red)]"
+              className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--duo-red)]"
             >
               ✕ {error}
             </div>
