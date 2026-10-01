@@ -431,7 +431,7 @@ export default function PhrasebookPage() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {hasActiveFilters && (
         <p className="font-sans text-xs text-[var(--duo-muted)]">
