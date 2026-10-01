@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-[13px] border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
+        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-[10px] border px-3.5 py-2.5 text-center font-sans text-[0.68rem] font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1060,7 +1060,7 @@ export default function ConversationMode({
       {/* Transcript area */}
       <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
-          <p className="text-[var(--duo-muted)] py-8 text-center font-sans">
+          <p className="py-7 text-center font-sans text-xs text-[var(--duo-muted)]">
             {t('tapToStart')}
           </p>
         )}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-[13px] border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-[13px] border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-[10px] border px-3.5 py-2.5 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1114,11 +1114,11 @@ export default function ConversationMode({
       {!trialMode &&
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
-          <div className="mb-4 rounded-[11px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-3">
-            <p className="text-[var(--duo-muted)] mb-2.5 text-center font-sans text-[11px] font-semibold tracking-[0.1em] uppercase">
+          <div className="mb-4 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5">
+            <p className="text-[var(--duo-muted)] mb-2 text-center font-sans text-[0.66rem] font-semibold tracking-[0.1em] uppercase">
               {t('startersHint')}
             </p>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-1.5">
               {visibleStarters.map((topic) => (
                 <button
                   key={topic}
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[9px] border px-3 py-1.5 font-sans text-xs tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[8px] border px-2.5 py-1.5 font-sans text-[0.68rem] tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
@@ -1140,7 +1140,7 @@ export default function ConversationMode({
         )}
 
       {/* Controls */}
-      <div className="flex flex-col items-center gap-3 pb-1">
+      <div className="flex flex-col items-center gap-2.5 pb-1">
         {/* Timeout warning */}
         {warningSeconds !== null && (
           <div className="w-full">
