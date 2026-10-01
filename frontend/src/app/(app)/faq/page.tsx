@@ -105,8 +105,8 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <section className="juba-reference-hero juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="max-w-3xl space-y-2">
           <p className="juba-eyebrow">{t('title')}</p>
           <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">
@@ -115,7 +115,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <section className="juba-card overflow-hidden transition-shadow duration-200">
+      <section className="juba-reference-section juba-card overflow-hidden transition-shadow duration-200">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">●</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
