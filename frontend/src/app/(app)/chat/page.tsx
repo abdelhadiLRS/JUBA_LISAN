@@ -866,10 +866,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable border-2 border-[var(--duo-line)] px-4 py-3 text-left ${
+                      className={`word-selectable rounded-[10px] border px-3.5 py-2.5 text-left shadow-sm ${
                         msg.role === 'user'
-                          ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)] shadow-[3px_3px_0_var(--duo-green-dark)]'
-                          : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-2 border-[var(--duo-line)] shadow-[2px_2px_0_var(--duo-line)]'
+                          ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)]'
+                          : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -913,7 +913,7 @@ export default function ChatPage() {
               <PaywallBanner feature="chat" compact />
             ) : (
               <>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     ref={inputRef}
                     type="text"
@@ -924,17 +924,17 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_var(--duo-green-dark)] transition-all hover:-translate-y-0.5 hover:bg-[var(--duo-green)] hover:shadow-[4px_4px_0_var(--duo-green-dark)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--duo-green-dark)] disabled:opacity-30"
+                    className="rounded-[10px] border border-[var(--duo-green)] bg-[var(--duo-green)] px-4 py-2.5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-all hover:bg-[var(--duo-green-dark)] active:translate-y-px disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mt-2 font-sans tracking-wide">
+                <p className="text-[var(--duo-muted)] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
