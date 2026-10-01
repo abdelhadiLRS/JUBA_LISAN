@@ -759,7 +759,7 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-level{width:64px!important;height:64px!important;min-width:64px!important}
           .juba-reference-v3 .juba-reference-v3-level span{font-size:14px!important}
         }
-      `              /* Reference fidelity pass 10 — dashboard screenshot geometry */
+              /* Reference fidelity pass 10 — dashboard screenshot geometry */
         .juba-reference-v3{padding:0 26px 34px!important}
         .juba-reference-v3 .juba-reference-topbar{height:68px!important;max-width:1360px!important}
         .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
