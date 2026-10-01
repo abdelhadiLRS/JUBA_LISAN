@@ -797,6 +797,48 @@ export default function DashboardPage() {
           .juba-reference-v3 .juba-reference-v3-level:after{inset:6px!important}
           .juba-reference-v3 .juba-reference-v3-card{padding:14px!important;border-radius:12px!important}
         }
+
+        /* Reference fidelity pass 11 — dashboard optical alignment */
+        .juba-reference-dashboard.juba-reference-v3{padding:20px 24px 32px!important;max-width:1480px!important;margin-inline:auto!important}
+        .juba-reference-dashboard .juba-reference-topbar{height:60px!important;min-height:60px!important}
+        .juba-reference-dashboard .juba-reference-topbar-title{font-size:17px!important;font-weight:800!important;letter-spacing:-.025em!important}
+        .juba-reference-dashboard .juba-reference-reference-nav{gap:4px!important}
+        .juba-reference-dashboard .juba-reference-topbar-actions{gap:8px!important}
+        .juba-reference-dashboard .juba-reference-icon-button{width:36px!important;height:36px!important;border-radius:10px!important}
+        .juba-reference-dashboard .juba-reference-course-selector{min-height:36px!important;border-radius:10px!important}
+        .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 272px!important;gap:22px!important}
+        .juba-reference-dashboard .juba-reference-v3-main,.juba-reference-dashboard .juba-reference-v3-rail{min-width:0!important}
+        .juba-reference-dashboard .juba-reference-v3-welcome{min-height:132px!important;border-radius:14px!important;padding:20px 22px!important}
+        .juba-reference-dashboard .juba-reference-v3-card{border-radius:13px!important;box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
+        .juba-reference-dashboard .juba-reference-v3-card-head{min-height:30px!important}
+        .juba-reference-dashboard .juba-reference-v3-chart{min-height:202px!important}
+        .juba-reference-dashboard .juba-reference-reference-insights,.juba-reference-dashboard .juba-reference-reference-stats{gap:12px!important}
+        .juba-reference-dashboard .juba-reference-insight-card,.juba-reference-dashboard .juba-reference-stat-card{min-height:112px!important}
+        .juba-reference-dashboard .juba-reference-achievement-strip{min-height:72px!important}
+        .juba-reference-dashboard .juba-reference-v3-rail{gap:12px!important}
+        .juba-reference-dashboard .juba-reference-profile-card,.juba-reference-dashboard .juba-reference-goal-card,.juba-reference-dashboard .juba-reference-xp-card,.juba-reference-dashboard .juba-reference-achievement-card,.juba-reference-dashboard .juba-reference-tools-card,.juba-reference-dashboard .juba-reference-friends-card{border-radius:13px!important}
+        .juba-reference-dashboard .juba-reference-profile-hero{min-height:92px!important}
+        .juba-reference-dashboard .juba-reference-profile-photo{width:52px!important;height:52px!important}
+        .juba-reference-dashboard .juba-reference-profile-metrics{gap:8px!important}
+        .juba-reference-dashboard .juba-reference-goal-ring{width:70px!important;height:70px!important}
+        .juba-reference-dashboard .juba-reference-progress-track,.juba-reference-dashboard .juba-reference-insight-track,.juba-reference-dashboard .juba-reference-stat-track,.juba-reference-dashboard .juba-reference-small-progress{height:6px!important}
+        .juba-reference-dashboard .juba-reference-friend-row{min-height:50px!important}
+        .juba-reference-dashboard .juba-reference-lesson-copy{min-width:0!important}
+        .juba-reference-dashboard .juba-reference-lesson-action{flex:none!important}
+        @media (max-width:1180px) and (min-width:901px){
+          .juba-reference-dashboard.juba-reference-v3{padding-inline:18px!important}
+          .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 244px!important;gap:18px!important}
+        }
+        @media (max-width:900px){
+          .juba-reference-dashboard.juba-reference-v3{padding:14px 14px 24px!important}
+          .juba-reference-dashboard .juba-reference-topbar{height:54px!important;min-height:54px!important}
+          .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:1fr!important;gap:14px!important}
+          .juba-reference-dashboard .juba-reference-v3-welcome{min-height:116px!important;padding:16px!important}
+          .juba-reference-dashboard .juba-reference-v3-card{border-radius:12px!important}
+          .juba-reference-dashboard .juba-reference-v3-chart{min-height:188px!important}
+          .juba-reference-dashboard .juba-reference-profile-photo{width:48px!important;height:48px!important}
+        }
+
 </style>
       <OnboardingTour />
       <WhatsNew />
