@@ -123,13 +123,13 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-green)] p-7 text-white shadow-sm sm:p-10">
+        <section className="juba-card relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-green)] p-7 text-white shadow-sm sm:p-10">
           <div className="relative z-10 max-w-3xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
-            <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
+            <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">Learn language you can actually use.</h1>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/80 sm:text-base">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[14px] bg-[var(--duo-card)] px-5 py-3 font-black text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-green-dark)] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[13px] bg-[var(--duo-card)] px-5 py-3 font-black text-[var(--duo-green-dark)] shadow-sm transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
               <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[10px] border border-white/25 bg-[var(--duo-card)]/10 px-5 py-3 font-black text-white transition hover:bg-[var(--duo-card)]/20">Find my level</Link>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function CoursesPage() {
         <section className="grid gap-4 md:grid-cols-3">
           {skills.map(({ icon: Icon, title, text }) => (
             <div key={title} className="juba-card rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-5 w-5" /></div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]"><Icon className="h-5 w-5" /></div>
               <h2 className="mt-4 text-xl font-black text-[var(--duo-ink)]">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">{text}</p>
             </div>
@@ -172,8 +172,8 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--duo-green-dark)]' : ''}`}>
-                    {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-[0_2px_0_var(--duo-green-dark)]">Current level</span>}
+                  <article key={level} className={`juba-card relative rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-6 shadow-sm transition hover:-translate-y-0.5 ${current ? 'ring-1 ring-[var(--duo-green)]' : ''}`}>
+                    {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-sm">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">{LEVEL_META[level].title}</h3></div>
                       <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[var(--duo-bg)] text-[var(--duo-muted)]'}`}>
