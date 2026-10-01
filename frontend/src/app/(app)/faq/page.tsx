@@ -105,32 +105,42 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="juba-utility-page juba-faq-shell">
-      <div className="juba-utility-header">
-        <div>
-          <p>{t('title')}</p>
-          <h1>{t('subtitle')}</h1>
+    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+      <section className="juba-page-hero">
+        <div className="max-w-3xl space-y-2">
+          <p className="juba-eyebrow">{t('title')}</p>
+          <h1 className="text-3xl font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">
+            {t('subtitle')}
+          </h1>
         </div>
-      </div>
+      </section>
 
-      <div className="juba-faq-list mt-5">
+      <section className="juba-card overflow-hidden">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+          <span className="text-sm font-bold text-[var(--duo-green-dark)]">●</span>
+          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+            {t('title')}
+          </span>
+        </div>
+        <div className="juba-faq-list">
         {faqs.map((item, i) => (
           <div key={i} className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="juba-faq-question hover:bg-[#fff] flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green-dark)]/30"
             >
               <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
               <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
             </button>
             {open === i && (
-              <div className="juba-faq-answer text-[var(--duo-muted)] border-[var(--duo-line)] bg-[var(--duo-bg)] border-t px-5 pt-4 pb-5 font-sans text-sm leading-relaxed">
+              <div className="border-t border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 pt-4 pb-5 font-sans text-sm leading-relaxed text-[var(--duo-muted)]">
                 {item.a}
               </div>
             )}
           </div>
         ))}
-      </div>
+        </div>
+      </section>
     </div>
   )
 }
