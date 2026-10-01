@@ -32,13 +32,13 @@ export function CookieBanner() {
   if (!visible) return null
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_-3px_0_var(--duo-line)]">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
       <div className="mx-auto flex max-w-5xl flex-col items-start gap-4 px-4 py-4 sm:flex-row sm:items-center sm:px-6">
         <p className="flex-1 text-xs font-medium leading-relaxed text-[var(--duo-muted)]">
           {t('message')}{' '}
           <Link
             href="/privacy"
-            className="font-bold text-[var(--duo-ink)] underline decoration-[var(--duo-purple)] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-purple)] focus-visible:ring-offset-2"
+            className="font-bold text-[var(--duo-ink)] underline decoration-[var(--duo-green)] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
           >
             {t('learnMore')}
           </Link>
@@ -46,7 +46,7 @@ export function CookieBanner() {
         <button
           type="button"
           onClick={accept}
-          className="inline-flex min-h-10 flex-shrink-0 items-center justify-center rounded-[14px] bg-[var(--duo-purple)] px-5 py-2 text-xs font-black uppercase tracking-wider text-white shadow-[0_3px_0_var(--duo-purple)] transition hover:bg-[var(--duo-purple)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-purple)] focus-visible:ring-offset-2"
+          className="inline-flex min-h-10 flex-shrink-0 items-center justify-center rounded-[10px] bg-[var(--duo-green)] px-5 py-2 text-xs font-black uppercase tracking-wider text-white shadow-sm transition hover:bg-[var(--duo-green)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
         >
           {t('accept')}
         </button>
