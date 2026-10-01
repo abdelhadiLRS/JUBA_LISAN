@@ -64,7 +64,7 @@ export function Pagination({
       <button
         onClick={() => onPageChange(Math.max(0, page - 1))}
         disabled={isFirst || isDisabled}
-        className="rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--duo-muted)] shadow-[0_3px_0_var(--duo-line)] transition-all hover:-translate-y-px hover:border-[var(--duo-green-dark)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+        className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--duo-muted)] shadow-sm transition hover:bg-[var(--duo-bg)] hover:border-[var(--duo-green-dark)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {prevLabel}
       </button>
