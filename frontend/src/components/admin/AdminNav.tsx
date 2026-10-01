@@ -24,7 +24,7 @@ export function AdminNav() {
   const t = useTranslations('admin')
 
   return (
-    <div className="juba-admin-nav flex flex-wrap items-center gap-1 rounded-[13px] border border-[#e9eee5] bg-white p-1.5 shadow-sm">
+    <div className="juba-admin-nav flex flex-wrap items-center gap-1 rounded-[10px] border border-[#e9eee5] bg-white p-1.5 shadow-sm">
       {items.map((item) => {
         const Icon = item.icon
         const active =
