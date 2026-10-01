@@ -23,9 +23,9 @@ interface DailyMomentumProps {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-all disabled:opacity-50 shadow-sm hover:shadow-md active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white transition-all disabled:opacity-50 shadow-sm hover:shadow-sm active:scale-[0.98]'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-all hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-all hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
 
 export function DailyMomentum({
   nextAction,
@@ -84,14 +84,14 @@ export function DailyMomentum({
       aria-label={t('dailyMomentum')}
     >
       {/* Header with gradient */}
-      <div className="relative border-b border-[var(--duo-line)] bg-gradient-to-r from-[var(--duo-blue)]/10 via-[var(--duo-blue)]/5 to-transparent p-5 sm:p-6">
+      <div className="relative border-b border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_6%,var(--duo-card))] p-5 sm:p-6">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[var(--duo-blue)]/5 blur-2xl" />
+          <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[var(--duo-green)]/5 blur-2xl" />
           <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-[var(--duo-yellow)]/5 blur-xl" />
         </div>
         
         <div className="relative flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--duo-blue)] text-white shadow-lg">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[var(--duo-green)] text-white shadow-sm">
             <Flame className="h-5 w-5" />
           </div>
           <div>
@@ -110,8 +110,8 @@ export function DailyMomentum({
       {/* Three core questions grid */}
       <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
         {/* What should I do now? */}
-        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-green)] hover:shadow-lg hover:shadow-[var(--duo-green)]/5">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="group relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
@@ -145,7 +145,7 @@ export function DailyMomentum({
               </div>
             ) : (
               <Link href="/assessment">
-                <p className="text-[var(--duo-blue)] text-sm font-semibold hover:underline">
+                <p className="text-[var(--duo-green-dark)] text-sm font-semibold hover:underline">
                   {t('takeAssessment')} →
                 </p>
               </Link>
@@ -154,8 +154,8 @@ export function DailyMomentum({
         </div>
         
         {/* What is due for review? */}
-        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-blue)] hover:shadow-lg hover:shadow-[var(--duo-blue)]/5">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-blue)]/0 via-[var(--duo-blue)]/0 to-[var(--duo-blue)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-green)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
@@ -172,7 +172,7 @@ export function DailyMomentum({
                   <span className="text-[var(--duo-muted)] text-sm">{t('itemsToReview')}</span>
                 </div>
                 <div className="mt-3 flex items-center gap-2 text-[var(--duo-muted)] text-xs">
-                  <div className="h-2 w-2 rounded-full bg-[var(--duo-blue)] animate-pulse" />
+                  <div className="h-2 w-2 rounded-full bg-[var(--duo-green)] animate-pulse" />
                   <span>{t('reviewReminder')}</span>
                 </div>
                 <Link href="/review" className="mt-4 inline-flex">
@@ -193,8 +193,8 @@ export function DailyMomentum({
         </div>
         
         {/* How close to today's goal? */}
-        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-yellow)] hover:shadow-lg hover:shadow-[var(--duo-yellow)]/5">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-yellow)]/0 via-[var(--duo-yellow)]/0 to-[var(--duo-yellow)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="group relative overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-colors duration-200 hover:border-[var(--duo-green)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/4 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
