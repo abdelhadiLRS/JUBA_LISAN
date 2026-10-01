@@ -2,6 +2,7 @@
 
 import { useEffect, useEffectEvent, useId, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { Loader2 } from 'lucide-react'
 
 
 interface ConfirmDialogProps {
@@ -81,14 +82,14 @@ export function ConfirmDialog({
     >
       <div
         ref={dialogRef}
-        className="card w-full max-w-sm overflow-hidden rounded-[13px] border border-[var(--duo-line)] shadow-sm"
+        className="w-full max-w-sm overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-4">
           <span
             className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--duo-red)_12%,var(--duo-card))] text-[var(--duo-red)]' : 'bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]'}`}
             aria-hidden="true"
@@ -111,13 +112,13 @@ export function ConfirmDialog({
           )}
         </div>
 
-        <div className="flex gap-3 border-t border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
+        <div className="flex gap-3 border-t border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-4">
           <button
             type="button"
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="btn btn-outline-secondary flex-1"
+            className="flex-1 rounded-[10px] border border-[var(--duo-line)] px-4 py-2.5 text-sm font-semibold text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
