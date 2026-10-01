@@ -95,7 +95,7 @@ export default function FriendsPage() {
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
             <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex flex-wrap gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
-          {error && <p className="rounded-xl border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
+          {error && <p className="rounded-[13px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
         </div>
 
         <div className="juba-panel">
