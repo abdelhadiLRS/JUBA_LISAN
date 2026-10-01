@@ -81,7 +81,7 @@ function CategoryCard({
 
   return (
     <div className="juba-card overflow-hidden p-0 transition-shadow duration-200">
-      <div className="flex min-h-[52px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+      <div className="flex min-h-[54px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
         <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-2 px-5 py-3.5 transition-colors hover:bg-[var(--duo-bg)]">
+          <li key={i} className="group space-y-2 px-5 py-3 transition-colors hover:bg-[var(--duo-bg)]">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -367,10 +367,10 @@ export default function PhrasebookPage() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
-            <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">{t('title')}</h1>
+            <h1 className="text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">{t('title')}</h1>
             <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('statsLine', { situationCount: categories.length, phraseCount: totalPhrases, range: `${CEFR_LEVELS[0]} – ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}` })}</p>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:min-w-[220px] lg:min-w-[250px]">
+          <div className="grid grid-cols-2 gap-2 sm:min-w-[240px] lg:min-w-[260px]">
             <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-green-dark)]">{categories.length}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Situations</p></div>
             <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-ink)]">{totalPhrases}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Phrases</p></div>
           </div>
@@ -465,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-4 xl:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
