@@ -158,7 +158,7 @@ export function PaywallBanner({
           <button
             onClick={handleManageBilling}
             disabled={portalLoading}
-            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-[10px] border border-[var(--duo-ink)] px-4 py-3 shadow-[3px_3px_0_var(--duo-ink)] font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
+            className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-[10px] border border-[var(--duo-ink)] px-4 py-3 shadow-sm font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
