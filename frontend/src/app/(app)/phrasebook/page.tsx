@@ -377,7 +377,7 @@ export default function PhrasebookPage() {
         </div>
       </section>
       <div className="juba-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3.5">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
