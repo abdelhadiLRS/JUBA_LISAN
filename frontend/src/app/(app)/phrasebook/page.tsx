@@ -230,7 +230,7 @@ function CategoryCard({
 
       <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-1 px-5 py-3.5 transition-colors hover:bg-[#fbfcfa]">
+          <li key={i} className="group space-y-1.5 px-5 py-3.5 transition-colors hover:bg-[#f8faf7]">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
@@ -384,22 +384,24 @@ export default function PhrasebookPage() {
           </span>
         </div>
         <div className="space-y-4 px-5 py-5">
-          <p className="max-w-3xl text-[var(--duo-muted)] font-sans text-sm leading-relaxed">
-            {t('statsLine', {
-              situationCount: categories.length,
-              phraseCount: totalPhrases,
-              range: `${CEFR_LEVELS[0]} \u2013 ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}`,
-            })}
-          </p>
-
-          <div className="space-y-2">
-            <input
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div className="space-y-2">
+              <p className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+                {t('searchPlaceholder')}
+              </p>
+              <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
               className="juba-input w-full font-sans text-sm"
-            />
+              />
+            </div>
+            <div className="flex items-end justify-start">
+              <span className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-3 py-2 font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+                {filteredCategories.length} {t('title')}
+              </span>
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -463,7 +465,7 @@ export default function PhrasebookPage() {
               </span>
               <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
-            <div className="grid gap-3 lg:grid-cols-2">
+            <div className="grid gap-3 xl:grid-cols-2">
               {cats.map((cat) => (
                 <CategoryCard
                   key={cat.id}
