@@ -494,6 +494,113 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
         }
 
+
+        /* Reference fidelity pass 13 — shared visual language across every app page */
+        .juba-reference-shell .juba-page-shell,
+        .juba-reference-shell .juba-mobile-settings,
+        .juba-reference-shell .juba-mobile-courses,
+        .juba-reference-shell .juba-mobile-flashcards,
+        .juba-reference-shell .juba-mobile-plan{
+          color:var(--duo-ink);
+        }
+        .juba-reference-shell .juba-page-shell{max-width:1480px!important;margin-inline:auto!important}
+        .juba-reference-shell .juba-page-hero{
+          background:#fff!important;
+          border:1px solid #edf1ea!important;
+          border-radius:14px!important;
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-page-title{color:#30362f!important;letter-spacing:-.025em!important}
+        .juba-reference-shell .juba-page-subtitle{color:#858c83!important}
+        .juba-reference-shell .juba-eyebrow{color:#58a91b!important;letter-spacing:.09em!important}
+        .juba-reference-shell .juba-panel,
+        .juba-reference-shell .juba-card{
+          background:#fff!important;
+          border:1px solid #edf1ea!important;
+          border-radius:13px!important;
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-panel:hover,
+        .juba-reference-shell .juba-card:hover{
+          border-color:#e4eadf!important;
+          box-shadow:0 4px 14px rgba(35,55,25,.055)!important;
+        }
+        .juba-reference-shell .juba-input{
+          background:#fff!important;
+          border:1px solid #e5ebe1!important;
+          border-radius:10px!important;
+          color:#30362f!important;
+          transition:border-color .16s ease,box-shadow .16s ease!important;
+        }
+        .juba-reference-shell .juba-input:focus{
+          border-color:#9bd878!important;
+          box-shadow:0 0 0 3px rgba(88,204,2,.12)!important;
+          outline:none!important;
+        }
+        .juba-reference-shell button:not([data-reference-ignore]),
+        .juba-reference-shell a.rounded-\[14px\],
+        .juba-reference-shell a.rounded-\[20px\]{
+          transition:transform .16s ease,box-shadow .16s ease,background-color .16s ease,border-color .16s ease!important;
+        }
+        .juba-reference-shell .juba-mobile-courses .juba-card,
+        .juba-reference-shell .juba-mobile-plan .juba-card{
+          overflow:hidden;
+        }
+        .juba-reference-shell .juba-mobile-courses,
+        .juba-reference-shell .juba-mobile-settings,
+        .juba-reference-shell .juba-mobile-flashcards,
+        .juba-reference-shell .juba-mobile-plan{
+          max-width:1480px!important;
+        }
+        .juba-reference-shell .juba-mobile-settings .juba-panel,
+        .juba-reference-shell .juba-mobile-flashcards .juba-panel{
+          border-radius:13px!important;
+        }
+        .juba-reference-shell .juba-assessment-page{
+          background:#f8faf7!important;
+        }
+        .juba-reference-shell .juba-assessment-page>div{
+          border-color:#edf1ea!important;
+          border-radius:14px!important;
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-duo-shell{
+          color:#30362f!important;
+        }
+        .juba-reference-shell .juba-duo-page-frame{
+          border-color:#edf1ea!important;
+          border-radius:13px!important;
+          box-shadow:0 1px 2px rgba(35,55,25,.035)!important;
+        }
+        .juba-reference-shell .juba-duo-page-frame:hover{
+          border-color:#e4eadf!important;
+        }
+        .juba-reference-shell .juba-games{
+          background:#f8faf7!important;
+          min-height:100%!important;
+        }
+        .juba-reference-shell .games-shell{
+          max-width:1480px!important;
+        }
+        .juba-reference-shell .games-header,
+        .juba-reference-shell .games-brand,
+        .juba-reference-shell .stats-grid,
+        .juba-reference-shell .game-grid,
+        .juba-reference-shell .section-heading{
+          border-color:#edf1ea!important;
+        }
+        @media (max-width:900px){
+          .juba-reference-shell .juba-page-shell,
+          .juba-reference-shell .juba-mobile-settings,
+          .juba-reference-shell .juba-mobile-courses,
+          .juba-reference-shell .juba-mobile-flashcards,
+          .juba-reference-shell .juba-mobile-plan{
+            max-width:none!important;
+          }
+          .juba-reference-shell .juba-assessment-page,
+          .juba-reference-shell .juba-games{background:#fff!important}
+        }
+
 </style>
     <div className="juba-duo-shell juba-busuu-app juba-reference-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
