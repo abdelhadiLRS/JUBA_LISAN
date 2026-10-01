@@ -1026,9 +1026,9 @@ export default function ConversationMode({
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="juba-duo-conversation-shell mx-auto flex h-full w-full max-w-[1480px] flex-col overflow-hidden px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-duo-conversation-shell juba-reference-page mx-auto flex h-full w-full max-w-[1480px] flex-col overflow-hidden px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Header */}
-      <div className="border-[var(--duo-line)] mb-4 flex min-h-[58px] items-end justify-between border-b pb-3">
+      <div className="juba-reference-hero border-[var(--duo-line)] mb-4 flex min-h-[58px] items-end justify-between border-b pb-3">
         <div>
           <p className="text-[var(--duo-muted)] mb-1 font-sans text-[11px] font-semibold tracking-[0.12em] uppercase">
             {t('subtitle')}
@@ -1040,7 +1040,7 @@ export default function ConversationMode({
         {onClose && (
           <button
             onClick={onClose}
-            className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[9px] border px-2.5 py-1.5 font-sans text-[0.68rem] font-semibold tracking-wide uppercase transition-colors"
+            className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[10px] border px-2.5 py-1.5 font-sans text-[0.68rem] font-semibold tracking-wide uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1058,7 +1058,7 @@ export default function ConversationMode({
       <MemorySavedToast visible={memoryToast} announcementId={memoryToastId} />
 
       {/* Transcript area */}
-      <div className="mb-3 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
+      <div className="juba-reference-section mb-3 min-h-0 flex-1 space-y-3 overflow-y-auto px-0 sm:px-1 lg:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
           <p className="py-7 text-center font-sans text-xs text-[var(--duo-muted)]">
             {t('tapToStart')}
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] bg-white hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[8px] border px-3 py-1.5 font-sans text-[0.68rem] font-medium tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] bg-white hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-[10px] border px-3 py-1.5 font-sans text-[0.68rem] font-medium tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
