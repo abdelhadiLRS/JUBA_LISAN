@@ -362,8 +362,8 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-page-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
+    <div className="juba-mobile-phrasebook juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-4xl space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
@@ -376,7 +376,7 @@ export default function PhrasebookPage() {
           </div>
         </div>
       </section>
-      <div className="juba-card overflow-hidden">
+      <div className="juba-reference-filter-panel overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
@@ -458,7 +458,7 @@ export default function PhrasebookPage() {
         const cats = filteredCategories.filter((c) => c.level === level)
         if (!cats.length) return null
         return (
-          <section key={level} className="space-y-3">
+          <section key={level} className="juba-reference-section space-y-3">
             <div className="flex items-center gap-3">
               <span className="font-sans text-xs font-bold tracking-[0.18em] text-[var(--duo-green-dark)]">
                 {level}
@@ -481,7 +481,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="juba-panel space-y-3 px-5 py-9 text-center">
+        <div className="juba-reference-list-card space-y-3 px-5 py-9 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-[11px] tracking-widest uppercase">
             {t('noResults')}
           </p>
