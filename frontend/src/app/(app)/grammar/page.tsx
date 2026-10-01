@@ -13,7 +13,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="juba-card group block rounded-[13px] border border-[var(--duo-line)] p-0 transition-all hover:-translate-y-0.5 hover:shadow-sm"
+      className="juba-card group block rounded-[10px] border border-[var(--duo-line)] p-0 transition-colors  hover:shadow-sm"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
@@ -97,7 +97,7 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="juba-mobile-grammar mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="juba-card rounded-[13px] border border-[var(--duo-line)] p-0 shadow-sm">
+      <div className="juba-card rounded-[10px] border border-[var(--duo-line)] p-0 shadow-sm">
         <div className="border-b border-[var(--duo-line)] px-6 py-4">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[var(--duo-green)]" />
