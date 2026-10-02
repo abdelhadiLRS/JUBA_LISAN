@@ -332,34 +332,34 @@ export default function ChatPage() {
   return (
     <MaintenanceGate>
       <style>{`
-        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;flex:none!important;border-inline-start:1px solid var(--duo-line)!important;background:var(--duo-card)!important;padding:0 14px 18px!important;overflow-y:auto!important;position:sticky!important;top:0!important;height:100%!important}
-        .juba-mobile-chat .juba-chat-profile-card{border:1px solid var(--duo-line)!important;border-radius:12px!important;background:var(--duo-card)!important;overflow:hidden!important;margin-bottom:14px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:284px!important;flex:none!important;border-inline-start:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important;padding:0 14px 18px!important;overflow-y:auto!important;position:sticky!important;top:0!important;height:100%!important}
+        .juba-mobile-chat .juba-chat-profile-card{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;background:var(--juba-card,var(--duo-card))!important;overflow:hidden!important;margin-bottom:14px!important}
         .juba-mobile-chat .juba-chat-profile-hero{display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;padding:22px 12px 13px!important}
-        .juba-mobile-chat .juba-chat-profile-photo{width:104px!important;height:104px!important;border-radius:50%!important;overflow:hidden!important;border:4px solid var(--duo-card)!important;box-shadow:0 0 0 1px var(--duo-line)!important;background:var(--duo-soft)!important;display:grid!important;place-items:center!important;color:var(--duo-muted)!important}
+        .juba-mobile-chat .juba-chat-profile-photo{width:104px!important;height:104px!important;border-radius:50%!important;overflow:hidden!important;border:4px solid var(--juba-card,var(--duo-card))!important;box-shadow:0 0 0 1px var(--juba-border,var(--duo-line))!important;background:var(--duo-soft)!important;display:grid!important;place-items:center!important;color:var(--juba-muted,var(--duo-muted))!important}
         .juba-mobile-chat .juba-chat-profile-photo img{width:100%!important;height:100%!important;object-fit:cover!important}
-        .juba-mobile-chat .juba-chat-profile-hero strong{margin-top:9px!important;color:var(--duo-ink)!important;font-size:15px!important}
-        .juba-mobile-chat .juba-chat-profile-hero span{margin-top:3px!important;color:var(--duo-muted)!important;font-size:9px!important}
-        .juba-mobile-chat .juba-chat-profile-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:1px solid var(--duo-line)!important}
-        .juba-mobile-chat .juba-chat-profile-metrics div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:2px!important;padding:10px 2px!important;border-inline-end:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .juba-chat-profile-hero strong{margin-top:9px!important;color:var(--juba-ink,var(--duo-ink))!important;font-size:15px!important}
+        .juba-mobile-chat .juba-chat-profile-hero span{margin-top:3px!important;color:var(--juba-muted,var(--duo-muted))!important;font-size:9px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:1px solid var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat .juba-chat-profile-metrics div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:2px!important;padding:10px 2px!important;border-inline-end:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .juba-chat-profile-metrics div:last-child{border-inline-end:0!important}
-        .juba-mobile-chat .juba-chat-profile-metrics b{color:var(--duo-green-dark)!important;font-size:14px!important}
-        .juba-mobile-chat .juba-chat-profile-metrics small{color:var(--duo-muted)!important;font-size:8px!important}
-        .juba-mobile-chat .juba-chat-side-card{border:1px solid var(--duo-line)!important;border-radius:12px!important;background:var(--duo-card)!important;padding:16px!important;margin-bottom:14px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics b{color:var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))!important;font-size:14px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics small{color:var(--juba-muted,var(--duo-muted))!important;font-size:8px!important}
+        .juba-mobile-chat .juba-chat-side-card{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;background:var(--juba-card,var(--duo-card))!important;padding:16px!important;margin-bottom:14px!important}
         .juba-mobile-chat .juba-chat-side-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
-        .juba-mobile-chat .juba-chat-side-card-head h3{margin:3px 0 0!important;color:var(--duo-ink)!important;font-size:13px!important;font-weight:800!important}
-        .juba-mobile-chat .juba-chat-side-label{color:var(--duo-muted)!important;font-size:9px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
+        .juba-mobile-chat .juba-chat-side-card-head h3{margin:3px 0 0!important;color:var(--juba-ink,var(--duo-ink))!important;font-size:13px!important;font-weight:800!important}
+        .juba-mobile-chat .juba-chat-side-label{color:var(--juba-muted,var(--duo-muted))!important;font-size:9px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
         .juba-mobile-chat .juba-chat-achievement{display:flex!important;gap:10px!important;align-items:center!important;margin-top:13px!important}
-        .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:var(--duo-soft)!important;color:var(--duo-green-dark)!important;display:grid!important;place-items:center!important;flex:none!important}
-        .juba-mobile-chat .juba-chat-achievement strong{display:block!important;color:var(--duo-ink)!important;font-size:10px!important}
-        .juba-mobile-chat .juba-chat-achievement span{display:block!important;color:var(--duo-muted)!important;font-size:8px!important;margin-top:3px!important}
+        .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:var(--duo-soft)!important;color:var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))!important;display:grid!important;place-items:center!important;flex:none!important}
+        .juba-mobile-chat .juba-chat-achievement strong{display:block!important;color:var(--juba-ink,var(--duo-ink))!important;font-size:10px!important}
+        .juba-mobile-chat .juba-chat-achievement span{display:block!important;color:var(--juba-muted,var(--duo-muted))!important;font-size:8px!important;margin-top:3px!important}
         .juba-mobile-chat .juba-chat-friends-list{margin-top:8px!important}
-        .juba-mobile-chat .juba-chat-friends-empty{display:block!important;padding:12px 0!important;color:var(--duo-muted)!important;font-size:9px!important}
-        .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid var(--duo-line)!important;background:var(--duo-card)!important;text-align:start!important}
+        .juba-mobile-chat .juba-chat-friends-empty{display:block!important;padding:12px 0!important;color:var(--juba-muted,var(--duo-muted))!important;font-size:9px!important}
+        .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important;text-align:start!important}
         .juba-mobile-chat .juba-chat-friend-avatar{width:32px!important;height:32px!important;border-radius:50%!important;overflow:hidden!important;background:var(--duo-soft)!important;display:grid!important;place-items:center!important;color:#888!important;font-size:9px!important;font-weight:800!important;flex:none!important}
         .juba-mobile-chat .juba-chat-friend-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
         .juba-mobile-chat .juba-chat-friend-copy{min-width:0!important;display:flex!important;flex-direction:column!important;gap:2px!important}
-        .juba-mobile-chat .juba-chat-friend-copy strong{font-size:9px!important;color:var(--duo-ink)!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
-        .juba-mobile-chat .juba-chat-friend-copy small{font-size:8px!important;color:var(--duo-muted)!important}
+        .juba-mobile-chat .juba-chat-friend-copy strong{font-size:9px!important;color:var(--juba-ink,var(--duo-ink))!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+        .juba-mobile-chat .juba-chat-friend-copy small{font-size:8px!important;color:var(--juba-muted,var(--duo-muted))!important}
         @media (max-width:1180px){.juba-mobile-chat .juba-chat-profile-rail{width:245px!important}}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}}
 
@@ -367,27 +367,27 @@ export default function ChatPage() {
         .juba-mobile-chat .chat-conversations-sidebar{overflow:hidden!important}
         .juba-mobile-chat .chat-conversations-sidebar .group{transition:background-color .16s ease,border-color .16s ease!important}
         .juba-mobile-chat .word-selectable{box-shadow:0 1px 1px rgba(30,50,20,.025)!important}
-        .juba-mobile-chat .word-selectable.bg-\\[var\\(--duo-green\\)\\]{box-shadow:0 1px 1px rgba(50,100,30,.05)!important}
+        .juba-mobile-chat .word-selectable.bg-\\[var\\(--juba-green,var(--duo-green)\\)\\]{box-shadow:0 1px 1px rgba(50,100,30,.05)!important}
         .juba-mobile-chat .juba-chat-profile-rail{align-self:stretch!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{overflow:hidden!important}
         .juba-mobile-chat .juba-chat-side-card-head{padding-top:10px!important;padding-bottom:8px!important}
         .juba-mobile-chat .juba-chat-friend{transition:background .15s ease!important}
         .juba-mobile-chat .juba-chat-friend:hover{background:var(--duo-soft)!important}
-        .juba-mobile-chat .border-t-2.border-\\[var\\(--duo-line\\)\\]{box-shadow:0 -1px 0 rgba(237,240,234,.35)!important}
+        .juba-mobile-chat .border-t-2.border-\\[var\\(--juba-border,var(--duo-line)\\)\\]{box-shadow:0 -1px 0 rgba(237,240,234,.35)!important}
         .juba-mobile-chat input{outline:none!important}
         @media (max-width:1023px){
           .juba-mobile-chat .juba-chat-profile-rail{display:none!important}
           .juba-mobile-chat .chat-conversations-sidebar{box-shadow:4px 0 18px rgba(30,50,20,.05)!important}
         }
         /* Reference fidelity pass 6 — final chat surface polish */
-        .juba-mobile-chat{background:var(--duo-card)!important}
-        .juba-mobile-chat .chat-conversations-sidebar{border-color:var(--duo-line)!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{border-color:var(--duo-line)!important;background:var(--duo-card)!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat .chat-conversations-sidebar{border-color:var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{border-color:var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .word-selectable{border-radius:10px!important}
-        .juba-mobile-chat .juba-chat-profile-rail{background:var(--duo-card)!important;border-color:var(--duo-line)!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:var(--duo-line)!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-mobile-chat .juba-chat-profile-rail{background:var(--juba-card,var(--duo-card))!important;border-color:var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:var(--juba-border,var(--duo-line))!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-card:hover,.juba-mobile-chat .juba-chat-side-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.04)!important}
-        .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid var(--duo-green)!important;outline-offset:2px!important}
+        .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid var(--juba-green,var(--duo-green))!important;outline-offset:2px!important}
 
         /* Reference shell reconciliation — shared page geometry */
         .juba-mobile-chat{background:transparent!important}
@@ -398,22 +398,22 @@ export default function ChatPage() {
         .juba-mobile-chat .chat-conversations-sidebar .group{transition:background-color .15s ease,border-color .15s ease!important}
         .juba-mobile-chat .chat-conversations-sidebar .group:hover{transform:none!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:960px!important}
-        .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{max-width:960px!important}
+        .juba-mobile-chat .border-t.border-\\[var\\(--juba-border,var(--duo-line)\\)\\]{max-width:960px!important}
         @media(max-width:1023px){.juba-mobile-chat .chat-conversations-sidebar{box-shadow:4px 0 16px rgba(30,50,20,.045)!important}}
         
         /* Reference fidelity pass 30 — final chat geometry consolidation */
-        .juba-mobile-chat .chat-conversations-sidebar{width:250px!important;border-right:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:250px!important;border-right:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:60px!important;min-height:60px!important;padding:0 15px!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important;border-bottom:1px solid var(--duo-line)!important;border-inline-start:3px solid transparent!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\\[var\\(--duo-line\\)\\]{background:var(--duo-soft)!important;border-inline-start-color:var(--duo-green)!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding:0 18px!important;border-bottom:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important;border-inline-start:3px solid transparent!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\\[var\\(--juba-border,var(--duo-line)\\)\\]{background:var(--duo-soft)!important;border-inline-start-color:var(--juba-green,var(--duo-green))!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding:0 18px!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:960px!important;padding:22px 28px!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:10px!important}
-        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-8.w-8{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--duo-line)!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-8.w-8{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{min-width:0!important;max-width:72%!important}
-        .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{max-width:960px!important;width:100%!important;margin:0 auto!important;padding:11px 24px 14px!important;border-top:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .border-t.border-\\[var\\(--juba-border,var(--duo-line)\\)\\]{max-width:960px!important;width:100%!important;margin:0 auto!important;padding:11px 24px 14px!important;border-top:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat input{height:42px!important;padding:10px 13px!important;border-radius:10px!important}
-        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
         .juba-mobile-chat .juba-chat-profile-hero strong{font-size:14px!important;font-weight:800!important}
         .juba-mobile-chat .juba-chat-profile-metrics b{font-size:13px!important}
@@ -421,58 +421,58 @@ export default function ChatPage() {
         @media (max-width:1023px){
           .juba-mobile-chat .chat-conversations-sidebar{width:min(84vw,300px)!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 14px!important}
-          .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{padding:10px 12px 12px!important}
+          .juba-mobile-chat .border-t.border-\\[var\\(--juba-border,var(--duo-line)\\)\\]{padding:10px 12px 12px!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{max-width:82%!important}
         }
       `}</style>
       <style>{`
         /* JUBA LISAN — strict reference chat UI (route scoped) */
-        .juba-mobile-chat{background:var(--duo-card)!important;color:var(--duo-ink)!important;gap:0!important}
-        .juba-mobile-chat .chat-conversations-sidebar{width:270px!important;background:var(--duo-card)!important;border-right:1px solid var(--duo-line)!important;box-shadow:none!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:62px!important;padding:0 16px!important;border-bottom:1px solid var(--duo-line)!important;display:flex!important;align-items:center!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child span{color:var(--duo-muted)!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child button{border:0!important;background:var(--duo-green)!important;color:var(--duo-card)!important;border-radius:7px!important;padding:7px 10px!important;font-size:9px!important;font-weight:800!important;box-shadow:0 2px 0 var(--duo-green-dark)!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:50px!important;border-bottom:1px solid var(--duo-line)!important;border-inline-start:3px solid transparent!important;padding:9px 14px!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important;color:var(--juba-ink,var(--duo-ink))!important;gap:0!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:270px!important;background:var(--juba-card,var(--duo-card))!important;border-right:1px solid var(--juba-border,var(--duo-line))!important;box-shadow:none!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:62px!important;padding:0 16px!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important;display:flex!important;align-items:center!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child span{color:var(--juba-muted,var(--duo-muted))!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child button{border:0!important;background:var(--juba-green,var(--duo-green))!important;color:var(--juba-card,var(--duo-card))!important;border-radius:7px!important;padding:7px 10px!important;font-size:9px!important;font-weight:800!important;box-shadow:0 2px 0 var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:50px!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important;border-inline-start:3px solid transparent!important;padding:9px 14px!important}
         .juba-mobile-chat .chat-conversations-sidebar .group:hover{background:var(--duo-soft)!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\[var\(--duo-line\)\]{background:var(--duo-soft)!important;border-inline-start-color:var(--duo-green)!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group span{font-size:10px!important;color:var(--duo-muted)!important}
-        .juba-mobile-chat>div:last-of-type{background:var(--duo-card)!important}
-        .juba-mobile-chat>div:last-of-type>div:first-child{height:62px!important;background:var(--duo-card)!important;border-bottom:1px solid var(--duo-line)!important;padding:0 22px!important}
-        .juba-mobile-chat>div:last-of-type>div:first-child button{color:var(--duo-muted)!important;font-size:12px!important}
-        .juba-mobile-chat>div:last-of-type>div:first-child>span{color:var(--duo-muted)!important;font-size:10px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\[var\(--juba-border,var(--duo-line)\)\]{background:var(--duo-soft)!important;border-inline-start-color:var(--juba-green,var(--duo-green))!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group span{font-size:10px!important;color:var(--juba-muted,var(--duo-muted))!important}
+        .juba-mobile-chat>div:last-of-type{background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat>div:last-of-type>div:first-child{height:62px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important;padding:0 22px!important}
+        .juba-mobile-chat>div:last-of-type>div:first-child button{color:var(--juba-muted,var(--duo-muted))!important;font-size:12px!important}
+        .juba-mobile-chat>div:last-of-type>div:first-child>span{color:var(--juba-muted,var(--duo-muted))!important;font-size:10px!important}
         .juba-mobile-chat .word-selectable{border:0!important;border-radius:12px!important;box-shadow:none!important;padding:12px 15px!important;font-size:13px!important;line-height:1.55!important}
-        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-green\)\]{background:var(--duo-soft)!important;color:var(--duo-ink)!important}
-        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-card\)\]{background:var(--duo-soft)!important;color:var(--duo-ink)!important}
+        .juba-mobile-chat .word-selectable.bg-\[var\(--juba-green,var(--duo-green)\)\]{background:var(--duo-soft)!important;color:var(--juba-ink,var(--duo-ink))!important}
+        .juba-mobile-chat .word-selectable.bg-\[var\(--juba-card,var(--duo-card)\)\]{background:var(--duo-soft)!important;color:var(--juba-ink,var(--duo-ink))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:920px!important;width:100%!important;margin:0 auto!important;padding:28px 34px!important;scrollbar-width:thin!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:4px!important}
-        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-7.w-7{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--duo-line)!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-7.w-7{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\[75\%\].min-w-\[10rem\]{min-width:0!important;max-width:68%!important}
-        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{max-width:920px!important;width:100%!important;margin:0 auto!important;border-top:1px solid var(--duo-line)!important;background:var(--duo-card)!important;padding:14px 28px 18px!important}
-        .juba-mobile-chat input{border:1px solid var(--duo-line)!important;border-radius:10px!important;background:var(--duo-card)!important;box-shadow:none!important;padding:12px 14px!important;color:var(--duo-ink)!important}
-        .juba-mobile-chat input:focus{border-color:var(--duo-green)!important;box-shadow:0 0 0 3px rgba(88,204,2,.1)!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{border:0!important;border-radius:9px!important;background:var(--duo-green)!important;box-shadow:0 2px 0 var(--duo-green-dark)!important;padding-inline:20px!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{max-width:920px!important;width:100%!important;margin:0 auto!important;border-top:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important;padding:14px 28px 18px!important}
+        .juba-mobile-chat input{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:10px!important;background:var(--juba-card,var(--duo-card))!important;box-shadow:none!important;padding:12px 14px!important;color:var(--juba-ink,var(--duo-ink))!important}
+        .juba-mobile-chat input:focus{border-color:var(--juba-green,var(--duo-green))!important;box-shadow:0 0 0 3px rgba(88,204,2,.1)!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)\]{border:0!important;border-radius:9px!important;background:var(--juba-green,var(--duo-green))!important;box-shadow:0 2px 0 var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))!important;padding-inline:20px!important}
         .juba-mobile-chat .chat-sidebar-backdrop{background:rgba(0,0,0,.18)!important}
         @media (max-width:1023px){
           .juba-mobile-chat .chat-conversations-sidebar{width:min(86vw,300px)!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:20px 14px!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\[75\%\].min-w-\[10rem\]{max-width:82%!important}
-          .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:12px!important}
+          .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{padding:12px!important}
         }
         /* Reference fidelity pass — chat composition */
-        .juba-mobile-chat{background:var(--duo-card)!important}
-        .juba-mobile-chat .chat-conversations-sidebar{width:224px!important;background:var(--duo-card)!important;border-right:1px solid var(--duo-line)!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding-inline:20px!important;background:var(--duo-card)!important;border-bottom:1px solid var(--duo-line)!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:224px!important;background:var(--juba-card,var(--duo-card))!important;border-right:1px solid var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding-inline:20px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:900px!important;padding:24px 30px!important;gap:0!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:12px!important}
         .juba-mobile-chat .word-selectable{border-radius:11px!important;padding:11px 14px!important;font-size:13px!important;line-height:1.55!important}
-        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{border-top:1px solid var(--duo-line)!important;padding:12px 24px 16px!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{border-top:1px solid var(--juba-border,var(--duo-line))!important;padding:12px 24px 16px!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat input{height:44px!important;border-radius:9px!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:44px!important;border-radius:9px!important}
-        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;background:var(--duo-card)!important;border-left:1px solid var(--duo-line)!important;padding:18px!important;gap:12px!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid var(--duo-line)!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)\]{height:44px!important;border-radius:9px!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;background:var(--juba-card,var(--duo-card))!important;border-left:1px solid var(--juba-border,var(--duo-line))!important;padding:18px!important;gap:12px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-hero{padding:18px 16px 14px!important}
         .juba-mobile-chat .juba-chat-profile-photo{width:68px!important;height:68px!important;border-radius:50%!important}
-        .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid var(--juba-border,var(--duo-line))!important}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}.juba-mobile-chat .chat-conversations-sidebar{width:min(82vw,300px)!important}}
 
         /* Reference fidelity pass 2 — message rhythm and profile rail */
@@ -487,7 +487,7 @@ export default function ChatPage() {
 
         /* Reference fidelity pass 3 — exact visual alignment */
 
-        .juba-mobile-chat{background:var(--duo-card)!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .chat-conversations-sidebar{width:228px!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{min-height:58px!important;padding:0 15px!important}
         .juba-mobile-chat .chat-conversations-sidebar .group{min-height:46px!important;padding:9px 13px!important}
@@ -503,9 +503,9 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-metrics{min-height:54px!important}
         .juba-mobile-chat .juba-chat-side-card-head{min-height:40px!important;padding-inline:13px!important}
         .juba-mobile-chat .juba-chat-friend{min-height:46px!important;padding:7px 13px!important}
-        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:11px 22px 14px!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{padding:11px 22px 14px!important}
         .juba-mobile-chat input{height:42px!important;padding-inline:13px!important;font-size:13px!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:42px!important;padding-inline:18px!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)\]{height:42px!important;padding-inline:18px!important}
         @media (max-width:1180px) and (min-width:1024px){
           .juba-mobile-chat .chat-conversations-sidebar{width:200px!important}
           .juba-mobile-chat .juba-chat-profile-rail{width:248px!important;min-width:248px!important}
@@ -530,35 +530,35 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-photo{width:62px!important;height:62px!important}
         .juba-mobile-chat .juba-chat-side-card-head{min-height:38px!important}
         .juba-mobile-chat .juba-chat-friend{min-height:44px!important}
-        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:10px 20px 13px!important}
-        .juba-mobile-chat input,.juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)]{height:40px!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{padding:10px 20px 13px!important}
+        .juba-mobile-chat input,.juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)]{height:40px!important}
         @media (max-width:1180px) and (min-width:1024px){
           .juba-mobile-chat .chat-conversations-sidebar{width:196px!important}
           .juba-mobile-chat .juba-chat-profile-rail{width:244px!important;min-width:244px!important}
         }
         @media (max-width:1023px){
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 12px!important}
-          .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)]{padding:10px 12px 12px!important}
+          .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)]{padding:10px 12px 12px!important}
         }
 
         /* reference fidelity pass 7 — screenshot-level chat shell and message rhythm */
-        .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid var(--duo-line)!important;background:var(--duo-card)!important}
-        .juba-mobile-chat .juba-chat-profile-rail{border-left:1px solid var(--duo-line)!important;background:var(--duo-card)!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid #e7ece3!important;border-radius:14px!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat .juba-chat-profile-rail{border-left:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid #e7ece3!important;border-radius:14px!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .juba-chat-profile-hero{padding:18px 16px 15px!important}
-        .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid var(--duo-line)!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .juba-chat-friend{min-height:48px!important;border-bottom:1px solid #f0f2ed!important}
         .juba-mobile-chat .juba-chat-friend:last-child{border-bottom:0!important}
-        .juba-mobile-chat .juba-chat-achievement{border:1px solid var(--duo-line)!important;border-radius:12px!important;background:#fbfff8!important}
+        .juba-mobile-chat .juba-chat-achievement{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;background:#fbfff8!important}
         .juba-mobile-chat .chat-message{max-width:min(680px,82%)!important}
         .juba-mobile-chat input{height:44px!important;border-radius:12px!important}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}}
 
 
         /* Reference fidelity pass 8 — final chat screenshot alignment */
-        .juba-mobile-chat{background:var(--duo-card)!important;color:var(--duo-ink)!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important;color:var(--juba-ink,var(--duo-ink))!important}
         .juba-mobile-chat .chat-conversations-sidebar{width:220px!important;min-width:220px!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:58px!important;min-height:58px!important;background:var(--duo-card)!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:58px!important;min-height:58px!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:920px!important;padding:22px 28px!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:12px!important}
         .juba-mobile-chat .word-selectable{border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
@@ -566,9 +566,9 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:14px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-photo{width:68px!important;height:68px!important}
         .juba-mobile-chat .juba-chat-friend{min-height:48px!important}
-        .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{padding:12px 24px 15px!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)\]{padding:12px 24px 15px!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat input{height:44px!important;border-radius:12px!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)]{height:44px!important;border-radius:12px!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)]{height:44px!important;border-radius:12px!important}
         @media (max-width:1180px) and (min-width:1024px){
           .juba-mobile-chat .chat-conversations-sidebar{width:196px!important;min-width:196px!important}
           .juba-mobile-chat .juba-chat-profile-rail{width:244px!important;min-width:244px!important}
@@ -576,7 +576,7 @@ export default function ChatPage() {
         @media (max-width:1023px){
           .juba-mobile-chat .chat-conversations-sidebar{width:min(82vw,300px)!important;min-width:0!important}
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:18px 12px!important}
-          .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)]{padding:10px 12px 12px!important}
+          .juba-mobile-chat .border-t-2.border-\[var\(--juba-border,var(--duo-line)\)]{padding:10px 12px 12px!important}
         }
 
         /* Reference fidelity pass 9 — chat optical hierarchy */
@@ -596,25 +596,25 @@ export default function ChatPage() {
           .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:16px 10px!important}
           .juba-mobile-chat .word-selectable{max-width:88%!important;font-size:12.5px!important}
           .juba-mobile-chat input{height:42px!important}
-          .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:42px!important;padding-inline:14px!important}
+          .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\)\]{height:42px!important;padding-inline:14px!important}
         }
               /* Reference fidelity pass 10 — chat screenshot geometry */
-        .juba-mobile-chat{background:var(--duo-card)!important}
-        .juba-mobile-chat .chat-conversations-sidebar{width:216px!important;min-width:216px!important;background:var(--duo-card)!important;border-right:1px solid var(--duo-line)!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:56px!important;padding-inline:14px!important;background:var(--duo-card)!important;border-bottom:1px solid var(--duo-line)!important}
+        .juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:216px!important;min-width:216px!important;background:var(--juba-card,var(--duo-card))!important;border-right:1px solid var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:56px!important;padding-inline:14px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:10px 12px!important;border-bottom:1px solid #f0f2ef!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:58px!important;min-height:58px!important;padding-inline:18px!important;background:var(--duo-card)!important;border-bottom:1px solid var(--duo-line)!important}
-        .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:22px 24px!important;background:var(--duo-card)!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:58px!important;min-height:58px!important;padding-inline:18px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border,var(--duo-line))!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4{padding:22px 24px!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .word-selectable{border-radius:13px!important;box-shadow:none!important;padding:11px 14px!important;line-height:1.5!important}
-        .juba-mobile-chat .juba-chat-profile-rail{width:264px!important;min-width:264px!important;padding:14px!important;background:var(--duo-card)!important;border-left:1px solid var(--duo-line)!important;gap:12px!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:13px!important;border:1px solid var(--duo-line)!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:264px!important;min-width:264px!important;padding:14px!important;background:var(--juba-card,var(--duo-card))!important;border-left:1px solid var(--juba-border,var(--duo-line))!important;gap:12px!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:13px!important;border:1px solid var(--juba-border,var(--duo-line))!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .juba-chat-profile-hero{padding:18px 14px 14px!important}
         .juba-mobile-chat .juba-chat-profile-metrics{padding:10px 8px!important}
         .juba-mobile-chat .juba-chat-side-card-head{padding:13px 14px!important}
         .juba-mobile-chat .juba-chat-friend{min-height:52px!important;padding:8px 12px!important}
-        .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:10px 16px 12px!important;background:var(--duo-card)!important;border-top:1px solid var(--duo-line)!important}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:10px 16px 12px!important;background:var(--juba-card,var(--duo-card))!important;border-top:1px solid var(--juba-border,var(--duo-line))!important}
         .juba-mobile-chat input{height:44px!important;border-radius:10px!important;box-shadow:none!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\\[var\\(--duo-green-dark\\)\\]{height:44px!important;border-radius:10px!important;box-shadow:0 2px 0 var(--duo-green-dark)!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\\[var\\(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)\\)\\]{height:44px!important;border-radius:10px!important;box-shadow:0 2px 0 var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))!important}
         @media (max-width:1180px) and (min-width:1024px){
           .juba-mobile-chat .juba-chat-profile-rail{width:244px!important;min-width:244px!important}
           .juba-mobile-chat .chat-conversations-sidebar{width:204px!important;min-width:204px!important}
@@ -654,19 +654,19 @@ export default function ChatPage() {
         .juba-mobile-chat{background:#f8faf7!important}
         .juba-mobile-chat .chat-conversations-sidebar,
         .juba-mobile-chat>div.flex.flex-1>div:first-child,
-        .juba-mobile-chat .juba-chat-profile-rail{background:var(--duo-card)!important}
+        .juba-mobile-chat .juba-chat-profile-rail{background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid #edf1ea!important}
         .juba-mobile-chat>div.flex.flex-1>div:first-child{border-bottom:1px solid #edf1ea!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{background:#f8faf7!important}
-        .juba-mobile-chat .word-selectable{background:var(--duo-card)!important;border:1px solid #edf1ea!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:#edf1ea!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .word-selectable{background:var(--juba-card,var(--duo-card))!important;border:1px solid #edf1ea!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:#edf1ea!important;background:var(--juba-card,var(--duo-card))!important}
         .juba-mobile-chat .juba-chat-side-label{color:#92988f!important;letter-spacing:.09em!important}
         .juba-mobile-chat .juba-chat-profile-hero strong{color:#30362f!important}
         .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid #f0f2ed!important}
         .juba-mobile-chat .juba-chat-friend{transition:background-color .14s ease!important}
         .juba-mobile-chat .juba-chat-friend:hover{background:var(--duo-soft)!important}
-        .juba-mobile-chat>div.flex.flex-1>div:last-child{background:var(--duo-card)!important;border-top:1px solid #edf1ea!important}
-        @media (max-width:900px){.juba-mobile-chat{background:var(--duo-card)!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:var(--duo-card)!important}}
+        .juba-mobile-chat>div.flex.flex-1>div:last-child{background:var(--juba-card,var(--duo-card))!important;border-top:1px solid #edf1ea!important}
+        @media (max-width:900px){.juba-mobile-chat{background:var(--juba-card,var(--duo-card))!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:var(--juba-card,var(--duo-card))!important}}
 
       `}</style>
       <style>{`
@@ -707,14 +707,14 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="chat-conversations-sidebar border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 lg:relative lg:top-auto lg:bottom-auto lg:start-auto lg:z-auto">
-            <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
+          <aside className="chat-conversations-sidebar border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg,var(--duo-bg))]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 lg:relative lg:top-auto lg:bottom-auto lg:start-auto lg:z-auto">
+            <div className="border-[var(--juba-border,var(--duo-line))] flex items-center justify-between border-b-2 px-4 py-3">
+              <span className="text-[var(--juba-muted,var(--duo-muted))] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
                 onClick={newChat}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-semibold tracking-wide transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-semibold tracking-wide transition-colors"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -725,7 +725,7 @@ export default function ChatPage() {
                 <PageLoading fullScreen={false} className="block px-4 py-4" />
               ) : convLoadError ? (
                 <div className="flex flex-col items-center gap-3 px-4 py-6">
-                  <p className="text-[var(--duo-red)] font-sans text-xs">
+                  <p className="text-[var(--juba-red,var(--duo-red))] font-sans text-xs">
                     {tCommon('error')}
                   </p>
                   <button
@@ -742,13 +742,13 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-sm transition-colors hover:border-[var(--duo-green)]"
+                    className="rounded-xl border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-4 py-2 font-semibold tracking-wide text-[var(--juba-ink,var(--duo-ink))] shadow-sm transition-colors hover:border-[var(--juba-green,var(--duo-green))]"
                   >
                     {tCommon('retry')}
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[var(--duo-muted)] px-4 py-4 font-sans">
+                <p className="text-[var(--juba-muted,var(--duo-muted))] px-4 py-4 font-sans">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -756,18 +756,18 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-[var(--juba-border,var(--duo-line))] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[var(--duo-line)] border-s-2 border-s-[var(--duo-green)]'
-                        : 'hover:bg-[var(--duo-card)] border-s-2 border-s-transparent'
+                        ? 'bg-[var(--juba-border,var(--duo-line))] border-s-2 border-s-[var(--juba-green,var(--duo-green))]'
+                        : 'hover:bg-[var(--juba-card,var(--duo-card))] border-s-2 border-s-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[var(--duo-ink)] truncate pe-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
+                      className={`text-[var(--juba-ink,var(--duo-ink))] truncate pe-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--juba-ink,var(--duo-ink))]' : 'text-[var(--juba-muted,var(--duo-muted))]'}`}
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[var(--duo-muted)] me-1.5"
+                          className="text-[var(--juba-muted,var(--duo-muted))] me-1.5"
                           title="Voice session"
                         >
                           🎤
@@ -780,7 +780,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[var(--duo-ink)] text-[var(--duo-red)] hover:text-[var(--duo-red)] shrink-0 font-sans opacity-0 transition-colors group-hover:opacity-100"
+                      className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-red,var(--duo-red))] hover:text-[var(--juba-red,var(--duo-red))] shrink-0 font-sans opacity-0 transition-colors group-hover:opacity-100"
                       title="Delete"
                     >
                       ✕
@@ -795,18 +795,18 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg,var(--duo-bg))]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] me-1 text-lg transition-colors"
+              className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] me-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
             >
               {sidebarOpen ? '◀' : '☰'}
             </button>
-            <span className="text-[var(--duo-muted)]">●</span>
-            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
+            <span className="text-[var(--juba-muted,var(--duo-muted))]">●</span>
+            <span className="text-[var(--juba-muted,var(--duo-muted))] font-semibold tracking-wide">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -814,11 +814,11 @@ export default function ChatPage() {
             </span>
             {sending ? (
               <div className="ms-auto flex flex-col items-end gap-0.5">
-                <span className="text-[var(--duo-muted)] animate-pulse font-semibold tracking-wide">
+                <span className="text-[var(--juba-muted,var(--duo-muted))] animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-[var(--duo-muted)] font-sans tracking-widest text-[var(--duo-green-dark)] uppercase">
+                  <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans tracking-widest text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -826,7 +826,7 @@ export default function ChatPage() {
             ) : messages.length > 0 ? (
               <button
                 onClick={continueInVoice}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] ms-auto font-semibold tracking-wide transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] ms-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
@@ -843,10 +843,10 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[var(--duo-muted)] font-semibold tracking-wide">
+                <p className="text-[var(--juba-muted,var(--duo-muted))] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[var(--duo-muted)] max-w-xs font-sans text-xs leading-relaxed">
+                <p className="text-[var(--juba-muted,var(--duo-muted))] max-w-xs font-sans text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -861,7 +861,7 @@ export default function ChatPage() {
                   className={`flex items-end gap-2 ${msg.role === 'user' ? 'ms-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[var(--duo-line)] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--duo-line)]">
+                  <div className="border-[var(--juba-border,var(--duo-line))] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--juba-border,var(--duo-line))]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -878,8 +878,8 @@ export default function ChatPage() {
                         height={32}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                            <span className="text-[var(--duo-muted)] font-sans select-none">
+                          <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                            <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans select-none">
                               {(user?.displayName ||
                                 user?.username ||
                                 '?')[0].toUpperCase()}
@@ -888,8 +888,8 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                        <span className="text-[var(--duo-muted)] font-sans select-none">
+                      <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                        <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -901,10 +901,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable rounded-[10px] border px-3.5 py-2.5 text-left shadow-sm ${
+                      className={`word-selectable rounded-[12px] border px-3.5 py-2.5 text-left shadow-sm ${
                         msg.role === 'user'
-                          ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green)]'
-                          : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
+                          ? 'bg-[var(--juba-green,var(--duo-green))] text-white border-[var(--juba-green,var(--duo-green))]'
+                          : 'bg-[var(--juba-card,var(--duo-card))] text-[var(--juba-ink,var(--duo-ink))] border-[var(--juba-border,var(--duo-line))]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -915,7 +915,7 @@ export default function ChatPage() {
                     >
                       {msg.content ||
                         (sending && i === messages.length - 1 ? (
-                          <span className="text-[var(--duo-muted)] animate-pulse">
+                          <span className="text-[var(--juba-muted,var(--duo-muted))] animate-pulse">
                             ▌
                           </span>
                         ) : null)}
@@ -932,7 +932,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--duo-ink)] text-[var(--duo-red)] rounded-xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-2 font-sans">
+              <div className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-red,var(--duo-red))] rounded-xl border-2 border-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_30%,transparent)] bg-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_8%,transparent)] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -943,7 +943,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t border-[var(--duo-line)] bg-[var(--duo-bg)]/70 shrink-0 px-4 py-3">
+          <div className="border-t border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg,var(--duo-bg))]/70 shrink-0 px-4 py-3">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -959,17 +959,17 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-sm transition-colors placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-3.5 py-2.5 font-sans text-base text-[var(--juba-ink,var(--duo-ink))] shadow-sm transition-colors placeholder:text-[var(--juba-muted,var(--duo-muted))] focus:border-[var(--juba-green,var(--duo-green))] focus:outline-none focus:ring-2 focus:ring-[var(--juba-green,var(--duo-green))]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-[10px] border border-[var(--duo-green)] bg-[var(--duo-green)] px-4 py-2.5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] active:translate-y-px disabled:opacity-30"
+                    className="rounded-[12px] border border-[var(--juba-green,var(--duo-green))] bg-[var(--juba-green,var(--duo-green))] px-4 py-2.5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-colors hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] active:translate-y-px disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--duo-muted)] mt-2 font-sans tracking-wide">
+                <p className="text-[var(--juba-muted,var(--duo-muted))] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
