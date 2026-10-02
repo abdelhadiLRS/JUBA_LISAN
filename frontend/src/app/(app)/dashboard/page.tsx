@@ -1136,9 +1136,32 @@ export default function DashboardPage() {
     flex:none;
   }
   .dashboard-lesson-action{align-self:stretch;display:flex;align-items:center}
-  .dashboard-completed,.dashboard-locked{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;min-width:112px;color:#a1a69f;font-size:8px;font-weight:800}
-  .dashboard-completed svg{color:#58a91b}
-  .dashboard-locked{color:#c0c5bd}
+  .dashboard-completed,.dashboard-locked{
+    display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;
+    min-width:112px;min-height:24px;padding:0 7px;
+    border:1px solid transparent;border-radius:7px;
+    font-size:8px;font-weight:800;
+  }
+  .dashboard-completed{
+    color:#58a91b;
+    border-color:#e2efd9;
+    background:#f7fbf4;
+  }
+  .dashboard-completed svg{color:#58a91b;flex:none}
+  .dashboard-locked{
+    color:#a9afa7;
+    border-color:#eef1ed;
+    background:#fafbf9;
+  }
+  .dashboard-locked svg{color:#c0c5bd;flex:none}
+  .dashboard-lesson.done:hover .dashboard-completed{
+    border-color:#dcebd5;
+    background:#f3faef;
+  }
+  .dashboard-lesson:not(.current):not(.done):hover .dashboard-locked{
+    border-color:#e6ebe3;
+    background:#f7f9f6;
+  }
 
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
