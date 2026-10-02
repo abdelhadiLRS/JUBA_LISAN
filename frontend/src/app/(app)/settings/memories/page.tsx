@@ -135,15 +135,13 @@ export default function SettingsMemoriesPage() {
         </nav>
       </section>
 
+      <div className="juba-reference-hero flex items-center justify-between">
+        <h1 className="text-[var(--duo-ink)] font-sans text-xl font-bold tracking-tight">
+          {t('sectionMemory')}
+        </h1>
+      </div>
+
       <div className="juba-reference-list-card p-6">
-        <div className="juba-reference-section-head mb-4 flex items-center gap-2 border-b border-[#e8eee4] pb-4">
-          <span aria-hidden="true" className="text-[rgba(32,33,39,.52)]">
-            ●
-          </span>
-          <h2 className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
-            {t('sectionMemory')}
-          </h2>
-        </div>
 
         <p className="text-[rgba(32,33,39,.52)] mb-5 font-sans text-xs leading-relaxed">
           {t('memoryDescription')}
