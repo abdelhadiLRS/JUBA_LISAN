@@ -270,7 +270,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <PageLoading
         label={tCommon('initializing')}
         minHeight="min-h-[100dvh]"
-        className="bg-[var(--duo-bg)]"
+        className="bg-[var(--juba-bg,var(--duo-bg))]"
       />
     )
   }
@@ -287,7 +287,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
       <style>{`
         /* JUBA LISAN — single reference design system for authenticated app chrome */
-        .juba-app-shell{--juba-bg:var(--duo-bg);--juba-border:var(--duo-line);--juba-ink:var(--duo-ink);--juba-muted:var(--duo-muted);--juba-green:var(--duo-green);background:var(--juba-bg)!important;color:var(--juba-ink)!important;min-height:100dvh;width:100%;display:flex;flex-direction:row;direction:inherit;overflow:hidden}
+        .juba-app-shell{--juba-bg:var(--juba-bg,var(--duo-bg));--juba-border:var(--juba-border,var(--duo-line));--juba-ink:var(--juba-ink,var(--duo-ink));--juba-muted:var(--juba-muted,var(--duo-muted));--juba-green:var(--juba-green,var(--duo-green));background:var(--juba-bg)!important;color:var(--juba-ink)!important;min-height:100dvh;width:100%;display:flex;flex-direction:row;direction:inherit;overflow:hidden}
         /* Shared dashboard canvas: every authenticated page uses the same visual grammar. */
         .juba-app-shell .juba-dashboard-workspace > *{
           width:100%!important;max-width:1480px!important;margin-inline:auto!important;
@@ -299,7 +299,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         }
         .juba-app-shell .juba-reference-hero,
         .juba-app-shell .juba-page-hero{
-          background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--juba-border)!important;
+          background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border:1px solid var(--juba-border)!important;
           border-radius:14px!important;box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
         }
         .juba-app-shell .juba-reference-section,
@@ -309,7 +309,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-card,
         .juba-app-shell .juba-panel,
         .juba-app-shell .juba-reference-list-card{
-          background:var(--juba-card,var(--duo-card))!important;border-color:var(--juba-border)!important;
+          background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-color:var(--juba-border)!important;
           box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
         }
         .juba-app-shell .juba-section-title,
@@ -323,24 +323,24 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           color:var(--juba-muted)!important;
         }
         .juba-app-shell .juba-primary-button{
-          background:var(--duo-green,var(--duo-green))!important;color:#fff!important;border-color:var(--duo-green,var(--duo-green))!important;
-          border-radius:9px!important;box-shadow:0 2px 0 var(--duo-green-dark,var(--duo-green-dark))!important;
+          background:var(--duo-green,var(--juba-green,var(--duo-green)))!important;color:#fff!important;border-color:var(--duo-green,var(--juba-green,var(--duo-green)))!important;
+          border-radius:12px!important;box-shadow:0 2px 0 var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;
         }
-        .juba-app-shell .juba-primary-button:hover{background:var(--duo-green-dark,var(--duo-green-dark))!important}
+        .juba-app-shell .juba-primary-button:hover{background:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important}
         .juba-app-shell .juba-secondary-button{
-          background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--juba-border)!important;color:var(--duo-muted)!important;
-          border-radius:9px!important;
+          background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border:1px solid var(--juba-border)!important;color:var(--juba-muted,var(--duo-muted))!important;
+          border-radius:12px!important;
         }
         .juba-app-shell .juba-input{
-          min-height:40px!important;border:1px solid var(--juba-border)!important;border-radius:9px!important;
-          background:var(--juba-card,var(--duo-card))!important;color:var(--duo-ink)!important;
+          min-height:40px!important;border:1px solid var(--juba-border)!important;border-radius:12px!important;
+          background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;color:var(--juba-ink,var(--duo-ink))!important;
         }
         .juba-app-shell .juba-badge{
-          border:1px solid var(--juba-border)!important;background:var(--juba-soft,var(--duo-soft))!important;color:var(--juba-muted)!important;
+          border:1px solid var(--juba-border)!important;background:var(--juba-soft,var(--juba-soft,var(--duo-soft)))!important;color:var(--juba-muted)!important;
           border-radius:999px!important;
         }
         .juba-app-shell table{
-          border-color:var(--juba-border)!important;background:var(--juba-card,var(--duo-card))!important;
+          border-color:var(--juba-border)!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;
         }
         .juba-app-shell thead{
           background:var(--duo-soft,var(--juba-soft))!important;
@@ -362,38 +362,38 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             box-sizing:border-box!important;
           }
         }
-        .juba-app-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:var(--juba-card,var(--duo-card))!important;border-inline-end:1px solid var(--juba-border)!important;box-shadow:none!important}
-        .juba-app-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid var(--juba-border)!important;background:var(--juba-card,var(--duo-card))!important}
-        .juba-app-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:var(--duo-green,var(--duo-green))!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 var(--duo-green-dark,var(--duo-green-dark))!important}
-        .juba-app-shell .juba-duo-sidebar>div:first-child>span:last-child{color:var(--duo-green-dark,var(--duo-green-dark))!important;font-size:14px!important;font-weight:900!important;letter-spacing:-.025em!important;text-transform:none!important}
+        .juba-app-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-inline-end:1px solid var(--juba-border)!important;box-shadow:none!important}
+        .juba-app-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid var(--juba-border)!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important}
+        .juba-app-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:var(--duo-green,var(--juba-green,var(--duo-green)))!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important}
+        .juba-app-shell .juba-duo-sidebar>div:first-child>span:last-child{color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;font-size:14px!important;font-weight:900!important;letter-spacing:-.025em!important;text-transform:none!important}
         .juba-app-shell .juba-duo-language{display:none!important}
         .juba-app-shell .juba-duo-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:14px 10px 12px!important;scrollbar-width:none!important}
         .juba-app-shell .juba-duo-nav::-webkit-scrollbar{display:none!important}
-        .juba-app-shell .juba-duo-nav-link{position:relative!important;display:flex!important;align-items:center!important;min-height:40px!important;margin:2px 0!important;padding:8px 11px!important;gap:10px!important;border:0!important;border-radius:9px!important;color:var(--juba-muted)!important;background:transparent!important;font-size:11.5px!important;font-weight:700!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important;transition:background-color .16s ease,color .16s ease!important}
-        .juba-app-shell .juba-duo-nav-link svg{width:17px!important;height:17px!important;flex:none!important;stroke-width:2.15!important}\n        .juba-app-shell .juba-duo-nav-section-label{margin:13px 10px 5px!important;color:var(--duo-muted)!important;font-size:8px!important;font-weight:850!important;line-height:1!important;letter-spacing:.12em!important;text-transform:uppercase!important}
+        .juba-app-shell .juba-duo-nav-link{position:relative!important;display:flex!important;align-items:center!important;min-height:40px!important;margin:2px 0!important;padding:8px 11px!important;gap:10px!important;border:0!important;border-radius:12px!important;color:var(--juba-muted)!important;background:transparent!important;font-size:11.5px!important;font-weight:700!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important;transition:background-color .16s ease,color .16s ease!important}
+        .juba-app-shell .juba-duo-nav-link svg{width:17px!important;height:17px!important;flex:none!important;stroke-width:2.15!important}\n        .juba-app-shell .juba-duo-nav-section-label{margin:13px 10px 5px!important;color:var(--juba-muted,var(--duo-muted))!important;font-size:8px!important;font-weight:850!important;line-height:1!important;letter-spacing:.12em!important;text-transform:uppercase!important}
 
-        .juba-app-shell .juba-duo-nav-link:hover{background:var(--duo-soft,var(--juba-soft))!important;color:var(--duo-green-dark,var(--duo-green-dark))!important;transform:none!important}
-        .juba-app-shell .juba-duo-nav-link.is-active{background:var(--duo-soft,var(--juba-soft))!important;color:var(--duo-green-dark,var(--duo-green-dark))!important;font-weight:850!important;box-shadow:none!important}
-        .juba-app-shell .juba-duo-nav-link.is-active:before{content:""!important;position:absolute!important;inset-inline-start:0!important;top:7px!important;bottom:7px!important;width:2px!important;border-radius:0 4px 4px 0!important;background:var(--duo-green)!important}
-        .juba-app-shell .juba-duo-nav-link.is-active svg{color:var(--duo-green)!important}
-        .juba-app-shell .juba-duo-resource-toggle{width:100%!important;min-height:34px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:7px 10px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:var(--juba-muted)!important;font-size:9px!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase!important}
-        .juba-app-shell .juba-duo-resource-toggle:hover{background:var(--duo-soft,var(--juba-soft))!important;color:var(--duo-green-dark)!important}
+        .juba-app-shell .juba-duo-nav-link:hover{background:var(--duo-soft,var(--juba-soft))!important;color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;transform:none!important}
+        .juba-app-shell .juba-duo-nav-link.is-active{background:var(--duo-soft,var(--juba-soft))!important;color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;font-weight:850!important;box-shadow:none!important}
+        .juba-app-shell .juba-duo-nav-link.is-active:before{content:""!important;position:absolute!important;inset-inline-start:0!important;top:7px!important;bottom:7px!important;width:2px!important;border-radius:0 4px 4px 0!important;background:var(--juba-green,var(--duo-green))!important}
+        .juba-app-shell .juba-duo-nav-link.is-active svg{color:var(--juba-green,var(--duo-green))!important}
+        .juba-app-shell .juba-duo-resource-toggle{width:100%!important;min-height:34px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:7px 10px!important;border:0!important;border-radius:12px!important;background:transparent!important;color:var(--juba-muted)!important;font-size:9px!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase!important}
+        .juba-app-shell .juba-duo-resource-toggle:hover{background:var(--duo-soft,var(--juba-soft))!important;color:var(--juba-green-dark,var(--duo-green-dark))!important}
         .juba-app-shell .juba-duo-nav-divider{margin-top:4px!important;padding-top:0!important;border-top:0!important}
-        .juba-app-shell .juba-duo-user{flex:none!important;padding:10px 12px!important;background:var(--juba-card,var(--duo-card))!important;border-top:1px solid var(--juba-border)!important;box-shadow:none!important}
-        .juba-app-shell .juba-duo-user-action{color:var(--juba-muted)!important;font-size:10px!important;border-radius:6px!important;padding:2px 4px!important;background:transparent!important;transition:color .16s ease,background-color .16s ease!important}
-        .juba-app-shell .juba-duo-user-action:hover{color:var(--duo-green-dark,var(--duo-green-dark))!important;background:var(--duo-soft,var(--juba-soft))!important}
-        .juba-app-shell .juba-duo-version{color:var(--duo-line)!important;font-size:8px!important}
+        .juba-app-shell .juba-duo-user{flex:none!important;padding:10px 12px!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-top:1px solid var(--juba-border)!important;box-shadow:none!important}
+        .juba-app-shell .juba-duo-user-action{color:var(--juba-muted)!important;font-size:10px!important;border-radius:12px!important;padding:2px 4px!important;background:transparent!important;transition:color .16s ease,background-color .16s ease!important}
+        .juba-app-shell .juba-duo-user-action:hover{color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;background:var(--duo-soft,var(--juba-soft))!important}
+        .juba-app-shell .juba-duo-version{color:var(--juba-border,var(--duo-line))!important;font-size:8px!important}
         .juba-app-shell .juba-duo-main{min-width:0!important;min-height:100dvh!important;background:var(--juba-bg)!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;font-synthesis:none!important;-webkit-font-smoothing:antialiased!important}
-        .juba-app-shell .juba-duo-page-frame{min-width:0!important;min-height:0!important;flex:1 1 auto!important;background:var(--juba-bg)!important;overscroll-behavior-y:contain!important;scrollbar-width:thin!important;scrollbar-color:var(--duo-line) transparent!important}
+        .juba-app-shell .juba-duo-page-frame{min-width:0!important;min-height:0!important;flex:1 1 auto!important;background:var(--juba-bg)!important;overscroll-behavior-y:contain!important;scrollbar-width:thin!important;scrollbar-color:var(--juba-border,var(--duo-line)) transparent!important}
         .juba-app-shell .juba-duo-page-frame::-webkit-scrollbar{width:8px!important}
         .juba-app-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:var(--juba-border)!important;border-radius:99px!important;border:2px solid var(--juba-bg)!important}
-        .juba-app-shell .juba-app-topbar{height:64px!important;flex:0 0 64px!important;display:flex!important;align-items:center!important;gap:28px!important;padding:0 28px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border)!important;position:sticky!important;top:0!important;z-index:30!important;direction:inherit!important}
+        .juba-app-shell .juba-app-topbar{height:64px!important;flex:0 0 64px!important;display:flex!important;align-items:center!important;gap:28px!important;padding:0 28px!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-bottom:1px solid var(--juba-border)!important;position:sticky!important;top:0!important;z-index:30!important;direction:inherit!important}
         .juba-app-shell .juba-app-topbar-brand{display:none!important}
         .juba-app-shell .juba-app-topnav{display:flex!important;align-items:stretch!important;gap:2px!important;height:100%!important;flex:1!important;min-width:0!important}
         .juba-app-shell .juba-app-topnav a{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:100%!important;padding:0 14px!important;border:0!important;border-bottom:2px solid transparent!important;color:var(--juba-muted)!important;background:transparent!important;text-decoration:none!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important;transition:color .16s ease,border-color .16s ease,background-color .16s ease!important}
-        .juba-app-shell .juba-app-topnav a:hover{color:var(--duo-green-dark)!important;background:var(--duo-soft,var(--juba-soft))!important}
-        .juba-app-shell .juba-app-topnav a.is-active{color:var(--duo-green-dark,var(--duo-green-dark))!important;border-bottom-color:var(--duo-green)!important}
-        .juba-app-shell .juba-app-topbar-user{display:flex!important;align-items:center!important;gap:8px!important;flex:none!important;color:var(--duo-muted)!important;font-size:9px!important;font-weight:750!important}
+        .juba-app-shell .juba-app-topnav a:hover{color:var(--juba-green-dark,var(--duo-green-dark))!important;background:var(--duo-soft,var(--juba-soft))!important}
+        .juba-app-shell .juba-app-topnav a.is-active{color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;border-bottom-color:var(--juba-green,var(--duo-green))!important}
+        .juba-app-shell .juba-app-topbar-user{display:flex!important;align-items:center!important;gap:8px!important;flex:none!important;color:var(--juba-muted,var(--duo-muted))!important;font-size:9px!important;font-weight:750!important}
         .juba-app-shell .juba-app-topbar-user-avatar{width:30px!important;height:30px!important;border-radius:50%!important;overflow:hidden!important;background:var(--duo-soft,var(--juba-soft))!important;border:1px solid var(--juba-border)!important;display:grid!important;place-items:center!important}
         .juba-app-shell .juba-app-topbar-user-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
         .juba-app-shell .juba-duo-page-frame{direction:inherit!important;flex:1 1 auto;min-width:0}
@@ -408,16 +408,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-bidi-isolate{unicode-bidi:isolate!important}
         @media (max-width:850px){.juba-app-shell .juba-app-topbar{height:58px!important;flex-basis:58px!important;padding:0 14px!important;gap:10px!important}.juba-app-shell .juba-app-topnav{overflow-x:auto!important;scrollbar-width:none!important}.juba-app-shell .juba-app-topnav::-webkit-scrollbar{display:none!important}.juba-app-shell .juba-app-topnav a{font-size:9px!important;padding:0 10px!important}.juba-app-shell .juba-app-topbar-user span{display:none!important}}
         .juba-app-shell .juba-duo-mobile-bar{display:none!important}
-        .juba-app-shell .juba-duo-mobile-brand{color:var(--duo-green-dark,var(--duo-green-dark))!important;font-weight:900!important;letter-spacing:-.03em!important}
-        .juba-app-shell .juba-duo-mobile-trigger{border:1px solid var(--juba-border)!important;background:var(--juba-card,var(--duo-card))!important;border-radius:9px!important;color:var(--duo-muted)!important;box-shadow:0 1px 2px rgba(40,60,30,.04)!important}
-        .juba-app-shell .juba-duo-mobile-menu{background:var(--juba-card,var(--duo-card))!important;border-top:0!important}
+        .juba-app-shell .juba-duo-mobile-brand{color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;font-weight:900!important;letter-spacing:-.03em!important}
+        .juba-app-shell .juba-duo-mobile-trigger{border:1px solid var(--juba-border)!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-radius:12px!important;color:var(--juba-muted,var(--duo-muted))!important;box-shadow:0 1px 2px rgba(40,60,30,.04)!important}
+        .juba-app-shell .juba-duo-mobile-menu{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-top:0!important}
         .juba-app-shell .juba-duo-mobile-menu .juba-duo-nav-link{min-height:46px!important;margin:0!important;padding:10px 16px!important;border-bottom:1px solid var(--juba-border)!important;border-radius:0!important}
         .juba-app-shell .juba-duo-mobile-menu .juba-duo-nav-link.is-active{background:var(--duo-soft,var(--juba-soft))!important}
         .juba-app-shell .juba-page-shell,.juba-app-shell .juba-mobile-courses,.juba-app-shell .juba-mobile-grammar,.juba-app-shell .juba-mobile-vocabulary,.juba-app-shell .juba-mobile-translator,.juba-app-shell .juba-mobile-listening,.juba-app-shell .juba-mobile-reading,.juba-app-shell .juba-mobile-settings,.juba-app-shell .juba-mobile-friends,.juba-app-shell .juba-admin-shell,.juba-app-shell .juba-admin-reviews-shell,.juba-app-shell .juba-admin-system-shell,.juba-app-shell .juba-admin-users-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important}
         .juba-app-shell .juba-reference-translator-grid{max-width:1180px!important;margin-inline:auto!important;width:100%!important}
         .juba-app-shell .juba-reference-translator-panel{border-radius:12px!important}
         .juba-app-shell .juba-reference-assessment-card{width:min(100%,720px)!important;border-radius:12px!important}
-        .juba-app-shell .juba-reference-assessment-panel{border-radius:10px!important}
+        .juba-app-shell .juba-reference-assessment-panel{border-radius:12px!important}
         .juba-app-shell .juba-reference-card-header{min-height:52px!important}
         .juba-app-shell .juba-reference-card-body{min-height:220px!important}
         .juba-app-shell .juba-reference-action{min-height:42px!important}
@@ -433,26 +433,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-reference-tabs{padding-top:2px!important}
         .juba-app-shell .juba-reference-list-section>div:first-child{min-height:30px!important}
         .juba-app-shell .juba-reference-list-card{min-height:104px!important}
-        .juba-app-shell .juba-reference-list-card:hover{border-color:var(--duo-line)!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-reference-list-card:hover{border-color:var(--juba-border,var(--duo-line))!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-reference-section{box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-page-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important;padding:24px 28px 36px!important}
-        .juba-app-shell .juba-page-hero{background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--duo-line)!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-page-hero{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-page-title{color:var(--juba-ink)!important;letter-spacing:-.035em!important}
-        .juba-app-shell .juba-page-subtitle{color:var(--duo-muted)!important}
-        .juba-app-shell .juba-eyebrow{color:var(--duo-green-dark,var(--duo-green-dark))!important;font-weight:850!important;letter-spacing:.12em!important}
-        .juba-app-shell .juba-card,.juba-app-shell .juba-panel{background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--duo-line)!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
-        .juba-app-shell .juba-card:hover,.juba-app-shell .juba-panel:hover{border-color:var(--duo-line)!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
-        .juba-app-shell .juba-input{min-height:42px!important;background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--duo-line)!important;border-radius:10px!important;color:var(--duo-ink)!important;box-shadow:none!important}
-        .juba-app-shell .juba-input:focus{border-color:var(--duo-green)!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
-        .juba-app-shell .juba-primary-button,.juba-app-shell .juba-secondary-button{border-radius:10px!important}
+        .juba-app-shell .juba-page-subtitle{color:var(--juba-muted,var(--duo-muted))!important}
+        .juba-app-shell .juba-eyebrow{color:var(--duo-green-dark,var(--juba-green-dark,var(--duo-green-dark)))!important;font-weight:850!important;letter-spacing:.12em!important}
+        .juba-app-shell .juba-card,.juba-app-shell .juba-panel{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-card:hover,.juba-app-shell .juba-panel:hover{border-color:var(--juba-border,var(--duo-line))!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-input{min-height:42px!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;color:var(--juba-ink,var(--duo-ink))!important;box-shadow:none!important}
+        .juba-app-shell .juba-input:focus{border-color:var(--juba-green,var(--duo-green))!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
+        .juba-app-shell .juba-primary-button,.juba-app-shell .juba-secondary-button{border-radius:12px!important}
         .juba-app-shell .juba-badge{border-radius:999px!important}.juba-app-shell .juba-muted{color:var(--juba-muted)!important}
         .juba-app-shell .juba-assessment-page,.juba-app-shell .juba-games,.juba-app-shell .juba-dashboard-workspace{background:var(--juba-bg)!important}
         .juba-app-shell .games-shell{max-width:1480px!important}
-        .juba-app-shell [class*="juba-mobile-"] input:not([type="checkbox"]):not([type="radio"]),.juba-app-shell [class*="juba-mobile-"] textarea,.juba-app-shell [class*="juba-mobile-"] select{border:1px solid var(--duo-line)!important;border-radius:10px!important;background:var(--juba-card,var(--duo-card))!important;box-shadow:none!important}
-        .juba-app-shell [class*="juba-mobile-"] input:focus,.juba-app-shell [class*="juba-mobile-"] textarea:focus,.juba-app-shell [class*="juba-mobile-"] select:focus{border-color:var(--duo-green)!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
-        .juba-app-shell a:focus-visible,.juba-app-shell button:focus-visible{outline:2px solid var(--duo-green)!important;outline-offset:2px!important}
+        .juba-app-shell [class*="juba-mobile-"] input:not([type="checkbox"]):not([type="radio"]),.juba-app-shell [class*="juba-mobile-"] textarea,.juba-app-shell [class*="juba-mobile-"] select{border:1px solid var(--juba-border,var(--duo-line))!important;border-radius:12px!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;box-shadow:none!important}
+        .juba-app-shell [class*="juba-mobile-"] input:focus,.juba-app-shell [class*="juba-mobile-"] textarea:focus,.juba-app-shell [class*="juba-mobile-"] select:focus{border-color:var(--juba-green,var(--duo-green))!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
+        .juba-app-shell a:focus-visible,.juba-app-shell button:focus-visible{outline:2px solid var(--juba-green,var(--duo-green))!important;outline-offset:2px!important}
         @media (max-width:1180px) and (min-width:901px){.juba-app-shell .juba-duo-sidebar{width:192px!important;min-width:192px!important;flex-basis:192px!important}.juba-app-shell .juba-duo-nav-link{font-size:10.5px!important;padding-inline:8px!important;gap:8px!important}.juba-app-shell .juba-duo-nav-link svg{width:16px!important;height:16px!important}}
-        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:var(--juba-card,var(--duo-card))!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:var(--juba-card,var(--duo-card))!important}.juba-app-shell .juba-duo-page-frame{background:var(--juba-card,var(--duo-card))!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid var(--juba-border)!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:var(--juba-card,var(--duo-card))!important;padding-inline:0!important;padding-top:0!important;padding-bottom:0!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
+        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important}.juba-app-shell .juba-duo-page-frame{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;border-bottom:1px solid var(--juba-border)!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:var(--juba-card,var(--juba-card,var(--duo-card)))!important;padding-inline:0!important;padding-top:0!important;padding-bottom:0!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
       `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-app-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
@@ -461,9 +461,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className="juba-duo-sidebar" aria-label={tNav('primaryNavigation')}>
         {/* Logo area */}
-        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-5">
+        <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
-          <span className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
+          <span className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-sm font-bold tracking-widest uppercase">
             JUBA LISAN
           </span>
         </div>
@@ -493,10 +493,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[var(--duo-muted)]'}`} />
+                  <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--juba-green,var(--duo-green))]' : 'text-[var(--juba-muted,var(--duo-muted))]'}`} />
                   <span className="truncate">{item.label}</span>
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span className="text-[var(--duo-green)] ms-auto shrink-0 text-xs">★</span>
+                    <span className="text-[var(--juba-green,var(--duo-green))] ms-auto shrink-0 text-xs">★</span>
                   )}
                 </Link>
               </div>
@@ -512,7 +512,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               aria-controls="desktop-resources-menu"
             >
               <span>{tNav('resources')}</span>
-              <span className="text-[var(--duo-ink)]">{resourcesOpen ? '▴' : '▾'}</span>
+              <span className="text-[var(--juba-ink,var(--duo-ink))]">{resourcesOpen ? '▴' : '▾'}</span>
             </button>
             <div id="desktop-resources-menu" hidden={!resourcesOpen}>
               {resourceNavItems.map((item) => {
@@ -572,7 +572,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* User + logout */}
         <div className="juba-duo-user">
           <div className="mb-3 flex items-center gap-3">
-            <div className="border-[var(--duo-line)] h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
+            <div className="border-[var(--juba-border,var(--duo-line))] h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
               {user?.avatar ? (
                 <AuthAvatarImage
                   avatar={user.avatar}
@@ -581,8 +581,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   height={32}
                   className="h-full w-full object-cover"
                   fallback={
-                    <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                      <span className="text-[var(--duo-muted)] font-sans text-xs select-none">
+                    <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                      <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -591,8 +591,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   }
                 />
               ) : (
-                <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                  <span className="text-[var(--duo-muted)] font-sans text-xs select-none">
+                <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                  <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -601,14 +601,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
+              <p className="text-[var(--juba-muted,var(--duo-muted))] truncate font-sans tracking-widest uppercase">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-[var(--duo-muted)] truncate font-sans">
+              <p className="text-[var(--juba-muted,var(--duo-muted))] truncate font-sans">
                 @{user?.username?.toLowerCase()}
               </p>
               {trialDaysLeft > 0 && (
-                <p className="text-[var(--duo-green-dark)] truncate font-sans text-xs">
+                <p className="text-[var(--juba-green-dark,var(--duo-green-dark))] truncate font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
@@ -633,7 +633,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="juba-duo-mobile-bar fixed inset-x-0 top-0 z-50 border-b border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+      <div className="juba-duo-mobile-bar fixed inset-x-0 top-0 z-50 border-b border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-sm">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
@@ -658,7 +658,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           aria-label={tNav('primaryNavigation')}
           className="juba-duo-mobile-menu max-h-[calc(100dvh-66px)] overflow-y-auto overscroll-contain"
         >
-            <div className="border-[var(--duo-line)] border-b">
+            <div className="border-[var(--juba-border,var(--duo-line))] border-b">
               <LanguageSwitcher />
             </div>
             {mainNavItems.map((item) => {
@@ -675,7 +675,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
+                    <span className="text-[var(--juba-green,var(--duo-green))] ms-auto text-xs">★</span>
                   )}
                 </Link>
               )
@@ -685,12 +685,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex min-h-11 w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] flex min-h-11 w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
                 aria-expanded={resourcesOpen}
                 aria-controls="mobile-resources-menu"
               >
                 <span>{tNav('resources')}</span>
-                <span className="text-[var(--duo-ink)]">
+                <span className="text-[var(--juba-ink,var(--duo-ink))]">
                   {resourcesOpen ? '▴' : '▾'}
                 </span>
               </button>
@@ -707,12 +707,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       aria-current={active ? 'page' : undefined}
                       className={`flex min-h-11 items-center gap-3 py-2.5 pe-5 ps-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                         active
-                          ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
-                          : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
+                          ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[var(--juba-border,var(--duo-line))] border-s-2 border-[var(--juba-green,var(--duo-green))]'
+                          : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-card,var(--duo-card))] border-s-2 border-transparent'
                       }`}
                     >
                       <span
-                        className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
+                        className={`text-[var(--juba-ink,var(--duo-ink))] ${active ? 'text-[var(--juba-ink,var(--duo-ink))]' : 'text-[var(--juba-muted,var(--duo-muted))]'}`}
                       >
                         ·
                       </span>
@@ -734,19 +734,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   onClick={closeMobileMenu}
                   className={`flex min-h-11 items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                     active
-                      ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
-                      : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
+                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[var(--juba-border,var(--duo-line))] border-s-2 border-[var(--juba-green,var(--duo-green))]'
+                      : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-card,var(--duo-card))] border-s-2 border-transparent'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   <span
-                    className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
+                    className={`text-[var(--juba-ink,var(--duo-ink))] ${active ? 'text-[var(--juba-ink,var(--duo-ink))]' : 'text-[var(--juba-muted,var(--duo-muted))]'}`}
                   >
                     ●
                   </span>
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-[var(--duo-ink)] ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
+                    <span className="text-[var(--juba-ink,var(--duo-ink))] ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -761,17 +761,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
                 className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
-                    ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
-                    : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
+                    ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[var(--juba-border,var(--duo-line))] border-s-2 border-[var(--juba-green,var(--duo-green))]'
+                    : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-card,var(--duo-card))] border-s-2 border-transparent'
                 }`}
               >
-                <span className="text-[var(--duo-muted)]">●</span>
+                <span className="text-[var(--juba-muted,var(--duo-muted))]">●</span>
                 {tNav('admin')}
               </Link>
             )}
-            <div className="mx-5 mt-2 border-t border-[var(--duo-line)] pt-3">
+            <div className="mx-5 mt-2 border-t border-[var(--juba-border,var(--duo-line))] pt-3">
               <div className="mb-2 flex items-center gap-3">
-                <div className="border-[var(--duo-line)] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                <div className="border-[var(--juba-border,var(--duo-line))] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                   {user?.avatar ? (
                     <AuthAvatarImage
                       avatar={user.avatar}
@@ -780,8 +780,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       height={28}
                       className="h-full w-full object-cover"
                       fallback={
-                        <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                          <span className="text-[var(--duo-muted)] font-sans select-none">
+                        <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                          <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans select-none">
                             {(user?.displayName ||
                               user?.username ||
                               '?')[0].toUpperCase()}
@@ -790,8 +790,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       }
                     />
                   ) : (
-                    <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                      <span className="text-[var(--duo-muted)] font-sans select-none">
+                    <div className="bg-[var(--juba-border,var(--duo-line))] flex h-full w-full items-center justify-center">
+                      <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -800,20 +800,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
+                  <p className="text-[var(--juba-muted,var(--duo-muted))] truncate font-sans tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-[var(--duo-muted)] truncate font-sans">
+                  <p className="text-[var(--juba-muted,var(--duo-muted))] truncate font-sans">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
               </div>
               {trialDaysLeft > 0 && (
-                <p className="text-[var(--duo-green-dark)] mb-2 font-sans text-xs">
+                <p className="text-[var(--juba-green-dark,var(--duo-green-dark))] mb-2 font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="mb-2 font-sans tracking-wider text-[var(--duo-muted)]">
+              <p className="mb-2 font-sans tracking-wider text-[var(--juba-muted,var(--duo-muted))]">
                 v1.9.16
               </p>
               <button
@@ -821,7 +821,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   closeMobileMenu()
                   setContactOpen(true)
                 }}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tNav('contact')}
               </button>
@@ -830,7 +830,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   closeMobileMenu()
                   setLogoutConfirm(true)
                 }}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('logout')}
               </button>
@@ -866,18 +866,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </header>
         {/* Email verification banner */}
         {user && user.is_verified === false && (
-          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
+          <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
+            <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs tracking-wide">
               ● {tCommon('verifyEmailBanner')}
             </span>
             {resendSent ? (
-              <span className="text-[var(--duo-muted)] font-sans text-xs">
+              <span className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs">
                 {tCommon('verifyEmailSent')}
               </span>
             ) : (
               <button
                 onClick={handleResendVerification}
-                className="text-[var(--duo-green)] font-sans text-xs underline transition-colors hover:no-underline"
+                className="text-[var(--juba-green,var(--duo-green))] font-sans text-xs underline transition-colors hover:no-underline"
               >
                 {tCommon('resendVerification')}
               </button>
