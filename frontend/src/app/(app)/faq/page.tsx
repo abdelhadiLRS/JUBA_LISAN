@@ -105,7 +105,7 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-page-shell w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="max-w-3xl space-y-2">
           <p className="juba-eyebrow">{t('title')}</p>
