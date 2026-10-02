@@ -702,15 +702,25 @@ export default function DashboardPage() {
   .dashboard-course-selector span,.dashboard-course-selector strong{
     min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
-  .dashboard-course-selector strong{color:#555;font-size:11px}
+  .dashboard-course-selector span{
+    color:#a0a69f;font-size:8px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;
+  }
+  .dashboard-course-selector strong{color:#4f554f;font-size:11px;font-weight:850}
+  .dashboard-course-selector::before{
+    content:"";width:6px;height:6px;flex:none;border-radius:50%;background:var(--dash-green);
+    box-shadow:0 0 0 3px var(--dash-green-soft);
+  }
+  .dashboard-topbar-actions{display:flex;align-items:center;gap:8px;min-width:0}
+  .dashboard-topbar-actions .dashboard-icon-button{flex:none}
   .dashboard-icon-button{
     width:34px;height:34px;display:grid;place-items:center;
     border:1px solid var(--dash-border);border-radius:9px;background:#fff;
     color:#929991;cursor:pointer;
     transition:border-color .14s ease,color .14s ease,background .14s ease;
   }
-  .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b}
-  .dashboard-icon-button:disabled{opacity:.55;cursor:default}
+  .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b;transform:translateY(-1px)}
+  .dashboard-icon-button:active{transform:translateY(0)}
+  .dashboard-icon-button:disabled{opacity:.55;cursor:default;transform:none}
   .dashboard-reference-nav a:focus-visible,
   .dashboard-icon-button:focus-visible,
   .dashboard-outline-button:focus-visible,
