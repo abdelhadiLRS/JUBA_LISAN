@@ -241,10 +241,10 @@ export default function LevelTestPage() {
   if (step === 'error') {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-md rounded-[10px] border">
-          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+        <div className="juba-reference-assessment-card border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-md rounded-[10px] border">
+          <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[var(--duo-muted)]">●</span>
+            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
               Level Test
             </span>
           </div>
@@ -310,12 +310,12 @@ export default function LevelTestPage() {
 
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
+        <div className="juba-reference-assessment-card border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-lg rounded-[10px] border">
           {/* Header */}
-          <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
+          <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[var(--duo-muted)]">●</span>
+              <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {cefrLevel} Level Test — Results
               </span>
             </div>
@@ -324,13 +324,13 @@ export default function LevelTestPage() {
           <div className="space-y-6 p-8">
             {/* Score */}
             <div className="space-y-2 text-center">
-              <p className="text-[var(--juba-muted)] font-semibold tracking-wide">
+              <p className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 Final Score
               </p>
-              <p className="text-[var(--juba-text)] font-mono text-7xl font-bold tracking-widest">
+              <p className="text-[var(--duo-ink)] font-mono text-7xl font-bold tracking-widest">
                 {pct}%
               </p>
-              <p className="text-[var(--juba-muted)] text-sm">
+              <p className="text-[var(--duo-muted)] text-sm">
                 {answers.filter((a) => a.correct).length} / {questions.length}{' '}
                 correct
               </p>
@@ -344,20 +344,20 @@ export default function LevelTestPage() {
                 const isWeak = skillPct < 60
                 return (
                   <div key={skill} className="flex items-center gap-3">
-                    <span className="text-[var(--juba-muted)] w-6 text-center font-mono uppercase">
+                    <span className="text-[var(--duo-muted)] w-6 text-center font-mono uppercase">
                       {SKILL_ICONS[skill] ?? skill[0].toUpperCase()}
                     </span>
-                    <span className="text-[var(--juba-muted)] w-24 font-semibold tracking-wide">
+                    <span className="text-[var(--duo-muted)] w-24 font-semibold tracking-wide">
                       {SKILL_LABELS[skill] ?? skill}
                     </span>
-                    <div className="bg-fl-border h-1.5 flex-1">
+                    <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] h-1.5 flex-1">
                       <div
-                        className={`h-full transition-colors ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
+                        className={`h-full transition-colors ${isWeak ? 'bg-amber-500' : 'bg-[var(--duo-green)]'}`}
                         style={{ width: `${skillPct}%` }}
                       />
                     </div>
                     <span
-                      className={`text-[var(--juba-text)] w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-[var(--juba-text)]'}`}
+                      className={`text-[var(--duo-ink)] w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-[var(--duo-ink)]'}`}
                     >
                       {v.correct}/{v.total} ({skillPct}%)
                       {isWeak && ' ◂'}
@@ -368,14 +368,14 @@ export default function LevelTestPage() {
             </div>
 
             {/* Recommendation */}
-            <div className="border-[var(--juba-lilac)] space-y-3 border p-6">
+            <div className="border-[var(--duo-line)] space-y-3 border p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-[var(--juba-text)] font-mono font-bold tracking-widest uppercase">
+                <span className="text-[var(--duo-ink)] font-mono font-bold tracking-widest uppercase">
                   Recommendation: {rec.label}
                 </span>
               </div>
-              <p className="text-[var(--juba-muted)] text-sm leading-relaxed">
+              <p className="text-[var(--duo-muted)] text-sm leading-relaxed">
                 {rec.message}
               </p>
             </div>
@@ -390,7 +390,7 @@ export default function LevelTestPage() {
               </button>
               <button
                 onClick={() => router.push('/plan')}
-                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border py-3 text-sm tracking-widest uppercase transition-colors"
+                className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-ink)] w-full border py-3 text-sm tracking-widest uppercase transition-colors"
               >
                 ← Back to Plan
               </button>
@@ -411,24 +411,24 @@ export default function LevelTestPage() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
+      <div className="juba-reference-assessment-card border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-lg rounded-[10px] border">
         {/* Header */}
-        <div className="juba-reference-card-header border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
+        <div className="juba-reference-card-header border-[var(--duo-line)] space-y-3 border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[var(--duo-muted)]">●</span>
+              <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {cefrLevel} Level Test
               </span>
             </div>
-            <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
               {currentIndex + 1} / {questions.length}
             </span>
           </div>
           {/* Progress bar */}
-          <div className="bg-fl-border h-0.5">
+          <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] h-0.5">
             <div
-              className="bg-fl-fg h-full transition-colors duration-300"
+              className="bg-[var(--duo-green)] h-full transition-colors duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -437,7 +437,7 @@ export default function LevelTestPage() {
             <span className="juba-badge border px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[var(--duo-line)] text-[var(--duo-muted)] border px-2 py-0.5 font-semibold tracking-wide">
               {q.difficulty}
             </span>
           </div>
@@ -445,7 +445,7 @@ export default function LevelTestPage() {
 
         {/* Question */}
         <div className="space-y-6 p-8">
-          <p className="text-[var(--juba-text)] text-sm leading-relaxed">
+          <p className="text-[var(--duo-ink)] text-sm leading-relaxed">
             {q.question}
           </p>
 
@@ -458,8 +458,8 @@ export default function LevelTestPage() {
               if (!answerConfirmed) {
                 style +=
                   selectedOption === option
-                    ? ' border-fl-fg text-[var(--juba-text)] bg-white'
-                    : ' border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)]'
+                    ? ' border-[var(--duo-green)] text-[var(--duo-ink)] bg-[var(--duo-card)]'
+                    : ' border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-ink)]'
               } else {
                 if (option === q.correct) {
                   style +=
@@ -467,7 +467,7 @@ export default function LevelTestPage() {
                 } else if (option === selectedOption && option !== q.correct) {
                   style += ' border-red-500 text-red-500'
                 } else {
-                  style += ' border-[var(--juba-lilac)] text-[var(--juba-muted)] opacity-50'
+                  style += ' border-[var(--duo-line)] text-[var(--duo-muted)] opacity-50'
                 }
               }
 
@@ -480,7 +480,7 @@ export default function LevelTestPage() {
                   disabled={answerConfirmed}
                   className={style}
                 >
-                  <span className="text-[var(--juba-muted)] mr-3">{prefix}.</span>
+                  <span className="text-[var(--duo-muted)] mr-3">{prefix}.</span>
                   {option}
                 </button>
               )
@@ -492,7 +492,7 @@ export default function LevelTestPage() {
             <button
               onClick={handleConfirmAnswer}
               disabled={!selectedOption}
-              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+              className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
             >
               Confirm Answer
             </button>
@@ -511,7 +511,7 @@ export default function LevelTestPage() {
               </div>
               <button
                 onClick={handleNext}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
+                className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
               >
                 {currentIndex + 1 >= questions.length
                   ? 'Submit Test →'
