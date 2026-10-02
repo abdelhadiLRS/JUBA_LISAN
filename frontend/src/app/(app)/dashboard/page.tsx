@@ -834,6 +834,10 @@ export default function DashboardPage() {
     display:flex;justify-content:space-between;gap:10px;
     color:#858c83;font-size:10px;
   }
+  .dashboard-v3-chart-footer span,
+  .dashboard-chart-footer span{
+    display:inline-flex;align-items:center;gap:4px;min-width:0;
+  }
   .dashboard-v3-chart-footer,.dashboard-chart-footer{margin-top:10px}
   .dashboard-chart-footer b,.dashboard-chart-summary b{color:#55a51e}
   .dashboard-chart-summary{
