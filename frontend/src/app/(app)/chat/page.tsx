@@ -742,7 +742,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
+                    className="rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-sm transition-colors hover:border-[var(--duo-green)]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -780,7 +780,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[var(--duo-ink)] text-[var(--duo-red)] hover:text-[var(--duo-red)] shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[var(--duo-ink)] text-[var(--duo-red)] hover:text-[var(--duo-red)] shrink-0 font-sans opacity-0 transition-colors group-hover:opacity-100"
                       title="Delete"
                     >
                       ✕
@@ -959,12 +959,12 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-sm transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 font-sans text-base text-[var(--duo-ink)] shadow-sm transition-colors placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-[10px] border border-[var(--duo-green)] bg-[var(--duo-green)] px-4 py-2.5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-all hover:bg-[var(--duo-green-dark)] active:translate-y-px disabled:opacity-30"
+                    className="rounded-[10px] border border-[var(--duo-green)] bg-[var(--duo-green)] px-4 py-2.5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-colors hover:bg-[var(--duo-green-dark)] active:translate-y-px disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
