@@ -133,7 +133,7 @@ export default function VocabularySetPage({
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-5 sm:p-8">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Breadcrumb */}
       <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
@@ -151,7 +151,7 @@ export default function VocabularySetPage({
       </nav>
 
       {/* Header */}
-      <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
+      <div className="juba-reference-list-card">
         <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
