@@ -93,7 +93,7 @@ export default function AdminOverviewPage() {
   }, [t])
 
   return (
-    <div className="juba-admin-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-admin-shell w-full space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <div className="juba-reference-hero">
         <AdminPageHeader
           eyebrow={`${t('title')} / ${t('overview')}`}
