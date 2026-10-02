@@ -668,7 +668,19 @@ export default function DashboardPage() {
     gap:24px;
   }
   .dashboard-topbar-title,.dashboard-topbar-actions{display:flex;align-items:center}
-  .dashboard-topbar-title{gap:24px}
+  .dashboard-dot{
+    width:34px;height:34px;flex:none;
+    display:grid;place-items:center;
+    border-radius:10px;
+    background:var(--dash-green);
+    color:#fff;
+    font-size:11px;font-weight:950;
+    letter-spacing:-.03em;
+    box-shadow:0 2px 0 var(--dash-green-dark);
+    user-select:none;
+  }
+  .dashboard-topbar-title{gap:18px}
+  .dashboard-topbar-title nav{min-width:0}
   .dashboard-topbar-actions{gap:9px}
   .dashboard-reference-nav{display:flex;align-items:center;gap:6px}
   .dashboard-reference-nav a{
@@ -746,7 +758,7 @@ export default function DashboardPage() {
     background:#fff;
     box-shadow:0 1px 4px rgba(35,55,25,.025);
   }
-  .dashboard-welcome-copy{min-width:0}
+  .dashboard-welcome-copy{min-width:0;flex:1}
   .dashboard-section-label{
     display:inline-flex;align-items:center;gap:5px;
     color:#969d94;font-size:9px;font-weight:850;
@@ -773,6 +785,7 @@ export default function DashboardPage() {
     content:"";position:absolute;inset:7px;border-radius:50%;background:#fff;
   }
   .dashboard-v3-level span{position:relative;z-index:1;font-size:18px;font-weight:900}
+  .dashboard-v3-level small{position:absolute;z-index:1;bottom:18px;color:#9aa197;font-size:7px;font-weight:850}
 
   .dashboard-v3-card-head{
     display:flex;align-items:center;justify-content:space-between;gap:14px;
@@ -862,7 +875,7 @@ export default function DashboardPage() {
 
   .dashboard-course{padding:18px}
   .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-  .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px}
+  .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
   .dashboard-card-header p{margin:0;color:#999;font-size:10px}
   .dashboard-outline-button,.dashboard-green-button{
     display:inline-flex;align-items:center;justify-content:center;gap:7px;
@@ -883,6 +896,13 @@ export default function DashboardPage() {
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
   .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+  .dashboard-course-path{position:relative}
+  .dashboard-course-path::before{
+    content:"";position:absolute;left:31px;top:25px;bottom:25px;
+    width:2px;border-radius:99px;background:#edf1eb;
+  }
+  .dashboard-lesson{position:relative;z-index:1}
+  .dashboard-lesson.current{z-index:2}
 
   .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
   .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff}
@@ -923,6 +943,7 @@ export default function DashboardPage() {
   .dashboard-completed{display:inline-flex;align-items:center;gap:5px;color:#55a51e;font-size:9px;font-weight:800}
   .dashboard-locked{color:#bbb}
   .dashboard-empty{display:flex;align-items:center;gap:12px;padding:22px 0;color:#999}
+  .dashboard-empty .dashboard-green-button{margin-inline-start:auto}
   .dashboard-empty div{display:flex;flex-direction:column;gap:3px}
   .dashboard-empty strong{color:#666;font-size:11px}
   .dashboard-empty span{font-size:9px}
@@ -1034,7 +1055,8 @@ export default function DashboardPage() {
   @media (max-width:620px){
     .dashboard-dashboard{padding-inline:10px}
     .dashboard-topbar{gap:8px}
-    .dashboard-topbar-title{gap:5px;min-width:0;flex:1}
+    .dashboard-topbar-title{gap:7px;min-width:0;flex:1}
+    .dashboard-dot{width:30px;height:30px;border-radius:8px;font-size:10px}
     .dashboard-topbar-actions{flex:none}
     .dashboard-reference-nav{width:100%;min-width:0}
     .dashboard-reference-nav a{flex:1;justify-content:center;padding-inline:4px}
@@ -1042,6 +1064,8 @@ export default function DashboardPage() {
     .dashboard-icon-button{flex:none}
     .dashboard-welcome-meta{flex-wrap:wrap}
     .dashboard-reference-insights,.dashboard-reference-stats{grid-template-columns:1fr}
+    .dashboard-course-path::before{left:27px}
+    .dashboard-empty{flex-wrap:wrap}
     .dashboard-achievement-strip{align-items:flex-start}
     .dashboard-achievement-strip-progress{display:none}
     .dashboard-card-header{flex-direction:column}
