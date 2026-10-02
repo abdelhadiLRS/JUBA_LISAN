@@ -1024,6 +1024,9 @@ export default function DashboardPage() {
   }
   .dashboard-profile-card,.dashboard-goal-card,.dashboard-xp-card,
   .dashboard-achievement-card,.dashboard-tools-card,.dashboard-friends-card{padding:16px}
+  .dashboard-v3-rail .dashboard-v3-card-head{min-height:34px}
+  .dashboard-profile-metrics span+span{border-inline-start:1px solid #edf1eb}
+  .dashboard-tools-card>a+a{border-top:1px solid #f1f3ef}
   .dashboard-profile-hero{
     display:flex;flex-direction:column;align-items:center;text-align:center;
     padding-bottom:13px;
