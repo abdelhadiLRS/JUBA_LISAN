@@ -143,7 +143,7 @@ export default function SettingsMemoriesPage() {
 
       <div className="juba-reference-list-card p-6">
 
-        <p className="text-[rgba(32,33,39,.52)] mb-5 font-sans text-xs leading-relaxed">
+        <p className="text-[var(--juba-muted)] mb-5 font-sans text-xs leading-relaxed">
           {t('memoryDescription')}
         </p>
 
@@ -215,7 +215,7 @@ export default function SettingsMemoriesPage() {
             </button>
           </div>
         ) : memories.length === 0 ? (
-          <p className="text-[rgba(32,33,39,.52)] font-sans">
+          <p className="text-[var(--juba-muted)] font-sans">
             {t('memoryEmpty')}
           </p>
         ) : (
@@ -227,10 +227,10 @@ export default function SettingsMemoriesPage() {
                   className="juba-reference-list-card flex items-start justify-between gap-3 p-3"
                 >
                   <div className="flex-1 space-y-1">
-                    <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
+                    <p className="text-[var(--juba-muted)] font-sans text-xs leading-relaxed">
                       {memory.content}
                     </p>
-                    <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <p className="text-[var(--juba-muted)] font-sans tracking-widest uppercase">
                       {sourceLabel(memory.source)}
                     </p>
                   </div>
@@ -241,7 +241,7 @@ export default function SettingsMemoriesPage() {
                       content: memory.content,
                     })}
                     aria-busy={deletingId === memory.id}
-                    className="juba-secondary-button shrink-0 border-transparent p-2 text-[rgba(32,33,39,.52)] hover:border-transparent hover:text-rose-600 disabled:opacity-50"
+                    className="juba-secondary-button shrink-0 border-transparent p-2 text-[var(--juba-muted)] hover:border-transparent hover:text-rose-600 disabled:opacity-50"
                   >
                     {deletingId === memory.id ? (
                       <span className="spinner-border spinner-border-sm" aria-hidden="true" />
