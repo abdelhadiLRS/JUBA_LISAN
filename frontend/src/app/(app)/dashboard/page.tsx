@@ -333,7 +333,6 @@ export default function DashboardPage() {
   const coursePathProgress = todayLessons.length > 1
     ? Math.min(1, completedLessonCount / (todayLessons.length - 1))
     : completedLessonCount > 0 ? 1 : 0
-  const coursePathCompletedCount = todayLessons.filter((lesson) => (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted).length
   const coursePathCurrentIndex = todayLessons.findIndex((lesson) => {
     const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
     return !done && (!nextLesson || lesson.id === nextLesson.id)
@@ -347,7 +346,6 @@ export default function DashboardPage() {
   const performanceValues = chartEntries.map((entry) =>
     entry.exercises_total > 0 ? Math.round((entry.exercises_correct / entry.exercises_total) * 100) : 0
   )
-  const chartMax = Math.max(100, ...performanceValues)
   const chartAverage = chartEntries.length
     ? Math.round(chartEntries.reduce((sum, entry) => sum + (entry.exercises_total > 0 ? (entry.exercises_correct / entry.exercises_total) * 100 : 0), 0) / chartEntries.length)
     : 0
