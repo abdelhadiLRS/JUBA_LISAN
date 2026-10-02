@@ -114,7 +114,7 @@ export default function VocabularyPage() {
   }
 
   return (
-    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="juba-reference-hero flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
