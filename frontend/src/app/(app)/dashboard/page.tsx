@@ -973,6 +973,13 @@ export default function DashboardPage() {
     display:flex;flex-direction:column;gap:14px;min-width:0;
     position:sticky;top:14px;align-self:start;
   }
+  .dashboard-v3-rail .dashboard-v3-card{
+    transition:border-color .14s ease,box-shadow .14s ease;
+  }
+  .dashboard-v3-rail .dashboard-v3-card:hover{
+    border-color:#dfe8db;
+    box-shadow:0 3px 10px rgba(35,55,25,.045);
+  }
   .dashboard-profile-card,.dashboard-goal-card,.dashboard-xp-card,
   .dashboard-achievement-card,.dashboard-tools-card,.dashboard-friends-card{padding:16px}
   .dashboard-profile-hero{
