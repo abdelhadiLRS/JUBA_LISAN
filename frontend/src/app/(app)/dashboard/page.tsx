@@ -807,10 +807,16 @@ export default function DashboardPage() {
     height:190px;margin-top:14px;padding:12px 4px 0;
     display:flex;align-items:flex-end;gap:13px;
     border-top:1px solid #f0f2ee;
+    border-bottom:1px solid #f0f2ee;
   }
   .dashboard-v3-chart-col{
     flex:1;min-width:16px;height:100%;
     display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;
+    position:relative;
+  }
+  .dashboard-v3-chart-col::before{
+    content:"";position:absolute;left:0;right:0;bottom:25px;
+    border-top:1px solid #f4f5f2;pointer-events:none;
   }
   .dashboard-v3-chart-col span{
     width:22px;max-width:100%;min-height:8px;
