@@ -658,7 +658,7 @@ export default function DashboardPage() {
     font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
 
-  .dashboard-dot{display:none}\n\n  .dashboard-topbar {
+  .dashboard-topbar {
     height:68px;
     max-width:1480px;
     margin:0 auto;
@@ -866,13 +866,22 @@ export default function DashboardPage() {
   .dashboard-card-header p{margin:0;color:#999;font-size:10px}
   .dashboard-outline-button,.dashboard-green-button{
     display:inline-flex;align-items:center;justify-content:center;gap:7px;
-    padding:8px 12px;border:1px solid var(--dash-green);
-    border-radius:8px;background:var(--dash-green);color:#fff;
+    padding:8px 12px;border-radius:8px;
     font-size:10px;font-weight:800;text-decoration:none;
+    transition:transform .12s ease,filter .12s ease,background .12s ease;
+  }
+  .dashboard-green-button{
+    border:1px solid var(--dash-green);
+    background:var(--dash-green);color:#fff;
     box-shadow:0 2px 0 var(--dash-green-dark);
-    transition:transform .12s ease,filter .12s ease;
+  }
+  .dashboard-outline-button{
+    border:1px solid #dce7d8;
+    background:#fff;color:#55a51e;
+    box-shadow:none;
   }
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
+  .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
 
   .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
@@ -892,7 +901,6 @@ export default function DashboardPage() {
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
   .dashboard-progress-row>strong{color:#55a51e;font-size:10px}
-  .dashboard-progress-meta{margin-top:9px}
   .dashboard-lessons,.dashboard-course-path{margin-top:14px}
   .dashboard-lesson{
     display:grid;grid-template-columns:40px minmax(0,1fr) auto;
@@ -1010,8 +1018,9 @@ export default function DashboardPage() {
   }
   @media (max-width:900px){
     .dashboard-dashboard{padding:10px 12px 24px;background:#fff}
-    .dashboard-topbar{height:54px;min-height:54px}
-    .dashboard-reference-nav{gap:0}
+    .dashboard-topbar{height:auto;min-height:54px;padding:8px 0;align-items:center}
+    .dashboard-reference-nav{gap:0;min-width:0;overflow-x:auto;scrollbar-width:none}
+    .dashboard-reference-nav::-webkit-scrollbar{display:none}
     .dashboard-reference-nav a{padding-inline:8px;font-size:10px}
     .dashboard-course-selector{display:none}
     .dashboard-v3-grid{grid-template-columns:1fr;gap:14px}
@@ -1025,8 +1034,9 @@ export default function DashboardPage() {
   @media (max-width:620px){
     .dashboard-dashboard{padding-inline:10px}
     .dashboard-topbar{gap:8px}
-    .dashboard-topbar-title{gap:5px;min-width:0}
-    .dashboard-reference-nav{width:100%}
+    .dashboard-topbar-title{gap:5px;min-width:0;flex:1}
+    .dashboard-topbar-actions{flex:none}
+    .dashboard-reference-nav{width:100%;min-width:0}
     .dashboard-reference-nav a{flex:1;justify-content:center;padding-inline:4px}
     .dashboard-reference-nav a.is-active::after{left:4px;right:4px}
     .dashboard-icon-button{flex:none}
