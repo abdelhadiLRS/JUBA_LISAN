@@ -1084,7 +1084,8 @@ export default function DashboardPage() {
 
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
-  .dashboard-progress-row>strong{color:#55a51e;font-size:10px}
+  .dashboard-progress-row>strong{color:#55a51e;font-size:10px;transition:color .14s ease,transform .14s ease}
+  .dashboard-progress-row:hover>strong{color:#4d9f18;transform:translateX(-1px)}
   .dashboard-progress-track span{transition:width .22s ease}
   .dashboard-course-path .dashboard-lesson-copy strong{font-weight:800}
   .dashboard-course-path .dashboard-lesson-copy>span{
