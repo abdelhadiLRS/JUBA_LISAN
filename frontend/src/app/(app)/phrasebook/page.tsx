@@ -81,7 +81,7 @@ function CategoryCard({
 
   return (
     <div className="juba-reference-list-card overflow-hidden p-0">
-      <div className="flex min-h-[50px] items-center gap-3 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+      <div className="flex min-h-[50px] items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3">
         <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] text-sm">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-sans text-sm font-semibold tracking-wide text-[var(--duo-ink)]">
@@ -371,13 +371,13 @@ export default function PhrasebookPage() {
             <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('statsLine', { situationCount: categories.length, phraseCount: totalPhrases, range: `${CEFR_LEVELS[0]} – ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}` })}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 sm:min-w-[216px] lg:min-w-[224px]">
-            <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-3.5 py-2 text-center"><p className="text-lg font-extrabold text-[var(--duo-green-dark)]">{categories.length}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Situations</p></div>
-            <div className="rounded-[10px] border border-[var(--duo-line)] bg-white px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-ink)]">{totalPhrases}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Phrases</p></div>
+            <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2 text-center"><p className="text-lg font-extrabold text-[var(--duo-green-dark)]">{categories.length}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Situations</p></div>
+            <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-center"><p className="text-lg font-extrabold text-[var(--duo-ink)]">{totalPhrases}</p><p className="font-sans text-[9px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">Phrases</p></div>
           </div>
         </div>
       </section>
       <div className="juba-reference-filter-panel overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">{'\u25cf'}</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
