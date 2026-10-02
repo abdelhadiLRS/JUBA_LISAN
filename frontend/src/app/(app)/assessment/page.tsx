@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm'
-  const panelClass = 'rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]/45 p-4'
-  const actionClass = 'w-full rounded-[10px] bg-[var(--duo-green)] px-4 py-3 font-bold text-white shadow-sm transition hover:bg-[var(--duo-green-dark)]'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-sm'
+  const panelClass = 'rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)]/45 p-4'
+  const actionClass = 'w-full rounded-[12px] bg-[var(--juba-green,var(--duo-green))] px-4 py-3 font-bold text-white shadow-sm transition hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -339,35 +339,35 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={`${cardClass} juba-reference-assessment-card`}>
-          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">A</span>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">A</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
-              <p className="text-xs text-[var(--duo-muted)]">{t('currentLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('title')}</p>
+              <p className="text-xs text-[var(--juba-muted,var(--duo-muted))]">{t('currentLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('currentLevel')}</p>
-              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{existingPlan.cefr_level}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('currentLevel')}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))]">{existingPlan.cefr_level}</p>
             </div>
             <div className={`${panelClass} juba-reference-assessment-panel`}>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('assessedOn')}</p>
-              <p className="mt-1 text-sm text-[var(--duo-ink)]">{assessedDate}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-[var(--juba-ink,var(--duo-ink))]">{assessedDate}</p>
             </div>
-            <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('alreadyHasPlan')}</p>
+            <p className="text-sm leading-relaxed text-[var(--juba-muted,var(--duo-muted))]">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
               <div className={panelClass + ' space-y-3'}>
-                <p className="font-semibold text-[var(--duo-ink)]">{t('voiceTrialTitle')}</p>
-                <p className="text-xs leading-relaxed text-[var(--duo-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <p className="font-semibold text-[var(--juba-ink,var(--duo-ink))]">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-[var(--juba-muted,var(--duo-muted))]">{t('voiceTrialDesc', { minutes: 5 })}</p>
                 <button onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
-            {error && <div className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
+            {error && <div className="rounded-[12px] border border-[var(--juba-red,var(--duo-red))]/30 bg-[var(--juba-red,var(--duo-red))]/10 px-4 py-3 text-xs text-[var(--juba-red,var(--duo-red))]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[10px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] px-3 py-3 text-xs font-semibold text-[var(--juba-muted,var(--duo-muted))] transition hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]">← {tCommon('backToDashboard')}</button>
               <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -404,12 +404,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-page-shell juba-mobile-assessment w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-        <div className="mb-5 flex items-center justify-between juba-card rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between juba-card rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-5 py-4 shadow-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
-            <p className="mt-1 text-sm font-semibold text-[var(--duo-ink)]">{currentLevel}</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--juba-ink,var(--duo-ink))]">{currentLevel}</p>
           </div>
-          <div className="rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--duo-green-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -423,46 +423,46 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">✓</span>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">✓</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('resultStep')}</p>
-              <p className="text-xs text-[var(--duo-muted)]">{t('cefrLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('resultStep')}</p>
+              <p className="text-xs text-[var(--juba-muted,var(--duo-muted))]">{t('cefrLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
-              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{aiLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('cefrLevel')}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))]">{aiLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{tCommon('score')}</p>
-              <p className="mt-1 text-3xl font-extrabold text-[var(--duo-ink)]">{score}%</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-[var(--juba-ink,var(--duo-ink))]">{score}%</p>
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('overrideLevel')}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[10px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[12px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-green,var(--duo-green))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]' : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && <p className="mt-2 text-xs text-[var(--duo-muted)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
+              {levelChanged && <p className="mt-2 text-xs text-[var(--juba-muted,var(--duo-muted))]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--duo-green-dark)]">{s}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[10px] border border-[var(--duo-red)]/25 bg-[var(--duo-red)]/10 px-3 py-1.5 text-xs font-medium text-[var(--duo-red)]">{w}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('needsWork')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[12px] border border-[var(--juba-red,var(--duo-red))]/25 bg-[var(--juba-red,var(--duo-red))]/10 px-3 py-1.5 text-xs font-medium text-[var(--juba-red,var(--duo-red))]">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded-[10px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
+            {error && <div className="rounded-[12px] border border-[var(--juba-red,var(--duo-red))]/30 bg-[var(--juba-red,var(--duo-red))]/10 px-4 py-3 text-xs text-[var(--juba-red,var(--duo-red))]">✕ {error}</div>}
             <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
@@ -493,21 +493,21 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-sm font-bold text-[var(--duo-green-dark)]">◉</span>
-            <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('voiceTrialLabel')}</p>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
-              <p className="text-4xl font-extrabold tracking-tight text-[var(--duo-ink)]">{selectedLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('cefrLevel')}</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))]">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="mb-2 font-semibold text-[var(--duo-ink)]">{t('voiceTrialTitle')}</p>
-              <p className="text-xs leading-relaxed text-[var(--duo-muted)]">{t('voiceTrialDesc', { minutes })}</p>
+              <p className="mb-2 font-semibold text-[var(--juba-ink,var(--duo-ink))]">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-[var(--juba-muted,var(--duo-muted))]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
             <button onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)] transition hover:text-[var(--duo-ink)]">{t('voiceTrialSkip')}</button>
+            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))] transition hover:text-[var(--juba-ink,var(--duo-ink))]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
