@@ -299,7 +299,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         }
         .juba-app-shell .juba-reference-hero,
         .juba-app-shell .juba-page-hero{
-          background:#fff!important;border:1px solid var(--juba-border)!important;
+          background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--juba-border)!important;
           border-radius:14px!important;box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
         }
         .juba-app-shell .juba-reference-section,
@@ -309,7 +309,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-card,
         .juba-app-shell .juba-panel,
         .juba-app-shell .juba-reference-list-card{
-          background:#fff!important;border-color:var(--juba-border)!important;
+          background:var(--juba-card,var(--duo-card))!important;border-color:var(--juba-border)!important;
           box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
         }
         .juba-app-shell .juba-section-title,
@@ -323,24 +323,24 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           color:#7d857c!important;
         }
         .juba-app-shell .juba-primary-button{
-          background:#58cc02!important;color:#fff!important;border-color:#58cc02!important;
-          border-radius:9px!important;box-shadow:0 2px 0 #46a302!important;
+          background:var(--duo-green,#58cc02)!important;color:#fff!important;border-color:var(--duo-green,#58cc02)!important;
+          border-radius:9px!important;box-shadow:0 2px 0 var(--duo-green-dark,#46a302)!important;
         }
-        .juba-app-shell .juba-primary-button:hover{background:#52bd00!important}
+        .juba-app-shell .juba-primary-button:hover{background:var(--duo-green-dark,#52bd00)!important}
         .juba-app-shell .juba-secondary-button{
-          background:#fff!important;border:1px solid #dfe7da!important;color:#586158!important;
+          background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--juba-border)!important;color:#586158!important;
           border-radius:9px!important;
         }
         .juba-app-shell .juba-input{
-          min-height:40px!important;border:1px solid #dfe7da!important;border-radius:9px!important;
-          background:#fff!important;color:#30362f!important;
+          min-height:40px!important;border:1px solid var(--juba-border)!important;border-radius:9px!important;
+          background:var(--juba-card,var(--duo-card))!important;color:#30362f!important;
         }
         .juba-app-shell .juba-badge{
-          border:1px solid #dfe7da!important;background:#f5f9f2!important;color:#62805a!important;
+          border:1px solid var(--juba-border)!important;background:var(--juba-soft,var(--duo-soft))!important;color:var(--juba-muted)!important;
           border-radius:999px!important;
         }
         .juba-app-shell table{
-          border-color:var(--juba-border)!important;background:#fff!important;
+          border-color:var(--juba-border)!important;background:var(--juba-card,var(--duo-card))!important;
         }
         .juba-app-shell thead{
           background:#f7faf5!important;
@@ -362,9 +362,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             box-sizing:border-box!important;
           }
         }
-        .juba-app-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:#fff!important;border-inline-end:1px solid var(--juba-border)!important;box-shadow:none!important}
-        .juba-app-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid #f0f3ed!important;background:#fff!important}
-        .juba-app-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 #46a302!important}
+        .juba-app-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:var(--juba-card,var(--duo-card))!important;border-inline-end:1px solid var(--juba-border)!important;box-shadow:none!important}
+        .juba-app-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid #f0f3ed!important;background:var(--juba-card,var(--duo-card))!important}
+        .juba-app-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 var(--duo-green-dark,#46a302)!important}
         .juba-app-shell .juba-duo-sidebar>div:first-child>span:last-child{color:#58a91b!important;font-size:14px!important;font-weight:900!important;letter-spacing:-.025em!important;text-transform:none!important}
         .juba-app-shell .juba-duo-language{display:none!important}
         .juba-app-shell .juba-duo-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:14px 10px 12px!important;scrollbar-width:none!important}
@@ -379,7 +379,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-duo-resource-toggle{width:100%!important;min-height:34px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:7px 10px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#8a9088!important;font-size:9px!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase!important}
         .juba-app-shell .juba-duo-resource-toggle:hover{background:#f7faf5!important;color:#5a9e28!important}
         .juba-app-shell .juba-duo-nav-divider{margin-top:4px!important;padding-top:0!important;border-top:0!important}
-        .juba-app-shell .juba-duo-user{flex:none!important;padding:10px 12px!important;background:#fff!important;border-top:1px solid #eef1ec!important;box-shadow:none!important}
+        .juba-app-shell .juba-duo-user{flex:none!important;padding:10px 12px!important;background:var(--juba-card,var(--duo-card))!important;border-top:1px solid #eef1ec!important;box-shadow:none!important}
         .juba-app-shell .juba-duo-user-action{color:#8a9088!important;font-size:10px!important;border-radius:6px!important;padding:2px 4px!important;background:transparent!important;transition:color .16s ease,background-color .16s ease!important}
         .juba-app-shell .juba-duo-user-action:hover{color:#58a91b!important;background:#f6fbf3!important}
         .juba-app-shell .juba-duo-version{color:#c1c8bf!important;font-size:8px!important}
@@ -387,7 +387,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-duo-page-frame{min-width:0!important;min-height:0!important;flex:1 1 auto!important;background:var(--juba-bg)!important;overscroll-behavior-y:contain!important;scrollbar-width:thin!important;scrollbar-color:#dfe7da transparent!important}
         .juba-app-shell .juba-duo-page-frame::-webkit-scrollbar{width:8px!important}
         .juba-app-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important;border:2px solid var(--juba-bg)!important}
-        .juba-app-shell .juba-app-topbar{height:64px!important;flex:0 0 64px!important;display:flex!important;align-items:center!important;gap:28px!important;padding:0 28px!important;background:#fff!important;border-bottom:1px solid #e8eee4!important;position:sticky!important;top:0!important;z-index:30!important;direction:inherit!important}
+        .juba-app-shell .juba-app-topbar{height:64px!important;flex:0 0 64px!important;display:flex!important;align-items:center!important;gap:28px!important;padding:0 28px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid #e8eee4!important;position:sticky!important;top:0!important;z-index:30!important;direction:inherit!important}
         .juba-app-shell .juba-app-topbar-brand{display:none!important}
         .juba-app-shell .juba-app-topnav{display:flex!important;align-items:stretch!important;gap:2px!important;height:100%!important;flex:1!important;min-width:0!important}
         .juba-app-shell .juba-app-topnav a{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:100%!important;padding:0 14px!important;border:0!important;border-bottom:2px solid transparent!important;color:#8a9188!important;background:transparent!important;text-decoration:none!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important;transition:color .16s ease,border-color .16s ease,background-color .16s ease!important}
@@ -409,8 +409,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         @media (max-width:850px){.juba-app-shell .juba-app-topbar{height:58px!important;flex-basis:58px!important;padding:0 14px!important;gap:10px!important}.juba-app-shell .juba-app-topnav{overflow-x:auto!important;scrollbar-width:none!important}.juba-app-shell .juba-app-topnav::-webkit-scrollbar{display:none!important}.juba-app-shell .juba-app-topnav a{font-size:9px!important;padding:0 10px!important}.juba-app-shell .juba-app-topbar-user span{display:none!important}}
         .juba-app-shell .juba-duo-mobile-bar{display:none!important}
         .juba-app-shell .juba-duo-mobile-brand{color:#58a91b!important;font-weight:900!important;letter-spacing:-.03em!important}
-        .juba-app-shell .juba-duo-mobile-trigger{border:1px solid #e6ebe2!important;background:#fff!important;border-radius:9px!important;color:#5f6960!important;box-shadow:0 1px 2px rgba(40,60,30,.04)!important}
-        .juba-app-shell .juba-duo-mobile-menu{background:#fff!important;border-top:0!important}
+        .juba-app-shell .juba-duo-mobile-trigger{border:1px solid #e6ebe2!important;background:var(--juba-card,var(--duo-card))!important;border-radius:9px!important;color:#5f6960!important;box-shadow:0 1px 2px rgba(40,60,30,.04)!important}
+        .juba-app-shell .juba-duo-mobile-menu{background:var(--juba-card,var(--duo-card))!important;border-top:0!important}
         .juba-app-shell .juba-duo-mobile-menu .juba-duo-nav-link{min-height:46px!important;margin:0!important;padding:10px 16px!important;border-bottom:1px solid #f2f4f0!important;border-radius:0!important}
         .juba-app-shell .juba-duo-mobile-menu .juba-duo-nav-link.is-active{background:#eff8e9!important}
         .juba-app-shell .juba-page-shell,.juba-app-shell .juba-mobile-courses,.juba-app-shell .juba-mobile-grammar,.juba-app-shell .juba-mobile-vocabulary,.juba-app-shell .juba-mobile-translator,.juba-app-shell .juba-mobile-listening,.juba-app-shell .juba-mobile-reading,.juba-app-shell .juba-mobile-settings,.juba-app-shell .juba-mobile-friends,.juba-app-shell .juba-admin-shell,.juba-app-shell .juba-admin-reviews-shell,.juba-app-shell .juba-admin-system-shell,.juba-app-shell .juba-admin-users-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important}
@@ -436,23 +436,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-reference-list-card:hover{border-color:#dce8d5!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-reference-section{box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-page-shell{padding:24px 28px 36px!important}
-        .juba-app-shell .juba-page-hero{background:#fff!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-page-hero{background:var(--juba-card,var(--duo-card))!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-page-title{color:#242b25!important;letter-spacing:-.035em!important}
         .juba-app-shell .juba-page-subtitle{color:#7b827c!important}
         .juba-app-shell .juba-eyebrow{color:#58a91b!important;font-weight:850!important;letter-spacing:.12em!important}
-        .juba-app-shell .juba-card,.juba-app-shell .juba-panel{background:#fff!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
+        .juba-app-shell .juba-card,.juba-app-shell .juba-panel{background:var(--juba-card,var(--duo-card))!important;border:1px solid #e8eee4!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-card:hover,.juba-app-shell .juba-panel:hover{border-color:#dfe8d9!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
-        .juba-app-shell .juba-input{min-height:42px!important;background:#fff!important;border:1px solid #e1e7de!important;border-radius:10px!important;color:#303730!important;box-shadow:none!important}
+        .juba-app-shell .juba-input{min-height:42px!important;background:var(--juba-card,var(--duo-card))!important;border:1px solid #e1e7de!important;border-radius:10px!important;color:#303730!important;box-shadow:none!important}
         .juba-app-shell .juba-input:focus{border-color:#58cc02!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
         .juba-app-shell .juba-primary-button,.juba-app-shell .juba-secondary-button{border-radius:10px!important}
         .juba-app-shell .juba-badge{border-radius:999px!important}.juba-app-shell .juba-muted{color:#7d857c!important}
         .juba-app-shell .juba-assessment-page,.juba-app-shell .juba-games,.juba-app-shell .juba-dashboard-workspace{background:var(--juba-bg)!important}
         .juba-app-shell .games-shell{max-width:1480px!important}
-        .juba-app-shell [class*="juba-mobile-"] input:not([type="checkbox"]):not([type="radio"]),.juba-app-shell [class*="juba-mobile-"] textarea,.juba-app-shell [class*="juba-mobile-"] select{border:1px solid #e3e9df!important;border-radius:10px!important;background:#fff!important;box-shadow:none!important}
+        .juba-app-shell [class*="juba-mobile-"] input:not([type="checkbox"]):not([type="radio"]),.juba-app-shell [class*="juba-mobile-"] textarea,.juba-app-shell [class*="juba-mobile-"] select{border:1px solid #e3e9df!important;border-radius:10px!important;background:var(--juba-card,var(--duo-card))!important;box-shadow:none!important}
         .juba-app-shell [class*="juba-mobile-"] input:focus,.juba-app-shell [class*="juba-mobile-"] textarea:focus,.juba-app-shell [class*="juba-mobile-"] select:focus{border-color:#58cc02!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
         .juba-app-shell a:focus-visible,.juba-app-shell button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
         @media (max-width:1180px) and (min-width:901px){.juba-app-shell .juba-duo-sidebar{width:192px!important;min-width:192px!important;flex-basis:192px!important}.juba-app-shell .juba-duo-nav-link{font-size:10.5px!important;padding-inline:8px!important;gap:8px!important}.juba-app-shell .juba-duo-nav-link svg{width:16px!important;height:16px!important}}
-        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:#fff!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:#fff!important}.juba-app-shell .juba-duo-page-frame{background:#fff!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:#fff!important;border-bottom:1px solid #e8eee4!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:#fff!important;padding-inline:14px!important;padding-top:18px!important;padding-bottom:24px!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
+        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:var(--juba-card,var(--duo-card))!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:var(--juba-card,var(--duo-card))!important}.juba-app-shell .juba-duo-page-frame{background:var(--juba-card,var(--duo-card))!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:var(--juba-card,var(--duo-card))!important;border-bottom:1px solid #e8eee4!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:var(--juba-card,var(--duo-card))!important;padding-inline:14px!important;padding-top:18px!important;padding-bottom:24px!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
       `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-app-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
