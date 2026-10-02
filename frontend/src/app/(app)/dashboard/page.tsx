@@ -418,9 +418,16 @@ export default function DashboardPage() {
                 {(progressBars.length ? progressBars : weekDays.map(day => ({day, value:0, active:false}))).map((bar,index,bars) => {
                   const max = Math.max(1, ...bars.map(item => item.value))
                   return (
-                    <div key={index} className={`dashboard-v3-chart-col ${bar.active ? 'active' : ''}`}>
-                      <span style={{height: Math.max(8, Math.round((bar.value / max) * 100)) + '%'}} />
-                      <small>{bar.day}</small>
+                    <div
+                      key={index}
+                      className={`dashboard-v3-chart-col ${bar.active ? 'active' : ''}`}
+                      title={`${bar.day}: ${bar.value} XP`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        style={{height: Math.max(8, Math.round((bar.value / max) * 100)) + '%'}}
+                      />
+                      <small aria-label={`${bar.day}: ${bar.value} XP`}>{bar.day}</small>
                     </div>
                   )
                 })}
@@ -918,9 +925,12 @@ export default function DashboardPage() {
   }
   .dashboard-v3-chart-col:hover small{color:#6e766c}
   .dashboard-v3-chart-col.active:hover span{filter:brightness(.99)}
-  .dashboard-v3-chart-col small{transition:color .14s ease}
+  .dashboard-v3-chart-col small{
     display:block;min-width:24px;text-align:center;line-height:1;
+    transition:color .14s ease;
   }
+  .dashboard-v3-chart-col[title]{cursor:default}
+  .dashboard-v3-chart-col[title]:hover small{font-weight:700}
   .dashboard-v3-chart-col small:focus-visible{outline:2px solid #b8e79b;outline-offset:3px;border-radius:4px}
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
