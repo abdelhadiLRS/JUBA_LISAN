@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-phrasebook w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="w-full max-w-[760px] space-y-2">
