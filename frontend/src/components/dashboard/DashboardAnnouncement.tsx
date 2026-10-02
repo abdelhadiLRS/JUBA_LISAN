@@ -112,10 +112,10 @@ export function DashboardAnnouncement() {
         <section
           role="status"
           dir={isArabic ? 'rtl' : 'ltr'}
-          className={`relative mb-5 rounded-[10px] border border-[var(--duo-line)] p-4 pe-12 shadow-sm ${
+          className={`relative mb-5 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] p-4 pe-12 shadow-[0_1px_2px_rgba(36,48,32,.025)] ${
             syncNotice.status === 'synced'
-              ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--duo-card))]'
-              : 'bg-[var(--duo-card)]'
+              ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))]'
+              : 'bg-[var(--juba-card,var(--duo-card))]'
           }`}
         >
           <div className="flex items-start gap-3">
@@ -151,7 +151,7 @@ export function DashboardAnnouncement() {
                   type="button"
                   onClick={retryGuestSync}
                   disabled={syncing}
-                  className="mt-3 inline-flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-1.5 text-xs font-semibold text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[var(--duo-green)] disabled:cursor-wait disabled:opacity-50"
+                  className="mt-3 inline-flex items-center gap-2 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-3 py-1.5 text-xs font-semibold text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[var(--duo-green)] disabled:cursor-wait disabled:opacity-50"
                 >
                   <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} aria-hidden="true" />
                   {isArabic ? 'إعادة المزامنة' : 'Retry sync'}
@@ -163,7 +163,7 @@ export function DashboardAnnouncement() {
             type="button"
             onClick={dismissSyncNotice}
             aria-label={isArabic ? 'إغلاق' : 'Dismiss'}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-8 items-center justify-center rounded-[10px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-8 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
@@ -173,7 +173,7 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="relative mb-5 rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--duo-card))] p-5 pe-14 shadow-sm"
+          className="relative mb-5 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))] p-5 pe-14 shadow-[0_1px_2px_rgba(36,48,32,.025)]"
         >
           <div className="flex gap-3">
             <Megaphone
@@ -205,7 +205,7 @@ export function DashboardAnnouncement() {
             onClick={dismiss}
             disabled={pending}
             aria-label={t('announcementDismiss')}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-9 items-center justify-center rounded-[10px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] disabled:cursor-wait disabled:opacity-40"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-9 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] disabled:cursor-wait disabled:opacity-40"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
