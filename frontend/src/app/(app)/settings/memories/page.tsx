@@ -120,16 +120,16 @@ export default function SettingsMemoriesPage() {
       <section className="juba-reference-hero">
         <nav
           aria-label={t('memoryBreadcrumb')}
-          className="flex flex-wrap items-center gap-2 text-[rgba(32,33,39,.52)] font-sans"
+          className="flex flex-wrap items-center gap-2 text-[var(--juba-muted)] font-sans"
         >
         <Link
           href="/settings"
-          className="hover:text-[#202127] tracking-widest uppercase transition-colors"
+          className="hover:text-[var(--juba-ink,var(--juba-text))] tracking-widest uppercase transition-colors"
         >
           {t('title')}
         </Link>
         <span aria-hidden="true">›</span>
-        <h1 className="text-[#202127] tracking-widest uppercase">
+        <h1 className="text-[var(--juba-ink,var(--juba-text))] tracking-widest uppercase">
           {t('sectionMemory')}
         </h1>
         </nav>
@@ -150,7 +150,7 @@ export default function SettingsMemoriesPage() {
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="mb-6 border-b border-[#e8eee4] pb-6"
+          className="mb-6 border-b border-[var(--juba-border)] pb-6"
         >
           <label
             htmlFor="memory-content"
