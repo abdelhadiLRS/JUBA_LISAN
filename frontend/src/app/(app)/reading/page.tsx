@@ -320,7 +320,7 @@ function ReadingPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="juba-panel rounded-[10px] p-6 text-center">
+          <div className="juba-reference-list-card p-6 text-center">
             <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
@@ -330,7 +330,7 @@ function ReadingPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="juba-panel rounded-[10px] p-4"
+                className="juba-reference-list-card p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -392,7 +392,7 @@ function ReadingPage() {
     return (
       <div className="juba-mobile-reading juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
-        <div className="juba-panel rounded-[10px] p-5">
+        <div className="juba-reference-list-card p-5">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
@@ -521,7 +521,7 @@ function ReadingPage() {
         {freemiumExhausted ? (
           <PaywallBanner feature="reading" compact />
         ) : (
-          <div className="juba-panel flex flex-col items-center gap-5 p-8 text-center">
+          <div className="juba-reference-list-card flex flex-col items-center gap-5 p-8 text-center">
             <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('noExercises')}
             </p>
@@ -606,7 +606,7 @@ function ReadingPage() {
                 {exercise.questions.map((q) => (
                   <div
                     key={q.index}
-                    className="juba-panel rounded-[10px] p-4"
+                    className="juba-reference-list-card p-4"
                   >
                     <TargetLanguageText
                       as="p"
