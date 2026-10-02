@@ -975,6 +975,10 @@ export default function DashboardPage() {
   .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
   .dashboard-card-header p{margin:0;color:#999;font-size:10px;line-height:1.4}
   .dashboard-card-header .dashboard-outline-button{flex:none;margin-top:2px}
+  .dashboard-card-header .dashboard-outline-button svg,
+  .dashboard-green-button svg{transition:transform .14s ease}
+  .dashboard-card-header .dashboard-outline-button:hover svg{transform:translateX(2px)}
+  .dashboard-green-button:hover svg{transform:translateY(-1px)}
   .dashboard-outline-button,.dashboard-green-button{
     display:inline-flex;align-items:center;justify-content:center;gap:7px;
     padding:8px 12px;border-radius:8px;
@@ -1036,6 +1040,7 @@ export default function DashboardPage() {
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
   .dashboard-progress-row>strong{color:#55a51e;font-size:10px}
+  .dashboard-progress-track span{transition:width .22s ease}
   .dashboard-course-path .dashboard-lesson-copy strong{font-weight:800}
   .dashboard-course-path .dashboard-lesson-copy>span{
     max-width:52ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
@@ -1114,7 +1119,8 @@ export default function DashboardPage() {
     display:grid;place-items:center;background:#f0f3ed;color:#7f877d;
     border:2px solid #eef2eb;
   }
-  .dashboard-profile-photo img{width:100%;height:100%;object-fit:cover}
+  .dashboard-profile-photo img{width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+  .dashboard-profile-card:hover .dashboard-profile-photo img{transform:scale(1.035)}
   .dashboard-profile-hero>strong{margin-top:8px;color:#4e544e;font-size:12px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-profile-hero>span{margin-top:2px;color:#929991;font-size:9px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-profile-metrics{
