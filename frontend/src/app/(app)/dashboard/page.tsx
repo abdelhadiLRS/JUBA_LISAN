@@ -519,7 +519,7 @@ export default function DashboardPage() {
                 <span className="dashboard-progress-meta-cell is-green"><small>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b>{completedLessonCount}/{todayLessons.length}</b></span>
                 <span className="dashboard-progress-meta-cell"><small>{t('nextStep')}</small><b>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
               </div>
-              <div className="dashboard-lessons dashboard-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
+              <div className="dashboard-lessons dashboard-course-path">
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
@@ -896,12 +896,19 @@ export default function DashboardPage() {
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
   .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
-  .dashboard-course-path{position:relative}
+  .dashboard-course-path{position:relative;--course-path-progress:0}
   .dashboard-course-path::before{
     content:"";position:absolute;left:31px;top:25px;bottom:25px;
     width:2px;border-radius:99px;background:#edf1eb;
   }
+  .dashboard-course-path::after{
+    content:"";position:absolute;left:31px;top:25px;
+    width:2px;height:calc((var(--course-path-progress, 0) / 100) * (100% - 50px));
+    border-radius:99px;background:var(--dash-green);pointer-events:none;
+  }
   .dashboard-lesson{position:relative;z-index:1}
+  .dashboard-course-path > .dashboard-lesson{background:transparent}
+  .dashboard-course-path > .dashboard-lesson.current{background:#fbfff8}
   .dashboard-lesson.current{z-index:2}
 
   .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
