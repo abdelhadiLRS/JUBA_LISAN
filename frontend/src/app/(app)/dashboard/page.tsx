@@ -868,7 +868,9 @@ export default function DashboardPage() {
     filter:brightness(.98);
     transform:scaleX(1.03);
   }
-  .dashboard-v3-chart-col small{
+  .dashboard-v3-chart-col:hover small{color:#6e766c}
+  .dashboard-v3-chart-col.active:hover span{filter:brightness(.99)}
+  .dashboard-v3-chart-col small{transition:color .14s ease}
     display:block;min-width:24px;text-align:center;line-height:1;
   }
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
@@ -960,6 +962,8 @@ export default function DashboardPage() {
   }
   .dashboard-achievement-strip-progress span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow);transition:width .2s ease}
   .dashboard-achievement-strip:hover .dashboard-achievement-strip-progress span{filter:brightness(.98)}
+  .dashboard-achievement-strip:focus-within{border-color:#dfe8db;box-shadow:0 2px 7px rgba(35,55,25,.035)}
+  .dashboard-achievement-strip-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   .dashboard-course{padding:18px}
   .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0}
@@ -1191,8 +1195,9 @@ export default function DashboardPage() {
   .dashboard-premium strong{color:#66571e;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5;overflow:hidden}
   .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer;transition:filter .14s ease,transform .12s ease}
-  .dashboard-premium button:hover{filter:brightness(.98)}
+  .dashboard-premium button:hover{filter:brightness(.98);transform:translateY(-1px)}
   .dashboard-premium button:active{transform:translateY(1px)}
+  .dashboard-premium button:focus-visible{outline:2px solid #d6bd63;outline-offset:2px}
 
   .dashboard-friends-card .dashboard-section-label{display:flex;align-items:center;gap:4px}
   .dashboard-friends-card .dashboard-section-label svg{flex:none}
