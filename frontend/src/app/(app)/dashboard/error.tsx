@@ -14,8 +14,8 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
   }, [error])
 
   return (
-    <main className="flex min-h-[70vh] items-center justify-center px-6 py-12">
-      <section className="w-full max-w-lg rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-8 text-center shadow-[0_3px_0_var(--duo-line)]">
+    <main className="juba-reference-page flex min-h-[70vh] items-center justify-center px-6 py-12">
+      <section className="juba-reference-list-card w-full max-w-lg p-8 text-center">
         <p className="text-[var(--duo-green-dark)] mb-3 font-mono text-xs font-semibold tracking-[0.2em] uppercase">
           JUBA LISAN
         </p>
@@ -35,13 +35,13 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
           <button
             type="button"
             onClick={reset}
-            className="bg-[var(--duo-green)] text-white shadow-[0_3px_0_var(--duo-green-dark)] rounded-xl px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-90"
+            className="juba-primary-button px-5 py-2.5 text-sm"
           >
             Try again
           </button>
           <Link
             href="/dashboard"
-            className="border-2 border-[var(--duo-line)] text-[var(--duo-ink)] rounded-xl px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]"
+            className="juba-secondary-button px-5 py-2.5 text-sm"
           >
             Go to dashboard
           </Link>
