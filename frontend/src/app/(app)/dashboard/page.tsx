@@ -1065,9 +1065,16 @@ export default function DashboardPage() {
   .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff;min-width:0}
   .dashboard-progress-meta-cell small{font-size:7px;font-weight:850;color:#aaa;text-transform:uppercase;letter-spacing:.05em}
   .dashboard-progress-meta-cell b{font-size:10px;color:#555;line-height:1.25;min-width:0}
+  .dashboard-progress-meta-cell.is-green{
+    border-color:#e4efde;
+    background:#fbfef9;
+  }
   .dashboard-progress-meta-cell.is-green b{color:#58a91b}
   .dashboard-progress-meta-cell small,
   .dashboard-progress-meta-cell b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-progress-meta-cell{transition:border-color .14s ease,background .14s ease,transform .14s ease}
+  .dashboard-progress-meta-cell:hover{border-color:#e1e9dd;background:#fcfefb;transform:translateY(-1px)}
+  .dashboard-progress-meta-cell.is-green:hover{border-color:#d9ebd1;background:#f8fcf5}
   .dashboard-lesson.current{background:#fbfff8;box-shadow:inset 3px 0 0 #58cc02;min-height:72px;border-bottom-color:#e8eee4}
   .dashboard-lesson.done .dashboard-lesson-copy strong{color:#727971}
   .dashboard-lesson.done .dashboard-lesson-copy>span{color:#a1a69f}
