@@ -135,7 +135,8 @@ export default function VocabularySetPage({
   return (
     <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
+      <section className="juba-reference-hero">
+        <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
           href="/vocabulary"
           className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
@@ -148,7 +149,8 @@ export default function VocabularySetPage({
         </span>
         <span>›</span>
         <span className="text-[var(--juba-text)] tracking-wide">{vocabSet.topic}</span>
-      </nav>
+        </nav>
+      </section>
 
       {/* Header */}
       <div className="juba-reference-list-card">
