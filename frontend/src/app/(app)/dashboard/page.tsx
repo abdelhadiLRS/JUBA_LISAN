@@ -723,6 +723,15 @@ export default function DashboardPage() {
   }
   .dashboard-icon-button:hover{border-color:#cfe0c8;color:#4fa31c}
   .dashboard-icon-button:disabled{opacity:.55;cursor:default}
+  .dashboard-reference-nav a:focus-visible,
+  .dashboard-icon-button:focus-visible,
+  .dashboard-outline-button:focus-visible,
+  .dashboard-green-button:focus-visible,
+  .dashboard-tools-card>a:focus-visible,
+  .dashboard-friend-row:focus-visible{
+    outline:2px solid #8bd85c;
+    outline-offset:2px;
+  }
 
   .dashboard-alert{
     max-width:1480px;margin:0 auto 14px;
@@ -933,6 +942,10 @@ export default function DashboardPage() {
     display:grid;grid-template-columns:40px minmax(0,1fr) auto;
     gap:10px;align-items:center;min-height:66px;
     padding:10px 12px;border-bottom:1px solid #f0f2ee;background:#fff;
+    transition:background .14s ease,box-shadow .14s ease;
+  }
+  .dashboard-lesson:not(.current):hover{
+    background:#fbfdf9;
   }
   .dashboard-lesson:last-child{border-bottom:0}
   .dashboard-path-rail{display:flex;justify-content:center}
@@ -1042,7 +1055,13 @@ export default function DashboardPage() {
 
   @media (max-width:1180px) and (min-width:901px){
     .dashboard-dashboard{padding-inline:18px}
+    .dashboard-topbar{gap:14px}
+    .dashboard-topbar-title{gap:12px}
+    .dashboard-reference-nav{gap:2px}
+    .dashboard-reference-nav a{padding-inline:9px}
     .dashboard-v3-grid{grid-template-columns:minmax(0,1fr) 250px;gap:18px}
+    .dashboard-course{padding:16px}
+    .dashboard-v3-chart{gap:10px}
   }
   @media (max-width:900px){
     .dashboard-dashboard{padding:10px 12px 24px;background:#fff}
@@ -1079,6 +1098,8 @@ export default function DashboardPage() {
     .dashboard-outline-button{width:100%}
     .dashboard-lesson{grid-template-columns:32px minmax(0,1fr);gap:8px}
     .dashboard-lesson-action{grid-column:2;justify-self:start}
+    .dashboard-lesson.current{padding-block:12px}
+    .dashboard-lesson-current-action{min-height:28px}
   }`}</style>
     </>
   )
