@@ -514,31 +514,31 @@ export default function DashboardPage() {
                 <Link href="/plan" className="dashboard-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
               </div>
               <div className="dashboard-progress-row"><div className="dashboard-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
-              <div className="dashboard-progress-meta" style={{display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:8,marginTop:9}}>
-                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('today')}</small><b style={{fontSize:10,color:'#555'}}>{currentDayDisplay}/{totalDays || 0}</b></span>
-                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b style={{fontSize:10,color:'#58a91b'}}>{completedLessonCount}/{todayLessons.length}</b></span>
-                <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('nextStep')}</small><b style={{fontSize:10,color:'#555'}}>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
+              <div className="dashboard-progress-meta" className="dashboard-progress-meta">
+                <span className="dashboard-progress-meta-cell"><small>{t('today')}</small><b>{currentDayDisplay}/{totalDays || 0}</b></span>
+                <span className="dashboard-progress-meta-cell is-green"><small>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b>{completedLessonCount}/{todayLessons.length}</b></span>
+                <span className="dashboard-progress-meta-cell"><small>{t('nextStep')}</small><b>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
               </div>
               <div className="dashboard-lessons dashboard-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
                   return (
-                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`dashboard-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} style={current ? { background: '#fbfff8', boxShadow: 'inset 3px 0 0 #58cc02', minHeight: 72, borderBottomColor: '#e8eee4' } : done ? { background: '#fff' } : undefined}>
+                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`dashboard-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} >
                       <div className="dashboard-path-rail" aria-hidden="true">
-                        <span className={`dashboard-path-node ${done ? 'done' : current ? 'current' : ''}`} style={current ? { width: 34, height: 34, marginInlineStart: -2, boxShadow: '0 0 0 5px #f4faef', fontSize: 10 } : undefined}>
+                        <span className={`dashboard-path-node ${done ? 'done' : current ? 'current' : ''}`} >
                           {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
                         </span>
                       </div>
                       <div className="dashboard-lesson-copy">
-                        <div style={{display:'flex',alignItems:'center',gap:7,minWidth:0}}>
-                          <span style={{fontSize:8,fontWeight:950,color:done ? '#58a91b' : current ? '#58a91b' : '#b2b2b2',letterSpacing:'.05em',textTransform:'uppercase',whiteSpace:'nowrap'}}>CP {String(index + 1).padStart(2,'0')}</span>
-                          <strong style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{lesson.title}</strong>
+                        <div className="dashboard-lesson-title">
+                          <span className="dashboard-lesson-code">CP {String(index + 1).padStart(2,'0')}</span>
+                          <strong>{lesson.title}</strong>
                         </div>
                         <span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span>
                       </div>
                       <div className="dashboard-lesson-action">
-                        {current && lesson.id ? <div style={{display:'flex',alignItems:'center',gap:7}}><span style={{fontSize:8,fontWeight:900,color:'#58a91b',letterSpacing:'.04em',textTransform:'uppercase'}}>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="dashboard-green-button">{t('startLesson')}</Link></div> : done ? <span className="dashboard-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="dashboard-locked"><MoreHorizontal size={17} /></span>}
+                        {current && lesson.id ? <div className="dashboard-lesson-current-action"><span>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="dashboard-green-button">{t('startLesson')}</Link></div> : done ? <span className="dashboard-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="dashboard-locked"><MoreHorizontal size={17} /></span>}
                       </div>
                     </div>
                   )
@@ -874,6 +874,21 @@ export default function DashboardPage() {
   }
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+
+  .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
+  .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff}
+  .dashboard-progress-meta-cell small{font-size:7px;font-weight:850;color:#aaa;text-transform:uppercase;letter-spacing:.05em}
+  .dashboard-progress-meta-cell b{font-size:10px;color:#555}
+  .dashboard-progress-meta-cell.is-green b{color:#58a91b}
+  .dashboard-lesson.current{background:#fbfff8;box-shadow:inset 3px 0 0 #58cc02;min-height:72px;border-bottom-color:#e8eee4}
+  .dashboard-lesson-title{display:flex;align-items:center;gap:7px;min-width:0}
+  .dashboard-lesson-title strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-lesson-code{font-size:8px;font-weight:950;color:#b2b2b2;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .dashboard-lesson.done .dashboard-lesson-code,.dashboard-lesson.current .dashboard-lesson-code{color:#58a91b}
+  .dashboard-lesson.current .dashboard-path-node{width:34px;height:34px;margin-inline-start:-2px;box-shadow:0 0 0 5px #f4faef;font-size:10px}
+  .dashboard-lesson-current-action{display:flex;align-items:center;gap:7px}
+  .dashboard-lesson-current-action>span{font-size:8px;font-weight:900;color:#58a91b;letter-spacing:.04em;text-transform:uppercase}
+
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
   .dashboard-progress-row>strong{color:#55a51e;font-size:10px}
