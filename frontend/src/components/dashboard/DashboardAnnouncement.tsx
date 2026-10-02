@@ -114,7 +114,7 @@ export function DashboardAnnouncement() {
           dir={isArabic ? 'rtl' : 'ltr'}
           className={`relative mb-5 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] p-4 pe-12 shadow-[0_1px_2px_rgba(36,48,32,.025)] ${
             syncNotice.status === 'synced'
-              ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))]'
+              ? 'bg-[color-mix(in_srgb,var(--juba-green)_10%,var(--juba-card,var(--duo-card)))]'
               : 'bg-[var(--juba-card,var(--duo-card))]'
           }`}
         >
@@ -122,13 +122,13 @@ export function DashboardAnnouncement() {
             <CheckCircle2
               className={`mt-0.5 size-5 shrink-0 ${
                 syncNotice.status === 'synced'
-                  ? 'text-[var(--duo-green-dark)]'
-                  : 'text-[var(--duo-muted)]'
+                  ? 'text-[var(--juba-green-dark)]'
+                  : 'text-[var(--juba-muted)]'
               }`}
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <p className="text-[var(--duo-ink)] text-sm font-semibold">
+              <p className="text-[var(--juba-ink)] text-sm font-semibold">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? `تمت مزامنة ${syncNotice.count} ${syncNotice.count === 1 ? 'كلمة' : 'كلمات'} محفوظة من وضع الزائر.`
@@ -137,7 +137,7 @@ export function DashboardAnnouncement() {
                     ? 'احتفظنا بالكلمات المحفوظة على هذا الجهاز. يمكنك مزامنتها لاحقًا.'
                     : 'Your saved words are still on this device and can be synced later.'}
               </p>
-              <p className="text-[var(--duo-muted)] mt-1 text-xs leading-relaxed">
+              <p className="text-[var(--juba-muted)] mt-1 text-xs leading-relaxed">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? 'أصبحت الآن جزءًا من مفردات حسابك.'
@@ -151,7 +151,7 @@ export function DashboardAnnouncement() {
                   type="button"
                   onClick={retryGuestSync}
                   disabled={syncing}
-                  className="mt-3 inline-flex items-center gap-2 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-3 py-1.5 text-xs font-semibold text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[var(--duo-green)] disabled:cursor-wait disabled:opacity-50"
+                  className="mt-3 inline-flex items-center gap-2 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-3 py-1.5 text-xs font-semibold text-[var(--juba-ink)] transition-colors hover:border-[var(--juba-green)] hover:bg-[var(--juba-green)] disabled:cursor-wait disabled:opacity-50"
                 >
                   <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} aria-hidden="true" />
                   {isArabic ? 'إعادة المزامنة' : 'Retry sync'}
@@ -163,7 +163,7 @@ export function DashboardAnnouncement() {
             type="button"
             onClick={dismissSyncNotice}
             aria-label={isArabic ? 'إغلاق' : 'Dismiss'}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-8 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
+            className="text-[var(--juba-muted)] hover:text-[var(--juba-ink)] absolute top-3 end-3 inline-flex size-8 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-green)]"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
@@ -173,28 +173,28 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="relative mb-5 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))] p-5 pe-14 shadow-[0_1px_2px_rgba(36,48,32,.025)]"
+          className="relative mb-5 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green)_10%,var(--juba-card,var(--duo-card)))] p-5 pe-14 shadow-[0_1px_2px_rgba(36,48,32,.025)]"
         >
           <div className="flex gap-3">
             <Megaphone
-              className="text-[var(--duo-green-dark)] mt-0.5 size-5 shrink-0"
+              className="text-[var(--juba-green-dark)] mt-0.5 size-5 shrink-0"
               aria-hidden="true"
             />
             <div className="min-w-0">
               <h2
                 id="dashboard-announcement-title"
-                className="text-[var(--duo-ink)] text-lg font-extrabold leading-tight whitespace-pre-wrap"
+                className="text-[var(--juba-ink)] text-lg font-extrabold leading-tight whitespace-pre-wrap"
               >
                 {translation.title}
               </h2>
-              <p className="text-[var(--duo-green-dark)] mt-1 text-xs font-extrabold tracking-[.12em] uppercase whitespace-pre-wrap">
+              <p className="text-[var(--juba-green-dark)] mt-1 text-xs font-extrabold tracking-[.12em] uppercase whitespace-pre-wrap">
                 {translation.subtitle}
               </p>
-              <p className="text-[var(--duo-muted)] mt-3 text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="text-[var(--juba-muted)] mt-3 text-sm leading-relaxed whitespace-pre-wrap">
                 {translation.description}
               </p>
               {error && (
-                <p role="alert" className="text-[var(--duo-red)] mt-3 font-sans text-xs">
+                <p role="alert" className="text-[var(--juba-red)] mt-3 font-sans text-xs">
                   {t('announcementDismissError')}
                 </p>
               )}
@@ -205,7 +205,7 @@ export function DashboardAnnouncement() {
             onClick={dismiss}
             disabled={pending}
             aria-label={t('announcementDismiss')}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-9 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] disabled:cursor-wait disabled:opacity-40"
+            className="text-[var(--juba-muted)] hover:text-[var(--juba-ink)] absolute top-3 end-3 inline-flex size-9 items-center justify-center rounded-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-green)] disabled:cursor-wait disabled:opacity-40"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
