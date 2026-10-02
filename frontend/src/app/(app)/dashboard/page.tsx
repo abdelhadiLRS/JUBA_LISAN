@@ -1019,6 +1019,8 @@ export default function DashboardPage() {
   .dashboard-card-header .dashboard-outline-button{flex:none;margin-top:2px}
   .dashboard-card-header .dashboard-outline-button svg,
   .dashboard-green-button svg{transition:transform .14s ease}
+  .dashboard-card-header .dashboard-outline-button:focus-visible,
+  .dashboard-green-button:focus-visible{outline:2px solid #b8e79b;outline-offset:2px}
   .dashboard-card-header .dashboard-outline-button:hover svg{transform:translateX(2px)}
   .dashboard-green-button:hover svg{transform:translateY(-1px)}
   .dashboard-outline-button,.dashboard-green-button{
