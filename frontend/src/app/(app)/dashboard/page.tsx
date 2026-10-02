@@ -694,7 +694,7 @@ export default function DashboardPage() {
     height:2px;border-radius:99px;background:var(--dash-green);
   }
   .dashboard-course-selector{
-    min-height:36px;
+    min-height:36px;max-width:210px;min-width:0;
     display:flex;align-items:center;gap:8px;
     padding:0 11px;
     border:1px solid var(--dash-border);
@@ -702,6 +702,9 @@ export default function DashboardPage() {
     background:#fff;
     color:var(--dash-muted);
     font-size:10px;
+  }
+  .dashboard-course-selector span,.dashboard-course-selector strong{
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
   .dashboard-course-selector strong{color:#555;font-size:11px}
   .dashboard-icon-button{
@@ -1127,6 +1130,7 @@ export default function DashboardPage() {
     .dashboard-topbar-title{gap:12px}
     .dashboard-reference-nav{gap:2px}
     .dashboard-reference-nav a{padding-inline:9px}
+    .dashboard-course-selector{max-width:170px}
     .dashboard-v3-grid{grid-template-columns:minmax(0,1fr) 250px;gap:18px}
     .dashboard-course{padding:16px}
     .dashboard-v3-chart{gap:10px}
