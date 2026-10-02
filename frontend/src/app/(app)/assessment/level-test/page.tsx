@@ -210,7 +210,7 @@ export default function LevelTestPage() {
   // Start warning dialog — shown before any loading begins
   if (showStartWarning) {
     return (
-      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <ConfirmDialog
           open={true}
           title={t('startWarningTitle')}
@@ -240,7 +240,7 @@ export default function LevelTestPage() {
 
   if (step === 'error') {
     return (
-      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
+      <div className="flex min-h-[60vh] items-center justify-center p-6">
         <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-md rounded-[10px] border">
           <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--juba-muted)]">●</span>
@@ -309,7 +309,7 @@ export default function LevelTestPage() {
     const rec = recConfig[result.recommendation]
 
     return (
-      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
+      <div className="flex min-h-[60vh] items-center justify-center p-6">
         <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
           {/* Header */}
           <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
@@ -410,7 +410,7 @@ export default function LevelTestPage() {
   const skillLabel = SKILL_LABELS[q.skill] ?? q.skill
 
   return (
-    <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
+    <div className="flex min-h-[60vh] items-center justify-center p-6">
       <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
         {/* Header */}
         <div className="juba-reference-card-header border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
