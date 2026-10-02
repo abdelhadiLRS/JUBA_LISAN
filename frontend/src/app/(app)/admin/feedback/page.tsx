@@ -387,12 +387,12 @@ export default function AdminFeedbackPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:border-[#5862e2] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:border-[var(--duo-green-dark)] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
               aria-label={tAdmin('feedbackSearchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -402,7 +402,7 @@ export default function AdminFeedbackPage() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={tAdmin('feedbackTypeFilter')}
           >
             {typeFilterOptions.map((o) => (
@@ -415,7 +415,7 @@ export default function AdminFeedbackPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('filterStatus')}
           >
             {statusFilterOptions.map((o) => (
@@ -428,7 +428,7 @@ export default function AdminFeedbackPage() {
           <select
             value={sortFilter}
             onChange={(e) => setSortFilter(e.target.value as SortFilter)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('sortBy')}
           >
             {sortFilterOptions.map((o) => (
@@ -442,7 +442,7 @@ export default function AdminFeedbackPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {tAdmin('clearFilters')}
@@ -521,7 +521,7 @@ export default function AdminFeedbackPage() {
                               handleStatusChange(entry, e.target.value)
                             }
                             disabled={savingStatus === entry.id}
-                            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
+                            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
                             aria-label={tAdmin('feedbackStatusAction')}
                           >
                             {feedbackStatusOptions.map((option) => (
@@ -611,7 +611,7 @@ export default function AdminFeedbackPage() {
                         handleStatusChange(entry, e.target.value)
                       }
                       disabled={savingStatus === entry.id}
-                      className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
+                      className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
                       aria-label={tAdmin('feedbackStatusAction')}
                     >
                       {feedbackStatusOptions.map((option) => (
