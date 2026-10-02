@@ -821,6 +821,10 @@ export default function DashboardPage() {
   }
   .dashboard-v3-chart-col:hover span{
     filter:brightness(.98);
+    transform:scaleX(1.03);
+  }
+  .dashboard-v3-chart-col small{
+    display:block;min-width:24px;text-align:center;line-height:1;
   }
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
@@ -1141,7 +1145,10 @@ export default function DashboardPage() {
     .dashboard-welcome-copy h2{font-size:22px}
     .dashboard-v3-level{width:68px;min-width:68px;height:68px}
     .dashboard-v3-level::after{inset:6px}
-    .dashboard-v3-chart{height:170px}
+    .dashboard-v3-chart{height:170px;gap:9px;padding-inline:2px}
+    .dashboard-v3-chart-col{min-width:0}
+    .dashboard-v3-chart-col span{width:18px}
+    .dashboard-v3-chart-col small{font-size:8px}
   }
   @media (max-width:620px){
     .dashboard-dashboard{padding-inline:10px}
