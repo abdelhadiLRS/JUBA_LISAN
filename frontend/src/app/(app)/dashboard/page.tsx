@@ -727,6 +727,13 @@ export default function DashboardPage() {
   .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b;transform:translateY(-1px)}
   .dashboard-icon-button:active{transform:translateY(0)}
   .dashboard-icon-button:disabled{opacity:.55;cursor:default;transform:none}
+  .dashboard-icon-button:focus-visible{
+    outline:2px solid #b8e79b;
+    outline-offset:2px;
+    border-color:#cfe8c3;
+    color:#55a51e;
+    background:#f7fbf4;
+  }
   .dashboard-reference-nav a:focus-visible,
   .dashboard-icon-button:focus-visible,
   .dashboard-outline-button:focus-visible,
@@ -1338,12 +1345,22 @@ export default function DashboardPage() {
     .dashboard-v3-chart-col small{font-size:8px}
   }
   @media (prefers-reduced-motion: reduce){
-    .dashboard-lesson.current .dashboard-path-node,
-    .dashboard-lesson.current .dashboard-green-button{
-      transition:none;
+    .dashboard-dashboard *,
+    .dashboard-dashboard *::before,
+    .dashboard-dashboard *::after{
+      scroll-behavior:auto !important;
+      transition-duration:0.01ms !important;
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
     }
-    .dashboard-lesson.current:hover .dashboard-path-node,
-    .dashboard-lesson.current .dashboard-green-button:hover{
+    .dashboard-dashboard .dashboard-v3-card:hover,
+    .dashboard-dashboard .dashboard-v3-welcome:hover,
+    .dashboard-dashboard .dashboard-icon-button:hover,
+    .dashboard-dashboard .dashboard-v3-level:hover,
+    .dashboard-dashboard .dashboard-progress-meta-cell:hover,
+    .dashboard-dashboard .dashboard-path-node:hover,
+    .dashboard-dashboard .dashboard-green-button:hover,
+    .dashboard-dashboard .dashboard-outline-button:hover{
       transform:none;
     }
   }
