@@ -288,6 +288,87 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <style>{`
         /* JUBA LISAN — single reference design system for authenticated app chrome */
         .juba-reference-shell{--juba-bg:#f8faf7;--juba-border:#e8eee4;--juba-ink:#30362f;--juba-muted:#7d857c;--juba-green:#58cc02;background:var(--juba-bg)!important;color:var(--juba-ink)!important;min-height:100dvh}
+        /* Shared dashboard canvas: every authenticated page uses the same visual grammar. */
+        .juba-reference-shell .juba-reference-page,
+        .juba-reference-shell .juba-mobile-courses,
+        .juba-reference-shell .juba-mobile-vocabulary,
+        .juba-reference-shell .juba-mobile-friends,
+        .juba-reference-shell .juba-mobile-chat{
+          width:100%!important;max-width:1480px!important;margin-inline:auto!important;
+          padding:28px 30px 42px!important;box-sizing:border-box!important;
+        }
+        .juba-reference-shell .juba-reference-page > *,
+        .juba-reference-shell .juba-reference-page-inner > *{
+          max-width:none!important;
+        }
+        .juba-reference-shell .juba-reference-hero,
+        .juba-reference-shell .juba-page-hero{
+          background:#fff!important;border:1px solid var(--juba-border)!important;
+          border-radius:14px!important;box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
+        }
+        .juba-reference-shell .juba-reference-section,
+        .juba-reference-shell .juba-reference-list-section{
+          border-radius:12px!important;
+        }
+        .juba-reference-shell .juba-card,
+        .juba-reference-shell .juba-panel,
+        .juba-reference-shell .juba-reference-list-card{
+          background:#fff!important;border-color:var(--juba-border)!important;
+          box-shadow:0 1px 2px rgba(36,48,32,.025)!important;
+        }
+        .juba-reference-shell .juba-section-title,
+        .juba-reference-shell h1,
+        .juba-reference-shell h2,
+        .juba-reference-shell h3{
+          letter-spacing:-.018em;
+        }
+        .juba-reference-shell .juba-eyebrow,
+        .juba-reference-shell .juba-section-title{
+          color:#7d857c!important;
+        }
+        .juba-reference-shell .juba-primary-button{
+          background:#58cc02!important;color:#fff!important;border-color:#58cc02!important;
+          border-radius:9px!important;box-shadow:0 2px 0 #46a302!important;
+        }
+        .juba-reference-shell .juba-primary-button:hover{background:#52bd00!important}
+        .juba-reference-shell .juba-secondary-button{
+          background:#fff!important;border:1px solid #dfe7da!important;color:#586158!important;
+          border-radius:9px!important;
+        }
+        .juba-reference-shell .juba-input{
+          min-height:40px!important;border:1px solid #dfe7da!important;border-radius:9px!important;
+          background:#fff!important;color:#30362f!important;
+        }
+        .juba-reference-shell .juba-badge{
+          border:1px solid #dfe7da!important;background:#f5f9f2!important;color:#62805a!important;
+          border-radius:999px!important;
+        }
+        .juba-reference-shell table{
+          border-color:var(--juba-border)!important;background:#fff!important;
+        }
+        .juba-reference-shell thead{
+          background:#f7faf5!important;
+        }
+        .juba-reference-shell th{
+          color:#7d857c!important;font-size:9px!important;font-weight:850!important;
+          letter-spacing:.06em!important;text-transform:uppercase!important;
+        }
+        .juba-reference-shell td{color:#4e564d!important;border-color:#edf1ea!important}
+        .juba-reference-shell [role="progressbar"]{border-radius:999px!important}
+        .juba-reference-shell svg{flex-shrink:0}
+        .juba-reference-shell[dir="rtl"] .juba-reference-page,
+        .juba-reference-shell[dir="rtl"] .juba-reference-page-inner{text-align:right}
+        .juba-reference-shell[dir="ltr"] .juba-reference-page,
+        .juba-reference-shell[dir="ltr"] .juba-reference-page-inner{text-align:left}
+        @media (max-width:850px){
+          .juba-reference-shell .juba-reference-page,
+          .juba-reference-shell .juba-mobile-courses,
+          .juba-reference-shell .juba-mobile-vocabulary,
+          .juba-reference-shell .juba-mobile-friends,
+          .juba-reference-shell .juba-mobile-chat{
+            padding:18px 14px 30px!important;
+          }
+        }
         .juba-reference-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:#fff!important;border-right:1px solid var(--juba-border)!important;box-shadow:none!important}
         .juba-reference-shell .juba-duo-sidebar>div:first-child{height:72px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:10px!important;border-bottom:1px solid #f0f3ed!important;background:#fff!important}
         .juba-reference-shell .juba-duo-logo-mark{width:34px!important;height:34px!important;flex:none!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:#58cc02!important;color:#fff!important;font-size:11px!important;font-weight:900!important;box-shadow:0 2px 0 #46a302!important}
