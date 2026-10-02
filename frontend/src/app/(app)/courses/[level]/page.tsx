@@ -72,18 +72,18 @@ export default function CourseLevelPage() {
     return type
   }
 
-  if (!level) return <main className='mx-auto max-w-4xl px-4 py-16'><div className='juba-card p-8 text-center'><p className='juba-eyebrow justify-center'>{t('notFound')}</p><h1 className='mt-3 text-3xl font-black text-[#202127]'>{t('choose')}</h1><Link href='/courses' className='mt-6 inline-flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-5 py-3 font-bold text-[var(--duo-green-dark)]'>{t('back')} <i className='ti ti-arrow-right icon icon-sm' aria-hidden='true' /></Link></div></main>
+  if (!level) return <main className='juba-reference-page mx-auto w-full max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8'><div className='juba-reference-list-card p-8 text-center'><p className='juba-eyebrow justify-center'>{t('notFound')}</p><h1 className='mt-3 text-3xl font-black text-[#202127]'>{t('choose')}</h1><Link href='/courses' className='mt-6 inline-flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-5 py-3 font-bold text-[var(--duo-green-dark)]'>{t('back')} <i className='ti ti-arrow-right icon icon-sm' aria-hidden='true' /></Link></div></main>
 
   return (
-    <main className='min-h-screen px-4 py-6 sm:px-6 lg:px-8'>
-      <div className='mx-auto w-full max-w-[1480px] space-y-6'>
+    <main className='juba-reference-page min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8'>
+      <div className='juba-reference-page-inner mx-auto w-full max-w-[1480px] space-y-6'>
         <Link href='/courses' className='inline-flex items-center gap-2 text-sm font-bold text-[rgba(32,33,39,.52)] hover:text-[#202127]'><i className='ti ti-arrow-left icon icon-sm' aria-hidden='true' /> {t('all')}</Link>
-        <section className='relative overflow-hidden rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] p-6 text-white shadow-sm sm:p-8'>
+        <section className='juba-reference-hero relative overflow-hidden rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] p-6 text-white shadow-sm sm:p-8'>
           <div className='relative z-10 max-w-3xl'><div className='juba-eyebrow'><i className='ti ti-sparkles icon icon-sm' aria-hidden='true' /> {t('cefrLevel')} {level}</div><h1 className='mt-4 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl'>{t(`levels.${level}.title`)}</h1><p className='mt-4 text-base leading-7 text-white/80 sm:text-base'>{t(`levels.${level}.description`)}</p><div className='mt-6 flex flex-wrap gap-3 text-sm font-bold text-[#202127]'><span className='rounded-full border border-[rgba(7,7,9,.08)] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-4 py-2'>{units.length} {t('units')}</span>{isCurrentLevel && <><span className='rounded-full border border-[rgba(7,7,9,.08)] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-4 py-2'>{totals.completed} {t('completed')}</span><span className='rounded-full border border-[rgba(7,7,9,.08)] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-4 py-2'>{totals.available} {t('ready')}</span></>}</div></div>
           <div className='juba-hero-glow' aria-hidden='true' />
         </section>
-        {!loading && !levelUnlocked && <div className='juba-card flex items-start gap-4 border-dashed p-6'><LockKeyhole className='mt-1 h-5 w-5 shrink-0 text-[rgba(32,33,39,.52)]' /><div><h2 className='font-black text-[#202127]'>{t('notUnlocked')}</h2><p className='mt-1 text-sm leading-6 text-[rgba(32,33,39,.52)]'>{t('unlockDesc')}</p></div></div>}
-        <section className='space-y-4'>
+        {!loading && !levelUnlocked && <div className='juba-reference-list-card flex items-start gap-4 border-dashed p-6'><LockKeyhole className='mt-1 h-5 w-5 shrink-0 text-[rgba(32,33,39,.52)]' /><div><h2 className='font-black text-[#202127]'>{t('notUnlocked')}</h2><p className='mt-1 text-sm leading-6 text-[rgba(32,33,39,.52)]'>{t('unlockDesc')}</p></div></div>}
+        <section className='juba-reference-section space-y-4'>
           {loading ? Array.from({ length: 4 }, (_, index) => <div key={index} className='juba-card h-40 animate-pulse' />) : units.map((unit) => {
             const journey = journeyUnits[unit.id]
             const progress = Math.round((journey?.progress ?? 0) * 100)
@@ -93,7 +93,7 @@ export default function CourseLevelPage() {
             const state = journey?.state ?? (unit.prerequisite_unit ? 'locked' : 'available')
             const canOpen = levelUnlocked && state !== 'locked'
             return (
-              <article key={unit.id} className={state === 'completed' ? 'juba-card p-6 ring-1 ring-[var(--duo-green)]' : 'juba-card p-6'}>
+              <article key={unit.id} className={state === 'completed' ? 'juba-reference-list-card p-6 ring-1 ring-[var(--duo-green)]' : 'juba-reference-list-card p-6'}>
               <div className='flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between'><div className='min-w-0'><div className='flex items-center gap-3'><span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] text-sm font-black text-[var(--duo-green-dark)]'>{String(unit.unit_number).padStart(2, '0')}</span><div><p className='text-xs font-bold uppercase tracking-[.16em] text-[rgba(32,33,39,.52)]'>{unit.level} · {t('unit')} {unit.unit_number}</p><h2 className='mt-1 text-xl font-black text-[#202127]'>{unit.title}</h2></div></div>
               <div className='mt-5 flex flex-wrap gap-2'>{unit.lesson_types.map((type) => <span key={type} className='rounded-full border border-[rgba(7,7,9,.08)] bg-[color-mix(in_srgb,var(--duo-green)_10%,white)] px-3 py-1 text-xs font-bold text-[rgba(32,33,39,.52)]'>{formatLessonType(type)}</span>)}{unit.grammar_points.slice(0, 3).map((point) => <span key={point} className='rounded-full border border-[rgba(7,7,9,.08)] bg-[#fff] px-3 py-1 text-xs text-[rgba(32,33,39,.52)]'>{point}</span>)}</div>
               <div className='mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5'>
@@ -152,7 +152,7 @@ export default function CourseLevelPage() {
             )
           })}
         </section>
-        {isCurrentLevel && <section className='rounded-[10px] juba-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between'><div><p className='juba-eyebrow'>{t('keepMoving')}</p><h2 className='mt-2 text-2xl font-black text-[#202127]'>{t('continue')}</h2><p className='mt-1 text-sm text-[rgba(32,33,39,.52)]'>{t('continueDesc')}</p></div><Link href='/plan' className='inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#202127] px-5 py-3 font-bold text-[#fff]'>{t('openLearning')} <i className='ti ti-book icon icon-sm' aria-hidden='true' /></Link></section>}
+        {isCurrentLevel && <section className='juba-reference-section rounded-[10px] juba-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between'><div><p className='juba-eyebrow'>{t('keepMoving')}</p><h2 className='mt-2 text-2xl font-black text-[#202127]'>{t('continue')}</h2><p className='mt-1 text-sm text-[rgba(32,33,39,.52)]'>{t('continueDesc')}</p></div><Link href='/plan' className='inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#202127] px-5 py-3 font-bold text-[#fff]'>{t('openLearning')} <i className='ti ti-book icon icon-sm' aria-hidden='true' /></Link></section>}
       </div>
     </main>
   )
