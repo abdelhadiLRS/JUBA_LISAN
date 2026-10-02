@@ -291,7 +291,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         /* Shared dashboard canvas: every authenticated page uses the same visual grammar. */
         .juba-app-shell .juba-dashboard-workspace > *{
           width:100%!important;max-width:1480px!important;margin-inline:auto!important;
-          padding:28px 30px 42px!important;box-sizing:border-box!important;
+          box-sizing:border-box!important;
         }
         .juba-app-shell .juba-reference-page > *,
         .juba-app-shell .juba-reference-page-inner > *{
@@ -358,7 +358,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell[dir="ltr"] .juba-reference-page-inner{text-align:left}
         @media (max-width:850px){
           .juba-app-shell .juba-dashboard-workspace > *{
-            padding:18px 14px 30px!important;
+            width:100%!important;max-width:100%!important;
+            box-sizing:border-box!important;
           }
         }
         .juba-app-shell .juba-duo-sidebar{width:224px!important;min-width:224px!important;flex:0 0 224px!important;height:100dvh!important;position:sticky!important;top:0!important;overflow:hidden!important;background:#fff!important;border-inline-end:1px solid var(--juba-border)!important;box-shadow:none!important}
@@ -451,7 +452,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell [class*="juba-mobile-"] input:focus,.juba-app-shell [class*="juba-mobile-"] textarea:focus,.juba-app-shell [class*="juba-mobile-"] select:focus{border-color:#58cc02!important;box-shadow:0 0 0 3px rgba(88,204,2,.10)!important;outline:none!important}
         .juba-app-shell a:focus-visible,.juba-app-shell button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
         @media (max-width:1180px) and (min-width:901px){.juba-app-shell .juba-duo-sidebar{width:192px!important;min-width:192px!important;flex-basis:192px!important}.juba-app-shell .juba-duo-nav-link{font-size:10.5px!important;padding-inline:8px!important;gap:8px!important}.juba-app-shell .juba-duo-nav-link svg{width:16px!important;height:16px!important}}
-        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:#fff!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:#fff!important}.juba-app-shell .juba-duo-page-frame{background:#fff!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{padding:18px 14px 24px!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:#fff!important;border-bottom:1px solid #e8eee4!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:#fff!important;padding-inline:14px!important;padding-top:18px!important;padding-bottom:24px!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
+        @media (max-width:900px){.juba-app-shell{display:block!important}.juba-app-shell .juba-app-topbar{display:none!important}.juba-app-shell{background:#fff!important}.juba-app-shell .juba-duo-sidebar{display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}.juba-app-shell .juba-duo-main{width:100%!important;min-height:100dvh!important;background:#fff!important}.juba-app-shell .juba-duo-page-frame{background:#fff!important;padding-top:54px!important}.juba-app-shell .juba-dashboard-workspace > *{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.juba-app-shell .juba-duo-mobile-bar{display:block!important;height:54px!important;min-height:54px!important;background:#fff!important;border-bottom:1px solid #e8eee4!important;box-shadow:0 2px 10px rgba(40,60,30,.04)!important}.juba-app-shell [class*="juba-mobile-"]{background:#fff!important;padding-inline:14px!important;padding-top:18px!important;padding-bottom:24px!important}.juba-app-shell [class*="juba-mobile-"] h1{font-size:32px!important}.juba-app-shell [class*="juba-mobile-"] .juba-card,.juba-app-shell [class*="juba-mobile-"] .juba-panel{border-radius:12px!important}}
       `}</style>
     <div className="juba-duo-shell juba-busuu-app juba-app-shell" dir={dir}>
       <a className="juba-duo-skip-link" href="#main-content">
