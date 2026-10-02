@@ -117,8 +117,8 @@ export default function VocabularyPage() {
     <div className="w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
       <div className="juba-reference-hero flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+          <span className="text-[var(--juba-muted)]">●</span>
+          <span className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('myVocabulary')}
           </span>
           {!loading && (
@@ -129,29 +129,29 @@ export default function VocabularyPage() {
         </div>
         <Link
           href="/flashcards"
-          className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border-[var(--juba-lilac)] hover:border-[var(--juba-violet)] border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+          className="text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] border-[var(--juba-border)] hover:border-[var(--duo-green)] border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
         >
           ← {t('backToFlashcards')}
         </Link>
       </div>
 
       {guestItems.length > 0 && (
-        <section className="juba-card rounded-[10px] border border-[var(--juba-violet)] bg-[var(--juba-yellow)] p-5 dark:border-white dark:bg-lime-300">
+        <section className="juba-card rounded-[10px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-950/60">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--juba-muted)]">
                 JUBA LISAN · Visitor learning
               </p>
-              <h2 className="mt-1 text-xl font-black tracking-tight text-neutral-950">
+              <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--juba-ink,var(--juba-text))]">
                 Saved from Instant Translator
               </h2>
-              <p className="mt-1 text-xs font-semibold text-neutral-800/75">
+              <p className="mt-1 text-xs font-semibold text-[var(--juba-muted)]">
                 These items are saved in this browser. Sign in later to sync them with your account.
               </p>
             </div>
             <Link
               href="/register"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-sm transition-colors"             >
+              className="inline-flex shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] px-4 py-2 text-xs font-black text-[var(--juba-ink,var(--juba-text))] shadow-sm transition-colors"             >
               Create account to sync
             </Link>
           </div>
@@ -159,7 +159,7 @@ export default function VocabularyPage() {
             {guestItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-start justify-between gap-3 rounded-[10px] border border-neutral-950/80 bg-white/80 px-4 py-3"
+                className="flex items-start justify-between gap-3 rounded-[10px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] px-4 py-3"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
@@ -168,8 +168,8 @@ export default function VocabularyPage() {
                       {item.sourceLanguage === 'auto' ? 'auto' : item.sourceLanguage}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm font-semibold text-neutral-800">{item.translation}</p>
-                  <div className="mt-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                  <p className="mt-1 text-sm font-semibold text-[var(--juba-ink,var(--juba-text))]">{item.translation}</p>
+                  <div className="mt-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--juba-muted)]">
                     <span>Mastery {item.mastery}%</span>
                     <span>Review ready</span>
                   </div>
@@ -177,7 +177,7 @@ export default function VocabularyPage() {
                 <button
                   type="button"
                   onClick={() => deleteGuestItem(item.id)}
-                  className="shrink-0 rounded-full border border-neutral-950/30 px-2.5 py-1 text-[10px] font-black text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                  className="shrink-0 rounded-full border border-[var(--juba-border)] px-2.5 py-1 text-[10px] font-black text-[var(--juba-muted)] transition hover:bg-[var(--duo-ink,#202127)] hover:text-white"
                   aria-label="Remove saved item"
                 >
                   Remove
