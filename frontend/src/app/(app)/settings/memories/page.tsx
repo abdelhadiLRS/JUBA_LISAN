@@ -134,7 +134,7 @@ export default function SettingsMemoriesPage() {
       </nav>
 
       <div className="juba-reference-list-card p-6">
-        <div className="border-[#ededff] mb-4 flex items-center gap-2 border-b pb-4">
+        <div className="juba-reference-section-head mb-4 flex items-center gap-2 border-b border-[#ededff] pb-4">
           <span aria-hidden="true" className="text-[#202127] text-[rgba(32,33,39,.52)]">
             ●
           </span>
