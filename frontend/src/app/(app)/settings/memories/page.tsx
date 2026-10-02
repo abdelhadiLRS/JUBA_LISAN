@@ -117,10 +117,11 @@ export default function SettingsMemoriesPage() {
 
   return (
     <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <nav
-        aria-label={t('memoryBreadcrumb')}
-        className="juba-reference-section-head text-[rgba(32,33,39,.52)] mb-6 flex items-center gap-2 font-sans"
-      >
+      <section className="juba-reference-hero">
+        <nav
+          aria-label={t('memoryBreadcrumb')}
+          className="flex flex-wrap items-center gap-2 text-[rgba(32,33,39,.52)] font-sans"
+        >
         <Link
           href="/settings"
           className="hover:text-[#202127] tracking-widest uppercase transition-colors"
@@ -131,7 +132,8 @@ export default function SettingsMemoriesPage() {
         <h1 className="text-[#202127] tracking-widest uppercase">
           {t('sectionMemory')}
         </h1>
-      </nav>
+        </nav>
+      </section>
 
       <div className="juba-reference-list-card p-6">
         <div className="juba-reference-section-head mb-4 flex items-center gap-2 border-b border-[#ededff] pb-4">
