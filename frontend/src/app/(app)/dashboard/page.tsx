@@ -343,9 +343,6 @@ export default function DashboardPage() {
   const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
 
   const chartEntries = historyEntries.slice(-7)
-  const performanceValues = chartEntries.map((entry) =>
-    entry.exercises_total > 0 ? Math.round((entry.exercises_correct / entry.exercises_total) * 100) : 0
-  )
   const chartAverage = chartEntries.length
     ? Math.round(chartEntries.reduce((sum, entry) => sum + (entry.exercises_total > 0 ? (entry.exercises_correct / entry.exercises_total) * 100 : 0), 0) / chartEntries.length)
     : 0
@@ -354,12 +351,6 @@ export default function DashboardPage() {
     value: entry.xp_earned,
     active: entry.date === new Date().toISOString().slice(0, 10),
   }))
-
-  function getPerformanceLabel(value: number) {
-    if (value < 0.5) return t('performanceNeedsPractice')
-    if (value < 0.8) return t('performanceInProgress')
-    return t('performanceStrong')
-  }
 
   return (
     <>
@@ -664,6 +655,7 @@ export default function DashboardPage() {
     align-items:center;
     justify-content:space-between;
     gap:24px;
+    border-bottom:1px solid rgba(231,236,228,.72);
   }
   .dashboard-topbar-title,.dashboard-topbar-actions{display:flex;align-items:center}
   .dashboard-dot{
@@ -803,6 +795,12 @@ export default function DashboardPage() {
   .dashboard-v3-card-head h2,.dashboard-v3-card-head h3{
     margin:3px 0 0;color:#30362f;font-size:15px;font-weight:800;
   }
+  .dashboard-daily .dashboard-v3-card-head>strong{
+    align-self:flex-start;
+    color:#55a51e;font-size:12px;font-weight:900;
+    white-space:nowrap;
+    padding-top:3px;
+  }
   .dashboard-v3-card-head>strong{color:#555;font-size:12px}
   .dashboard-daily{padding:19px}
   .dashboard-v3-chart{
@@ -923,6 +921,7 @@ export default function DashboardPage() {
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
   .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+  .dashboard-progress-row>strong{min-width:30px;text-align:right}
   .dashboard-course-path{position:relative;--course-path-progress:0}
   .dashboard-course-path::before{
     content:"";position:absolute;left:31px;top:25px;bottom:25px;
@@ -941,8 +940,10 @@ export default function DashboardPage() {
   .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
   .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff}
   .dashboard-progress-meta-cell small{font-size:7px;font-weight:850;color:#aaa;text-transform:uppercase;letter-spacing:.05em}
-  .dashboard-progress-meta-cell b{font-size:10px;color:#555}
+  .dashboard-progress-meta-cell b{font-size:10px;color:#555;line-height:1.25}
   .dashboard-progress-meta-cell.is-green b{color:#58a91b}
+  .dashboard-progress-meta-cell small,
+  .dashboard-progress-meta-cell b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-lesson.current{background:#fbfff8;box-shadow:inset 3px 0 0 #58cc02;min-height:72px;border-bottom-color:#e8eee4}
   .dashboard-lesson-title{display:flex;align-items:center;gap:7px;min-width:0}
   .dashboard-lesson-title strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1094,6 +1095,7 @@ export default function DashboardPage() {
     .dashboard-v3-grid{grid-template-columns:minmax(0,1fr) 250px;gap:18px}
     .dashboard-course{padding:16px}
     .dashboard-v3-chart{gap:10px}
+    .dashboard-topbar{gap:18px}
   }
   @media (max-width:900px){
     .dashboard-dashboard{padding:10px 12px 24px;background:#fff}
@@ -1132,6 +1134,8 @@ export default function DashboardPage() {
     .dashboard-lesson-action{grid-column:2;justify-self:start;min-width:0}
     .dashboard-course-path .dashboard-lesson-copy>span{max-width:none}
     .dashboard-course-path .dashboard-lesson-action{justify-content:flex-start}
+    .dashboard-progress-meta{gap:6px}
+    .dashboard-progress-meta-cell{padding-inline:8px}
     .dashboard-lesson.current{padding-block:12px}
     .dashboard-lesson-current-action{min-height:28px}
   }`}</style>
