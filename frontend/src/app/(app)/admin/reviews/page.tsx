@@ -158,7 +158,7 @@ export default function AdminReviewsPage() {
     )
 
   return (
-    <div className="juba-admin-reviews-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-page-shell juba-admin-reviews-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <AdminPageHeader
         title={t('title')}
         eyebrow={`${tAdmin('title')} / ${tAdmin('reviews')}`}
