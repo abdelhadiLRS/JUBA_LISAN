@@ -145,7 +145,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="juba-card w-full max-w-md overflow-hidden"
+        className="juba-reference-list-card w-full max-w-md overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -358,7 +358,7 @@ function DetailView({
       </button>
 
       {/* Entry card */}
-      <div className="juba-card overflow-hidden">
+      <div className="juba-reference-list-card overflow-hidden">
         <div className="border-[var(--duo-line)] space-y-3 border-b bg-white px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="text-[var(--duo-ink)] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
@@ -652,7 +652,7 @@ export default function FeedbackPage() {
       </section>
 
       {/* Tabs */}
-      <div className="juba-card flex flex-wrap items-center gap-1 p-2.5">
+      <div className="juba-reference-filter-panel flex flex-wrap items-center gap-1 p-2.5">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
@@ -718,7 +718,7 @@ export default function FeedbackPage() {
       )}
 
       {/* List */}
-      <div className="juba-card overflow-hidden">
+      <div className="juba-reference-list-card overflow-hidden">
         {loading ? (
           <PageLoading
             fullScreen={false}
