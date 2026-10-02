@@ -244,7 +244,7 @@ export default function AdminSystemPage() {
             className={`juba-primary-button inline-flex shrink-0 items-center justify-center gap-2 disabled:opacity-50 ${
               maintenanceMode
                 ? 'bg-[#202127] text-white hover:opacity-90'
-                : 'bg-[#5862e2] text-white hover:bg-[#5862e2]/90'
+                 : 'bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)]'
             }`}
           >
             {maintenanceLoading && (
@@ -258,7 +258,7 @@ export default function AdminSystemPage() {
       <section className="juba-reference-list-card border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
         <div className="border-[rgba(7,7,9,.08)] mb-5 flex gap-3 border-b pb-4">
           <Megaphone
-            className="text-[#5862e2] mt-0.5 size-5 shrink-0"
+            className="text-[var(--duo-green-dark)] mt-0.5 size-5 shrink-0"
             aria-hidden="true"
           />
           <div>
@@ -287,7 +287,7 @@ export default function AdminSystemPage() {
               </p>
             )}
             {bannerSuccess && (
-              <p className="juba-reference-list-card border-[#5862e2]/30 text-[#5862e2] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
+              <p className="juba-reference-list-card border-[var(--duo-green)]/30 text-[var(--duo-green-dark)] border px-4 py-3 font-sans text-xs">
                 {bannerSuccess}
               </p>
             )}
@@ -316,7 +316,7 @@ export default function AdminSystemPage() {
                   type="checkbox"
                   checked={isActive}
                   onChange={(event) => setIsActive(event.target.checked)}
-                  className="accent-[#5862e2] size-4"
+                  className="accent-[var(--duo-green)] size-4"
                 />
                 <span>
                   <span className="text-[#202127] block font-bold">
