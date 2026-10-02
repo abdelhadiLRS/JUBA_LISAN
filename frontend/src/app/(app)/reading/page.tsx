@@ -304,7 +304,7 @@ function ReadingPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="juba-mobile-reading w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="juba-page-shell juba-mobile-reading w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="juba-reference-section-head mb-6 flex items-center justify-between">
           <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
