@@ -144,7 +144,7 @@ export default function MyLanguagesPage() {
       {loading ? (
         <PageLoading />
       ) : userLanguages.length === 0 ? (
-        <div className="border-[var(--juba-lilac)] bg-white border px-6 py-10 text-center">
+        <div className="juba-reference-list-card px-6 py-10 text-center">
           <p className="text-[var(--juba-muted)] font-mono text-sm">
             {t('noLanguages')}
           </p>
@@ -234,7 +234,7 @@ export default function MyLanguagesPage() {
                         <button
                           onClick={() => handleSwitch(ulang)}
                           disabled={switchingCode === ulang.target_language}
-                          className="text-[var(--juba-text)] bg-fl-fg hover:bg-[var(--juba-violet)]/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+                          className="juba-secondary-button px-3 py-1 font-mono text-xs tracking-widest uppercase disabled:opacity-40"
                         >
                           {switchingCode === ulang.target_language
                             ? '...'
@@ -272,14 +272,14 @@ export default function MyLanguagesPage() {
             <div className="mt-5 flex justify-end gap-2">
               <button
                 onClick={() => setAddModalOpen(false)}
-                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="juba-secondary-button px-4 py-2 font-mono text-xs tracking-widest uppercase"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 onClick={handleAdd}
                 disabled={!addingCode}
-                className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="juba-primary-button px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase disabled:opacity-40"
               >
                 {t('addLanguage')}
               </button>
