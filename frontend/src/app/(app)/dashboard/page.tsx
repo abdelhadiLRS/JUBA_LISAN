@@ -684,6 +684,12 @@ export default function DashboardPage() {
     white-space:nowrap;transition:color .14s ease,background .14s ease;
   }
   .dashboard-reference-nav a:hover{color:#596058;background:#f5f8f3}
+  .dashboard-reference-nav a:focus-visible{
+    outline:2px solid #b8e79b;
+    outline-offset:2px;
+    background:#f7fbf4;
+    color:#55a51e;
+  }
   .dashboard-reference-nav a.is-active{color:#4d534d}
   .dashboard-reference-nav a.is-active::after{
     content:"";position:absolute;left:11px;right:11px;bottom:1px;
