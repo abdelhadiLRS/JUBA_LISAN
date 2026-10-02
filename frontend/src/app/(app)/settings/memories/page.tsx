@@ -154,7 +154,7 @@ export default function SettingsMemoriesPage() {
         >
           <label
             htmlFor="memory-content"
-            className="text-[#202127] text-[rgba(32,33,39,.52)] mb-2 block font-sans tracking-widest uppercase"
+            className="juba-muted mb-2 block font-sans tracking-widest uppercase"
           >
             {t('memoryInputLabel')}
           </label>
@@ -172,7 +172,7 @@ export default function SettingsMemoriesPage() {
           <div className="flex items-center justify-between gap-4">
             <p
               id="memory-hint"
-              className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans"
+              className="juba-muted font-sans"
             >
               {t('memoryInputHint', { max: 200 })}
             </p>
