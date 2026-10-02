@@ -105,7 +105,7 @@ export default function MyLanguagesPage() {
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
-          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-lilac)] bg-white text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-lg">
+          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-lilac)] bg-white text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-sm">
             {toast}
           </div>
         </div>
