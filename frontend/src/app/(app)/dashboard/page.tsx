@@ -877,8 +877,8 @@ export default function DashboardPage() {
     min-width:0;
   }
   .dashboard-chart-summary span{display:flex;flex-direction:column;gap:2px}
-  .dashboard-chart-summary small{color:#a0a69f;font-size:8px}
-  .dashboard-chart-summary b{font-size:11px}
+  .dashboard-chart-summary small{color:#a0a69f;font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-chart-summary b{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   .dashboard-reference-insights,.dashboard-reference-stats{
     display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
