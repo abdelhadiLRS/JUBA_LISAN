@@ -1275,6 +1275,8 @@ export default function DashboardPage() {
   @media (max-width:900px){
     .dashboard-dashboard{padding:10px 12px 24px;background:#fff}
     .dashboard-topbar{height:auto;min-height:54px;padding:8px 0;align-items:center}
+    .dashboard-v3-main{min-width:0}
+    .dashboard-v3-card,.dashboard-v3-welcome{border-radius:12px}
     .dashboard-reference-nav{gap:0;min-width:0;overflow-x:auto;scrollbar-width:none}
     .dashboard-reference-nav::-webkit-scrollbar{display:none}
     .dashboard-reference-nav a{padding-inline:8px;font-size:10px}
