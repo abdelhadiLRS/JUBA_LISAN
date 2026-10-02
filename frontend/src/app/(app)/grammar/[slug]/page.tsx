@@ -40,7 +40,7 @@ function renderExplanation(text: string) {
             .map((cell, ci) => (
               <td
                 key={ci}
-                className="text-[var(--duo-ink)] text-[var(--duo-muted)] border-[var(--duo-line)] border px-3 py-1.5 font-mono"
+                className="text-[var(--duo-ink)] text-[var(--duo-muted)] border-[var(--juba-border,var(--duo-line))] border px-3 py-1.5 font-mono"
               >
                 <RichText text={cell.trim()} />
               </td>
@@ -187,7 +187,7 @@ export default function GrammarDetailPage({
     .filter(Boolean)
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-page-shell mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-reference-hero">
         <nav className="text-[var(--duo-ink)] text-[var(--duo-muted)] flex items-center gap-2 font-mono">
         <Link
@@ -214,10 +214,10 @@ export default function GrammarDetailPage({
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
               {topic.level}
             </span>
-            <span className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
               {topic.category}
             </span>
           </div>
@@ -228,7 +228,7 @@ export default function GrammarDetailPage({
             {topic.summary}
           </p>
           {topic.structure && (
-            <div className="border-[var(--duo-line)] bg-[var(--juba-border)]/40 border px-4 py-3">
+            <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-border)]/40 border px-4 py-3">
               <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-1 font-mono tracking-widest uppercase">
                 {t('structure')}
               </p>
@@ -238,7 +238,7 @@ export default function GrammarDetailPage({
         </div>
       </div>
 
-      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
+      <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
         <div className="juba-reference-card-header flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
             {t('explanation')}
@@ -264,11 +264,11 @@ export default function GrammarDetailPage({
       </div>
 
       {nativeLanguageName && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
+        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -312,7 +312,7 @@ export default function GrammarDetailPage({
                   )}
 
                   {nativeHelp.examples.length > 0 && (
-                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
                       <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
                         {t('examples')}
                       </p>
@@ -331,7 +331,7 @@ export default function GrammarDetailPage({
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
                       <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
@@ -347,7 +347,7 @@ export default function GrammarDetailPage({
                   )}
 
                   {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
                       <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
@@ -393,8 +393,8 @@ export default function GrammarDetailPage({
       )}
 
       {topic.rules.length > 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
-          <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
+          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('keyRules')}
             </span>
@@ -415,8 +415,8 @@ export default function GrammarDetailPage({
       )}
 
       {topic.examples.length > 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
-          <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
+          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('examples')}
             </span>
@@ -425,7 +425,7 @@ export default function GrammarDetailPage({
             {topic.examples.map((ex, i) => (
               <div
                 key={i}
-                className="border-[var(--duo-line)] space-y-0.5 border-l-2 pl-4"
+                className="border-[var(--juba-border,var(--duo-line))] space-y-0.5 border-l-2 pl-4"
               >
                 <p className="text-[var(--duo-ink)] font-mono text-xs">{ex.text}</p>
                 {ex.note && (
@@ -440,8 +440,8 @@ export default function GrammarDetailPage({
       )}
 
       {topic.common_mistakes.length > 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
-          <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
+          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('commonMistakes')}
             </span>
@@ -479,8 +479,8 @@ export default function GrammarDetailPage({
       )}
 
       {relatedTopics.length > 0 && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
-          <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
+          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('relatedTopics')}
             </span>
