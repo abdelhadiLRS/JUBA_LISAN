@@ -640,7 +640,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="w-full space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
+    <div className="juba-page-shell w-full space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
       {/* Page header */}
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <p className="juba-eyebrow mb-1">
