@@ -373,7 +373,7 @@ export default function DashboardPage() {
             </section>
 
             <section className="dash2-performance">
-              <div className="dash2-section-head"><div><span className="dash2-eyebrow">{t('xp')}</span><h2>{t('recentPerformance')}</h2></div><strong>{xp} XP</strong></div>
+              <div className="dash2-section-head"><div><span className="dash2-eyebrow">{t('recentPerformance')}</span><h2>{xp} XP</h2><p>{t('streak')} {streak} · {t('accuracy')} {accuracy}%</p></div><span className="dash2-period">{t('today')}</span></div>
               <div className="dash2-chart">
                 {(progressBars.length ? progressBars : weekDays.map(day => ({day, value:0, active:false}))).map((bar,index,bars) => {
                   const max = Math.max(1, ...bars.map(item => item.value))
