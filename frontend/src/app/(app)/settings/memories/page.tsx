@@ -136,7 +136,7 @@ export default function SettingsMemoriesPage() {
       </section>
 
       <div className="juba-reference-hero flex items-center justify-between">
-        <h1 className="text-[var(--duo-ink)] font-sans text-xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-xl font-bold tracking-tight">
           {t('sectionMemory')}
         </h1>
       </div>
