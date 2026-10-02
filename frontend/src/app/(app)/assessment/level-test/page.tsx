@@ -240,7 +240,7 @@ export default function LevelTestPage() {
 
   if (step === 'error') {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
+      <div className="juba-page-shell flex min-h-[60vh] items-center justify-center p-6">
         <div className="juba-reference-assessment-card border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-md rounded-[10px] border">
           <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--duo-muted)]">●</span>
