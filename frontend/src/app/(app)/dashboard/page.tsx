@@ -819,7 +819,6 @@ export default function DashboardPage() {
   }
   .dashboard-v3-chart-col:hover span{
     filter:brightness(.98);
-    transform:scaleX(1.04);
   }
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
@@ -839,6 +838,9 @@ export default function DashboardPage() {
   .dashboard-chart-footer b,.dashboard-chart-summary b{color:#55a51e}
   .dashboard-chart-summary{
     margin-top:10px;padding-top:10px;border-top:1px solid #f0f2ee;
+  }
+  .dashboard-chart-summary span{
+    min-width:0;
   }
   .dashboard-chart-summary span{display:flex;flex-direction:column;gap:2px}
   .dashboard-chart-summary small{color:#a0a69f;font-size:8px}
@@ -924,7 +926,7 @@ export default function DashboardPage() {
     background:#fff;color:#55a51e;
     box-shadow:none;
   }
-  .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.97);transform:translateY(-1px)}
+  .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.98)}
   .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
   .dashboard-progress-row>strong{min-width:30px;text-align:right}
@@ -980,6 +982,9 @@ export default function DashboardPage() {
   }
   .dashboard-lesson:not(.current):hover{
     background:#fbfdf9;
+  }
+  .dashboard-lesson.done:hover{
+    background:#f9fbf7;
   }
   .dashboard-lesson:last-child{border-bottom:0}
   .dashboard-path-rail{display:flex;justify-content:center}
