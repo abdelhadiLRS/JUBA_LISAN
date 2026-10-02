@@ -763,6 +763,17 @@ export default function DashboardPage() {
   }
   .dashboard-v3-main{min-width:0}
   .dashboard-v3-main>section{margin-bottom:16px}
+  .dashboard-v3-main>.dashboard-v3-card,
+  .dashboard-v3-main>.dashboard-reference-insights>.dashboard-v3-card,
+  .dashboard-v3-main>.dashboard-reference-stats>.dashboard-v3-card{
+    transition:border-color .14s ease,box-shadow .14s ease;
+  }
+  .dashboard-v3-main>.dashboard-v3-card:hover,
+  .dashboard-v3-main>.dashboard-reference-insights>.dashboard-v3-card:hover,
+  .dashboard-v3-main>.dashboard-reference-stats>.dashboard-v3-card:hover{
+    border-color:#dfe8db;
+    box-shadow:0 2px 7px rgba(35,55,25,.035);
+  }
   .dashboard-v3-card{
     background:var(--dash-surface);
     border:1px solid var(--dash-border);
