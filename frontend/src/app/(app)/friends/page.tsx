@@ -73,12 +73,12 @@ export default function FriendsPage() {
   }
 
   return (
-    <div className="juba-reference-page juba-page-shell juba-mobile-friends mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-reference-page juba-mobile-friends mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-reference-hero">
         <div>
           <p className="juba-eyebrow"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
-          <h1 className="juba-page-title">Friends</h1>
-          <p className="juba-page-subtitle">Find learners, practise together, and keep your language journey social.</p>
+          <h1 className="text-2xl font-black tracking-[-0.02em] text-[#202127]">Friends</h1>
+          <p className="mt-1 text-sm leading-6 text-[rgba(32,33,39,.52)]">Find learners, practise together, and keep your language journey social.</p>
         </div>
       </section>
 
