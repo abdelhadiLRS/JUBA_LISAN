@@ -243,8 +243,8 @@ export default function LevelTestPage() {
       <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
         <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-md rounded-[10px] border">
           <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[var(--juba-muted)]">●</span>
+            <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
               Level Test
             </span>
           </div>
@@ -314,8 +314,8 @@ export default function LevelTestPage() {
           {/* Header */}
           <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[var(--juba-muted)]">●</span>
+              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
                 {cefrLevel} Level Test — Results
               </span>
             </div>
@@ -324,7 +324,7 @@ export default function LevelTestPage() {
           <div className="space-y-6 p-8">
             {/* Score */}
             <div className="space-y-2 text-center">
-              <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <p className="text-[var(--juba-muted)] font-semibold tracking-wide">
                 Final Score
               </p>
               <p className="text-[var(--juba-text)] font-mono text-7xl font-bold tracking-widest">
@@ -344,10 +344,10 @@ export default function LevelTestPage() {
                 const isWeak = skillPct < 60
                 return (
                   <div key={skill} className="flex items-center gap-3">
-                    <span className="text-[var(--juba-text)] text-[var(--juba-muted)] w-6 text-center font-mono uppercase">
+                    <span className="text-[var(--juba-muted)] w-6 text-center font-mono uppercase">
                       {SKILL_ICONS[skill] ?? skill[0].toUpperCase()}
                     </span>
-                    <span className="text-[var(--juba-text)] text-[var(--juba-muted)] w-24 font-semibold tracking-wide">
+                    <span className="text-[var(--juba-muted)] w-24 font-semibold tracking-wide">
                       {SKILL_LABELS[skill] ?? skill}
                     </span>
                     <div className="bg-fl-border h-1.5 flex-1">
@@ -371,7 +371,7 @@ export default function LevelTestPage() {
             <div className="border-[var(--juba-lilac)] space-y-3 border p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-[var(--juba-text)] text-[var(--juba-text)] font-mono font-bold tracking-widest uppercase">
+                <span className="text-[var(--juba-text)] font-mono font-bold tracking-widest uppercase">
                   Recommendation: {rec.label}
                 </span>
               </div>
@@ -416,12 +416,12 @@ export default function LevelTestPage() {
         <div className="juba-reference-card-header border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[var(--juba-muted)]">●</span>
+              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
                 {cefrLevel} Level Test
               </span>
             </div>
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
               {currentIndex + 1} / {questions.length}
             </span>
           </div>
@@ -434,10 +434,10 @@ export default function LevelTestPage() {
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
               {q.difficulty}
             </span>
           </div>
