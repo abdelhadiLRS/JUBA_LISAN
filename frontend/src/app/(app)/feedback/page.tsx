@@ -100,9 +100,9 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
   const [error, setError] = useState('')
 
   const inputCls =
-    'w-full rounded-[10px] bg-white border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-none'
+    'w-full rounded-[10px] bg-[var(--duo-card)] border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-none'
   const textareaCls =
-    'w-full rounded-[10px] bg-white border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-y min-h-[106px]'
+    'w-full rounded-[10px] bg-[var(--duo-card)] border border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-y min-h-[106px]'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -359,7 +359,7 @@ function DetailView({
 
       {/* Entry card */}
       <div className="juba-reference-list-card overflow-hidden">
-        <div className="border-[var(--duo-line)] space-y-3 border-b bg-white px-6 py-5">
+        <div className="border-[var(--duo-line)] space-y-3 border-b bg-[var(--duo-card)] px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="text-[var(--duo-ink)] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
               {entry.title}
@@ -640,7 +640,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="w-full space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
       {/* Page header */}
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <p className="juba-eyebrow mb-1">
@@ -700,7 +700,7 @@ export default function FeedbackPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="h-9 rounded-[10px] border border-[var(--duo-line)] bg-white px-3 text-xs text-[var(--duo-muted)] outline-none transition-colors focus:border-[var(--duo-green-dark)]"
+          className="h-9 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 text-xs text-[var(--duo-muted)] outline-none transition-colors focus:border-[var(--duo-green-dark)]"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
