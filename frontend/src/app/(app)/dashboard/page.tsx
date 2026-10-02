@@ -676,25 +676,17 @@ export default function DashboardPage() {
   .dashboard-topbar-title{gap:18px}
   .dashboard-topbar-title nav{min-width:0}
   .dashboard-topbar-actions{gap:9px}
-  .dashboard-reference-nav{display:flex;align-items:center;gap:6px}
+  .dashboard-reference-nav{display:flex;align-items:center;gap:4px;min-width:0}
   .dashboard-reference-nav a{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    min-height:40px;
-    padding:0 12px;
-    color:#858c83;
-    text-decoration:none;
-    font-size:12px;
-    font-weight:800;
-    transition:.16s ease;
+    position:relative;display:inline-flex;align-items:center;justify-content:center;
+    min-height:34px;padding:0 11px;border-radius:8px;
+    color:#8b9289;text-decoration:none;font-size:10px;font-weight:800;
+    white-space:nowrap;transition:color .14s ease,background .14s ease;
   }
-  .dashboard-reference-nav a:hover,
-  .dashboard-reference-nav a.is-active{color:#4fa31c}
+  .dashboard-reference-nav a:hover{color:#596058;background:#f5f8f3}
+  .dashboard-reference-nav a.is-active{color:#4d534d}
   .dashboard-reference-nav a.is-active::after{
-    content:"";
-    position:absolute;
-    left:12px;right:12px;bottom:2px;
+    content:"";position:absolute;left:11px;right:11px;bottom:1px;
     height:2px;border-radius:99px;background:var(--dash-green);
   }
   .dashboard-course-selector{
@@ -712,13 +704,12 @@ export default function DashboardPage() {
   }
   .dashboard-course-selector strong{color:#555;font-size:11px}
   .dashboard-icon-button{
-    width:36px;height:36px;
-    display:grid;place-items:center;
-    border:1px solid var(--dash-border);
-    border-radius:9px;background:#fff;color:#7d847b;
-    cursor:pointer;transition:.16s ease;
+    width:34px;height:34px;display:grid;place-items:center;
+    border:1px solid var(--dash-border);border-radius:9px;background:#fff;
+    color:#929991;cursor:pointer;
+    transition:border-color .14s ease,color .14s ease,background .14s ease;
   }
-  .dashboard-icon-button:hover{border-color:#cfe0c8;color:#4fa31c}
+  .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b}
   .dashboard-icon-button:disabled{opacity:.55;cursor:default}
   .dashboard-reference-nav a:focus-visible,
   .dashboard-icon-button:focus-visible,
@@ -814,11 +805,18 @@ export default function DashboardPage() {
   .dashboard-v3-level small{position:absolute;z-index:1;bottom:18px;color:#9aa197;font-size:7px;font-weight:850}
 
   .dashboard-v3-card-head{
-    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding-bottom:2px;
   }
-  .dashboard-v3-card-head h2,.dashboard-v3-card-head h3{
-    margin:3px 0 0;color:#30362f;font-size:15px;font-weight:800;
-  }
+  .dashboard-v3-card-head h2{margin:0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
+  .dashboard-v3-card-head h3{margin:3px 0 0;color:#565c55;font-size:12px;font-weight:850;letter-spacing:-.01em}
+  .dashboard-v3-card-head>div{min-width:0}
+  .dashboard-v3-card-head>div>h2{margin-top:3px}
+  .dashboard-v3-card-head>div>h3{margin-top:3px}
+  .dashboard-v3-card-head>div>span{line-height:1.2}
+  .dashboard-v3-card-head span{color:#a0a69f;font-size:8px;font-weight:750}
+  .dashboard-v3-card-head>strong{flex:none;color:#55a51e;font-size:10px;font-weight:850}
+  .dashboard-v3-card-head h3,.dashboard-v3-card-head strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-daily .dashboard-v3-card-head>strong{
     align-self:flex-start;
     color:#55a51e;font-size:12px;font-weight:900;
@@ -1145,18 +1143,10 @@ export default function DashboardPage() {
   .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5}
   .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer}
 
-  .dashboard-v3-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .dashboard-v3-card-head>strong{flex:none;color:#55a51e;font-size:10px;font-weight:850}
   .dashboard-friends-card .dashboard-section-label{display:flex;align-items:center;gap:4px}
   .dashboard-friends-card .dashboard-section-label svg{flex:none}
   .dashboard-friends-card .dashboard-mini-link{white-space:nowrap}
   .dashboard-profile-photo .h-full{width:100%;height:100%}
-  .dashboard-v3-card-head h2{margin:0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
-  .dashboard-v3-card-head>div>h2{margin-top:3px}
-  .dashboard-v3-card-head>div>h3{margin:3px 0 0;color:#565c55;font-size:12px;font-weight:850;letter-spacing:-.01em}
-  .dashboard-v3-card-head>div>span{line-height:1.2}
-  .dashboard-v3-card-head>div{min-width:0}
-  .dashboard-v3-card-head span{color:#a0a69f;font-size:8px;font-weight:750}
   .dashboard-section-label{display:block;color:#a0a69f;font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
   .dashboard-daily .dashboard-v3-card-head{padding-bottom:0}
   .dashboard-daily .dashboard-v3-card-head>strong{padding-top:2px}
@@ -1165,15 +1155,6 @@ export default function DashboardPage() {
   .dashboard-insight-footer b:nth-of-type(2){color:#58a91b}
   .dashboard-topbar{position:relative}
   .dashboard-topbar-title{min-width:0}
-  .dashboard-reference-nav{display:flex;align-items:center;gap:4px;min-width:0}
-  .dashboard-reference-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 11px;border-radius:8px;color:#8b9289;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap;transition:color .14s ease,background .14s ease}
-  .dashboard-reference-nav a:hover{color:#596058;background:#f5f8f3}
-  .dashboard-reference-nav a.is-active{color:#4d534d}
-  .dashboard-reference-nav a.is-active::after{content:"";position:absolute;left:11px;right:11px;bottom:1px;height:2px;border-radius:99px;background:var(--dash-green)}
-  .dashboard-icon-button{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--dash-border);border-radius:9px;background:#fff;color:#929991;cursor:pointer;transition:border-color .14s ease,color .14s ease,background .14s ease}
-  .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b}
-  .dashboard-v3-card-head{padding-bottom:2px}
-  .dashboard-v3-card-head h3,.dashboard-v3-card-head strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-tools-card .dashboard-v3-card-head,.dashboard-friends-card .dashboard-v3-card-head{margin-bottom:4px}
   @media (max-width:1180px) and (min-width:901px){
     .dashboard-dashboard{padding-inline:18px}
