@@ -42,9 +42,9 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="juba-admin-panel rounded-[10px] border border-[#e9eee5] bg-white shadow-sm">
+    <div className="juba-admin-panel rounded-[12px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] shadow-sm">
       {(title || meta) && (
-        <div className="juba-admin-panel-head border-[#e9eee5] flex flex-wrap items-center gap-2 border-b px-5 py-3.5">
+        <div className="juba-admin-panel-head border-[var(--juba-border)] flex flex-wrap items-center gap-2 border-b px-5 py-3.5">
           {title && (
             <>
               <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
