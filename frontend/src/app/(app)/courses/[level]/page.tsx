@@ -72,10 +72,10 @@ export default function CourseLevelPage() {
     return type
   }
 
-  if (!level) return <main className='w-full max-w-[1480px] mx-auto px-4 py-8 sm:px-6 lg:px-8 box-border'><div className='juba-reference-list-card p-8 text-center'><p className='juba-eyebrow justify-center'>{t('notFound')}</p><h1 className='mt-3 text-3xl font-black text-[var(--juba-ink,var(--juba-text))]'>{t('choose')}</h1><Link href='/courses' className='mt-6 inline-flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))] px-5 py-3 font-bold text-[var(--duo-green-dark)]'>{t('back')} <i className='ti ti-arrow-right icon icon-sm' aria-hidden='true' /></Link></div></main>
+  if (!level) return <main className='juba-page-shell w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border'><div className='juba-reference-list-card p-8 text-center'><p className='juba-eyebrow justify-center'>{t('notFound')}</p><h1 className='mt-3 text-3xl font-black text-[var(--juba-ink,var(--juba-text))]'>{t('choose')}</h1><Link href='/courses' className='mt-6 inline-flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_10%,var(--juba-card,var(--duo-card)))] px-5 py-3 font-bold text-[var(--duo-green-dark)]'>{t('back')} <i className='ti ti-arrow-right icon icon-sm' aria-hidden='true' /></Link></div></main>
 
   return (
-    <main className='w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border'>
+    <main className='juba-page-shell w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border'>
       <div className='w-full space-y-6'>
         <Link href='/courses' className='inline-flex items-center gap-2 text-sm font-bold text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))]'><i className='ti ti-arrow-left icon icon-sm' aria-hidden='true' /> {t('all')}</Link>
         <section className='juba-reference-hero relative overflow-hidden rounded-[10px] border border-[var(--duo-green-dark)] bg-[var(--duo-green)] p-6 text-white shadow-sm sm:p-8'>
