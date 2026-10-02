@@ -817,9 +817,23 @@ export default function DashboardPage() {
   .dashboard-v3-chart-col span{
     width:22px;max-width:100%;min-height:8px;
     display:block;border-radius:5px 5px 2px 2px;background:var(--dash-yellow);
+    transform-origin:bottom;transition:height .22s ease,filter .14s ease,transform .14s ease;
+  }
+  .dashboard-v3-chart-col:hover span{
+    filter:brightness(.98);
+    transform:scaleX(1.04);
   }
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
+  .dashboard-v3-chart-col.active small{color:#58a91b;font-weight:800}
+  .dashboard-insight-card,.dashboard-stat-card{
+    transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+  }
+  .dashboard-insight-card:hover,.dashboard-stat-card:hover{
+    border-color:#dfe8db;
+    box-shadow:0 3px 10px rgba(35,55,25,.04);
+    transform:translateY(-1px);
+  }
   .dashboard-v3-chart-footer,.dashboard-chart-footer,.dashboard-chart-summary{
     display:flex;justify-content:space-between;gap:10px;
     color:#858c83;font-size:10px;
