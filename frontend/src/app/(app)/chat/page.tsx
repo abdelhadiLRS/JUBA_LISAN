@@ -390,7 +390,7 @@ export default function ChatPage() {
         .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
 
         /* Reference shell reconciliation — shared page geometry */
-        .juba-mobile-chat.juba-reference-page{background:#fff!important}
+        .juba-mobile-chat{background:transparent!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:10px!important}
         .juba-mobile-chat .chat-conversations-sidebar .group{border-radius:0!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
