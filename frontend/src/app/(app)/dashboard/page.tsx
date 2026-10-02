@@ -355,7 +355,7 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="dash2" data-dashboard-version="reference-v2">
+      <div className="juba-page-shell dash2" data-dashboard-version="reference-v2">
         {loadError && <div className="dash2-alert" role="alert"><span>{tError('body')}</span><button type="button" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>{tError('retry')}</button></div>}
         <div className="dash2-layout">
           <main className="dash2-main">
