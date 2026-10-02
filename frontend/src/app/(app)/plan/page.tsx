@@ -340,7 +340,7 @@ export default function PlanPage() {
             {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
           </p>
           <div className="mt-5 flex flex-wrap gap-2.5">
-            <div className="rounded-[10px] bg-white px-3.5 py-2.5">
+            <div className="rounded-[10px] bg-[var(--duo-card)] px-3.5 py-2.5">
               <p className="text-[10px] font-semibold text-[var(--duo-muted)]">{t('unitsLabel')}</p>
               <p className="mt-0.5 text-lg font-extrabold">{units.length}</p>
             </div>
