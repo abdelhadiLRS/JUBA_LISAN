@@ -74,7 +74,7 @@ export default function FriendsPage() {
 
   return (
     <div className="juba-reference-page juba-page-shell juba-mobile-friends mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-reference-hero juba-page-hero">
+      <section className="juba-reference-hero">
         <div>
           <p className="juba-eyebrow"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
           <h1 className="juba-page-title">Friends</h1>
@@ -83,7 +83,7 @@ export default function FriendsPage() {
       </section>
 
       <section className="juba-reference-section grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
-        <div className="juba-panel space-y-4">
+        <div className="juba-reference-list-card space-y-4">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
               <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--duo-muted)]" />
@@ -98,7 +98,7 @@ export default function FriendsPage() {
           {error && <p className="rounded-[10px] border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
         </div>
 
-        <div className="juba-panel">
+        <div className="juba-reference-list-card">
           <h2 className="juba-section-title">Friend requests</h2>
           <div className="mt-4 space-y-3">
             {incoming.map(item=><PersonCard key={item.id} person={item.user}><button onClick={()=>accept(item.id)} disabled={actionId===item.id} className="juba-primary-button"><Check className="h-4 w-4"/> {actionId===item.id?'Accepting…':'Accept'}</button></PersonCard>)}
