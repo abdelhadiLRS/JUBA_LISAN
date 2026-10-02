@@ -150,7 +150,7 @@ export default function SettingsMemoriesPage() {
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="border-[#ededff] mb-6 border-b pb-6"
+          className="border-b border-[#ededff] mb-6 pb-6"
         >
           <label
             htmlFor="memory-content"
@@ -167,7 +167,7 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="juba-input border-[#ededff] bg-[#ededff]/40 text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] mb-2 w-full resize-y border p-3 font-sans text-sm outline-none"
+            className="juba-input mb-2 w-full resize-y border-[#ededff] bg-[#ededff]/40 p-3 font-sans text-sm text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2]"
           />
           <div className="flex items-center justify-between gap-4">
             <p
@@ -241,7 +241,7 @@ export default function SettingsMemoriesPage() {
                       content: memory.content,
                     })}
                     aria-busy={deletingId === memory.id}
-                    className="text-[rgba(32,33,39,.52)] hover:text-rose-600 shrink-0 p-2 transition-colors disabled:opacity-50"
+                    className="juba-secondary-button shrink-0 border-transparent p-2 text-[rgba(32,33,39,.52)] hover:border-transparent hover:text-rose-600 disabled:opacity-50"
                   >
                     {deletingId === memory.id ? (
                       <span className="spinner-border spinner-border-sm" aria-hidden="true" />
