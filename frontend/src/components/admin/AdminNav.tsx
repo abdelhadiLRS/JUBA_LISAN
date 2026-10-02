@@ -24,7 +24,7 @@ export function AdminNav() {
   const t = useTranslations('admin')
 
   return (
-    <div className="juba-admin-nav flex flex-wrap items-center gap-1 rounded-[10px] border border-[#e9eee5] bg-white p-1.5 shadow-sm">
+    <div className="juba-admin-nav flex flex-wrap items-center gap-1 rounded-[10px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] p-1.5 shadow-sm">
       {items.map((item) => {
         const Icon = item.icon
         const active =
@@ -36,8 +36,8 @@ export function AdminNav() {
             href={item.href}
             className={`juba-admin-nav-item text-[10px] flex min-h-9 items-center gap-2 rounded-[9px] px-3 py-2 font-semibold transition-colors ${
               active
-                ? 'juba-admin-nav-active bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] text-[var(--duo-ink)] border-s-2 border-[var(--duo-green)]'
-                : 'text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-purple)_8%,transparent)] hover:text-[var(--duo-ink)] border-s-2 border-transparent'
+                ? 'juba-admin-nav-active bg-[var(--juba-soft,var(--duo-soft))] text-[var(--duo-ink)] border-s-2 border-[var(--duo-green)]'
+                : 'text-[var(--duo-muted)] hover:bg-[var(--juba-soft,var(--duo-soft))] hover:text-[var(--duo-ink)] border-s-2 border-transparent'
             }`}
           >
             <Icon className="size-3.5" aria-hidden="true" />
