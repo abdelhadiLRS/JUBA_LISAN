@@ -133,7 +133,7 @@ export default function MyLanguagesPage() {
         {unusedCodes.length > 0 && (
           <button
             onClick={() => setAddModalOpen(true)}
-            className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+            className="juba-primary-button font-mono text-xs font-bold tracking-widest uppercase"
           >
             + {t('addLanguage')}
           </button>
