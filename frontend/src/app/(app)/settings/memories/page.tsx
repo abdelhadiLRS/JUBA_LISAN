@@ -150,7 +150,7 @@ export default function SettingsMemoriesPage() {
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="border-b border-[#ededff] mb-6 pb-6"
+          className="mb-6 border-b border-[#ededff] pb-6"
         >
           <label
             htmlFor="memory-content"
@@ -167,7 +167,7 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="juba-input mb-2 w-full resize-y border-[#ededff] bg-[#ededff]/40 p-3 font-sans text-sm text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2]"
+            className="juba-input mb-2 w-full resize-y bg-[#ededff]/40 p-3 text-sm text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2]"
           />
           <div className="flex items-center justify-between gap-4">
             <p
@@ -179,7 +179,7 @@ export default function SettingsMemoriesPage() {
             <button
               type="submit"
               disabled={loading || loadError || mutating || !content.trim()}
-              className="juba-primary-button flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-sans font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-50"
+              className="juba-primary-button flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-50"
             >
               {adding && (
                 <span className="spinner-border spinner-border-sm" aria-hidden="true" />
@@ -209,7 +209,7 @@ export default function SettingsMemoriesPage() {
             </p>
             <button
               onClick={() => void loadMemories()}
-              className="juba-secondary-button font-sans tracking-widest uppercase"
+              className="juba-secondary-button tracking-widest uppercase"
             >
               {tCommon('retry')}
             </button>
@@ -258,7 +258,7 @@ export default function SettingsMemoriesPage() {
                 setClearConfirm(true)
               }}
               disabled={mutating}
-              className="juba-secondary-button w-full font-sans tracking-widest uppercase hover:border-red-200/50 hover:text-rose-600"
+              className="juba-secondary-button w-full tracking-widest uppercase hover:border-red-200/50 hover:text-rose-600"
             >
               {t('memoryClearAll')}
             </button>
