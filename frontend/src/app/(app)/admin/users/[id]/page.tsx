@@ -372,7 +372,7 @@ export default function AdminUserStatsPage() {
   ).length
 
   return (
-    <div className="juba-admin-users-shell space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-page-shell juba-admin-users-shell space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="juba-reference-hero flex flex-wrap items-center justify-between gap-3 p-5">
         <div className="flex min-w-0 items-center gap-2">
           <Link
