@@ -29,7 +29,7 @@ export default function AdaptiveQuizCard({
   }
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--juba-bg,var(--juba-bg))] p-4 sm:p-6">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--juba-bg,var(--duo-bg))] p-4 sm:p-6">
       <div className="w-full max-w-2xl overflow-hidden rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-[0_1px_2px_rgba(36,48,32,.025)]">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg)] px-5 py-4 sm:px-6">
