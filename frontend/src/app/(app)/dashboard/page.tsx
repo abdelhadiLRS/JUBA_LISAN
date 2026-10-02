@@ -932,7 +932,7 @@ export default function DashboardPage() {
   }
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.98)}
   .dashboard-outline-button:hover{background:#f7fbf4}
-  .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+  .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
   .dashboard-progress-row>strong{min-width:30px;text-align:right}
   .dashboard-course-path{position:relative;--course-path-progress:0}
   .dashboard-course-path::before{
@@ -950,9 +950,9 @@ export default function DashboardPage() {
   .dashboard-lesson.current{z-index:2}
 
   .dashboard-progress-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
-  .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff}
+  .dashboard-progress-meta-cell{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:1px solid #ecefec;border-radius:7px;background:#fff;min-width:0}
   .dashboard-progress-meta-cell small{font-size:7px;font-weight:850;color:#aaa;text-transform:uppercase;letter-spacing:.05em}
-  .dashboard-progress-meta-cell b{font-size:10px;color:#555;line-height:1.25}
+  .dashboard-progress-meta-cell b{font-size:10px;color:#555;line-height:1.25;min-width:0}
   .dashboard-progress-meta-cell.is-green b{color:#58a91b}
   .dashboard-progress-meta-cell small,
   .dashboard-progress-meta-cell b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
