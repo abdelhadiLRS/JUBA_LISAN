@@ -1143,7 +1143,9 @@ export default function DashboardPage() {
   .dashboard-premium>div:nth-child(2){display:flex;flex-direction:column;gap:3px}
   .dashboard-premium strong{color:#66571e;font-size:11px}
   .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5}
-  .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer}
+  .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer;transition:filter .14s ease,transform .12s ease}
+  .dashboard-premium button:hover{filter:brightness(.98)}
+  .dashboard-premium button:active{transform:translateY(1px)}
 
   .dashboard-friends-card .dashboard-section-label{display:flex;align-items:center;gap:4px}
   .dashboard-friends-card .dashboard-section-label svg{flex:none}
