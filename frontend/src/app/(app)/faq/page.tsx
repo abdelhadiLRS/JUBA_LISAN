@@ -16,23 +16,23 @@ export default function FAQPage() {
   const isAdmin = useAuthStore((s) => s.user?.role === 'admin')
 
   const strong = (chunks: React.ReactNode) => (
-    <strong className="text-[var(--duo-ink)]">{chunks}</strong>
+    <strong className="text-[var(--juba-ink,var(--duo-ink))]">{chunks}</strong>
   )
   const code = (chunks: React.ReactNode) => (
-    <code className="text-[var(--duo-ink)] bg-[var(--duo-bg)] px-1">{chunks}</code>
+    <code className="text-[var(--juba-ink,var(--duo-ink))] bg-[var(--juba-bg,var(--duo-bg))] px-1">{chunks}</code>
   )
   const adminLink = (chunks: React.ReactNode) => (
-    <Link href="/admin/users" className="text-[var(--duo-ink)] underline underline-offset-2">
+    <Link href="/admin/users" className="text-[var(--juba-ink,var(--duo-ink))] underline underline-offset-2">
       {chunks}
     </Link>
   )
   const settingsLink = (chunks: React.ReactNode) => (
-    <Link href="/settings" className="text-[var(--duo-ink)] underline underline-offset-2">
+    <Link href="/settings" className="text-[var(--juba-ink,var(--duo-ink))] underline underline-offset-2">
       {chunks}
     </Link>
   )
   const feedbackLink = (chunks: React.ReactNode) => (
-    <Link href="/feedback" className="text-[var(--duo-ink)] underline underline-offset-2">
+    <Link href="/feedback" className="text-[var(--juba-ink,var(--duo-ink))] underline underline-offset-2">
       {chunks}
     </Link>
   )
@@ -59,7 +59,7 @@ export default function FAQPage() {
           <ol className="list-none space-y-1">
             {workflowSteps.map((step, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="text-[var(--duo-muted)] mt-0.5 shrink-0 font-sans">{i + 1}.</span>
+                <span className="text-[var(--juba-muted,var(--duo-muted))] mt-0.5 shrink-0 font-sans">{i + 1}.</span>
                 <span>{step}</span>
               </li>
             ))}
@@ -90,8 +90,8 @@ export default function FAQPage() {
               <ul className="mt-2 list-none space-y-1">
                 {providers.map(([name, desc]) => (
                   <li key={name} className="flex items-start gap-2">
-                    <code className="text-[var(--duo-muted)] shrink-0">{name}</code>
-                    <span className="text-[var(--duo-muted)]">— {desc}</span>
+                    <code className="text-[var(--juba-muted,var(--duo-muted))] shrink-0">{name}</code>
+                    <span className="text-[var(--juba-muted,var(--duo-muted))]">— {desc}</span>
                   </li>
                 ))}
               </ul>
@@ -109,31 +109,31 @@ export default function FAQPage() {
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="max-w-3xl space-y-2">
           <p className="juba-eyebrow">{t('title')}</p>
-          <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-3xl">
+          <h1 className="text-[30px] font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))] sm:text-3xl">
             {t('subtitle')}
           </h1>
         </div>
       </section>
 
       <section className="juba-reference-section juba-reference-list-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3">
-          <span className="text-sm font-bold text-[var(--duo-green-dark)]">●</span>
-          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
+        <div className="flex items-center gap-2 border-b border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-5 py-3">
+          <span className="text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">●</span>
+          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--juba-muted,var(--duo-muted))]">
             {t('title')}
           </span>
         </div>
         <div className="juba-faq-list">
         {faqs.map((item, i) => (
-          <div key={i} className={i < faqs.length - 1 ? 'border-[var(--duo-line)] border-b' : ''}>
+          <div key={i} className={i < faqs.length - 1 ? 'border-[var(--juba-border,var(--duo-line))] border-b' : ''}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--duo-bg)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--duo-green-dark)]/30"
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--juba-bg,var(--duo-bg))] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]/30"
             >
-              <span className="text-[var(--duo-ink)] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
-              <span className="text-[var(--duo-muted)] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
+              <span className="text-[var(--juba-ink,var(--duo-ink))] pe-4 font-sans text-sm font-semibold tracking-tight">{item.q}</span>
+              <span className="text-[var(--juba-muted,var(--duo-muted))] shrink-0 font-sans text-sm">{open === i ? '−' : '+'}</span>
             </button>
             {open === i && (
-              <div className="border-t border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 pt-4 pb-5 font-sans text-sm leading-relaxed text-[var(--duo-muted)]">
+              <div className="border-t border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg,var(--duo-bg))] px-5 pt-4 pb-5 font-sans text-sm leading-relaxed text-[var(--juba-muted,var(--duo-muted))]">
                 {item.a}
               </div>
             )}
