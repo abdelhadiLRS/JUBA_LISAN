@@ -163,7 +163,8 @@ export default function ConversationPage() {
   if (!planReady) return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-[60vh]" />
 
   return (
-    <MaintenanceGate>
+    <div className="juba-page-shell w-full min-w-0">
+      <MaintenanceGate>
       {voiceTrial ? (
         <ConversationMode
           initialContext={initialContext}
@@ -193,6 +194,7 @@ export default function ConversationPage() {
           }
         />
       )}
-    </MaintenanceGate>
+      </MaintenanceGate>
+    </div>
   )
 }
