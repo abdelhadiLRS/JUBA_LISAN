@@ -254,7 +254,7 @@ export default function LevelTestPage() {
             </p>
             <button
               onClick={() => router.push('/plan')}
-              className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border py-3 text-sm tracking-widest uppercase transition-colors"
+              className="juba-secondary-button w-full border py-3 text-sm tracking-widest uppercase"
             >
               ← Back to Plan
             </button>
@@ -384,7 +384,7 @@ export default function LevelTestPage() {
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => router.push(rec.nextAction)}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
+                className="juba-primary-button w-full py-3.5 text-sm font-bold tracking-widest uppercase"
               >
                 {rec.nextLabel}
               </button>
@@ -434,7 +434,7 @@ export default function LevelTestPage() {
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
+            <span className="juba-badge border px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
             <span className="border-[var(--juba-lilac)] text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide">
@@ -453,7 +453,7 @@ export default function LevelTestPage() {
           <div className="space-y-2">
             {q.options.map((option, i) => {
               let style =
-                'w-full text-left border text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
+                'juba-reference-action w-full rounded-[10px] text-left border text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
 
               if (!answerConfirmed) {
                 style +=
