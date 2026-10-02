@@ -187,7 +187,7 @@ export default function GrammarDetailPage({
     .filter(Boolean)
 
   return (
-    <div className="mx-auto max-w-5xl space-y-4 p-6">
+    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
           href="/grammar"
@@ -204,7 +204,7 @@ export default function GrammarDetailPage({
       </nav>
 
       <div className="border-[var(--juba-lilac)] bg-white border">
-        <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="juba-reference-list-card flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">{'\u25cf'}</span>
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('backToGrammar')}
