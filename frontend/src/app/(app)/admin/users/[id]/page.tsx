@@ -355,7 +355,7 @@ export default function AdminUserStatsPage() {
 
   if (error === 'loadError' || !user || !stats) {
     return (
-      <div className="juba-reference-page mx-auto w-full max-w-[1480px] p-6">
+      <div className="mx-auto w-full max-w-[1480px] p-6">
         <div className="juba-card border-red-200/40 px-4 py-3 font-sans text-xs text-red-600">
           {t('loadError')}
         </div>
@@ -372,7 +372,7 @@ export default function AdminUserStatsPage() {
   ).length
 
   return (
-    <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="juba-reference-hero flex flex-wrap items-center justify-between gap-3 p-5">
         <div className="flex min-w-0 items-center gap-2">
           <Link
