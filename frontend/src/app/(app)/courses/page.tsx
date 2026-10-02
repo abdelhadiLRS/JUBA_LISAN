@@ -121,7 +121,7 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <main className="juba-mobile-courses w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <main className="juba-page-shell juba-mobile-courses w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="w-full space-y-5">
         <section className="juba-page-hero juba-reference-hero relative overflow-hidden p-5 sm:p-6">
           <div className="relative z-10 max-w-4xl">
