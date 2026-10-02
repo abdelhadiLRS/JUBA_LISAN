@@ -105,7 +105,7 @@ export default function MyLanguagesPage() {
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
-          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-sm">
+          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-border)] bg-[var(--juba-card,var(--juba-card,var(--duo-card)))] text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-sm">
             {toast}
           </div>
         </div>
@@ -115,19 +115,19 @@ export default function MyLanguagesPage() {
       <nav className="juba-reference-section-head mb-6 flex items-center gap-2">
         <Link
           href="/settings"
-          className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
+          className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
         >
           {tSettings('title')}
         </Link>
         <span>›</span>
-        <span className="text-[var(--duo-ink)] font-sans text-xs font-semibold tracking-wide uppercase">
+        <span className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-xs font-semibold tracking-wide uppercase">
           {t('myLanguages')}
         </span>
       </nav>
 
       {/* Header + Add button */}
       <div className="juba-reference-hero flex items-center justify-between">
-        <h1 className="text-[var(--duo-ink)] font-sans text-xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-xl font-bold tracking-tight">
           {t('myLanguages')}
         </h1>
         {unusedCodes.length > 0 && (
@@ -166,7 +166,7 @@ export default function MyLanguagesPage() {
               return (
                 <div
                   key={ulang.target_language}
-                  className={`juba-reference-list-card p-5 ${isActive ? 'border-[var(--duo-green)]/50' : ''}`}
+                  className={`juba-reference-list-card p-5 ${isActive ? 'border-[var(--juba-green,var(--duo-green))]/50' : ''}`}
                 >
                   {/* Top row: flag + name + status */}
                   <div className="mb-3 flex items-center gap-3">
@@ -183,7 +183,7 @@ export default function MyLanguagesPage() {
                       {tTarget(ulang.target_language)}
                     </span>
                     {isActive ? (
-                      <span className="text-[var(--duo-green-dark,#46a302)] bg-[var(--duo-green)]/15 px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
+                      <span className="text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark),#46a302)] bg-[var(--juba-green,var(--duo-green))]/15 px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
                         {t('activeLanguage')}
                       </span>
                     ) : plan?.cefr_level ? (
@@ -258,7 +258,7 @@ export default function MyLanguagesPage() {
       {/* Add language modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="juba-reference-list-card bg-[var(--juba-card,var(--duo-card))] border-[var(--juba-border)] w-full max-w-lg border p-6 shadow-sm">
+          <div className="juba-reference-list-card bg-[var(--juba-card,var(--juba-card,var(--duo-card)))] border-[var(--juba-border)] w-full max-w-lg border p-6 shadow-sm">
             <h2 className="text-[var(--juba-ink,var(--juba-text))] mb-4 font-mono text-sm font-bold tracking-widest uppercase">
               {t('selectLanguage')}
             </h2>
