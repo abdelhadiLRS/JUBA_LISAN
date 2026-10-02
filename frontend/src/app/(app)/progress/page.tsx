@@ -91,8 +91,8 @@ export default function ProgressPage() {
   const masteredWordSet = new Set(flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())); const totalMastered = displayVocabSets.reduce((a, s) => a + s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length, 0)
   const statTiles = summary ? [{ label: t('xp'), value: summary.total_xp.toLocaleString(), Icon: Sparkles, highlight: false }, { label: t('streak'), value: `${summary.current_streak} ${t('days')}`, Icon: Flame, highlight: summary.current_streak > 0 }, { label: t('lessons'), value: summary.total_lessons, Icon: BookOpen, highlight: false }, { label: t('accuracy'), value: `${Math.round(summary.accuracy * 100)}%`, Icon: Check, highlight: false }] : []
 
-  return <div className="juba-reference-page juba-mobile-progress mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-    <section className="juba-reference-hero relative overflow-hidden border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-6 text-[var(--duo-ink)] sm:px-7 sm:py-7">
+  return <div className="juba-mobile-progress w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <section className="relative overflow-hidden border border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-6 text-[var(--duo-ink)] sm:px-7 sm:py-7">
       <div className="pointer-events-none absolute -end-10 -top-16 h-40 w-40 rounded-full bg-[var(--duo-green)]/10"/>
       <div className="pointer-events-none absolute -bottom-14 start-1/3 h-28 w-28 rounded-full bg-[var(--duo-green)]/8"/>
       <div className="relative z-10 flex flex-wrap items-end justify-between gap-5">
