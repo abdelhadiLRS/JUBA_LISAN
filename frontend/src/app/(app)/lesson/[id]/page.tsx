@@ -10,7 +10,7 @@
 
   if (!lesson) return <PageLoading />
   return (
-    <main className="juba-duo-shell juba-reference-page space-y-5 px-3 py-4 font-sans text-[var(--duo-ink)] sm:px-0 sm:py-6">
+    <main className="w-full space-y-5 px-3 py-4 font-sans text-[var(--duo-ink)] sm:px-0 sm:py-6">
       <div className="juba-duo-page-frame juba-reference-hero rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7 sm:py-6">
         <div className="min-w-0 max-w-3xl">
           <p className="text-[var(--duo-muted)] font-sans text-xs font-bold uppercase tracking-wide">{lesson.lesson_type || t('exercise')}</p>
@@ -18,7 +18,7 @@
           <p className="mt-1 text-sm font-medium text-[var(--duo-muted)]">{lesson.cefr_level}</p>
         </div>
       </div>
-      <div className="juba-reference-page-inner mx-auto w-full max-w-5xl">
+      <div className="w-full max-w-5xl mx-auto">
         <header className="juba-reference-section sticky top-0 z-20 mb-5 rounded-[10px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-card)_95%,transparent)] p-3 shadow-sm backdrop-blur sm:p-4"><div className="flex items-center gap-4"><Link href="/plan" className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 text-sm font-bold text-[var(--duo-ink)] transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">←</Link><div className="min-w-0 flex-1"><div className="flex items-center justify-between gap-3"><p className="truncate text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{lesson.cefr_level} · {lesson.lesson_type}</p><span className="text-sm font-bold text-[var(--duo-ink)]">{progress}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-[10px] bg-[var(--duo-green)] transition-colors" style={{ width: `${progress}%` }} /></div></div></div></header>
         {freemiumExhausted && <div className="mb-5"><FreemiumQuotaBanner feature="lessons" /></div>}
         {dayComplete && <div className="card mb-5 border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-4 font-bold text-[var(--duo-ink)]">{t('dailyGoalComplete')}</div>}
