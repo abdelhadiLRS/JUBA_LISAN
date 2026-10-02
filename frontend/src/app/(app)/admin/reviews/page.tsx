@@ -220,7 +220,7 @@ export default function AdminReviewsPage() {
       </AdminPanel>
 
       {error && (
-        <div className="rounded-[10px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[var(--juba-border)]">
+        <div className="rounded-[10px] border border-red-200/50 text-[var(--duo-red,#dc2626)] border px-4 py-3 font-sans text-sm border-[var(--juba-border)]">
           {error}
         </div>
       )}
@@ -288,7 +288,7 @@ export default function AdminReviewsPage() {
                       type="button"
                       onClick={() => setDeletePending(review)}
                       disabled={deletingId === review.id}
-                      className="border-red-200/60 text-[#dc2626] hover:bg-red-50 flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
+                      className="border-[color-mix(in_srgb,var(--duo-red,#dc2626)_30%,transparent)] text-[var(--duo-red,#dc2626)] hover:bg-[color-mix(in_srgb,var(--duo-red,#dc2626)_8%,transparent)] flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
                     >
                       <Trash2 className="size-3.5" /> {t('delete')}
                     </button>
