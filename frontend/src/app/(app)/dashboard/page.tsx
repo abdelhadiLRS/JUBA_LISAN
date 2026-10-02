@@ -542,7 +542,11 @@ export default function DashboardPage() {
             <section className="dashboard-v3-card dashboard-profile-card">
               <div className="dashboard-profile-hero">
                 <div className="dashboard-profile-photo">
-                  {user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={28} />}
+                  {user?.avatar ? (
+                    <AuthAvatarImage avatar={user.avatar} alt="" width={52} height={52} className="h-full w-full object-cover" />
+                  ) : (
+                    <UserRound size={28} />
+                  )}
                 </div>
                 <strong>{user?.displayName || user?.username}</strong>
                 <span>{cefrLevel || 'A1'} · {tTarget(activeLanguage?.code || 'en-US')}</span>
@@ -1125,6 +1129,12 @@ export default function DashboardPage() {
   .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer}
 
   .dashboard-v3-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .dashboard-v3-card-head>strong{flex:none;color:#55a51e;font-size:10px;font-weight:850}
+  .dashboard-friends-card .dashboard-section-label{display:flex;align-items:center;gap:4px}
+  .dashboard-friends-card .dashboard-section-label svg{flex:none}
+  .dashboard-friends-card .dashboard-mini-link{white-space:nowrap}
+  .dashboard-profile-photo .h-full{width:100%;height:100%}
+
   .dashboard-v3-card-head>div{min-width:0}
   .dashboard-v3-card-head h3{margin:0;color:#565c55;font-size:12px;font-weight:850;letter-spacing:-.01em}
   .dashboard-v3-card-head span{color:#a0a69f;font-size:8px;font-weight:750}
