@@ -85,7 +85,7 @@ export default function LanguageSwitcher() {
         aria-expanded={multiple ? open : undefined}
         aria-haspopup={multiple ? 'listbox' : undefined}
         aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
-        className="group flex min-w-0 w-full items-center gap-3 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 text-start text-sm font-bold text-[var(--duo-ink)] shadow-sm transition-all hover:border-[var(--duo-green)] hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-sm"
+        className="group flex min-w-0 w-full items-center gap-3 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 text-start text-sm font-bold text-[var(--duo-ink)] shadow-sm transition-colors hover:border-[var(--duo-green)] hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-sm"
       >
         <span className="flex h-9 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)]">
           <Image src={getLanguageByCode(activeLanguage.code)?.flagPath ?? '/flags/arab-league.svg'} alt="" aria-hidden="true" width={44} height={32} unoptimized className="h-full w-full object-cover" />
@@ -99,7 +99,7 @@ export default function LanguageSwitcher() {
       </button>
 
       {open && multiple && (
-        <div className="absolute start-0 end-0 top-[calc(100%+8px)] z-50 min-w-0 overflow-hidden rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-1.5 shadow-sm" role="listbox" aria-label="Available target languages">
+        <div className="absolute start-0 end-0 top-[calc(100%+8px)] z-50 min-w-0 overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-1.5 shadow-sm" role="listbox" aria-label="Available target languages">
           <div className="flex items-center gap-2 px-2.5 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--duo-muted)]">
             <i className="ti ti-language icon icon-sm" aria-hidden="true" />
             Your languages
@@ -119,7 +119,7 @@ export default function LanguageSwitcher() {
                 aria-selected={ulang.is_active}
                 disabled={isSwitching}
                 onClick={() => handleSwitch(ulang.target_language)}
-                className={`flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-start text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
+                className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-start text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
                   ulang.is_active
                     ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-ink)]'
                     : 'text-[var(--duo-ink)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]'
