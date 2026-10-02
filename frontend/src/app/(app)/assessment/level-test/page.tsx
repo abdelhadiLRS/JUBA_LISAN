@@ -309,7 +309,7 @@ export default function LevelTestPage() {
     const rec = recConfig[result.recommendation]
 
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
+      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
         <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
           {/* Header */}
           <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
@@ -410,8 +410,8 @@ export default function LevelTestPage() {
   const skillLabel = SKILL_LABELS[q.skill] ?? q.skill
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-[var(--juba-lilac)] bg-white w-full max-w-lg border">
+    <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
+      <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
         {/* Header */}
         <div className="juba-reference-card-header border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
           <div className="flex items-center justify-between">
