@@ -221,7 +221,7 @@ function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; 
 
 function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode; title: string; value: string; detail: string; href: string }) {
   return (
-    <Link href={href} className="juba-card group p-5">
+    <Link href={href} className="juba-reference-list-card group p-5">
       <div className="flex items-center justify-between">
         <span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
