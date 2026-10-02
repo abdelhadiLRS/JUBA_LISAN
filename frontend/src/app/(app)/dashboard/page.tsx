@@ -14,7 +14,6 @@ import {
   Mic2,
   MoreHorizontal,
   Play,
-  RefreshCw,
   Trophy,
   UserRound,
   ChartNoAxesColumnIncreasing,
