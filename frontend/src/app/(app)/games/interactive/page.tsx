@@ -44,7 +44,7 @@ export default function InteractiveGamesPage() {
   ]
 
   return (
-    <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+    <main className="juba-games w-full" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <section className="games-shell">
         <header className="games-header juba-reference-hero">
           <div>
