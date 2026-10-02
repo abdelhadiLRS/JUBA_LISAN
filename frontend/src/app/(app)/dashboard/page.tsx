@@ -859,6 +859,7 @@ export default function DashboardPage() {
   .dashboard-insight-track,.dashboard-small-progress,.dashboard-stat-track{
     height:6px;overflow:hidden;border-radius:99px;background:#eef1ed;
   }
+  .dashboard-insight-track{margin-top:auto}
   .dashboard-insight-track span,.dashboard-small-progress span,.dashboard-stat-track span{
     display:block;height:100%;border-radius:inherit;background:var(--dash-yellow);
   }
