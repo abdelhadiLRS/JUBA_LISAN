@@ -781,8 +781,12 @@ export default function DashboardPage() {
   .dashboard-welcome-copy h2{
     margin:4px 0 7px;color:#4d534d;
     font-size:26px;line-height:1.15;font-weight:650;letter-spacing:-.035em;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
-  .dashboard-welcome-copy p{margin:0;color:#858c83;font-size:13px}
+  .dashboard-welcome-copy p{
+    margin:0;color:#858c83;font-size:13px;
+    max-width:68ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
   .dashboard-welcome-meta{
     display:flex;align-items:center;gap:7px;margin-top:11px;
     color:#55a51e;font-size:10px;font-weight:800;
@@ -804,7 +808,7 @@ export default function DashboardPage() {
     content:"";position:absolute;inset:7px;border-radius:50%;background:#fff;
   }
   .dashboard-v3-level span{position:relative;z-index:1;font-size:18px;font-weight:900}
-  .dashboard-v3-level small{position:absolute;z-index:1;bottom:18px;color:#9aa197;font-size:7px;font-weight:850}
+  .dashboard-v3-level small{position:absolute;z-index:1;bottom:18px;color:#9aa197;font-size:7px;font-weight:850;line-height:1}
 
   .dashboard-v3-card-head{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
