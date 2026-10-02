@@ -365,7 +365,7 @@ export default function PhrasebookPage() {
     <div className="juba-mobile-phrasebook juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <section className="juba-reference-hero min-h-[112px] px-5 py-5 sm:px-6 sm:py-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-4xl space-y-2">
+          <div className="w-full max-w-[760px] space-y-2">
             <p className="juba-eyebrow">{t('title')}</p>
             <h1 className="text-[28px] font-extrabold tracking-tight text-[var(--duo-ink)] sm:text-4xl">{t('title')}</h1>
             <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('statsLine', { situationCount: categories.length, phraseCount: totalPhrases, range: `${CEFR_LEVELS[0]} – ${CEFR_LEVELS[CEFR_LEVELS.length - 1]}` })}</p>
