@@ -136,7 +136,7 @@ export default function SettingsMemoriesPage() {
       </section>
 
       <div className="juba-reference-list-card p-6">
-        <div className="juba-reference-section-head mb-4 flex items-center gap-2 border-b border-[#ededff] pb-4">
+        <div className="juba-reference-section-head mb-4 flex items-center gap-2 border-b border-[#e8eee4] pb-4">
           <span aria-hidden="true" className="text-[#202127] text-[rgba(32,33,39,.52)]">
             ●
           </span>
@@ -152,7 +152,7 @@ export default function SettingsMemoriesPage() {
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="mb-6 border-b border-[#ededff] pb-6"
+          className="mb-6 border-b border-[#e8eee4] pb-6"
         >
           <label
             htmlFor="memory-content"
@@ -169,7 +169,7 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="juba-input mb-2 w-full resize-y bg-[#ededff]/40 p-3 text-sm text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2]"
+            className="juba-input mb-2 w-full resize-y p-3 text-sm"
           />
           <div className="flex items-center justify-between gap-4">
             <p
