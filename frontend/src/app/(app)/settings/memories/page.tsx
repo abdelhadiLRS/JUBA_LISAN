@@ -230,7 +230,7 @@ export default function SettingsMemoriesPage() {
                     <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
                       {memory.content}
                     </p>
-                    <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
                       {sourceLabel(memory.source)}
                     </p>
                   </div>
