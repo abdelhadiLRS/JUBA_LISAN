@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="juba-reference-page mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
