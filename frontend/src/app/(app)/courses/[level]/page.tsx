@@ -152,7 +152,7 @@ export default function CourseLevelPage() {
             )
           })}
         </section>
-        {isCurrentLevel && <section className='juba-reference-section rounded-[10px] juba-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between'><div><p className='juba-eyebrow'>{t('keepMoving')}</p><h2 className='mt-2 text-2xl font-black text-[#202127]'>{t('continue')}</h2><p className='mt-1 text-sm text-[rgba(32,33,39,.52)]'>{t('continueDesc')}</p></div><Link href='/plan' className='inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#202127] px-5 py-3 font-bold text-[#fff]'>{t('openLearning')} <i className='ti ti-book icon icon-sm' aria-hidden='true' /></Link></section>}
+        {isCurrentLevel && <section className='juba-reference-section juba-reference-list-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between'><div><p className='juba-eyebrow'>{t('keepMoving')}</p><h2 className='mt-2 text-2xl font-black text-[#202127]'>{t('continue')}</h2><p className='mt-1 text-sm text-[rgba(32,33,39,.52)]'>{t('continueDesc')}</p></div><Link href='/plan' className='inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#202127] px-5 py-3 font-bold text-[#fff]'>{t('openLearning')} <i className='ti ti-book icon icon-sm' aria-hidden='true' /></Link></section>}
       </div>
     </main>
   )
