@@ -133,7 +133,7 @@ export default function VocabularySetPage({
   }
 
   return (
-    <div className="w-full max-w-[1480px] mx-auto space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
+    <div className="juba-page-shell w-full max-w-[1480px] mx-auto space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
       {/* Breadcrumb */}
       <section className="juba-reference-hero">
         <nav className="text-[var(--juba-muted)] flex items-center gap-2 font-mono">
