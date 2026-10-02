@@ -846,11 +846,16 @@ export default function DashboardPage() {
   .dashboard-chart-summary b{font-size:11px}
 
   .dashboard-reference-insights,.dashboard-reference-stats{
-    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+    align-items:stretch;
   }
-  .dashboard-insight-card,.dashboard-stat-card{padding:17px}
+  .dashboard-insight-card,.dashboard-stat-card{
+    min-width:0;height:100%;padding:17px;
+  }
   .dashboard-insight-card{display:flex;flex-direction:column}
   .dashboard-insight-card .dashboard-v3-card-head{min-height:38px}
+  .dashboard-insight-card .dashboard-v3-card-head svg,
+  .dashboard-stat-card .dashboard-v3-card-head svg{color:#a1a89e;flex:none}
   .dashboard-insight-value{display:flex;align-items:baseline;gap:7px;margin:14px 0 9px}
   .dashboard-insight-value strong{color:#555;font-size:29px}
   .dashboard-insight-value span{color:#999;font-size:10px}
