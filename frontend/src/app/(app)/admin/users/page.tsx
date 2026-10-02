@@ -418,7 +418,7 @@ export default function AdminUsersPage() {
   }
 
   const inputCls =
-    'w-full bg-[var(--juba-bg)] border border-[var(--juba-border)] px-4 py-3 font-sans text-xs text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:outline-none focus:border-[#5862e2] transition-colors'
+    'w-full bg-[var(--juba-bg)] border border-[var(--juba-border)] px-4 py-3 font-sans text-xs text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors'
 
   const hasFilters =
     searchTerm ||
@@ -459,7 +459,7 @@ export default function AdminUsersPage() {
             </p>
             <button
               onClick={copyInvite}
-              className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] inline-flex items-center gap-2 border px-3 py-1.5 font-semibold tracking-wide transition-colors"
+              className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] inline-flex items-center gap-2 border px-3 py-1.5 font-semibold tracking-wide transition-colors"
             >
               {inviteCopied ? (
                 <Check className="size-3.5" aria-hidden="true" />
@@ -479,7 +479,7 @@ export default function AdminUsersPage() {
       )}
 
       {error && (
-        <div className="rounded-[10px] border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+        <div className="rounded-[10px] border border-red-200/50/40 text-[var(--duo-red,#dc2626)] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
           {error}
         </div>
       )}
@@ -514,12 +514,12 @@ export default function AdminUsersPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:border-[#5862e2] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] placeholder:text-[var(--juba-muted)] focus:border-[var(--duo-green-dark)] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
               aria-label={t('searchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -528,7 +528,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('roleFilter')}
           >
             <option value="">{t('allRoles')}</option>
@@ -541,7 +541,7 @@ export default function AdminUsersPage() {
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('statusFilter')}
           >
             <option value="">{t('allStatuses')}</option>
@@ -554,7 +554,7 @@ export default function AdminUsersPage() {
           <select
             value={subscriptionFilter}
             onChange={(e) => setSubscriptionFilter(e.target.value)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] focus:border-[var(--duo-green-dark)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('subscriptionFilter')}
           >
             <option value="">{t('allSubscriptions')}</option>
@@ -568,7 +568,7 @@ export default function AdminUsersPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {t('clearFilters')}
@@ -639,7 +639,7 @@ export default function AdminUsersPage() {
                           className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                             u.is_active
                               ? 'border-green-500/40 text-green-400'
-                              : 'border-red-200/50/30 text-[#dc2626]'
+                              : 'border-red-200/50/30 text-[var(--duo-red,#dc2626)]'
                           }`}
                         >
                           {u.is_active ? t('active') : t('inactive')}
@@ -656,7 +656,7 @@ export default function AdminUsersPage() {
                         <div className="flex justify-end gap-1">
                           <Link
                             href={`/admin/users/${u.id}`}
-                            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] inline-flex size-8 items-center justify-center border transition-colors"
+                            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] inline-flex size-8 items-center justify-center border transition-colors"
                             aria-label={t('viewStats')}
                           >
                             <ExternalLink
@@ -671,8 +671,8 @@ export default function AdminUsersPage() {
                               u.id === currentUserId
                                 ? 'cursor-not-allowed opacity-20'
                                 : u.is_active
-                                  ? 'border-red-200/50/30 text-[#dc2626] hover:border-red-200/50'
-                                  : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2]'
+                                  ? 'border-red-200/50/30 text-[var(--duo-red,#dc2626)] hover:border-red-200/50'
+                                  : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)]'
                             }`}
                             aria-label={
                               u.is_active ? t('deactivate') : t('activate')
@@ -700,7 +700,7 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setDeletePending(u)}
                             disabled={u.id === currentUserId}
-                            className="rounded-[10px] border border-red-200/50/30 text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
+                            className="rounded-[10px] border border-red-200/50/30 text-[var(--duo-red,#dc2626)] hover:border-red-200/50 hover:text-[var(--duo-red,#dc2626)] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
                             aria-label={t('delete')}
                             title={
                               u.id === currentUserId
@@ -749,7 +749,7 @@ export default function AdminUsersPage() {
                         className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                           u.is_active
                             ? 'border-green-500/40 text-green-400'
-                            : 'border-red-200/50/30 text-[#dc2626]'
+                            : 'border-red-200/50/30 text-[var(--duo-red,#dc2626)]'
                         }`}
                       >
                         {u.is_active ? t('active') : t('inactive')}
@@ -769,7 +769,7 @@ export default function AdminUsersPage() {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={`/admin/users/${u.id}`}
-                      className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors"
+                      className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors"
                     >
                       <ExternalLink className="size-3.5" aria-hidden="true" />
                       {t('viewStats')}
@@ -781,8 +781,8 @@ export default function AdminUsersPage() {
                         u.id === currentUserId
                           ? 'cursor-not-allowed opacity-20'
                           : u.is_active
-                            ? 'border-red-200/50/30 text-[#dc2626] hover:border-red-200/50'
-                            : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[#5862e2]'
+                            ? 'border-red-200/50/30 text-[var(--duo-red,#dc2626)] hover:border-red-200/50'
+                            : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] hover:border-[var(--duo-green-dark)]'
                       }`}
                     >
                       {actionBusy === `active-${u.id}` && (
@@ -796,7 +796,7 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setDeletePending(u)}
                       disabled={u.id === currentUserId}
-                      className="rounded-[10px] border border-red-200/50/30 text-[var(--juba-ink,var(--juba-text))] text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
+                      className="rounded-[10px] border border-red-200/50/30 text-[var(--juba-ink,var(--juba-text))] text-[var(--duo-red,#dc2626)] hover:border-red-200/50 hover:text-[var(--duo-red,#dc2626)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
                     >
                       {actionBusy === `delete-${u.id}` && (
                         <Loader2
@@ -873,7 +873,7 @@ export default function AdminUsersPage() {
               className="space-y-4 px-6 py-5"
             >
               {error && (
-                <div className="rounded-[10px] border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+                <div className="rounded-[10px] border border-red-200/50/40 text-[var(--duo-red,#dc2626)] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
                   {error}
                 </div>
               )}
@@ -993,7 +993,7 @@ export default function AdminUsersPage() {
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:border-[#5862e2] hover:text-[var(--juba-ink,var(--juba-text))] border py-3 font-sans font-bold tracking-wide transition-colors"
+                className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--juba-ink,var(--juba-text))] border py-3 font-sans font-bold tracking-wide transition-colors"
               >
                 {tCommon('cancel')}
               </button>
