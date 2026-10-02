@@ -121,8 +121,8 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <main className="juba-reference-page juba-mobile-courses min-h-screen px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="juba-reference-page-inner mx-auto w-full max-w-[1480px] space-y-5">
+    <main className="juba-mobile-courses w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="w-full space-y-5">
         <section className="juba-page-hero juba-reference-hero relative overflow-hidden p-5 sm:p-6">
           <div className="relative z-10 max-w-4xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
