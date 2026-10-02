@@ -324,7 +324,7 @@ function ListeningPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="juba-panel rounded-[12px] p-6 text-center">
+          <div className="juba-reference-list-card p-6 text-center">
             <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
