@@ -825,12 +825,11 @@ export default function DashboardPage() {
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
   .dashboard-v3-chart-col.active small{color:#58a91b;font-weight:800}
   .dashboard-insight-card,.dashboard-stat-card{
-    transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+    transition:border-color .14s ease,box-shadow .14s ease;
   }
   .dashboard-insight-card:hover,.dashboard-stat-card:hover{
     border-color:#dfe8db;
-    box-shadow:0 3px 10px rgba(35,55,25,.04);
-    transform:translateY(-1px);
+    box-shadow:0 2px 7px rgba(35,55,25,.03);
   }
   .dashboard-v3-chart-footer,.dashboard-chart-footer,.dashboard-chart-summary{
     display:flex;justify-content:space-between;gap:10px;
@@ -1012,7 +1011,7 @@ export default function DashboardPage() {
   }
   .dashboard-v3-rail .dashboard-v3-card:hover{
     border-color:#dfe8db;
-    box-shadow:0 3px 10px rgba(35,55,25,.045);
+    box-shadow:0 2px 7px rgba(35,55,25,.035);
   }
   .dashboard-profile-card,.dashboard-goal-card,.dashboard-xp-card,
   .dashboard-achievement-card,.dashboard-tools-card,.dashboard-friends-card{padding:16px}
