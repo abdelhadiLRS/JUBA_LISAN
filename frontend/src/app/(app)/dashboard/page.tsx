@@ -900,8 +900,10 @@ export default function DashboardPage() {
 
   .dashboard-course{padding:18px}
   .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .dashboard-card-header>div{min-width:0}
   .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
-  .dashboard-card-header p{margin:0;color:#999;font-size:10px}
+  .dashboard-card-header p{margin:0;color:#999;font-size:10px;line-height:1.4}
+  .dashboard-card-header .dashboard-outline-button{flex:none;margin-top:2px}
   .dashboard-outline-button,.dashboard-green-button{
     display:inline-flex;align-items:center;justify-content:center;gap:7px;
     padding:8px 12px;border-radius:8px;
@@ -945,6 +947,8 @@ export default function DashboardPage() {
   .dashboard-progress-meta-cell small,
   .dashboard-progress-meta-cell b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-lesson.current{background:#fbfff8;box-shadow:inset 3px 0 0 #58cc02;min-height:72px;border-bottom-color:#e8eee4}
+  .dashboard-lesson.done .dashboard-lesson-copy strong{color:#727971}
+  .dashboard-lesson.done .dashboard-lesson-copy>span{color:#a1a69f}
   .dashboard-lesson-title{display:flex;align-items:center;gap:7px;min-width:0}
   .dashboard-lesson-title strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-lesson-code{font-size:8px;font-weight:950;color:#b2b2b2;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
@@ -1056,6 +1060,10 @@ export default function DashboardPage() {
     padding:0 8px;border-radius:8px;color:#777;text-decoration:none;font-size:10px;
   }
   .dashboard-tools-card>a:hover{background:#f5f9f3;color:#55a51e}
+  .dashboard-tools-card>a svg{color:#a1a89e;flex:none}
+  .dashboard-friend-row{transition:background .14s ease}
+  .dashboard-friend-arrow{transition:transform .14s ease}
+  .dashboard-friend-row:hover .dashboard-friend-arrow{transform:translateX(2px)}
   .dashboard-tools-card>a span{flex:1}
   .dashboard-friends-list{display:grid;gap:3px;margin-top:10px}
   .dashboard-mini-link{color:#55a51e;font-size:8px;font-weight:800;text-decoration:none}
@@ -1129,6 +1137,7 @@ export default function DashboardPage() {
     .dashboard-achievement-strip{align-items:flex-start}
     .dashboard-achievement-strip-progress{display:none}
     .dashboard-card-header{flex-direction:column}
+    .dashboard-card-header .dashboard-outline-button{margin-top:0;width:100%}
     .dashboard-outline-button{width:100%}
     .dashboard-lesson{grid-template-columns:32px minmax(0,1fr);gap:8px}
     .dashboard-lesson-action{grid-column:2;justify-self:start;min-width:0}
