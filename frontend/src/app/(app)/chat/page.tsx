@@ -692,7 +692,7 @@ export default function ChatPage() {
           .juba-mobile-chat>div.flex.flex-1>div:last-child{padding:10px 12px!important}
         }
       `}</style>
-      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
+      <div className="juba-mobile-chat flex h-full min-h-0 w-full max-w-[1480px] mx-auto overflow-hidden box-border">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
