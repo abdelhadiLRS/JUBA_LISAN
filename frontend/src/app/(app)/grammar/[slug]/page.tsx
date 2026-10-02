@@ -203,7 +203,7 @@ export default function GrammarDetailPage({
         <span className="text-[var(--juba-text)] tracking-wide">{topic.title}</span>
       </nav>
 
-      <div className="border-[var(--juba-lilac)] bg-white border">
+      <div className="juba-reference-list-card">
         <div className="juba-reference-list-card flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">{'\u25cf'}</span>
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
@@ -237,7 +237,7 @@ export default function GrammarDetailPage({
       </div>
 
       <div className="border-[var(--juba-lilac)] bg-white border">
-        <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+        <div className="juba-reference-card-header flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('explanation')}
           </span>
@@ -490,7 +490,7 @@ export default function GrammarDetailPage({
                   <Link
                     key={rt.slug}
                     href={`/grammar/${rt.slug}`}
-                    className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+                    className="juba-secondary-button font-mono tracking-widest uppercase"
                   >
                     {'\u25cf'} {rt.title}
                     <span className="text-[var(--juba-muted)] ml-2">{rt.level}</span>
