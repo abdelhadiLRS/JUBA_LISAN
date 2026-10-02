@@ -514,7 +514,7 @@ export default function DashboardPage() {
                 <Link href="/plan" className="dashboard-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
               </div>
               <div className="dashboard-progress-row"><div className="dashboard-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
-              <div className="dashboard-progress-meta" className="dashboard-progress-meta">
+              <div className="dashboard-progress-meta">
                 <span className="dashboard-progress-meta-cell"><small>{t('today')}</small><b>{currentDayDisplay}/{totalDays || 0}</b></span>
                 <span className="dashboard-progress-meta-cell is-green"><small>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b>{completedLessonCount}/{todayLessons.length}</b></span>
                 <span className="dashboard-progress-meta-cell"><small>{t('nextStep')}</small><b>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
