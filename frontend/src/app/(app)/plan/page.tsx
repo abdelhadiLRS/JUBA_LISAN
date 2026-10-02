@@ -358,7 +358,7 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="juba-card juba-reference-section relative overflow-hidden px-5 py-5 sm:px-6">
+        <section className="juba-reference-section relative overflow-hidden px-5 py-5 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="juba-eyebrow">{t('learningRoadmap')}</p>
@@ -399,7 +399,7 @@ export default function PlanPage() {
                   <span className="block truncate text-sm font-black text-[var(--duo-ink)]">{lesson.title}</span>
                   <span className="mt-1 block text-xs font-semibold text-[var(--duo-muted)]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
                 </span>
-                <span className="text-xl font-black text-[var(--duo-green-dark)] transition-transform group-hover:translate-x-1">→</span>
+                <span className="text-xl font-black text-[var(--duo-green-dark)]">→</span>
               </button>
             ))}
           </div>
