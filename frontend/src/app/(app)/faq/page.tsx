@@ -116,7 +116,7 @@ export default function FAQPage() {
       </section>
 
       <section className="juba-reference-section juba-reference-list-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-white px-5 py-3">
+        <div className="flex items-center gap-2 border-b border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3">
           <span className="text-sm font-bold text-[var(--duo-green-dark)]">●</span>
           <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-[var(--duo-muted)]">
             {t('title')}
