@@ -942,6 +942,9 @@ export default function DashboardPage() {
   .dashboard-chart-summary span{display:flex;flex-direction:column;gap:2px}
   .dashboard-chart-summary small{color:#a0a69f;font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-chart-summary b{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-chart-summary span{transition:transform .14s ease}
+  .dashboard-chart-summary span:hover{transform:translateY(-1px)}
+  .dashboard-chart-summary span:focus-within{transform:translateY(-1px)}
 
   .dashboard-reference-insights,.dashboard-reference-stats{
     display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
