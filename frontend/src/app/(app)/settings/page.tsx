@@ -92,13 +92,13 @@ export default function SettingsPage() {
           <ProfileSection title={t('cardProfileAccess')} />
 
           <div className="juba-panel">
-            <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
+            <p className="text-[var(--juba-muted,var(--duo-muted))] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardSessionSecurity')}
             </p>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[10px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
+                className="border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] w-full rounded-[12px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-bg,var(--duo-bg))]"
               >
                 {tCommon('logout')}
               </button>
@@ -107,11 +107,11 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="w-full rounded-[10px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  className="w-full rounded-[12px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
-                    color: 'var(--duo-red)',
+                    color: 'var(--juba-red,var(--duo-red))',
                     borderColor:
-                      'color-mix(in srgb, var(--duo-red) 35%, transparent)',
+                      'color-mix(in srgb, var(--juba-red,var(--duo-red)) 35%, transparent)',
                   }}
                 >
                   {t('deleteAccount')}
@@ -144,20 +144,20 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="juba-reference-list-card border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[10px] border p-6">
-            <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
+          <div className="juba-reference-list-card border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] rounded-[12px] border p-6">
+            <p className="text-[var(--juba-muted,var(--duo-muted))] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] text-sm font-medium transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] text-sm font-medium transition-colors"
+                className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
