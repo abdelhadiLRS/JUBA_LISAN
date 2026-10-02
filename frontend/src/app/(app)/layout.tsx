@@ -28,8 +28,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const mainNavItems = [
-    { href: '/dashboard', label: tNav('home'), icon: GraduationCap },
-    { href: '/plan', label: tNav('myPlan'), icon: BookOpen },
     { href: '/progress', label: tNav('progress'), icon: ChartNoAxesColumnIncreasing },
     { href: '/games', label: tNav('games'), icon: Gamepad2 },
     { href: '/flashcards', label: tNav('flashcards'), icon: Library },
@@ -40,7 +38,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: '/conversation', label: tNav('conversation'), icon: Languages },
     { href: '/assessment', label: tNav('assessment'), icon: ClipboardCheck },
     { href: '/coach', label: tNav('coach'), icon: Sparkles },
-    { href: '/courses', label: tNav('courses'), icon: BookOpen },
     { href: '/review', label: tNav('review'), icon: Trophy },
     { href: '/translator', label: tNav('translator'), icon: Search },
   ]
@@ -316,6 +313,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-reference-shell .juba-duo-page-frame{min-width:0!important;min-height:0!important;flex:1 1 auto!important;background:var(--juba-bg)!important;overscroll-behavior-y:contain!important;scrollbar-width:thin!important;scrollbar-color:#dfe7da transparent!important}
         .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar{width:8px!important}
         .juba-reference-shell .juba-duo-page-frame::-webkit-scrollbar-thumb{background:#dfe7da!important;border-radius:99px!important;border:2px solid var(--juba-bg)!important}
+        .juba-reference-shell .juba-app-topbar{height:64px!important;flex:0 0 64px!important;display:flex!important;align-items:center!important;gap:28px!important;padding:0 28px!important;background:#fff!important;border-bottom:1px solid #e8eee4!important;position:sticky!important;top:0!important;z-index:30!important;direction:inherit!important}
+        .juba-reference-shell .juba-app-topbar-brand{display:none!important}
+        .juba-reference-shell .juba-app-topnav{display:flex!important;align-items:stretch!important;gap:2px!important;height:100%!important;flex:1!important;min-width:0!important}
+        .juba-reference-shell .juba-app-topnav a{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:100%!important;padding:0 14px!important;border:0!important;border-bottom:2px solid transparent!important;color:#8a9188!important;background:transparent!important;text-decoration:none!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important;transition:color .16s ease,border-color .16s ease,background-color .16s ease!important}
+        .juba-reference-shell .juba-app-topnav a:hover{color:#58a51e!important;background:#f8fbf6!important}
+        .juba-reference-shell .juba-app-topnav a.is-active{color:#4f9718!important;border-bottom-color:#58cc02!important}
+        .juba-reference-shell .juba-app-topbar-user{display:flex!important;align-items:center!important;gap:8px!important;flex:none!important;color:#747c73!important;font-size:9px!important;font-weight:750!important}
+        .juba-reference-shell .juba-app-topbar-user-avatar{width:30px!important;height:30px!important;border-radius:50%!important;overflow:hidden!important;background:#edf3e9!important;border:1px solid #e4ebe0!important;display:grid!important;place-items:center!important}
+        .juba-reference-shell .juba-app-topbar-user-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+        .juba-reference-shell .juba-duo-page-frame{direction:inherit!important}
+        .juba-reference-shell[dir="rtl"] .juba-app-topnav{flex-direction:row!important}
+        .juba-reference-shell[dir="rtl"] .juba-app-topbar-user{margin-inline-start:0!important}
+        .juba-reference-shell[dir="ltr"] .juba-app-topnav{flex-direction:row!important}
+        .juba-reference-shell [dir="rtl"] input,.juba-reference-shell [dir="rtl"] textarea{direction:rtl!important;text-align:right!important}
+        .juba-reference-shell [dir="ltr"] input,.juba-reference-shell [dir="ltr"] textarea{direction:ltr!important;text-align:left!important}
+        .juba-reference-shell [dir="rtl"] .dash2-chart,.juba-reference-shell [dir="rtl"] .dash2-lessons{direction:rtl!important}
+        .juba-reference-shell [dir="ltr"] .dash2-chart,.juba-reference-shell [dir="ltr"] .dash2-lessons{direction:ltr!important}
+        .juba-reference-shell .juba-ltr-data{direction:ltr!important;unicode-bidi:isolate!important}
+        .juba-reference-shell .juba-bidi-isolate{unicode-bidi:isolate!important}
+        @media (max-width:850px){.juba-reference-shell .juba-app-topbar{height:58px!important;flex-basis:58px!important;padding:0 14px!important;gap:10px!important}.juba-reference-shell .juba-app-topnav{overflow-x:auto!important;scrollbar-width:none!important}.juba-reference-shell .juba-app-topnav::-webkit-scrollbar{display:none!important}.juba-reference-shell .juba-app-topnav a{font-size:9px!important;padding:0 10px!important}.juba-reference-shell .juba-app-topbar-user span{display:none!important}}
         .juba-reference-shell .juba-duo-mobile-bar{display:none!important}
         .juba-reference-shell .juba-duo-mobile-brand{color:#58a91b!important;font-weight:900!important;letter-spacing:-.03em!important}
         .juba-reference-shell .juba-duo-mobile-trigger{border:1px solid #e6ebe2!important;background:#fff!important;border-radius:9px!important;color:#5f6960!important;box-shadow:0 1px 2px rgba(40,60,30,.04)!important}
@@ -389,9 +406,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             const group =
               index === 0
                 ? (locale === 'ar' ? 'التعلّم' : 'LEARN')
-                : index === 3
+                : index === 1
                   ? (locale === 'ar' ? 'الممارسة' : 'PRACTICE')
-                  : index === 7
+                  : index === 5
                     ? (locale === 'ar' ? 'اكتشاف' : 'DISCOVER')
                     : null
             return (
@@ -754,6 +771,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         aria-label={locale === 'ar' ? 'المحتوى الرئيسي' : 'Main content'}
         tabIndex={-1}
       >
+        <header className="juba-app-topbar" aria-label={tNav('navigation')}>
+          <div className="juba-app-topbar-brand" aria-hidden="true">JUBA LISAN</div>
+          <nav className="juba-app-topnav">
+            {[
+              { href: '/dashboard', label: tNav('home') },
+              { href: '/plan', label: tNav('myPlan') },
+              { href: '/courses', label: tNav('courses') },
+            ].map((item) => {
+              const active = pathname === item.href || pathname.startsWith(item.href + '/')
+              return <Link key={item.href} href={item.href} className={active ? 'is-active' : ''} aria-current={active ? 'page' : undefined}>{item.label}</Link>
+            })}
+          </nav>
+          <div className="juba-app-topbar-user">
+            <span className="truncate max-w-[150px]">{user?.displayName || user?.username || ''}</span>
+            <div className="juba-app-topbar-user-avatar">
+              {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={30} height={30} className="h-full w-full object-cover" /> : <UserRound size={15} />}
+            </div>
+          </div>
+        </header>
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
