@@ -541,7 +541,7 @@ function ReadingPage() {
   if (!exercise) return null
 
   return (
-    <div className="juba-mobile-reading mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-mobile-reading juba-reference-page mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       {/* Header */}
       <div className="juba-reference-section-head mb-6 flex items-start justify-between gap-4">
         <div>
@@ -573,7 +573,7 @@ function ReadingPage() {
               <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
                 {t('textLabel')}
               </p>
-              <div className="juba-panel relative rounded-[10px] p-5">
+              <div className="juba-reference-list-card relative p-5">
                 <div
                   ref={textRef}
                   onPointerUp={() =>
