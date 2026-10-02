@@ -959,7 +959,8 @@ export default function DashboardPage() {
   .dashboard-insight-card .dashboard-v3-card-head svg,
   .dashboard-stat-card .dashboard-v3-card-head svg{color:#a1a89e;flex:none}
   .dashboard-insight-value{display:flex;align-items:baseline;gap:7px;margin:14px 0 9px}
-  .dashboard-insight-value strong{color:#555;font-size:29px}
+  .dashboard-insight-value strong{color:#555;font-size:29px;line-height:1;transition:transform .14s ease,color .14s ease}
+  .dashboard-insight-card:hover .dashboard-insight-value strong{color:#4f594d;transform:translateY(-1px)}
   .dashboard-insight-value span{color:#999;font-size:10px}
   .dashboard-insight-track,.dashboard-small-progress,.dashboard-stat-track{
     height:6px;overflow:hidden;border-radius:99px;background:#eef1ed;
