@@ -10,7 +10,7 @@
 
   if (!lesson) return <PageLoading />
   return (
-    <main className="w-full space-y-5 px-3 py-4 font-sans text-[var(--duo-ink)] sm:px-0 sm:py-6 box-border">
+    <main className="juba-page-shell w-full space-y-5 px-3 py-4 font-sans text-[var(--duo-ink)] sm:px-0 sm:py-6 box-border">
       <div className="juba-reference-hero rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-sm sm:px-7 sm:py-6">
         <div className="min-w-0 max-w-3xl">
           <p className="text-[var(--duo-muted)] font-sans text-xs font-bold uppercase tracking-wide">{lesson.lesson_type || t('exercise')}</p>
