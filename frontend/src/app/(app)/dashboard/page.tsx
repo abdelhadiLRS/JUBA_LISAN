@@ -940,7 +940,8 @@ export default function DashboardPage() {
     width:150px;height:6px;margin-inline-start:auto;overflow:hidden;
     border-radius:99px;background:#eef1ed;
   }
-  .dashboard-achievement-strip-progress span{display:block;height:100%;background:var(--dash-yellow)}
+  .dashboard-achievement-strip-progress span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow);transition:width .2s ease}
+  .dashboard-achievement-strip:hover .dashboard-achievement-strip-progress span{filter:brightness(.98)}
 
   .dashboard-course{padding:18px}
   .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0}
@@ -1026,6 +1027,10 @@ export default function DashboardPage() {
   .dashboard-course-path .dashboard-lesson-action .dashboard-locked{
     min-width:112px;
   }
+  .dashboard-course-path .dashboard-lesson-action svg{flex:none}
+  .dashboard-course-path .dashboard-lesson-action span{white-space:nowrap}
+  .dashboard-course-path .dashboard-lesson-action .dashboard-completed,
+  .dashboard-course-path .dashboard-lesson-action .dashboard-locked{opacity:.92}
   .dashboard-lessons,.dashboard-course-path{margin-top:14px}
   .dashboard-lesson{
     display:grid;grid-template-columns:40px minmax(0,1fr) auto;
@@ -1083,8 +1088,8 @@ export default function DashboardPage() {
     border:2px solid #eef2eb;
   }
   .dashboard-profile-photo img{width:100%;height:100%;object-fit:cover}
-  .dashboard-profile-hero>strong{margin-top:8px;color:#4e544e;font-size:12px}
-  .dashboard-profile-hero>span{margin-top:2px;color:#929991;font-size:9px}
+  .dashboard-profile-hero>strong{margin-top:8px;color:#4e544e;font-size:12px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-profile-hero>span{margin-top:2px;color:#929991;font-size:9px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .dashboard-profile-metrics{
     display:grid;grid-template-columns:repeat(3,1fr);
     padding-top:12px;border-top:1px solid #edf1eb;
