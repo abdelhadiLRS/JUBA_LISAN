@@ -2,7 +2,7 @@
    Business logic stays in page.tsx; this file owns dashboard presentation only. */
 
 :global {
-  .dashboard-dashboard {
+  .dashboard-dashboard,.dashboard-v3 {
     --dash-bg:#f7f9f6;
     --dash-surface:#fff;
     --dash-border:#e7ece4;
@@ -20,7 +20,7 @@
     font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
 
-  .dashboard-topbar {
+  .dashboard-dot{display:none}\n\n  .dashboard-topbar {
     height:68px;
     max-width:1480px;
     margin:0 auto;
@@ -159,11 +159,11 @@
   }
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
-  .dashboard-chart-footer,.dashboard-chart-summary{
+  .dashboard-v3-chart-footer,.dashboard-chart-footer,.dashboard-chart-summary{
     display:flex;justify-content:space-between;gap:10px;
     color:#858c83;font-size:10px;
   }
-  .dashboard-chart-footer{margin-top:10px}
+  .dashboard-v3-chart-footer,.dashboard-chart-footer{margin-top:10px}
   .dashboard-chart-footer b,.dashboard-chart-summary b{color:#55a51e}
   .dashboard-chart-summary{
     margin-top:10px;padding-top:10px;border-top:1px solid #f0f2ee;
@@ -240,7 +240,7 @@
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
   .dashboard-progress-row>strong{color:#55a51e;font-size:10px}
   .dashboard-progress-meta{margin-top:9px}
-  .dashboard-lessons{margin-top:14px}
+  .dashboard-lessons,.dashboard-course-path{margin-top:14px}
   .dashboard-lesson{
     display:grid;grid-template-columns:40px minmax(0,1fr) auto;
     gap:10px;align-items:center;min-height:66px;
