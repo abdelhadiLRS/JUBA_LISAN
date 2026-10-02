@@ -769,6 +769,28 @@ export default function DashboardPage() {
     border-radius:12px;
     box-shadow:0 1px 4px rgba(35,55,25,.025);
   }
+  .dashboard-v3-main .dashboard-v3-card{
+    transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+  }
+  .dashboard-v3-main .dashboard-v3-card:hover{
+    border-color:#dfe8db;
+    box-shadow:0 3px 10px rgba(35,55,25,.04);
+    transform:translateY(-1px);
+  }
+  .dashboard-v3-welcome{
+    transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+  }
+  .dashboard-v3-welcome:hover{
+    border-color:#dfe8db;
+    box-shadow:0 3px 10px rgba(35,55,25,.04);
+    transform:translateY(-1px);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dashboard-v3-main .dashboard-v3-card,
+    .dashboard-v3-welcome,
+    .dashboard-v3-card:hover,
+    .dashboard-v3-welcome:hover{transition:none;transform:none}
+  }
 
   .dashboard-v3-card-head svg{color:#a1a89e;flex:none}
   .dashboard-v3-card-head>div{min-width:0}
