@@ -1124,6 +1124,23 @@ export default function DashboardPage() {
   .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5}
   .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer}
 
+  .dashboard-v3-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .dashboard-v3-card-head>div{min-width:0}
+  .dashboard-v3-card-head h3{margin:0;color:#565c55;font-size:12px;font-weight:850;letter-spacing:-.01em}
+  .dashboard-v3-card-head span{color:#a0a69f;font-size:8px;font-weight:750}
+  .dashboard-section-label{display:block;color:#a0a69f;font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+  .dashboard-topbar{position:relative}
+  .dashboard-topbar-title{min-width:0}
+  .dashboard-reference-nav{display:flex;align-items:center;gap:4px;min-width:0}
+  .dashboard-reference-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 11px;border-radius:8px;color:#8b9289;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap;transition:color .14s ease,background .14s ease}
+  .dashboard-reference-nav a:hover{color:#596058;background:#f5f8f3}
+  .dashboard-reference-nav a.is-active{color:#4d534d}
+  .dashboard-reference-nav a.is-active::after{content:"";position:absolute;left:11px;right:11px;bottom:1px;height:2px;border-radius:99px;background:var(--dash-green)}
+  .dashboard-icon-button{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--dash-border);border-radius:9px;background:#fff;color:#929991;cursor:pointer;transition:border-color .14s ease,color .14s ease,background .14s ease}
+  .dashboard-icon-button:hover{border-color:#d8e3d3;background:#f8fbf6;color:#58a91b}
+  .dashboard-v3-card-head{padding-bottom:2px}
+  .dashboard-v3-card-head h3,.dashboard-v3-card-head strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-tools-card .dashboard-v3-card-head,.dashboard-friends-card .dashboard-v3-card-head{margin-bottom:4px}
   @media (max-width:1180px) and (min-width:901px){
     .dashboard-dashboard{padding-inline:18px}
     .dashboard-topbar{gap:14px}
