@@ -747,8 +747,8 @@ export default function DashboardPage() {
     content:"";position:absolute;inset:0 auto 0 0;width:3px;
     background:var(--dash-green);border-radius:12px 0 0 12px;pointer-events:none;
   }
-  .dashboard-welcome-meta span{display:inline-flex;align-items:center;min-height:22px;padding:0 7px;border-radius:6px;background:#f7faf5}
-  .dashboard-welcome-meta span+span{border-inline-start:1px solid #edf1eb}
+  .dashboard-welcome-meta span{transition:border-color .14s ease,background .14s ease}
+  .dashboard-welcome-meta span:hover{border-color:#e0e8dc;background:#fbfdf9}
   .dashboard-progress-meta-cell{transition:border-color .14s ease,background .14s ease}
   .dashboard-progress-meta-cell:hover{border-color:#e0e8dc;background:#fbfdf9}
   .dashboard-course-path .dashboard-lesson:last-child{border-bottom:0}
@@ -791,10 +791,15 @@ export default function DashboardPage() {
   }
   .dashboard-welcome-copy p{margin:0;color:#858c83;font-size:13px}
   .dashboard-welcome-meta{
-    display:flex;align-items:center;gap:9px;margin-top:11px;
+    display:flex;align-items:center;gap:7px;margin-top:11px;
     color:#55a51e;font-size:10px;font-weight:800;
   }
-  .dashboard-welcome-meta i{width:4px;height:4px;border-radius:50%;background:#d0d5cd}
+  .dashboard-welcome-meta span{
+    display:inline-flex;align-items:center;min-height:22px;padding:0 8px;
+    border:1px solid #edf1eb;border-radius:7px;background:#f8fbf6;
+    white-space:nowrap;
+  }
+  .dashboard-welcome-meta i{width:3px;height:3px;flex:none;border-radius:50%;background:#d0d5cd}
   .dashboard-v3-level{
     --level-progress:0;
     position:relative;width:88px;min-width:88px;height:88px;
@@ -1210,7 +1215,9 @@ export default function DashboardPage() {
     .dashboard-reference-nav a{flex:1;justify-content:center;padding-inline:4px}
     .dashboard-reference-nav a.is-active::after{left:4px;right:4px}
     .dashboard-icon-button{flex:none}
-    .dashboard-welcome-meta{flex-wrap:wrap}
+    .dashboard-welcome-meta{flex-wrap:wrap;gap:5px}
+    .dashboard-welcome-meta i{display:none}
+    .dashboard-welcome-meta span{min-height:21px;padding-inline:7px;font-size:9px}
     .dashboard-reference-insights,.dashboard-reference-stats{grid-template-columns:1fr}
     .dashboard-course-path::before{left:27px}
     .dashboard-empty{flex-wrap:wrap}
@@ -1222,7 +1229,9 @@ export default function DashboardPage() {
     .dashboard-lesson{grid-template-columns:32px minmax(0,1fr);gap:8px}
     .dashboard-lesson-action{grid-column:2;justify-self:start;min-width:0}
     .dashboard-course-path .dashboard-lesson-copy>span{max-width:none}
-    .dashboard-course-path .dashboard-lesson-action{justify-content:flex-start}
+    .dashboard-course-path .dashboard-lesson-action{justify-content:flex-start;width:100%}
+    .dashboard-course-path .dashboard-lesson-action .dashboard-completed,
+    .dashboard-course-path .dashboard-lesson-action .dashboard-locked{min-width:0}
     .dashboard-progress-meta{gap:6px}
     .dashboard-progress-meta-cell{padding-inline:8px}
     .dashboard-lesson.current{padding-block:12px}
