@@ -101,7 +101,7 @@ export default function MyLanguagesPage() {
   const hasMultiple = userLanguages.length > 1
 
   return (
-    <div className="w-full max-w-[1480px] mx-auto space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
+    <div className="juba-page-shell w-full max-w-[1480px] mx-auto space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
