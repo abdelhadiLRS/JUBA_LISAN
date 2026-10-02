@@ -111,7 +111,7 @@ export default function CoachPage() {
         </header>
 
         <section className="juba-reference-section grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-          <div className="juba-card overflow-hidden p-6 sm:p-8">
+          <div className="juba-reference-list-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
               <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-[10px] bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-sm">
                 <Sparkles className="h-10 w-10" />
@@ -135,7 +135,7 @@ export default function CoachPage() {
             </div>
           </div>
 
-          <div className="juba-card p-6">
+          <div className="juba-reference-list-card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Today's momentum</p>
@@ -159,7 +159,7 @@ export default function CoachPage() {
         </section>
 
         <section className="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
-          <div className="juba-card p-6 sm:p-8">
+          <div className="juba-reference-list-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Adaptive queue</p>
@@ -184,7 +184,7 @@ export default function CoachPage() {
             </div>
           </div>
 
-          <div className="juba-card p-6 sm:p-8">
+          <div className="juba-reference-list-card p-6 sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Practice in context</p>
             <h2 className="mt-1 text-2xl font-black text-[var(--duo-ink)]">Real-world rooms</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
