@@ -310,12 +310,12 @@ function ListeningPage() {
     return (
       <div className="juba-page-shell juba-mobile-listening w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="juba-reference-section-head mb-5 flex items-center justify-between">
-          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
           <button
             onClick={loadNext}
-            className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
@@ -325,7 +325,7 @@ function ListeningPage() {
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
           <div className="juba-reference-list-card p-6 text-center">
-            <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
+            <p className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
           </div>
@@ -334,22 +334,22 @@ function ListeningPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="juba-panel juba-reference-list-card rounded-[10px] p-4"
+                className="juba-panel juba-reference-list-card rounded-[12px] p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[var(--duo-ink)] truncate font-sans text-xs font-bold tracking-wide">
+                    <p className="text-[var(--juba-ink,var(--duo-ink))] truncate font-sans text-xs font-bold tracking-wide">
                       {item.exercise.topic}
                     </p>
-                    <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-0.5 font-sans tracking-widest uppercase">
+                    <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mt-0.5 font-sans tracking-widest uppercase">
                       {item.exercise.level} · {item.exercise.exercise_type}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-[var(--duo-ink)] font-sans text-xs font-bold">
+                    <p className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-[var(--duo-ink)] text-[var(--duo-green-dark)] font-sans">
+                    <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] font-sans">
                       +{item.xp_earned} XP
                     </p>
                   </div>
@@ -357,7 +357,7 @@ function ListeningPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={item.exercise.target_language}
-                  className="text-[var(--duo-muted)] border-[var(--duo-line)] word-selectable mb-3 cursor-text border-t pt-3 select-text"
+                  className="text-[var(--juba-muted,var(--duo-muted))] border-[var(--juba-border,var(--duo-line))] word-selectable mb-3 cursor-text border-t pt-3 select-text"
                   onPointerUp={() =>
                     handleTextSelection(item.text, item.exercise.level ?? 'B1')
                   }
@@ -372,7 +372,7 @@ function ListeningPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
+                  className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -415,26 +415,26 @@ function ListeningPage() {
     return (
       <div className="w-full max-w-[1480px] mx-auto box-border juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
-        <div className="juba-panel rounded-[10px] p-5">
+        <div className="juba-panel rounded-[12px] p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+              <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] font-sans tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
-              <p className="text-[var(--duo-ink)] mt-1 font-sans text-2xl font-bold">
+              <p className="text-[var(--juba-ink,var(--duo-ink))] mt-1 font-sans text-2xl font-bold">
                 {result.score}/{exercise.questions.length}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+              <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] font-sans tracking-widest uppercase">
                 XP
               </p>
               {isReplay ? (
-                <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-1 font-sans">
+                <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mt-1 font-sans">
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-[var(--duo-green-dark)] mt-1 font-sans text-xl font-bold">
+                <p className="text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] mt-1 font-sans text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -444,14 +444,14 @@ function ListeningPage() {
 
         {/* Transcript */}
         <div>
-          <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mb-2 font-sans tracking-widest uppercase">
             {t('transcript')}
           </p>
-          <div className="juba-panel rounded-[10px] p-4">
+          <div className="juba-panel rounded-[12px] p-4">
             <TargetLanguageText
               as="p"
               languageCode={exercise.target_language}
-              className="text-[var(--duo-ink)] word-selectable cursor-text select-text"
+              className="text-[var(--juba-ink,var(--duo-ink))] word-selectable cursor-text select-text"
               onPointerUp={() =>
                 handleTextSelection(result.text, exercise?.level ?? 'B1')
               }
@@ -463,7 +463,7 @@ function ListeningPage() {
 
         {/* Question review */}
         <div className="space-y-3">
-          <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] font-sans tracking-widest uppercase">
             {t('review')}
           </p>
           {exercise.questions.map((q) => {
@@ -475,16 +475,16 @@ function ListeningPage() {
             return (
               <div
                 key={q.index}
-                className={`rounded-[10px] border p-4 shadow-sm ${
+                className={`rounded-[12px] border p-4 shadow-sm ${
                   isCorrect
-                    ? 'border-[color-mix(in_srgb,var(--duo-green)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
-                    : 'border-[color-mix(in_srgb,var(--duo-red)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)]'
+                    ? 'border-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_45%,transparent)] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]'
+                    : 'border-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_45%,transparent)] bg-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_8%,transparent)]'
                 }`}
               >
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-[var(--duo-ink)] mb-3"
+                  className="text-[var(--juba-ink,var(--duo-ink))] mb-3"
                 >
                   {q.index + 1}. {q.question}
                 </TargetLanguageText>
@@ -494,13 +494,13 @@ function ListeningPage() {
                       key={k}
                       className={`px-3 py-1.5 ${
                         k === correctKey
-                          ? 'font-bold text-[var(--duo-green-dark)]'
+                          ? 'font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]'
                           : k === userAnswer && !isCorrect
-                            ? 'text-[var(--duo-red)] line-through opacity-70'
-                            : 'text-[var(--duo-muted)]'
+                            ? 'text-[var(--juba-red,var(--duo-red))] line-through opacity-70'
+                            : 'text-[var(--juba-muted,var(--duo-muted))]'
                       }`}
                     >
-                      <span className="text-[var(--duo-ink)] font-sans font-bold">
+                      <span className="text-[var(--juba-ink,var(--duo-ink))] font-sans font-bold">
                         {k}.
                       </span>{' '}
                       <TargetLanguageText languageCode={targetLanguageCode}>
@@ -559,19 +559,19 @@ function ListeningPage() {
     return (
       <div className="juba-mobile-listening mx-auto w-full max-w-[1480px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
           <button
             onClick={() => loadHistory(0)}
-            className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
           >
             {t('history')}
           </button>
         </div>
 
         {error && (
-          <p className="text-[var(--duo-ink)] mb-4 font-sans text-[var(--duo-red)]">{error}</p>
+          <p className="text-[var(--juba-ink,var(--duo-ink))] mb-4 font-sans text-[var(--juba-red,var(--duo-red))]">{error}</p>
         )}
 
         <FreemiumQuotaBanner feature="listening" className="mb-4" />
@@ -580,7 +580,7 @@ function ListeningPage() {
           <PaywallBanner feature="listening" compact />
         ) : (
           <div className="juba-panel flex flex-col items-center gap-5 p-8 text-center">
-            <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
+            <p className="text-[var(--juba-muted,var(--duo-muted))] font-sans text-xs tracking-wide">
               {t('noExercises')}
             </p>
             <button
@@ -603,16 +603,16 @@ function ListeningPage() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-0.5 font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mt-0.5 font-sans tracking-widest uppercase">
             {exercise.level} · {exercise.exercise_type}
           </p>
         </div>
         <button
           onClick={() => loadHistory(0)}
-          className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 font-sans tracking-widest uppercase transition-colors"
+          className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] shrink-0 font-sans tracking-widest uppercase transition-colors"
         >
           {t('history')}
         </button>
@@ -625,18 +625,18 @@ function ListeningPage() {
       ) : (
         <>
           {/* Topic */}
-          <div className="juba-panel juba-reference-section rounded-[10px] px-4 py-3">
-            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
+          <div className="juba-panel juba-reference-section rounded-[12px] px-4 py-3">
+            <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] font-sans tracking-widest uppercase">
               {t('topic')}
             </p>
-            <p className="text-[var(--duo-ink)] mt-1 font-sans text-xs font-bold">
+            <p className="text-[var(--juba-ink,var(--duo-ink))] mt-1 font-sans text-xs font-bold">
               {exercise.topic}
             </p>
           </div>
 
           {/* Audio player */}
           <div>
-            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
+            <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mb-2 font-sans tracking-widest uppercase">
               {t('listenLabel')}
             </p>
             <ExerciseAudioPlayer exerciseId={exercise.id} />
@@ -644,14 +644,14 @@ function ListeningPage() {
 
           {/* Questions */}
           <div>
-            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-3 font-sans tracking-widest uppercase">
+            <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] mb-3 font-sans tracking-widest uppercase">
               {t('questionsLabel')}
             </p>
             <div className="space-y-4">
               {exercise.questions.map((q) => (
                 <div
                   key={q.index}
-                  className="juba-panel rounded-[10px] p-4"
+                  className="juba-panel rounded-[12px] p-4"
                 >
                   <TargetLanguageText
                     as="p"
@@ -659,7 +659,7 @@ function ListeningPage() {
                     onPointerUp={() =>
                       handleTextSelection(q.question, exercise.level)
                     }
-                    className="text-[var(--duo-ink)] word-selectable mb-3 cursor-text select-text"
+                    className="text-[var(--juba-ink,var(--duo-ink))] word-selectable mb-3 cursor-text select-text"
                   >
                     {q.index + 1}. {q.question}
                   </TargetLanguageText>
@@ -675,13 +675,13 @@ function ListeningPage() {
                               [String(q.index)]: k,
                             }))
                           }
-                          className={`w-full rounded-[10px] border border-[var(--duo-line)] px-3 py-2 text-left transition-colors ${
+                          className={`w-full rounded-[12px] border border-[var(--juba-border,var(--duo-line))] px-3 py-2 text-left transition-colors ${
                             selected
-                              ? 'border-[var(--duo-green-dark)] bg-[var(--duo-line)] text-[var(--duo-ink)]'
-                              : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-line)]'
+                              ? 'border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] bg-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))]'
+                              : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-border,var(--duo-line))]'
                           }`}
                         >
-                          <span className="text-[var(--duo-ink)] font-sans font-bold">
+                          <span className="text-[var(--juba-ink,var(--duo-ink))] font-sans font-bold">
                             {k}.
                           </span>{' '}
                           <TargetLanguageText
@@ -700,7 +700,7 @@ function ListeningPage() {
 
           {/* Error */}
           {error && (
-            <p className="text-[var(--duo-ink)] font-sans text-[var(--duo-red)]">{error}</p>
+            <p className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-[var(--juba-red,var(--duo-red))]">{error}</p>
           )}
 
           {/* Submit */}
