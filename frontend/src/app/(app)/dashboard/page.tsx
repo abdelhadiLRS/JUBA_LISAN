@@ -981,6 +981,10 @@ export default function DashboardPage() {
   .dashboard-course-path .dashboard-lesson-action{
     min-width:112px;display:flex;justify-content:flex-end;
   }
+  .dashboard-course-path .dashboard-lesson-action .dashboard-completed,
+  .dashboard-course-path .dashboard-lesson-action .dashboard-locked{
+    min-width:112px;
+  }
   .dashboard-lessons,.dashboard-course-path{margin-top:14px}
   .dashboard-lesson{
     display:grid;grid-template-columns:40px minmax(0,1fr) auto;
@@ -1006,9 +1010,6 @@ export default function DashboardPage() {
   .dashboard-lesson-copy{min-width:0}
   .dashboard-lesson-copy strong{color:#4f534f;font-size:12px}
   .dashboard-lesson-copy>span{display:block;margin-top:2px;color:#969b95;font-size:9px}
-  .dashboard-lesson-action{flex:none}
-  .dashboard-completed{display:inline-flex;align-items:center;gap:5px;color:#55a51e;font-size:9px;font-weight:800}
-  .dashboard-locked{color:#bbb}
   .dashboard-empty{display:flex;align-items:center;gap:12px;padding:22px 0;color:#999}
   .dashboard-empty .dashboard-green-button{margin-inline-start:auto}
   .dashboard-empty div{display:flex;flex-direction:column;gap:3px}
