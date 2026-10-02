@@ -112,7 +112,7 @@ export default function MyLanguagesPage() {
       )}
 
       {/* Breadcrumb */}
-      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono">
+      <nav className="text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono">
         <Link
           href="/settings"
           className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
@@ -189,7 +189,7 @@ export default function MyLanguagesPage() {
                         {t('activeLanguage')}
                       </span>
                     ) : plan?.cefr_level ? (
-                      <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+                      <span className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {plan.cefr_level}
                       </span>
                     ) : null}
@@ -225,7 +225,7 @@ export default function MyLanguagesPage() {
                     {isActive ? (
                       <button
                         onClick={() => router.push(`/plan`)}
-                        className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono text-xs tracking-widest uppercase transition-colors"
+                        className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono text-xs tracking-widest uppercase transition-colors"
                       >
                         {t('viewDetails')} →
                       </button>
@@ -234,7 +234,7 @@ export default function MyLanguagesPage() {
                         <button
                           onClick={() => handleSwitch(ulang)}
                           disabled={switchingCode === ulang.target_language}
-                          className="text-[var(--juba-text)] text-[var(--juba-text)] bg-fl-fg hover:bg-[var(--juba-violet)]/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+                          className="text-[var(--juba-text)] bg-fl-fg hover:bg-[var(--juba-violet)]/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
                         >
                           {switchingCode === ulang.target_language
                             ? '...'
@@ -243,7 +243,7 @@ export default function MyLanguagesPage() {
                         {hasMultiple && (
                           <button
                             onClick={() => setDeleteTarget(ulang)}
-                            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-rose-600 font-mono text-xs tracking-widest uppercase transition-colors"
+                            className="text-[var(--juba-muted)] hover:text-rose-600 font-mono text-xs tracking-widest uppercase transition-colors"
                           >
                             {t('removeLanguage')}
                           </button>
@@ -272,7 +272,7 @@ export default function MyLanguagesPage() {
             <div className="mt-5 flex justify-end gap-2">
               <button
                 onClick={() => setAddModalOpen(false)}
-                className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('cancel')}
               </button>
