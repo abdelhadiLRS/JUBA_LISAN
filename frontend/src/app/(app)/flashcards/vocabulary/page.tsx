@@ -193,10 +193,10 @@ export default function VocabularyPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder={t('vocabularySearch')}
-        className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+        className="bg-[var(--juba-border)]/40 border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-fl-border focus:border-[var(--duo-green)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
       />
 
-      <div className="border-[var(--juba-lilac)] bg-white border">
+      <div className="border-[var(--juba-border)] bg-white border">
         {loading ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : items.length === 0 ? (
