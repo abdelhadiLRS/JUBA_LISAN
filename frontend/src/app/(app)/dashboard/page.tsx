@@ -756,6 +756,9 @@ export default function DashboardPage() {
     box-shadow:0 1px 4px rgba(35,55,25,.025);
   }
 
+  .dashboard-v3-card-head svg{color:#a1a89e;flex:none}
+  .dashboard-v3-card-head>div{min-width:0}
+
   .dashboard-v3-welcome{
     min-height:136px;
     display:flex;align-items:center;justify-content:space-between;gap:20px;
