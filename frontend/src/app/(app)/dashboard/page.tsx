@@ -519,7 +519,7 @@ export default function DashboardPage() {
                 <span className="dashboard-progress-meta-cell is-green"><small>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b>{completedLessonCount}/{todayLessons.length}</b></span>
                 <span className="dashboard-progress-meta-cell"><small>{t('nextStep')}</small><b>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
               </div>
-              <div className="dashboard-lessons dashboard-course-path">
+              <div className="dashboard-lessons dashboard-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
