@@ -38,6 +38,7 @@ import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
 import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import './dashboard.module.css'
 
 interface TodayLessonItem {
   id: number | null
@@ -366,565 +367,24 @@ export default function DashboardPage() {
 
   return (
     <>
-      <style>{`
-        /* JUBA LISAN — strict reference UI system (dashboard only) */
-        .juba-reference-shell{background:#fff!important;color:#4b4b4b}
-        .juba-reference-shell .juba-duo-sidebar{width:220px!important;background:#fff!important;border-right:1px solid #f0f0f0!important;box-shadow:none!important}
-        .juba-reference-shell .juba-duo-main{background:#fff!important}
-        .juba-reference-shell .juba-duo-logo-mark{width:42px!important;height:42px!important;border:0!important;border-radius:14px!important;background:#58cc02!important;color:#fff!important;display:grid!important;place-items:center!important;font-weight:900!important;font-size:13px!important;box-shadow:0 3px 0 #46a302!important}
-        .juba-reference-shell .juba-duo-nav{padding:12px 12px 0!important}
-        .juba-reference-shell .juba-duo-nav-link{min-height:46px!important;border:0!important;border-radius:10px!important;padding:8px 12px!important;margin:3px 0!important;color:#777!important;font-size:13px!important;font-weight:700!important;letter-spacing:0!important;text-transform:none!important}
-        .juba-reference-shell .juba-duo-nav-link:hover{background:#f6fbf3!important;color:#58a91b!important}
-        .juba-reference-shell .juba-duo-nav-link.is-active{background:#f0fae9!important;color:#58a91b!important;box-shadow:none!important}
-        .juba-reference-shell .juba-duo-resource-toggle{min-height:40px!important;padding:8px 12px!important;color:#999!important;font-size:11px!important;font-weight:800!important}
-        .juba-reference-shell .juba-duo-user{border-top:1px solid #f1f1f1!important;background:#fff!important;padding:14px!important}
-        .juba-reference-shell .juba-duo-user-action{color:#888!important}
-        .juba-reference-shell .juba-duo-page-frame{background:#fff!important}
-        .juba-reference-shell .juba-duo-mobile-bar{display:none!important}
-
-        .juba-reference-v3{min-height:100%;background:#fff!important;padding:0 22px 30px!important;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-        .juba-reference-v3 .juba-reference-topbar{height:64px!important;max-width:1480px;margin:0 auto!important;border-bottom:0!important;background:#fff!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:24px!important}
-        .juba-reference-v3 .juba-reference-topbar-title{display:flex!important;align-items:center!important;gap:26px!important}
-        .juba-reference-v3 .juba-reference-dot{display:none!important}
-        .juba-reference-v3 .juba-reference-reference-nav{display:flex!important;align-items:center!important;gap:34px!important}
-        .juba-reference-v3 .juba-reference-reference-nav a{position:relative!important;color:#777!important;font-size:12px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.01em!important;padding:28px 0 24px!important}
-        .juba-reference-v3 .juba-reference-reference-nav a:hover{color:#58a91b!important}
-        .juba-reference-v3 .juba-reference-reference-nav a.is-active{color:#58a91b!important}
-        .juba-reference-v3 .juba-reference-reference-nav a.is-active:after{content:""!important;position:absolute!important;left:0!important;right:0!important;bottom:15px!important;height:2px!important;background:#58cc02!important;border-radius:99px!important}
-        .juba-reference-v3 .juba-reference-topbar-actions{display:flex!important;align-items:center!important;gap:12px!important}
-        .juba-reference-v3 .juba-reference-course-selector{display:flex!important;align-items:center!important;gap:10px!important;color:#777!important;font-size:11px!important}
-        .juba-reference-v3 .juba-reference-course-selector strong{color:#555!important;font-size:12px!important}
-        .juba-reference-v3 .juba-reference-icon-button{width:34px!important;height:34px!important;border:1px solid #ececec!important;border-radius:9px!important;background:#fff!important;color:#888!important}
-        .juba-reference-v3 .juba-reference-v3-grid{max-width:1480px;margin:0 auto!important;display:grid!important;grid-template-columns:minmax(0,1fr) 286px!important;gap:22px!important;align-items:start!important}
-        .juba-reference-v3 .juba-reference-v3-main{min-width:0!important}
-        .juba-reference-v3 .juba-reference-v3-main>section{margin-bottom:16px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{position:relative!important;min-height:136px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:24px 18px 18px 112px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-v3-welcome:before{content:""!important;position:absolute!important;left:16px!important;top:30px!important;width:82px!important;height:82px!important;background:url('/logo_head.png') center/contain no-repeat!important}
-        .juba-reference-v3 .juba-reference-welcome-copy{max-width:720px!important}
-        .juba-reference-v3 .juba-reference-section-label{display:inline-flex!important;align-items:center!important;gap:6px!important;color:#8b8b8b!important;font-size:10px!important;font-weight:800!important;letter-spacing:.04em!important;text-transform:uppercase!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2{margin:2px 0 7px!important;color:#505050!important;font-size:30px!important;line-height:1.15!important;font-weight:500!important;letter-spacing:-.03em!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2::first-line{font-weight:700!important}
-        .juba-reference-v3 .juba-reference-welcome-copy p{margin:0!important;color:#777!important;font-size:14px!important}
-        .juba-reference-v3 .juba-reference-welcome-meta{display:flex!important;gap:10px!important;align-items:center!important;margin-top:11px!important;color:#58a91b!important;font-size:11px!important;font-weight:800!important}
-        .juba-reference-v3 .juba-reference-welcome-meta i{width:4px!important;height:4px!important;border-radius:50%!important;background:#cfcfcf!important}
-        .juba-reference-v3 .juba-reference-v3-level{min-width:92px!important;width:92px!important;height:92px!important;border-radius:50%!important;background:conic-gradient(#58cc02 calc(var(--level-progress,0) * 1%),#edf2e9 0)!important;display:grid!important;place-items:center!important;position:relative!important;color:#58a91b!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-v3-level:after{content:""!important;position:absolute!important;inset:8px!important;border-radius:50%!important;background:#fff!important}
-        .juba-reference-v3 .juba-reference-v3-level span,.juba-reference-v3 .juba-reference-v3-level small{position:relative!important;z-index:1!important}
-        .juba-reference-v3 .juba-reference-v3-level span{font-size:18px!important;font-weight:900!important}
-        .juba-reference-v3 .juba-reference-v3-level small{display:none!important}
-
-        .juba-reference-v3 .juba-reference-v3-main>section{border:1px solid #edf0ea!important;background:#fff!important;border-radius:12px!important;box-shadow:0 2px 8px rgba(0,0,0,.025)!important}
-        .juba-reference-v3 .juba-reference-v3-card{border:1px solid #e8eee4!important;background:#fff!important;border-radius:11px!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-v3-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important}
-        .juba-reference-v3 .juba-reference-v3-card-head h2,.juba-reference-v3 .juba-reference-v3-card-head h3{margin:3px 0 0!important;color:#505050!important;font-size:16px!important;font-weight:800!important}
-        .juba-reference-v3 .juba-reference-v3-card-head>strong{color:#555!important;font-size:13px!important}
-        .juba-reference-v3 .juba-reference-daily{padding:20px!important}
-        .juba-reference-v3 .juba-reference-v3-chart{height:155px!important;display:flex!important;align-items:flex-end!important;gap:14px!important;padding:12px 4px 0!important;border-top:1px solid #f0f0f0!important;margin-top:15px!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col{flex:1!important;min-width:18px!important;height:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;align-items:center!important;gap:8px!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col span{display:block!important;width:22px!important;max-width:100%!important;border-radius:5px 5px 2px 2px!important;background:#ffb900!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col small{color:#888!important;font-size:9px!important}
-        .juba-reference-v3 .juba-reference-chart-footer,.juba-reference-v3 .juba-reference-chart-summary{display:flex!important;justify-content:space-between!important;gap:10px!important;color:#888!important;font-size:10px!important;margin-top:10px!important}
-        .juba-reference-v3 .juba-reference-chart-footer b,.juba-reference-v3 .juba-reference-chart-summary b{color:#58a91b!important}
-        .juba-reference-v3 .juba-reference-chart-summary{border-top:1px solid #f0f0f0!important;padding-top:10px!important}
-
-        .juba-reference-v3 .juba-reference-reference-insights{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card{padding:18px!important}
-        .juba-reference-v3 .juba-reference-insight-value{display:flex!important;align-items:baseline!important;gap:7px!important;margin:14px 0 9px!important}
-        .juba-reference-v3 .juba-reference-insight-value strong{font-size:30px!important;color:#555!important}
-        .juba-reference-v3 .juba-reference-insight-value span{font-size:11px!important;color:#999!important}
-        .juba-reference-v3 .juba-reference-insight-track,.juba-reference-v3 .juba-reference-small-progress,.juba-reference-v3 .juba-reference-stat-track{height:7px!important;background:#eef1ed!important;border-radius:99px!important;overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-insight-track span,.juba-reference-v3 .juba-reference-small-progress span,.juba-reference-v3 .juba-reference-stat-track span{display:block!important;height:100%!important;background:#ffb900!important;border-radius:99px!important}
-        .juba-reference-v3 .juba-reference-insight-footer{display:grid!important;grid-template-columns:auto 1fr auto 1fr!important;gap:7px!important;margin-top:12px!important;font-size:9px!important;color:#999!important}
-        .juba-reference-v3 .juba-reference-insight-footer b{text-align:end!important;color:#555!important}
-        .juba-reference-v3 .juba-reference-words-value{display:flex!important;align-items:baseline!important;gap:7px!important;margin:15px 0 5px!important}
-        .juba-reference-v3 .juba-reference-words-value strong{font-size:28px!important;color:#555!important}
-        .juba-reference-v3 .juba-reference-words-value span{font-size:11px!important;color:#999!important}
-        .juba-reference-v3 .juba-reference-word-bars{height:60px!important;display:flex!important;align-items:flex-end!important;gap:7px!important}
-        .juba-reference-v3 .juba-reference-word-bars span{flex:1!important;background:#ffb900!important;border-radius:4px 4px 0 0!important;max-width:18px!important}
-        .juba-reference-v3 .juba-reference-word-bars span.active{background:#58cc02!important}
-        .juba-reference-v3 .juba-reference-reference-stats{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
-        .juba-reference-v3 .juba-reference-reference-stats .juba-reference-v3-card{padding:18px!important}
-        .juba-reference-v3 .juba-reference-stat-value{margin-top:14px!important;color:#555!important;font-size:28px!important;font-weight:800!important}
-        .juba-reference-v3 .juba-reference-stat-caption{margin:2px 0 8px!important;color:#999!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-stat-breakdown{display:grid!important;gap:7px!important;margin-top:13px!important}
-        .juba-reference-v3 .juba-reference-stat-breakdown span{display:grid!important;grid-template-columns:8px 1fr auto!important;gap:8px!important;align-items:center!important;color:#888!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-stat-breakdown i{width:6px!important;height:6px!important;border-radius:50%!important;background:#ffb900!important}
-        .juba-reference-v3 .juba-reference-stat-breakdown b{color:#555!important}
-
-        .juba-reference-v3 .juba-reference-achievement-strip{display:flex!important;align-items:center!important;gap:13px!important;padding:14px 16px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-icon{width:42px!important;height:42px!important;border-radius:9px!important;background:#eef9df!important;color:#58a91b!important;display:grid!important;place-items:center!important;flex:none!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-copy{display:flex!important;flex-direction:column!important;min-width:0!important;gap:2px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-copy strong{color:#555!important;font-size:12px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-copy small{color:#999!important;font-size:9px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-progress{margin-inline-start:auto!important;width:150px!important;height:6px!important;background:#eef1ed!important;border-radius:99px!important;overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-progress span{display:block!important;height:100%!important;background:#ffb900!important}
-
-        .juba-reference-v3 .juba-reference-course{padding:20px!important}
-        .juba-reference-v3 .juba-reference-card-header{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:16px!important}
-        .juba-reference-v3 .juba-reference-card-header h2{margin:3px 0!important;color:#555!important;font-size:17px!important}
-        .juba-reference-v3 .juba-reference-card-header p{margin:0!important;color:#999!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;border:1px solid #58cc02!important;border-radius:7px!important;background:#58cc02!important;color:#fff!important;padding:8px 12px!important;font-size:10px!important;font-weight:800!important;box-shadow:0 2px 0 #46a302!important}
-        .juba-reference-v3 .juba-reference-progress-row{display:flex!important;align-items:center!important;gap:10px!important;margin-top:13px!important}
-        .juba-reference-v3 .juba-reference-progress-track{height:7px!important;flex:1!important;background:#eef1ed!important;border-radius:99px!important;overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-progress-track span{display:block!important;height:100%!important;background:#ffb900!important;border-radius:99px!important}
-        .juba-reference-v3 .juba-reference-progress-row>strong{font-size:10px!important;color:#58a91b!important}
-        .juba-reference-v3 .juba-reference-progress-meta span{border:1px solid #edf0ea!important;border-radius:7px!important}
-        .juba-reference-v3 .juba-reference-lessons{margin-top:14px!important}
-        .juba-reference-v3 .juba-reference-lesson{display:grid!important;grid-template-columns:40px minmax(0,1fr) auto!important;gap:10px!important;align-items:center!important;min-height:58px!important;border-bottom:1px solid #f0f0f0!important;padding:8px 0!important;background:#fff!important}
-        .juba-reference-v3 .juba-reference-path-rail{display:flex!important;justify-content:center!important}
-        .juba-reference-v3 .juba-reference-path-node{width:27px!important;height:27px!important;border-radius:50%!important;border:2px solid #e2e6e1!important;background:#fff!important;color:#aaa!important;display:grid!important;place-items:center!important;font-size:9px!important;font-weight:900!important}
-        .juba-reference-v3 .juba-reference-path-node.done{border-color:#58cc02!important;color:#58cc02!important}
-        .juba-reference-v3 .juba-reference-path-node.current{border-color:#58cc02!important;background:#58cc02!important;color:#fff!important}
-        .juba-reference-v3 .juba-reference-lesson-copy strong{color:#555!important;font-size:11px!important}
-        .juba-reference-v3 .juba-reference-lesson-copy>span{display:block!important;color:#aaa!important;font-size:9px!important;margin-top:2px!important}
-        .juba-reference-v3 .juba-reference-completed{display:inline-flex!important;align-items:center!important;gap:5px!important;color:#58a91b!important;font-size:9px!important;font-weight:800!important}
-        .juba-reference-v3 .juba-reference-locked{color:#bbb!important}
-        .juba-reference-v3 .juba-reference-empty{display:flex!important;align-items:center!important;gap:12px!important;padding:22px 0!important;color:#999!important}
-
-        .juba-reference-v3 .juba-reference-v3-rail{display:flex!important;flex-direction:column!important;gap:14px!important;align-self:start!important;position:sticky!important;top:0!important}
-        .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{padding:16px!important}
-        .juba-reference-v3 .juba-reference-profile-card{padding:0!important;overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-profile-hero{display:flex!important;flex-direction:column!important;align-items:center!important;padding:18px 14px 13px!important;text-align:center!important}
-        .juba-reference-v3 .juba-reference-profile-photo{width:104px!important;height:104px!important;border-radius:50%!important;overflow:hidden!important;border:4px solid #fff!important;box-shadow:0 0 0 1px #e5e9e3!important;background:#f4f7f3!important;display:grid!important;place-items:center!important;color:#999!important}
-        .juba-reference-v3 .juba-reference-profile-photo img{width:100%!important;height:100%!important;object-fit:cover!important}
-        .juba-reference-v3 .juba-reference-profile-hero>strong{margin-top:9px!important;color:#555!important;font-size:15px!important}
-        .juba-reference-v3 .juba-reference-profile-hero>span{margin-top:3px!important;color:#999!important;font-size:9px!important}
-        .juba-reference-v3 .juba-reference-profile-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:1px solid #edf0ea!important}
-        .juba-reference-v3 .juba-reference-profile-metrics span{display:flex!important;flex-direction:column!important;align-items:center!important;gap:2px!important;padding:10px 3px!important;border-right:1px solid #edf0ea!important}
-        .juba-reference-v3 .juba-reference-profile-metrics span:last-child{border-right:0!important}
-        .juba-reference-v3 .juba-reference-profile-metrics b{color:#58a91b!important;font-size:14px!important}
-        .juba-reference-v3 .juba-reference-profile-metrics small{color:#999!important;font-size:8px!important}
-        .juba-reference-v3 .juba-reference-goal-card{border-top:3px solid #ffb900!important}
-        .juba-reference-v3 .juba-reference-xp-card,.juba-reference-v3 .juba-reference-achievement-card,.juba-reference-v3 .juba-reference-tools-card,.juba-reference-v3 .juba-reference-friends-card{border-top:3px solid #e5eee0!important}
-        .juba-reference-v3 .juba-reference-goal-ring{width:92px!important;height:92px!important;margin:13px auto!important;border-radius:50%!important;position:relative!important;display:grid!important;place-items:center!important}
-        .juba-reference-v3 .juba-reference-goal-ring:after{content:""!important;position:absolute!important;inset:9px!important;border-radius:50%!important;background:#fff!important}
-        .juba-reference-v3 .juba-reference-goal-ring strong,.juba-reference-v3 .juba-reference-goal-ring span{position:relative!important;z-index:1!important}
-        .juba-reference-v3 .juba-reference-goal-ring strong{font-size:24px!important;color:#555!important}
-        .juba-reference-v3 .juba-reference-goal-ring span{font-size:9px!important;color:#999!important}
-        .juba-reference-v3 .juba-reference-goal-copy{display:flex!important;justify-content:center!important;gap:8px!important;align-items:baseline!important}
-        .juba-reference-v3 .juba-reference-goal-copy b{color:#58a91b!important;font-size:15px!important}
-        .juba-reference-v3 .juba-reference-goal-copy span{color:#999!important;font-size:9px!important}
-        .juba-reference-v3 .juba-reference-xp-list{display:grid!important;gap:9px!important;margin-top:12px!important}
-        .juba-reference-v3 .juba-reference-xp-list div{display:flex!important;justify-content:space-between!important;color:#999!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-xp-list b{color:#555!important}
-        .juba-reference-v3 .juba-reference-achievement-icon{width:52px!important;height:52px!important;margin:12px 0 9px!important;border-radius:12px!important;background:#eef9df!important;color:#58a91b!important;display:grid!important;place-items:center!important}
-        .juba-reference-v3 .juba-reference-achievement-card>strong{display:block!important;color:#555!important;font-size:12px!important}
-        .juba-reference-v3 .juba-reference-achievement-card>span{display:block!important;color:#999!important;font-size:9px!important;margin:3px 0 9px!important}
-        .juba-reference-v3 .juba-reference-tools-card a{display:flex!important;align-items:center!important;gap:9px!important;padding:9px 0!important;border-top:1px solid #f0f0f0!important;color:#777!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-tools-card a:first-of-type{margin-top:9px!important}
-        .juba-reference-v3 .juba-reference-tools-card a svg:last-child{margin-inline-start:auto!important}
-        .juba-reference-v3 .juba-reference-mini-link{color:#888!important;font-size:9px!important;font-weight:800!important;text-transform:uppercase!important}
-        .juba-reference-v3 .juba-reference-friends-list{margin-top:8px!important}
-        .juba-reference-v3 .juba-reference-friend-row{display:flex!important;align-items:center!important;gap:9px!important;padding:8px 0!important;border-top:1px solid #f0f0f0!important}
-        .juba-reference-v3 .juba-reference-friend-avatar{width:34px!important;height:34px!important;flex:none!important;border-radius:50%!important;overflow:hidden!important;background:#f1f3f0!important;display:grid!important;place-items:center!important;color:#888!important;font-size:10px!important;font-weight:800!important}
-        .juba-reference-v3 .juba-reference-friend-copy{min-width:0!important;display:flex!important;flex-direction:column!important;gap:2px!important}
-        .juba-reference-v3 .juba-reference-friend-copy strong{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#555!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-friend-copy small{color:#aaa!important;font-size:8px!important}
-        .juba-reference-v3 .juba-reference-friend-arrow{margin-inline-start:auto!important;color:#aaa!important;font-size:18px!important}
-        .juba-reference-v3 .juba-reference-friends-empty{display:block!important;padding:12px 0!important;color:#999!important;font-size:9px!important}
-        .juba-reference-v3 .juba-reference-premium{border:1px solid #dcebd2!important;background:#f6fff1!important;border-radius:12px!important;padding:13px!important;display:flex!important;align-items:center!important;gap:10px!important}
-        .juba-reference-v3 .juba-reference-premium-icon{width:38px!important;height:38px!important;border-radius:9px!important;background:#58cc02!important;color:#fff!important;display:grid!important;place-items:center!important;flex:none!important}
-        .juba-reference-v3 .juba-reference-premium>div:nth-child(2){display:flex!important;flex-direction:column!important;gap:2px!important;min-width:0!important}
-        .juba-reference-v3 .juba-reference-premium strong{color:#4d6e43!important;font-size:10px!important}
-        .juba-reference-v3 .juba-reference-premium span{color:#7f9278!important;font-size:8px!important}
-        .juba-reference-v3 .juba-reference-premium button{margin-inline-start:auto!important;flex:none!important}
-        @media (max-width:1180px){
-          .juba-reference-shell .juba-duo-sidebar{width:188px!important}
-          .juba-reference-v3{padding-inline:14px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 250px!important;gap:16px!important}
-          .juba-reference-v3 .juba-reference-reference-nav{gap:18px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-shell .juba-duo-sidebar{display:none!important}
-          .juba-reference-shell .juba-duo-main{width:100%!important}
-          .juba-reference-shell .juba-duo-mobile-bar{display:block!important}
-          .juba-reference-v3{padding:58px 12px 20px!important}
-          .juba-reference-v3 .juba-reference-topbar{height:auto!important;min-height:58px!important;align-items:flex-start!important}
-          .juba-reference-v3 .juba-reference-topbar-actions{display:none!important}
-          .juba-reference-v3 .juba-reference-reference-nav{gap:15px!important;overflow-x:auto!important}
-          .juba-reference-v3 .juba-reference-reference-nav a{white-space:nowrap!important;padding:14px 0!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:1fr!important}
-          .juba-reference-v3 .juba-reference-v3-rail{display:grid!important;grid-template-columns:1fr 1fr!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{padding-left:96px!important}
-        }
-        @media (max-width:620px){
-          .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:23px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{min-height:125px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome:before{width:66px!important;height:66px!important;left:10px!important}
-          .juba-reference-v3 .juba-reference-v3-level{min-width:68px!important;width:68px!important;height:68px!important}
-          .juba-reference-v3 .juba-reference-v3-level span{font-size:13px!important}
-          .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats,.juba-reference-v3 .juba-reference-v3-rail{grid-template-columns:1fr!important}
-          .juba-reference-v3 .juba-reference-lesson{grid-template-columns:32px minmax(0,1fr)!important}
-          .juba-reference-v3 .juba-reference-lesson-action{grid-column:2!important;justify-self:start!important}
-          .juba-reference-v3 .juba-reference-achievement-strip-progress{width:70px!important}
-        }
-        /* Reference fidelity pass — dashboard composition */
-        .juba-reference-v3{background:#fff!important}
-        .juba-reference-v3 > section:first-child{max-width:1180px!important;margin-inline:auto!important}
-        .juba-reference-v3 .juba-reference-v3-card{border:1px solid #e8ece5!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
-        .juba-reference-v3 .juba-reference-v3-card-head{min-height:34px!important}
-        .juba-reference-v3 .juba-reference-section-label{font-size:8px!important;line-height:1.2!important;letter-spacing:.12em!important;font-weight:900!important;color:#a1a6a0!important}
-        .juba-reference-v3 .juba-reference-v3-card h2,.juba-reference-v3 .juba-reference-v3-card h3{letter-spacing:-.025em!important}
-        .juba-reference-v3 .juba-reference-profile-card{overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-profile-hero{padding:20px 18px 15px!important}
-        .juba-reference-v3 .juba-reference-profile-photo{width:72px!important;height:72px!important;border-radius:50%!important}
-        .juba-reference-v3 .juba-reference-profile-metrics{min-height:58px!important;border-top:1px solid #eef1ec!important}
-        .juba-reference-v3 .juba-reference-goal-ring{width:92px!important;height:92px!important}
-        .juba-reference-v3 .juba-reference-small-progress{height:5px!important;border-radius:999px!important;background:#edf2e9!important}
-        .juba-reference-v3 .juba-reference-small-progress span{border-radius:999px!important}
-        .juba-reference-v3 .juba-reference-tools-card>a{min-height:38px!important;border-radius:8px!important}
-        .juba-reference-v3 .juba-reference-friend-row{min-height:50px!important}
-        @media (max-width:1100px) and (min-width:901px){.juba-reference-v3{padding-inline:18px!important}.juba-reference-v3-rail{width:272px!important}}
-
-        /* Reference fidelity pass 2 — card rhythm and rail proportions */
-        .juba-reference-v3{gap:18px!important}
-        .juba-reference-v3 .juba-reference-v3-card{border-radius:12px!important}
-        .juba-reference-v3 .juba-reference-card-header{gap:18px!important}
-        .juba-reference-v3 .juba-reference-progress-row{min-height:20px!important}
-        .juba-reference-v3 .juba-reference-lesson{min-height:68px!important}
-        .juba-reference-v3 .juba-reference-lesson-copy strong{font-size:11px!important}
-        .juba-reference-v3 .juba-reference-lesson-copy>span{font-size:8px!important}
-        .juba-reference-v3 .juba-reference-v3-rail{width:276px!important;min-width:276px!important;gap:12px!important}
-        .juba-reference-v3 .juba-reference-profile-metrics span{min-width:0!important}
-        .juba-reference-v3 .juba-reference-friends-list{gap:0!important}
-        @media (max-width:1100px) and (min-width:901px){.juba-reference-v3 .juba-reference-v3-rail{width:268px!important;min-width:268px!important}}
-
-        /* Reference fidelity pass 3 — exact visual alignment */
-
-        .juba-reference-v3{padding:18px 22px 28px!important}
-        .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 276px!important;gap:18px!important;align-items:start!important}
-        .juba-reference-v3 .juba-reference-v3-card{border-radius:11px!important}
-        .juba-reference-v3 .juba-reference-v3-card-head{margin-bottom:3px!important}
-        .juba-reference-v3 .juba-reference-section-label{font-size:7.5px!important;letter-spacing:.13em!important}
-        .juba-reference-v3 .juba-reference-card-header h2{font-size:16px!important;line-height:1.25!important}
-        .juba-reference-v3 .juba-reference-card-header p{font-size:9.5px!important;line-height:1.45!important}
-        .juba-reference-v3 .juba-reference-course{padding:18px!important}
-        .juba-reference-v3 .juba-reference-progress-row{margin-top:11px!important}
-        .juba-reference-v3 .juba-reference-progress-meta{margin-top:8px!important}
-        .juba-reference-v3 .juba-reference-lesson{min-height:62px!important;grid-template-columns:38px minmax(0,1fr) auto!important}
-        .juba-reference-v3 .juba-reference-lesson-copy strong{font-size:10.5px!important}
-        .juba-reference-v3 .juba-reference-lesson-copy>span{font-size:8.5px!important}
-        .juba-reference-v3 .juba-reference-v3-rail{gap:12px!important}
-        .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{padding:14px!important}
-        .juba-reference-v3 .juba-reference-profile-hero{padding:17px 14px 13px!important}
-        .juba-reference-v3 .juba-reference-profile-photo{width:70px!important;height:70px!important}
-        .juba-reference-v3 .juba-reference-profile-hero>strong{font-size:14px!important}
-        .juba-reference-v3 .juba-reference-profile-metrics span{padding:9px 2px!important}
-        .juba-reference-v3 .juba-reference-goal-ring{margin:11px auto!important}
-        .juba-reference-v3 .juba-reference-tools-card a{padding:8px 0!important}
-        .juba-reference-v3 .juba-reference-friend-row{padding:7px 0!important}
-        @media (max-width:1180px) and (min-width:901px){
-          .juba-reference-v3{padding-inline:16px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 252px!important;gap:14px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-v3{padding:58px 12px 20px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{gap:14px!important}
-        }
-
-
-        /* Reference fidelity pass 4 — final proportion pass */
-
-        .juba-reference-v3 .juba-reference-topbar{max-width:1180px!important;height:68px!important}
-        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
-        .juba-reference-v3 .juba-reference-reference-nav a{font-size:11px!important;padding:25px 0 21px!important}
-        .juba-reference-v3 .juba-reference-reference-nav a.is-active:after{bottom:12px!important;height:2px!important}
-        .juba-reference-v3 .juba-reference-topbar-actions{gap:10px!important}
-        .juba-reference-v3 .juba-reference-course-selector{font-size:10px!important}
-        .juba-reference-v3 .juba-reference-course-selector strong{font-size:11px!important}
-        .juba-reference-v3 .juba-reference-icon-button{width:32px!important;height:32px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 18px 17px 106px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:27px!important;width:76px!important;height:76px!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important}
-        .juba-reference-v3 .juba-reference-welcome-copy p{font-size:13px!important}
-        .juba-reference-v3 .juba-reference-v3-level{width:86px!important;min-width:86px!important;height:86px!important}
-        .juba-reference-v3 .juba-reference-v3-level:after{inset:7px!important}
-        .juba-reference-v3 .juba-reference-v3-level span{font-size:17px!important}
-        .juba-reference-v3 .juba-reference-daily{padding:18px!important}
-        .juba-reference-v3 .juba-reference-v3-chart{height:142px!important;gap:12px!important;margin-top:13px!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col span{width:20px!important}
-        .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{gap:12px!important}
-        .juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card,.juba-reference-v3 .juba-reference-reference-stats .juba-reference-v3-card{padding:16px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip{padding:12px 14px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-progress{width:130px!important}
-        .juba-reference-v3 .juba-reference-course{padding:18px!important}
-        .juba-reference-v3 .juba-reference-card-header{gap:12px!important}
-        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{padding:7px 11px!important}
-        .juba-reference-v3 .juba-reference-lesson{min-height:60px!important}
-        .juba-reference-v3 .juba-reference-v3-rail{gap:11px!important}
-        .juba-reference-v3 .juba-reference-v3-rail>.juba-reference-v3-card{padding:13px!important}
-        .juba-reference-v3 .juba-reference-profile-hero{padding:16px 13px 12px!important}
-        .juba-reference-v3 .juba-reference-profile-photo{width:68px!important;height:68px!important}
-        .juba-reference-v3 .juba-reference-goal-ring{width:88px!important;height:88px!important}
-        @media (max-width:900px){
-          .juba-reference-v3 .juba-reference-topbar{height:auto!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{padding-left:96px!important}
-        }
-
-        .juba-reference-v3 .juba-reference-v3-grid{align-items:start!important}
-        .juba-reference-v3 .juba-reference-v3-main>section{overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-v3-card{overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-topbar-actions button{transition:background .16s ease,border-color .16s ease,color .16s ease!important}
-        .juba-reference-v3 .juba-reference-icon-button:hover{background:#f7faf5!important;border-color:#dfe7db!important;color:#58a91b!important}
-        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{transition:transform .12s ease,filter .12s ease!important}
-        .juba-reference-v3 .juba-reference-outline-button:hover,.juba-reference-v3 .juba-reference-green-button:hover{filter:brightness(.98)!important;transform:translateY(-1px)!important}
-        .juba-reference-v3 .juba-reference-lesson:last-child{border-bottom:0!important}
-        .juba-reference-v3 .juba-reference-friend-row:last-child{border-bottom:0!important}
-        .juba-reference-v3 .juba-reference-v3-rail{top:12px!important}
-        @media (max-width:900px){
-          .juba-reference-v3 .juba-reference-v3-rail{position:static!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr)!important}
-          .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{grid-template-columns:1fr!important}
-        }
-        /* Reference fidelity pass 6 — final dashboard surface polish */
-        .juba-reference-v3{background:#fff!important}
-        .juba-reference-v3 .juba-reference-topbar{border-bottom:1px solid #f0f2ed!important}
-        .juba-reference-v3 .juba-reference-v3-card{border-color:#edf0ea!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
-        .juba-reference-v3 .juba-reference-v3-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.045)!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{border-color:#edf0ea!important}
-        .juba-reference-v3 .juba-reference-reference-nav a{transition:color .16s ease,background .16s ease!important}
-        .juba-reference-v3 button:focus-visible,.juba-reference-v3 a:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
-        @media (max-width:900px){.juba-reference-v3 .juba-reference-topbar{border-bottom:1px solid #f0f2ed!important}}
-              /* reference fidelity pass 7 — screenshot-level rhythm and card geometry */
-        .juba-reference-v3 .juba-reference-v3-card{border-radius:14px!important;border:1px solid #e7ece3!important;background:#fff!important}
-        .juba-reference-v3 .juba-reference-v3-card-head{min-height:30px!important}
-        .juba-reference-v3 .juba-reference-v3-card-head h3{letter-spacing:-.02em!important}
-        .juba-reference-v3 .juba-reference-profile-card{overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-profile-hero{padding:18px 18px 15px!important}
-        .juba-reference-v3 .juba-reference-profile-metrics{border-top:1px solid #edf0ea!important}
-        .juba-reference-v3 .juba-reference-goal-ring{box-shadow:inset 0 0 0 1px rgba(88,169,27,.04)!important}
-        .juba-reference-v3 .juba-reference-small-progress{height:6px!important;border-radius:99px!important;background:#edf2e9!important;overflow:hidden!important}
-        .juba-reference-v3 .juba-reference-small-progress>span{display:block!important;height:100%!important;border-radius:inherit!important;background:#58cc02!important}
-        .juba-reference-v3 .juba-reference-tools-card a,.juba-reference-v3 .juba-reference-friend-row{min-height:48px!important}
-        .juba-reference-v3 .juba-reference-friend-row{border-bottom:1px solid #f0f2ed!important}
-        .juba-reference-v3 .juba-reference-friend-row:last-child{border-bottom:0!important}
-        .juba-reference-v3 .juba-reference-premium{border-radius:14px!important}
-        @media (max-width:900px){.juba-reference-v3 .juba-reference-v3-card{border-radius:12px!important}}
-
-
-        /* Reference fidelity pass 8 — final dashboard screenshot alignment */
-        .juba-reference-v3{padding-inline:22px!important;padding-bottom:28px!important}
-        .juba-reference-v3 .juba-reference-topbar{height:64px!important;max-width:1160px!important}
-        .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 276px!important;gap:16px!important;max-width:1160px!important}
-        .juba-reference-v3 .juba-reference-v3-main{min-width:0!important}
-        .juba-reference-v3 .juba-reference-v3-rail{width:276px!important;min-width:276px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{min-height:132px!important;border-radius:14px!important}
-        .juba-reference-v3 .juba-reference-daily{border-radius:14px!important}
-        .juba-reference-v3 .juba-reference-course{border-radius:14px!important}
-        .juba-reference-v3 .juba-reference-lesson{min-height:62px!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col span{border-radius:5px 5px 2px 2px!important}
-        .juba-reference-v3 .juba-reference-outline-button,.juba-reference-v3 .juba-reference-green-button{border-radius:8px!important}
-        @media (max-width:1180px) and (min-width:901px){
-          .juba-reference-v3{padding-inline:16px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 252px!important;gap:14px!important}
-          .juba-reference-v3 .juba-reference-v3-rail{width:252px!important;min-width:252px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-v3{padding-inline:12px!important;padding-bottom:20px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr)!important}
-          .juba-reference-v3 .juba-reference-v3-rail{width:auto!important;min-width:0!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{min-height:124px!important}
-        }
-
-        /* Reference fidelity pass 9 — dashboard optical hierarchy */
-        .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 280px!important;gap:24px!important}
-        .juba-reference-v3 .juba-reference-topbar{height:68px!important}
-        .juba-reference-v3 .juba-reference-topbar-title{gap:22px!important}
-        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding-left:108px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:27px!important;width:78px!important;height:78px!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:29px!important}
-        .juba-reference-v3 .juba-reference-v3-level{width:88px!important;height:88px!important;min-width:88px!important}
-        .juba-reference-v3 .juba-reference-v3-main>section{border-radius:13px!important}
-        .juba-reference-v3 .juba-reference-daily,.juba-reference-v3 .juba-reference-course{padding:18px!important}
-        .juba-reference-v3 .juba-reference-v3-chart{height:148px!important;gap:12px!important}
-        .juba-reference-v3 .juba-reference-v3-chart-col span{width:20px!important}
-        .juba-reference-v3 .juba-reference-reference-insights,.juba-reference-v3 .juba-reference-reference-stats{gap:12px!important}
-        .juba-reference-v3 .juba-reference-reference-insights .juba-reference-v3-card,.juba-reference-v3 .juba-reference-reference-stats .juba-reference-v3-card{padding:16px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip{padding:13px 15px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip-progress{width:136px!important}
-        .juba-reference-v3 .juba-reference-v3-rail{gap:12px!important}
-        @media (max-width:1100px) and (min-width:901px){
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 248px!important;gap:18px!important}
-          .juba-reference-v3 .juba-reference-reference-nav{gap:20px!important}
-        }
-        @media (max-width:760px){
-          .juba-reference-v3{padding:0 12px 22px!important}
-          .juba-reference-v3 .juba-reference-topbar{height:60px!important}
-          .juba-reference-v3 .juba-reference-reference-nav{gap:14px!important;overflow-x:auto!important;max-width:100%!important}
-          .juba-reference-v3 .juba-reference-reference-nav a{font-size:10px!important;padding:22px 0 18px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{min-height:126px!important;padding:18px 14px 18px 88px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome:before{left:8px!important;top:24px!important;width:66px!important;height:66px!important}
-          .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:23px!important}
-          .juba-reference-v3 .juba-reference-v3-level{width:64px!important;height:64px!important;min-width:64px!important}
-          .juba-reference-v3 .juba-reference-v3-level span{font-size:14px!important}
-        }
-              /* Reference fidelity pass 10 — dashboard screenshot geometry */
-        .juba-reference-v3{padding:0 26px 34px!important}
-        .juba-reference-v3 .juba-reference-topbar{height:68px!important;max-width:1360px!important}
-        .juba-reference-v3 .juba-reference-reference-nav{gap:30px!important}
-        .juba-reference-v3 .juba-reference-reference-nav a{font-size:11px!important;padding:25px 0 22px!important}
-        .juba-reference-v3 .juba-reference-v3-grid{max-width:1360px!important;grid-template-columns:minmax(0,1fr) 272px!important;gap:24px!important}
-        .juba-reference-v3 .juba-reference-v3-main>section{margin-bottom:16px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 16px 16px 104px!important}
-        .juba-reference-v3 .juba-reference-v3-welcome:before{left:14px!important;top:28px!important;width:76px!important;height:76px!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important}
-        .juba-reference-v3 .juba-reference-v3-level{width:86px!important;min-width:86px!important;height:86px!important}
-        .juba-reference-v3 .juba-reference-v3-level:after{inset:7px!important}
-        .juba-reference-v3 .juba-reference-v3-card{border-radius:13px!important;padding:17px!important}
-        .juba-reference-v3 .juba-reference-v3-card h3{font-size:15px!important}
-        .juba-reference-v3 .juba-reference-chart{min-height:206px!important}
-        .juba-reference-v3 .juba-reference-chart-bars{height:126px!important}
-        .juba-reference-v3 .juba-reference-insights-grid{gap:12px!important}
-        .juba-reference-v3 .juba-reference-stat-card{min-height:92px!important}
-        .juba-reference-v3 .juba-reference-achievement-strip{min-height:66px!important}
-        .juba-reference-v3 .juba-reference-v3-rail{width:272px!important;gap:14px!important}
-        .juba-reference-v3 .juba-reference-v3-rail>section{border-radius:13px!important}
-        @media (max-width:1180px) and (min-width:901px){
-          .juba-reference-v3{padding-inline:20px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 244px!important;gap:20px!important}
-          .juba-reference-v3 .juba-reference-v3-rail{width:244px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-v3{padding:0 12px 24px!important}
-          .juba-reference-v3 .juba-reference-topbar{height:58px!important}
-          .juba-reference-v3 .juba-reference-reference-nav{gap:14px!important}
-          .juba-reference-v3 .juba-reference-reference-nav a{font-size:9px!important;padding:20px 0 18px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{min-height:124px!important;padding:18px 12px 14px 82px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome:before{left:8px!important;top:26px!important;width:60px!important;height:60px!important}
-          .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:22px!important}
-          .juba-reference-v3 .juba-reference-v3-level{width:66px!important;min-width:66px!important;height:66px!important}
-          .juba-reference-v3 .juba-reference-v3-level:after{inset:6px!important}
-          .juba-reference-v3 .juba-reference-v3-card{padding:14px!important;border-radius:12px!important}
-        }
-
-        /* Reference fidelity pass 11 — dashboard optical alignment */
-        .juba-reference-dashboard.juba-reference-v3{padding:20px 24px 32px!important;max-width:1480px!important;margin-inline:auto!important}
-        .juba-reference-dashboard .juba-reference-topbar{height:60px!important;min-height:60px!important}
-        .juba-reference-dashboard .juba-reference-topbar-title{font-size:17px!important;font-weight:800!important;letter-spacing:-.025em!important}
-        .juba-reference-dashboard .juba-reference-reference-nav{gap:4px!important}
-        .juba-reference-dashboard .juba-reference-topbar-actions{gap:8px!important}
-        .juba-reference-dashboard .juba-reference-icon-button{width:36px!important;height:36px!important;border-radius:10px!important}
-        .juba-reference-dashboard .juba-reference-course-selector{min-height:36px!important;border-radius:10px!important}
-        .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 272px!important;gap:22px!important}
-        .juba-reference-dashboard .juba-reference-v3-main,.juba-reference-dashboard .juba-reference-v3-rail{min-width:0!important}
-        .juba-reference-dashboard .juba-reference-v3-welcome{min-height:132px!important;border-radius:14px!important;padding:20px 22px!important}
-        .juba-reference-dashboard .juba-reference-v3-card{border-radius:13px!important;box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
-        .juba-reference-dashboard .juba-reference-v3-card-head{min-height:30px!important}
-        .juba-reference-dashboard .juba-reference-v3-chart{min-height:202px!important}
-        .juba-reference-dashboard .juba-reference-reference-insights,.juba-reference-dashboard .juba-reference-reference-stats{gap:12px!important}
-        .juba-reference-dashboard .juba-reference-insight-card,.juba-reference-dashboard .juba-reference-stat-card{min-height:112px!important}
-        .juba-reference-dashboard .juba-reference-achievement-strip{min-height:72px!important}
-        .juba-reference-dashboard .juba-reference-v3-rail{gap:12px!important}
-        .juba-reference-dashboard .juba-reference-profile-card,.juba-reference-dashboard .juba-reference-goal-card,.juba-reference-dashboard .juba-reference-xp-card,.juba-reference-dashboard .juba-reference-achievement-card,.juba-reference-dashboard .juba-reference-tools-card,.juba-reference-dashboard .juba-reference-friends-card{border-radius:13px!important}
-        .juba-reference-dashboard .juba-reference-profile-hero{min-height:92px!important}
-        .juba-reference-dashboard .juba-reference-profile-photo{width:52px!important;height:52px!important}
-        .juba-reference-dashboard .juba-reference-profile-metrics{gap:8px!important}
-        .juba-reference-dashboard .juba-reference-goal-ring{width:70px!important;height:70px!important}
-        .juba-reference-dashboard .juba-reference-progress-track,.juba-reference-dashboard .juba-reference-insight-track,.juba-reference-dashboard .juba-reference-stat-track,.juba-reference-dashboard .juba-reference-small-progress{height:6px!important}
-        .juba-reference-dashboard .juba-reference-friend-row{min-height:50px!important}
-        .juba-reference-dashboard .juba-reference-lesson-copy{min-width:0!important}
-        .juba-reference-dashboard .juba-reference-lesson-action{flex:none!important}
-        @media (max-width:1180px) and (min-width:901px){
-          .juba-reference-dashboard.juba-reference-v3{padding-inline:18px!important}
-          .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 244px!important;gap:18px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-dashboard.juba-reference-v3{padding:14px 14px 24px!important}
-          .juba-reference-dashboard .juba-reference-topbar{height:54px!important;min-height:54px!important}
-          .juba-reference-dashboard .juba-reference-v3-grid{grid-template-columns:1fr!important;gap:14px!important}
-          .juba-reference-dashboard .juba-reference-v3-welcome{min-height:116px!important;padding:16px!important}
-          .juba-reference-dashboard .juba-reference-v3-card{border-radius:12px!important}
-          .juba-reference-dashboard .juba-reference-v3-chart{min-height:188px!important}
-          .juba-reference-dashboard .juba-reference-profile-photo{width:48px!important;height:48px!important}
-        }
-
-
-        /* Reference fidelity pass 12 — dashboard surface hierarchy */
-        .juba-reference-dashboard.juba-reference-v3{background:#f8faf7!important}
-        .juba-reference-dashboard .juba-reference-topbar{background:transparent!important}
-        .juba-reference-dashboard .juba-reference-topbar-title{color:#31372f!important}
-        .juba-reference-dashboard .juba-reference-reference-nav a{color:#8a9088!important;font-weight:750!important;transition:color .16s ease,background-color .16s ease!important}
-        .juba-reference-dashboard .juba-reference-reference-nav a:hover{color:#58a91b!important}
-        .juba-reference-dashboard .juba-reference-reference-nav a[aria-current="page"]{color:#58a91b!important}
-        .juba-reference-dashboard .juba-reference-v3-welcome{background:#fff!important;border:1px solid #edf1ea!important;box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
-        .juba-reference-dashboard .juba-reference-v3-card{background:#fff!important;border:1px solid #edf1ea!important}
-        .juba-reference-dashboard .juba-reference-v3-card-head h3{color:#30362f!important}
-        .juba-reference-dashboard .juba-reference-section-label{color:#92988f!important}
-        .juba-reference-dashboard .juba-reference-icon-button{background:#fff!important;border:1px solid #e9eee6!important;box-shadow:0 1px 1px rgba(35,55,25,.025)!important}
-        .juba-reference-dashboard .juba-reference-course-selector{background:#fff!important;border:1px solid #e9eee6!important}
-        .juba-reference-dashboard .juba-reference-premium{box-shadow:0 1px 2px rgba(35,55,25,.035)!important}
-        @media (max-width:900px){.juba-reference-dashboard.juba-reference-v3{background:#fff!important}}
-
-
-        /* Reference fidelity pass 10 — dashboard surface finishing */
-        .juba-reference-v3{padding:0 24px 32px!important;background:#fff!important}
-        .juba-reference-v3 .juba-reference-topbar{max-width:1480px!important;height:68px!important}
-        .juba-reference-v3 .juba-reference-v3-grid{max-width:1480px!important;grid-template-columns:minmax(0,1fr) 300px!important;gap:24px!important}
-        .juba-reference-v3 .juba-reference-v3-main>section{margin-bottom:16px!important}
-        .juba-reference-v3 .juba-reference-v3-main>section,
-        .juba-reference-v3 .juba-reference-v3-card{border-color:#e9eee7!important;border-radius:12px!important;box-shadow:0 1px 5px rgba(35,55,25,.025)!important}
-        .juba-reference-v3 .juba-reference-v3-welcome{min-height:136px!important;padding:22px 20px 18px 108px!important}
-        .juba-reference-v3 .juba-reference-welcome-copy h2{font-size:28px!important;color:#4f4f4f!important}
-        .juba-reference-v3 .juba-reference-v3-level{width:88px!important;height:88px!important}
-        .juba-reference-v3 .juba-reference-v3-card-head{min-height:38px!important}
-        .juba-reference-v3 .juba-reference-section-label{font-size:9px!important;color:#969b95!important}
-        .juba-reference-v3 .juba-reference-v3-card-head h2,
-        .juba-reference-v3 .juba-reference-v3-card-head h3{color:#505450!important}
-        .juba-reference-v3 .juba-reference-reference-insights,
-        .juba-reference-v3 .juba-reference-reference-stats{gap:14px!important}
-        .juba-reference-v3 .juba-reference-insight-card,
-        .juba-reference-v3 .juba-reference-stat-card{padding:16px!important}
-        .juba-reference-v3 .juba-reference-course{padding:18px!important}
-        .juba-reference-v3 .juba-reference-course-path{margin-top:14px!important}
-        .juba-reference-v3 .juba-reference-lesson{min-height:66px!important;padding:10px 12px!important}
-        .juba-reference-v3 .juba-reference-lesson-copy strong{font-size:12px!important;color:#4f534f!important}
-        .juba-reference-v3 .juba-reference-lesson-copy>span{font-size:9px!important;color:#969b95!important}
-        .juba-reference-v3 .juba-reference-green-button{border-radius:8px!important;box-shadow:0 2px 0 #46a302!important}
-        .juba-reference-v3 .juba-reference-v3-rail{gap:14px!important}
-        .juba-reference-v3 .juba-reference-profile-card,
-        .juba-reference-v3 .juba-reference-goal-card,
-        .juba-reference-v3 .juba-reference-xp-card,
-        .juba-reference-v3 .juba-reference-achievement-card,
-        .juba-reference-v3 .juba-reference-tools-card,
-        .juba-reference-v3 .juba-reference-friends-card{padding:16px!important}
-        .juba-reference-v3 .juba-reference-profile-hero{padding-bottom:13px!important}
-        .juba-reference-v3 .juba-reference-profile-photo{width:52px!important;height:52px!important;border-radius:50%!important}
-        .juba-reference-v3 .juba-reference-profile-metrics{border-top-color:#edf1eb!important}
-        .juba-reference-v3 .juba-reference-tools-card>a{min-height:36px!important;border-radius:8px!important}
-        .juba-reference-v3 .juba-reference-friend-row{min-height:48px!important;border-radius:8px!important}
-        @media (max-width:1100px) and (min-width:901px){
-          .juba-reference-v3 .juba-reference-v3-grid{grid-template-columns:minmax(0,1fr) 250px!important;gap:18px!important}
-          .juba-reference-v3{padding-inline:18px!important}
-        }
-        @media (max-width:900px){
-          .juba-reference-v3{padding:8px 12px 24px!important}
-          .juba-reference-v3 .juba-reference-topbar{height:58px!important}
-          .juba-reference-v3 .juba-reference-v3-grid{display:block!important}
-          .juba-reference-v3 .juba-reference-v3-rail{margin-top:14px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome{padding:18px!important;min-height:118px!important}
-          .juba-reference-v3 .juba-reference-v3-welcome:before{display:none!important}
-          .juba-reference-v3 .juba-reference-v3-level{width:68px!important;height:68px!important;min-width:68px!important}
-        }
-`}</style>
       <OnboardingTour />
       <WhatsNew />
-      <div className="juba-reference-dashboard juba-reference-v3" data-dashboard-version="reference-3">
-        <header className="juba-reference-topbar">
-          <div className="juba-reference-topbar-title">
-            <span className="juba-reference-dot" aria-hidden="true">JL</span>
-            <nav className="juba-reference-reference-nav" aria-label={tNav('navigation')}>
+      <div className="dashboard-dashboard dashboard-v3" data-dashboard-version="clean-v1">
+        <header className="dashboard-topbar">
+          <div className="dashboard-topbar-title">
+            <span className="dashboard-dot" aria-hidden="true">JL</span>
+            <nav className="dashboard-reference-nav" aria-label={tNav('navigation')}>
               <Link href="/dashboard" className="is-active">{tNav('home')}</Link>
               <Link href="/plan">{tNav('myPlan')}</Link>
               <Link href="/courses">{tNav('courses')}</Link>
             </nav>
           </div>
-          <div className="juba-reference-topbar-actions">
-            <span className="juba-reference-course-selector">
+          <div className="dashboard-topbar-actions">
+            <span className="dashboard-course-selector">
               <span>{tNav('switchLanguage')}</span>
               <strong>{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</strong>
             </span>
-            <button type="button" className="juba-reference-icon-button" onClick={refreshDashboardData} disabled={refreshing} aria-label={tError('retry')} title={tError('retry')}>
+            <button type="button" className="dashboard-icon-button" onClick={refreshDashboardData} disabled={refreshing} aria-label={tError('retry')} title={tError('retry')}>
               <RefreshCw size={15} className={refreshing ? 'animate-spin' : ''} />
             </button>
           </div>
@@ -932,20 +392,20 @@ export default function DashboardPage() {
 
 
         {loadError && (
-          <div className="juba-reference-alert" role="alert">
+          <div className="dashboard-alert" role="alert">
             <span>{tError('body')}</span>
             <button type="button" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>{tError('retry')}</button>
           </div>
         )}
 
-        <section className="juba-reference-v3-grid">
-          <main className="juba-reference-v3-main">
-            <section className="juba-reference-v3-welcome">
-              <div className="juba-reference-welcome-copy">
-                <span className="juba-reference-section-label">JUBA LISAN</span>
+        <section className="dashboard-v3-grid">
+          <main className="dashboard-v3-main">
+            <section className="dashboard-v3-welcome">
+              <div className="dashboard-welcome-copy">
+                <span className="dashboard-section-label">JUBA LISAN</span>
                 <h2>Welcome back, {user?.displayName || user?.username || ''}!</h2>
                 <p>{completedLessonCount}/{Math.max(1, todayLessons.length)} {t('today')}</p>
-                <div className="juba-reference-welcome-meta">
+                <div className="dashboard-welcome-meta">
                   <span>{Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100))}% {t('todayGoal')}</span>
                   <i aria-hidden="true" />
                   <span>{cefrLevel || 'A1'}</span>
@@ -953,83 +413,83 @@ export default function DashboardPage() {
                   <span>{currentDayDisplay}/{totalDays || 0}</span>
                 </div>
               </div>
-              <div className="juba-reference-v3-level" style={{'--level-progress': planCompletion} as React.CSSProperties} aria-label={(cefrLevel || 'A1') + ' ' + planCompletion + '%'}>
+              <div className="dashboard-v3-level" style={{'--level-progress': planCompletion} as React.CSSProperties} aria-label={(cefrLevel || 'A1') + ' ' + planCompletion + '%'}>
                 <span>{cefrLevel || 'A1'}</span>
                 <small>{planCompletion}%</small>
               </div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-daily">
-              <div className="juba-reference-v3-card-head">
+            <section className="dashboard-v3-card dashboard-daily">
+              <div className="dashboard-v3-card-head">
                 <div>
-                  <span className="juba-reference-section-label">{t('xp')}</span>
+                  <span className="dashboard-section-label">{t('xp')}</span>
                   <h2>{t('recentPerformance')}</h2>
                 </div>
                 <strong>{xp} XP</strong>
               </div>
-              <div className="juba-reference-v3-chart">
+              <div className="dashboard-v3-chart">
                 {(progressBars.length ? progressBars : weekDays.map(day => ({day, value:0, active:false}))).map((bar,index,bars) => {
                   const max = Math.max(1, ...bars.map(item => item.value))
                   return (
-                    <div key={index} className={`juba-reference-v3-chart-col ${bar.active ? 'active' : ''}`}>
+                    <div key={index} className={`dashboard-v3-chart-col ${bar.active ? 'active' : ''}`}>
                       <span style={{height: Math.max(8, Math.round((bar.value / max) * 100)) + '%'}} />
                       <small>{bar.day}</small>
                     </div>
                   )
                 })}
               </div>
-              <div className="juba-reference-v3-chart-footer">
+              <div className="dashboard-v3-chart-footer">
                 <span>{t('streak')}: <b>{streak}</b></span>
                 <span>{t('accuracy')}: <b>{accuracy}%</b></span>
               </div>
-              <div className="juba-reference-chart-summary">
+              <div className="dashboard-chart-summary">
                 <span><small>{t('xp')}</small><b>{chartEntries.reduce((sum, entry) => sum + entry.xp_earned, 0)}</b></span>
                 <span><small>{t('accuracy')}</small><b>{chartAverage}%</b></span>
                 <span><small>{t('completedToday', { completed: completedLessonCount, total: Math.max(todayLessons.length, completedLessonCount) })}</small><b>{completedLessonCount}</b></span>
               </div>
             </section>
 
-            <section className="juba-reference-reference-insights">
-              <div className="juba-reference-v3-card juba-reference-insight-card">
-                <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
+            <section className="dashboard-reference-insights">
+              <div className="dashboard-v3-card dashboard-insight-card">
+                <div className="dashboard-v3-card-head">
+                  <div><span className="dashboard-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
                   <Flame size={18} />
                 </div>
-                <div className="juba-reference-insight-value"><strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)} {t('today')}</span></div>
-                <div className="juba-reference-insight-track"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
-                <div className="juba-reference-insight-footer"><span>{t('xp')}</span><b>{xp}</b><span>{t('streak')}</span><b>{streak}</b></div>
+                <div className="dashboard-insight-value"><strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)} {t('today')}</span></div>
+                <div className="dashboard-insight-track"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
+                <div className="dashboard-insight-footer"><span>{t('xp')}</span><b>{xp}</b><span>{t('streak')}</span><b>{streak}</b></div>
               </div>
-              <div className="juba-reference-v3-card juba-reference-insight-card">
-                <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
+              <div className="dashboard-v3-card dashboard-insight-card">
+                <div className="dashboard-v3-card-head">
+                  <div><span className="dashboard-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
                   <Library size={18} />
                 </div>
-                <div className="juba-reference-words-value"><strong>{vocabularyMastered.toLocaleString()}</strong><span>/ {vocabularyTotal.toLocaleString()}</span></div>
-                <div className="juba-reference-word-bars" aria-hidden="true">
+                <div className="dashboard-words-value"><strong>{vocabularyMastered.toLocaleString()}</strong><span>/ {vocabularyTotal.toLocaleString()}</span></div>
+                <div className="dashboard-word-bars" aria-hidden="true">
                   {[20, 34, 48, 62, 76, 90].map((height, index) => (
                     <span key={height} style={{height: Math.max(12, Math.round(height * Math.max(0.18, vocabularyProgress))) + '%'}} className={index === 5 ? 'active' : ''} />
                   ))}
                 </div>
-                <div className="juba-reference-insight-footer"><span>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><b>{vocabularyProgressPct}%</b><span>{vocabularyLevel || 'A1'}</span></div>
+                <div className="dashboard-insight-footer"><span>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><b>{vocabularyProgressPct}%</b><span>{vocabularyLevel || 'A1'}</span></div>
               </div>
             </section>
 
-            <section className="juba-reference-reference-stats">
-              <div className="juba-reference-v3-card juba-reference-stat-card">
-                <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
+            <section className="dashboard-reference-stats">
+              <div className="dashboard-v3-card dashboard-stat-card">
+                <div className="dashboard-v3-card-head">
+                  <div><span className="dashboard-section-label">{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</span><h3>{t('vocabularyProgress', { level: vocabularyLevel || 'A1' })}</h3></div>
                   <Library size={18} />
                 </div>
-                <div className="juba-reference-stat-value">{vocabularyMastered.toLocaleString()}</div>
-                <div className="juba-reference-stat-caption">{vocabularyTotal.toLocaleString()} · {vocabularyProgressPct}%</div>
-                <div className="juba-reference-stat-track"><span style={{width: vocabularyProgressPct + '%'}} /></div>
+                <div className="dashboard-stat-value">{vocabularyMastered.toLocaleString()}</div>
+                <div className="dashboard-stat-caption">{vocabularyTotal.toLocaleString()} · {vocabularyProgressPct}%</div>
+                <div className="dashboard-stat-track"><span style={{width: vocabularyProgressPct + '%'}} /></div>
               </div>
-              <div className="juba-reference-v3-card juba-reference-stat-card">
-                <div className="juba-reference-v3-card-head">
-                  <div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div>
+              <div className="dashboard-v3-card dashboard-stat-card">
+                <div className="dashboard-v3-card-head">
+                  <div><span className="dashboard-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div>
                   <ChartNoAxesColumnIncreasing size={18} />
                 </div>
-                <div className="juba-reference-stat-breakdown">
+                <div className="dashboard-stat-breakdown">
                   <span><i />{t('today')}<b>{historyEntries[historyEntries.length - 1]?.xp_earned ?? 0} XP</b></span>
                   <span><i />{t('streak')}<b>{streak}</b></span>
                   <span><i />{t('accuracy')}<b>{accuracy}%</b></span>
@@ -1037,144 +497,144 @@ export default function DashboardPage() {
               </div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-achievement-strip">
-              <div className="juba-reference-achievement-strip-icon"><Trophy size={20}/></div>
-              <div className="juba-reference-achievement-strip-copy">
-                <span className="juba-reference-section-label">{t('nextStep')}</span>
+            <section className="dashboard-v3-card dashboard-achievement-strip">
+              <div className="dashboard-achievement-strip-icon"><Trophy size={20}/></div>
+              <div className="dashboard-achievement-strip-copy">
+                <span className="dashboard-section-label">{t('nextStep')}</span>
                 <strong>{nextLesson?.title || t('startWithAssessment')}</strong>
                 <small>{cefrLevel || 'A1'} · {planCompletion}%</small>
               </div>
-              <div className="juba-reference-achievement-strip-progress"><span style={{width: planCompletion + '%'}} /></div>
+              <div className="dashboard-achievement-strip-progress"><span style={{width: planCompletion + '%'}} /></div>
             </section>
-            <section className="juba-reference-v3-card juba-reference-course">
-              <div className="juba-reference-card-header">
+            <section className="dashboard-v3-card dashboard-course">
+              <div className="dashboard-card-header">
                 <div>
-                  <span className="juba-reference-section-label">{t('nextStep')}</span>
+                  <span className="dashboard-section-label">{t('nextStep')}</span>
                   <h2>{cefrLevel || 'A1'} · {nextLesson?.title || t('startWithAssessment')}</h2>
                   <p>{nextLesson?.objectives?.[0] || t('goToMyPlan')}</p>
                 </div>
-                <Link href="/plan" className="juba-reference-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
+                <Link href="/plan" className="dashboard-outline-button">{t('goToMyPlan')} <ArrowUpRight size={15} /></Link>
               </div>
-              <div className="juba-reference-progress-row"><div className="juba-reference-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
-              <div className="juba-reference-progress-meta" style={{display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:8,marginTop:9}}>
+              <div className="dashboard-progress-row"><div className="dashboard-progress-track"><span style={{width: planCompletion + '%'}} /></div><strong>{planCompletion}%</strong></div>
+              <div className="dashboard-progress-meta" style={{display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:8,marginTop:9}}>
                 <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('today')}</small><b style={{fontSize:10,color:'#555'}}>{currentDayDisplay}/{totalDays || 0}</b></span>
                 <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('completedToday',{completed:completedLessonCount,total:todayLessons.length})}</small><b style={{fontSize:10,color:'#58a91b'}}>{completedLessonCount}/{todayLessons.length}</b></span>
                 <span style={{display:'flex',flexDirection:'column',gap:2,padding:'7px 9px',border:'1px solid #ececec',borderRadius:7,background:'#fff'}}><small style={{fontSize:7,fontWeight:850,color:'#aaa',textTransform:'uppercase',letterSpacing:'.05em'}}>{t('nextStep')}</small><b style={{fontSize:10,color:'#555'}}>{coursePathCurrentLabel}/{todayLessons.length || 0}</b></span>
               </div>
-              <div className="juba-reference-lessons juba-reference-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
+              <div className="dashboard-lessons dashboard-course-path" style={{ "--course-path-progress": String(coursePathProgress) } as React.CSSProperties}>
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
                   return (
-                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`juba-reference-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} style={current ? { background: '#fbfff8', boxShadow: 'inset 3px 0 0 #58cc02', minHeight: 72, borderBottomColor: '#e8eee4' } : done ? { background: '#fff' } : undefined}>
-                      <div className="juba-reference-path-rail" aria-hidden="true">
-                        <span className={`juba-reference-path-node ${done ? 'done' : current ? 'current' : ''}`} style={current ? { width: 34, height: 34, marginInlineStart: -2, boxShadow: '0 0 0 5px #f4faef', fontSize: 10 } : undefined}>
+                    <div key={lesson.id ?? lesson.title} aria-current={current ? 'step' : undefined} data-checkpoint-state={done ? 'completed' : current ? 'current' : 'upcoming'} className={`dashboard-lesson ${current ? 'current' : ''} ${done ? 'done' : ''}`} style={current ? { background: '#fbfff8', boxShadow: 'inset 3px 0 0 #58cc02', minHeight: 72, borderBottomColor: '#e8eee4' } : done ? { background: '#fff' } : undefined}>
+                      <div className="dashboard-path-rail" aria-hidden="true">
+                        <span className={`dashboard-path-node ${done ? 'done' : current ? 'current' : ''}`} style={current ? { width: 34, height: 34, marginInlineStart: -2, boxShadow: '0 0 0 5px #f4faef', fontSize: 10 } : undefined}>
                           {done ? <Check size={14} strokeWidth={3} /> : current ? <Play size={13} fill="currentColor" /> : <span>{index + 1}</span>}
                         </span>
                       </div>
-                      <div className="juba-reference-lesson-copy">
+                      <div className="dashboard-lesson-copy">
                         <div style={{display:'flex',alignItems:'center',gap:7,minWidth:0}}>
                           <span style={{fontSize:8,fontWeight:950,color:done ? '#58a91b' : current ? '#58a91b' : '#b2b2b2',letterSpacing:'.05em',textTransform:'uppercase',whiteSpace:'nowrap'}}>CP {String(index + 1).padStart(2,'0')}</span>
                           <strong style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{lesson.title}</strong>
                         </div>
                         <span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span>
                       </div>
-                      <div className="juba-reference-lesson-action">
-                        {current && lesson.id ? <div style={{display:'flex',alignItems:'center',gap:7}}><span style={{fontSize:8,fontWeight:900,color:'#58a91b',letterSpacing:'.04em',textTransform:'uppercase'}}>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="juba-reference-green-button">{t('startLesson')}</Link></div> : done ? <span className="juba-reference-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="juba-reference-locked"><MoreHorizontal size={17} /></span>}
+                      <div className="dashboard-lesson-action">
+                        {current && lesson.id ? <div style={{display:'flex',alignItems:'center',gap:7}}><span style={{fontSize:8,fontWeight:900,color:'#58a91b',letterSpacing:'.04em',textTransform:'uppercase'}}>{t('today')}</span><Link href={'/lesson/' + lesson.id} className="dashboard-green-button">{t('startLesson')}</Link></div> : done ? <span className="dashboard-completed"><Check size={14} />{t('completedToday',{completed:1,total:1})}</span> : <span className="dashboard-locked"><MoreHorizontal size={17} /></span>}
                       </div>
                     </div>
                   )
                 }) : (
-                  <div className="juba-reference-empty"><BookOpen size={30}/><div><strong>{t('startWithAssessment')}</strong><span>{t('goToMyPlan')}</span></div><Link href="/assessment" className="juba-reference-green-button">{tNav('assessment')}</Link></div>
+                  <div className="dashboard-empty"><BookOpen size={30}/><div><strong>{t('startWithAssessment')}</strong><span>{t('goToMyPlan')}</span></div><Link href="/assessment" className="dashboard-green-button">{tNav('assessment')}</Link></div>
                 )}
               </div>
             </section>
           </main>
 
-          <aside className="juba-reference-v3-rail">
-            <section className="juba-reference-v3-card juba-reference-profile-card">
-              <div className="juba-reference-profile-hero">
-                <div className="juba-reference-profile-photo">
+          <aside className="dashboard-v3-rail">
+            <section className="dashboard-v3-card dashboard-profile-card">
+              <div className="dashboard-profile-hero">
+                <div className="dashboard-profile-photo">
                   {user?.avatar ? <img src={user.avatar} alt="" /> : <UserRound size={28} />}
                 </div>
                 <strong>{user?.displayName || user?.username}</strong>
                 <span>{cefrLevel || 'A1'} · {tTarget(activeLanguage?.code || 'en-US')}</span>
               </div>
-              <div className="juba-reference-profile-metrics">
+              <div className="dashboard-profile-metrics">
                 <span><b>{xp}</b><small>XP</small></span>
                 <span><b>{streak}</b><small>{t('streak')}</small></span>
                 <span><b>{accuracy}%</b><small>{t('accuracy')}</small></span>
               </div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-goal-card">
-              <div className="juba-reference-v3-card-head">
-                <div><span className="juba-reference-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
+            <section className="dashboard-v3-card dashboard-goal-card">
+              <div className="dashboard-v3-card-head">
+                <div><span className="dashboard-section-label">{t('today')}</span><h3>{t('todayGoal')}</h3></div>
                 <Flame size={19} />
               </div>
-              <div className="juba-reference-goal-ring" style={{background: 'conic-gradient(#58cc02 0 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%, #edf2e9 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '% 100%)'}}>
+              <div className="dashboard-goal-ring" style={{background: 'conic-gradient(#58cc02 0 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%, #edf2e9 ' + Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '% 100%)'}}>
                 <strong>{completedLessonCount}</strong><span>/{Math.max(1, todayLessons.length)}</span>
               </div>
-              <div className="juba-reference-goal-copy">
+              <div className="dashboard-goal-copy">
                 <b>{Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100))}%</b>
                 <span>{t('completedToday', { completed: completedLessonCount, total: Math.max(1, todayLessons.length) })}</span>
               </div>
-              <div className="juba-reference-small-progress"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
+              <div className="dashboard-small-progress"><span style={{width: Math.min(100, Math.round((completedLessonCount / Math.max(1, todayLessons.length)) * 100)) + '%'}} /></div>
             </section>
-            <section className="juba-reference-v3-card juba-reference-xp-card">
-              <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><ChartNoAxesColumnIncreasing size={18}/></div>
-              <div className="juba-reference-xp-list">
+            <section className="dashboard-v3-card dashboard-xp-card">
+              <div className="dashboard-v3-card-head"><div><span className="dashboard-section-label">{t('xp')}</span><h3>{t('recentPerformance')}</h3></div><ChartNoAxesColumnIncreasing size={18}/></div>
+              <div className="dashboard-xp-list">
                 <div><span>{t('today')}</span><b>{historyEntries[historyEntries.length - 1]?.xp_earned ?? 0} XP</b></div>
                 <div><span>{t('streak')}</span><b>{streak}</b></div>
                 <div><span>{t('accuracy')}</span><b>{accuracy}%</b></div>
               </div>
             </section>
-            <section className="juba-reference-v3-card juba-reference-achievement-card">
-              <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{t('nextStep')}</span><h3>{t('startWithAssessment')}</h3></div><Trophy size={19} /></div>
-              <div className="juba-reference-achievement-icon"><Trophy size={29}/></div>
+            <section className="dashboard-v3-card dashboard-achievement-card">
+              <div className="dashboard-v3-card-head"><div><span className="dashboard-section-label">{t('nextStep')}</span><h3>{t('startWithAssessment')}</h3></div><Trophy size={19} /></div>
+              <div className="dashboard-achievement-icon"><Trophy size={29}/></div>
               <strong>{nextLesson?.title || t('startWithAssessment')}</strong>
               <span>{cefrLevel || 'A1'} · {planCompletion}%</span>
-              <div className="juba-reference-small-progress"><span style={{width:planCompletion + '%'}} /></div>
+              <div className="dashboard-small-progress"><span style={{width:planCompletion + '%'}} /></div>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-tools-card">
-              <div className="juba-reference-v3-card-head"><div><span className="juba-reference-section-label">{tNav('courses')}</span><h3>{tNav('courses')}</h3></div><LayoutDashboard size={18}/></div>
+            <section className="dashboard-v3-card dashboard-tools-card">
+              <div className="dashboard-v3-card-head"><div><span className="dashboard-section-label">{tNav('courses')}</span><h3>{tNav('courses')}</h3></div><LayoutDashboard size={18}/></div>
               <Link href="/reading"><BookOpen size={17}/><span>{tNav('reading')}</span><ArrowUpRight size={14}/></Link>
               <Link href="/listening"><Headphones size={17}/><span>{tNav('listening')}</span><ArrowUpRight size={14}/></Link>
               <Link href="/flashcards"><Library size={17}/><span>{tNav('flashcards')}</span><ArrowUpRight size={14}/></Link>
               <Link href="/chat"><Mic2 size={17}/><span>{tNav('tutor')}</span><ArrowUpRight size={14}/></Link>
             </section>
 
-            <section className="juba-reference-v3-card juba-reference-friends-card">
-              <div className="juba-reference-v3-card-head">
-                <div><span className="juba-reference-section-label"><Users size={13} /> {tNav('friends')}</span><h3>{tNav('friends')}</h3></div>
-                <Link href="/friends" className="juba-reference-mini-link">VIEW ALL</Link>
+            <section className="dashboard-v3-card dashboard-friends-card">
+              <div className="dashboard-v3-card-head">
+                <div><span className="dashboard-section-label"><Users size={13} /> {tNav('friends')}</span><h3>{tNav('friends')}</h3></div>
+                <Link href="/friends" className="dashboard-mini-link">VIEW ALL</Link>
               </div>
-              <div className="juba-reference-friends-list">
+              <div className="dashboard-friends-list">
                 {friends.length ? friends.map((friend) => (
-                  <Link key={friend.id} href={'/friends/chat/' + friend.id} className="juba-reference-friend-row">
-                    <span className="juba-reference-friend-avatar">
+                  <Link key={friend.id} href={'/friends/chat/' + friend.id} className="dashboard-friend-row">
+                    <span className="dashboard-friend-avatar">
                       {friend.avatar ? (
                         <AuthAvatarImage avatar={friend.avatar} alt="" width={34} height={34} className="h-full w-full object-cover" />
                       ) : (
                         (friend.display_name || friend.username || '?')[0].toUpperCase()
                       )}
                     </span>
-                    <span className="juba-reference-friend-copy">
+                    <span className="dashboard-friend-copy">
                       <strong>{friend.display_name || friend.username}</strong>
                       <small>@{friend.username}</small>
                     </span>
-                    <span className="juba-reference-friend-arrow">›</span>
+                    <span className="dashboard-friend-arrow">›</span>
                   </Link>
                 )) : (
-                  <Link href="/friends" className="juba-reference-friends-empty">{t('goToMyPlan')}</Link>
+                  <Link href="/friends" className="dashboard-friends-empty">{t('goToMyPlan')}</Link>
                 )}
               </div>
             </section>
 
             {showPremiumBanner && (
-              <section className="juba-reference-premium">
-                <div className="juba-reference-premium-icon"><Sparkles size={20}/></div>
+              <section className="dashboard-premium">
+                <div className="dashboard-premium-icon"><Sparkles size={20}/></div>
                 <div><strong>{freemiumTrialActive ? t('freemiumTrialTitle',{days:freemiumTrialDaysLeft}) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</strong><span>{freemiumTrialActive ? t('freemiumTrialDesc',{days:freemiumTrialDaysLeft}) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</span></div>
                 {paymentRecovery ? <button onClick={handleManageSubscription} disabled={portalLoading}>{portalLoading ? '…' : tBilling('updatePayment')}</button> : !freemiumTrialActive ? <SubscriptionPlanButtons/> : null}
               </section>
