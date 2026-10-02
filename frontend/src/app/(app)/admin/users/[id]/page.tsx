@@ -149,9 +149,9 @@ function subscriptionStatusClass(status: string) {
     case 'incomplete_expired':
       return 'border-orange-200 text-orange-700'
     case 'canceled':
-      return 'border-[var(--duo-line)] text-[rgba(32,33,39,.52)]'
+      return 'border-[var(--duo-line)] text-[var(--juba-muted)]'
     default:
-      return 'border-[var(--duo-line)] text-[rgba(32,33,39,.52)]'
+      return 'border-[var(--duo-line)] text-[var(--juba-muted)]'
   }
 }
 
@@ -381,14 +381,14 @@ export default function AdminUserStatsPage() {
           >
             {t('users')}
           </Link>
-          <span className="text-[rgba(32,33,39,.52)] text-[var(--duo-ink)] font-sans">/</span>
+          <span className="text-[var(--juba-muted)] text-[var(--duo-ink)] font-sans">/</span>
           <span className="text-[var(--duo-ink)] text-[var(--duo-ink)] truncate font-semibold tracking-wide">
             {user.display_name}
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
+            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
               user.is_active
                 ? 'border-[var(--duo-green-dark)]/30 text-[var(--duo-green-dark)]'
                 : 'border-red-200 text-red-600'
@@ -397,16 +397,16 @@ export default function AdminUserStatsPage() {
             {user.is_active ? t('active') : t('inactive')}
           </span>
           <span
-            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
+            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
               user.role === 'admin'
                 ? 'border-[var(--duo-green-dark)]/30 text-[var(--duo-green-dark)]'
-                : 'border-[var(--duo-line)] text-[rgba(32,33,39,.52)]'
+                : 'border-[var(--duo-line)] text-[var(--juba-muted)]'
             }`}
           >
             {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
           </span>
           <span
-            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${subscriptionStatusClass(user.subscription_status)}`}
+            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${subscriptionStatusClass(user.subscription_status)}`}
           >
             {subscriptionLabel}
           </span>
@@ -421,7 +421,7 @@ export default function AdminUserStatsPage() {
             <p className="text-[var(--duo-ink)] truncate font-sans text-xl">
               {user.display_name}
             </p>
-            <p className="text-[rgba(32,33,39,.52)] mt-1 font-sans text-xs break-all">
+            <p className="text-[var(--juba-muted)] mt-1 font-sans text-xs break-all">
               #{user.id} / @{user.username.toLowerCase()}
               {user.email ? ` / ${user.email}` : ''}
             </p>
@@ -465,7 +465,7 @@ export default function AdminUserStatsPage() {
               className={`text-[var(--duo-ink)] flex min-h-9 shrink-0 items-center gap-2 px-3 py-2 font-semibold tracking-wide transition-colors ${
                 active
                   ? 'bg-[var(--juba-bg)] text-[var(--duo-ink)] border-fl-accent border-l-2'
-                  : 'text-[rgba(32,33,39,.52)] hover:bg-[var(--juba-bg)] hover:text-[var(--duo-ink)] border-l-2 border-transparent'
+                  : 'text-[var(--juba-muted)] hover:bg-[var(--juba-bg)] hover:text-[var(--duo-ink)] border-l-2 border-transparent'
               }`}
             >
               <Icon className="size-3.5" aria-hidden="true" />
@@ -493,7 +493,7 @@ export default function AdminUserStatsPage() {
                   />
                 ) : (
                   <MailCheck
-                    className="text-[rgba(32,33,39,.52)] size-4"
+                    className="text-[var(--juba-muted)] size-4"
                     aria-hidden="true"
                   />
                 )}
@@ -506,7 +506,7 @@ export default function AdminUserStatsPage() {
               <button
                 onClick={() => setVerifyPending(true)}
                 disabled={verifySaving}
-                className="text-[rgba(32,33,39,.52)] hover:border-fl-fg hover:text-[var(--duo-ink)] border-[var(--duo-line)] text-[rgba(32,33,39,.52)] inline-flex items-center gap-2 border px-2 py-1 font-semibold tracking-wide transition-colors disabled:opacity-40"
+                className="text-[var(--juba-muted)] hover:border-fl-fg hover:text-[var(--duo-ink)] border-[var(--duo-line)] text-[var(--juba-muted)] inline-flex items-center gap-2 border px-2 py-1 font-semibold tracking-wide transition-colors disabled:opacity-40"
               >
                 {verifySaving && (
                   <Loader2
@@ -536,7 +536,7 @@ export default function AdminUserStatsPage() {
       {activeTab === 'languages' && (
         <Section title={t('sectionLanguages')}>
           {stats.per_language.length === 0 ? (
-            <p className="text-[rgba(32,33,39,.52)] py-6 text-center font-sans text-xs">
+            <p className="text-[var(--juba-muted)] py-6 text-center font-sans text-xs">
               {t('statsNoData')}
             </p>
           ) : (
@@ -580,7 +580,7 @@ export default function AdminUserStatsPage() {
                         </span>
                       )}
                     </div>
-                    <div className="text-[rgba(32,33,39,.52)] mt-3 grid grid-cols-2 gap-2 font-sans text-xs">
+                    <div className="text-[var(--juba-muted)] mt-3 grid grid-cols-2 gap-2 font-sans text-xs">
                       <span>
                         {t('statsXp')}: {pl.xp_total.toLocaleString()}
                       </span>
@@ -632,7 +632,7 @@ export default function AdminUserStatsPage() {
               value={stats.chat_messages_sent}
             />
             {stats.tokens_total === 0 ? (
-              <p className="text-[rgba(32,33,39,.52)] py-4 font-sans text-xs">
+              <p className="text-[var(--juba-muted)] py-4 font-sans text-xs">
                 {t('statsTokensNote')}
               </p>
             ) : (
@@ -686,7 +686,7 @@ export default function AdminUserStatsPage() {
                 />
               </>
             ) : (
-              <p className="text-[rgba(32,33,39,.52)] py-4 font-sans text-xs">
+              <p className="text-[var(--juba-muted)] py-4 font-sans text-xs">
                 {t('statsNoData')}
               </p>
             )}
@@ -718,7 +718,7 @@ export default function AdminUserStatsPage() {
                 value={quotaMonthlyTokens}
                 onChange={setQuotaMonthlyTokens}
               />
-              <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans">
+              <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans">
                 {t('quotaZeroMeansUnlimited')}
               </p>
               {quotaError && (
@@ -775,11 +775,11 @@ export default function AdminUserStatsPage() {
                 <option value="yearly">{tBilling('planYearlyName')}</option>
               </select>
             </label>
-            <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans">
+            <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans">
               {t('subscriptionOverrideDesc')}
             </p>
             {subscriptionSaving && (
-              <p className="text-[rgba(32,33,39,.52)] inline-flex items-center gap-2 font-sans text-xs">
+              <p className="text-[var(--juba-muted)] inline-flex items-center gap-2 font-sans text-xs">
                 <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
                 {t('saving')}
               </p>
@@ -851,7 +851,7 @@ function QuotaInput({
             invalid ? 'border-red-200/50' : 'border-[var(--duo-line)]'
           }`}
         />
-        <span className="border-[var(--duo-line)] bg-[var(--juba-surface-2)] text-[rgba(32,33,39,.52)] border border-l-0 px-3 py-2 font-sans text-xs">
+        <span className="border-[var(--duo-line)] bg-[var(--juba-surface-2)] text-[var(--juba-muted)] border border-l-0 px-3 py-2 font-sans text-xs">
           {unit}
         </span>
       </span>
