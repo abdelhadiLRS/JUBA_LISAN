@@ -70,7 +70,7 @@ function RichText({ text }: { text: string }) {
         }
         if (part.startsWith('`') && part.endsWith('`')) {
           return (
-            <code key={i} className="bg-[var(--juba-lilac)] text-[var(--duo-ink)] px-1 font-mono">
+            <code key={i} className="bg-[var(--juba-border)] text-[var(--duo-ink)] px-1 font-mono">
               {part.slice(1, -1)}
             </code>
           )
@@ -228,7 +228,7 @@ export default function GrammarDetailPage({
             {topic.summary}
           </p>
           {topic.structure && (
-            <div className="border-[var(--duo-line)] bg-[var(--juba-lilac)]/40 border px-4 py-3">
+            <div className="border-[var(--duo-line)] bg-[var(--juba-border)]/40 border px-4 py-3">
               <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-1 font-mono tracking-widest uppercase">
                 {t('structure')}
               </p>
