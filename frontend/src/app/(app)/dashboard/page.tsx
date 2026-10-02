@@ -1076,8 +1076,15 @@ export default function DashboardPage() {
   .dashboard-lesson-code{font-size:8px;font-weight:950;color:#b2b2b2;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
   .dashboard-lesson.done .dashboard-lesson-code,.dashboard-lesson.current .dashboard-lesson-code{color:#58a91b}
   .dashboard-lesson.current .dashboard-path-node{width:34px;height:34px;margin-inline-start:-2px;box-shadow:0 0 0 5px #f4faef;font-size:10px}
-  .dashboard-lesson-current-action{display:flex;align-items:center;gap:7px}
-  .dashboard-lesson-current-action>span{font-size:8px;font-weight:900;color:#58a91b;letter-spacing:.04em;text-transform:uppercase}
+  .dashboard-lesson-current-action{display:flex;align-items:center;gap:8px}
+  .dashboard-lesson-current-action>span{
+    display:inline-flex;align-items:center;min-height:22px;padding:0 7px;
+    border:1px solid #e2efd9;border-radius:6px;background:#f4faef;
+    font-size:8px;font-weight:900;color:#58a91b;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .dashboard-lesson.current .dashboard-lesson-copy strong{color:#465343}
+  .dashboard-lesson.current .dashboard-lesson-copy>span{color:#858e81}
+  .dashboard-lesson.current .dashboard-lesson-action{padding-inline-start:4px}
   .dashboard-lesson-action{align-self:stretch;display:flex;align-items:center}
   .dashboard-completed,.dashboard-locked{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;min-width:112px;color:#a1a69f;font-size:8px;font-weight:800}
   .dashboard-completed svg{color:#58a91b}
