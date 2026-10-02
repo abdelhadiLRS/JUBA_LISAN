@@ -119,7 +119,7 @@ export default function SettingsMemoriesPage() {
     <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <nav
         aria-label={t('memoryBreadcrumb')}
-        className="juba-reference-section-head text-[#202127] text-[rgba(32,33,39,.52)] mb-6 flex items-center gap-2 font-sans"
+        className="juba-reference-section-head text-[rgba(32,33,39,.52)] mb-6 flex items-center gap-2 font-sans"
       >
         <Link
           href="/settings"
@@ -209,7 +209,7 @@ export default function SettingsMemoriesPage() {
             </p>
             <button
               onClick={() => void loadMemories()}
-              className="juba-secondary-button border-[#ededff] px-4 py-2 font-sans tracking-widest uppercase"
+              className="juba-secondary-button font-sans tracking-widest uppercase"
             >
               {tCommon('retry')}
             </button>
@@ -258,7 +258,7 @@ export default function SettingsMemoriesPage() {
                 setClearConfirm(true)
               }}
               disabled={mutating}
-              className="juba-secondary-button w-full border-[#ededff] py-2 font-sans tracking-widest uppercase text-[rgba(32,33,39,.52)] hover:border-red-200/50 hover:text-rose-600"
+              className="juba-secondary-button w-full font-sans tracking-widest uppercase hover:border-red-200/50 hover:text-rose-600"
             >
               {t('memoryClearAll')}
             </button>
