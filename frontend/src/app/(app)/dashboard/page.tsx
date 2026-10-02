@@ -937,8 +937,10 @@ export default function DashboardPage() {
   .dashboard-achievement-strip-progress span{display:block;height:100%;background:var(--dash-yellow)}
 
   .dashboard-course{padding:18px}
-  .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-  .dashboard-card-header>div{min-width:0}
+  .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0}
+  .dashboard-card-header>div{min-width:0;flex:1}
+  .dashboard-card-header>div>h2,.dashboard-card-header>div>p{overflow:hidden;text-overflow:ellipsis}
+
   .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
   .dashboard-card-header p{margin:0;color:#999;font-size:10px;line-height:1.4}
   .dashboard-card-header .dashboard-outline-button{flex:none;margin-top:2px}
