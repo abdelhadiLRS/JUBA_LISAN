@@ -844,7 +844,9 @@ export default function DashboardPage() {
     display:inline-flex;align-items:center;min-height:22px;padding:0 8px;
     border:1px solid #edf1eb;border-radius:7px;background:#f8fbf6;
     white-space:nowrap;
+    transition:border-color .14s ease,background .14s ease,transform .14s ease;
   }
+  .dashboard-welcome-meta span:hover{border-color:#dfead9;background:#fbfef9;transform:translateY(-1px)}
   .dashboard-welcome-meta i{width:3px;height:3px;flex:none;border-radius:50%;background:#d0d5cd}
   .dashboard-v3-level{
     --level-progress:0;
@@ -858,8 +860,8 @@ export default function DashboardPage() {
   }
   .dashboard-v3-level span{position:relative;z-index:1;font-size:18px;font-weight:900}
   .dashboard-v3-level small{position:absolute;z-index:1;bottom:18px;color:#9aa197;font-size:7px;font-weight:850;line-height:1}
-  .dashboard-v3-level{transition:transform .16s ease,filter .16s ease}
-  .dashboard-v3-level:hover{transform:scale(1.02);filter:saturate(1.03)}
+  .dashboard-v3-level{transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+  .dashboard-v3-level:hover{transform:scale(1.025);filter:saturate(1.03);box-shadow:0 4px 12px rgba(88,204,2,.08)}
   .dashboard-v3-level:focus-visible{outline:2px solid #8bd85c;outline-offset:3px}
 
   .dashboard-v3-card-head{
