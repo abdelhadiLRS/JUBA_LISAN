@@ -435,7 +435,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .juba-app-shell .juba-reference-list-card{min-height:104px!important}
         .juba-app-shell .juba-reference-list-card:hover{border-color:var(--duo-line)!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-reference-section{box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
-        .juba-app-shell .juba-page-shell{padding:24px 28px 36px!important}
+        .juba-app-shell .juba-page-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;box-sizing:border-box!important;padding:24px 28px 36px!important}
         .juba-app-shell .juba-page-hero{background:var(--juba-card,var(--duo-card))!important;border:1px solid var(--duo-line)!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(42,64,34,.035)!important}
         .juba-app-shell .juba-page-title{color:var(--juba-ink)!important;letter-spacing:-.035em!important}
         .juba-app-shell .juba-page-subtitle{color:var(--duo-muted)!important}
