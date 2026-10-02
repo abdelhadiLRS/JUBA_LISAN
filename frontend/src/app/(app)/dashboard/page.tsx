@@ -740,6 +740,18 @@ export default function DashboardPage() {
     border:0;background:none;color:#4fa31c;font-weight:800;cursor:pointer;
   }
 
+  .dashboard-v3-welcome,
+  .dashboard-v3-card{overflow:hidden}
+  .dashboard-v3-welcome{position:relative}
+  .dashboard-v3-welcome::before{
+    content:"";position:absolute;inset:0 auto 0 0;width:3px;
+    background:var(--dash-green);border-radius:12px 0 0 12px;pointer-events:none;
+  }
+  .dashboard-welcome-meta span{display:inline-flex;align-items:center;min-height:22px;padding:0 7px;border-radius:6px;background:#f7faf5}
+  .dashboard-welcome-meta span+span{border-inline-start:1px solid #edf1eb}
+  .dashboard-progress-meta-cell{transition:border-color .14s ease,background .14s ease}
+  .dashboard-progress-meta-cell:hover{border-color:#e0e8dc;background:#fbfdf9}
+  .dashboard-course-path .dashboard-lesson:last-child{border-bottom:0}
   .dashboard-v3-grid{
     max-width:1480px;margin:0 auto;
     display:grid;
