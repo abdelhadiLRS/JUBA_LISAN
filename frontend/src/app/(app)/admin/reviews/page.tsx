@@ -187,7 +187,7 @@ export default function AdminReviewsPage() {
             onChange={(event) =>
               setApprovalFilter(event.target.value as ApprovalFilter)
             }
-            className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] border px-3 py-2 font-sans text-sm"
+            className="border-[var(--juba-border)] bg-[var(--juba-bg)] text-[var(--juba-ink,var(--juba-text))] border px-3 py-2 font-sans text-sm"
             aria-label={t('approvalFilter')}
           >
             {approvalFilterOptions.map((option) => (
@@ -199,7 +199,7 @@ export default function AdminReviewsPage() {
           <select
             value={ratingFilter}
             onChange={(event) => setRatingFilter(event.target.value)}
-            className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] border px-3 py-2 font-sans text-sm"
+            className="border-[var(--juba-border)] bg-[var(--juba-bg)] text-[var(--juba-ink,var(--juba-text))] border px-3 py-2 font-sans text-sm"
             aria-label={t('ratingFilter')}
           >
             <option value="">{t('allRatings')}</option>
@@ -212,7 +212,7 @@ export default function AdminReviewsPage() {
           <button
             type="button"
             onClick={clearFilters}
-            className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] flex items-center justify-center gap-2 border px-4 py-2 font-semibold tracking-wide"
+            className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] flex items-center justify-center gap-2 border px-4 py-2 font-semibold tracking-wide"
           >
             <FilterX className="size-3.5" /> {t('clear')}
           </button>
@@ -220,7 +220,7 @@ export default function AdminReviewsPage() {
       </AdminPanel>
 
       {error && (
-        <div className="rounded-[10px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[rgba(7,7,9,.08)]">
+        <div className="rounded-[10px] border border-red-200/50 text-[#dc2626] border px-4 py-3 font-sans text-sm border-[var(--juba-border)]">
           {error}
         </div>
       )}
@@ -233,11 +233,11 @@ export default function AdminReviewsPage() {
           meta={<AdminBadge>{t('total', { total })}</AdminBadge>}
         >
           {reviews.length === 0 ? (
-            <div className="text-[rgba(32,33,39,.52)] p-8 text-center font-sans text-sm">
+            <div className="text-[var(--juba-muted)] p-8 text-center font-sans text-sm">
               {t('empty')}
             </div>
           ) : (
-            <div className="divide-[rgba(7,7,9,.08)] divide-y border-[rgba(7,7,9,.08)]">
+            <div className="divide-[rgba(7,7,9,.08)] divide-y border-[var(--juba-border)]">
               {reviews.map((review) => (
                 <article
                   key={review.id}
@@ -245,7 +245,7 @@ export default function AdminReviewsPage() {
                 >
                   <div className="min-w-0 space-y-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="text-[#202127] font-sans text-sm font-semibold tracking-tight">
+                      <h2 className="text-[var(--juba-ink,var(--juba-text))] font-sans text-sm font-semibold tracking-tight">
                         {review.user_display_name}
                       </h2>
                       <AdminBadge
@@ -254,19 +254,19 @@ export default function AdminReviewsPage() {
                         {review.is_approved ? t('approved') : t('pending')}
                       </AdminBadge>
                       <span
-                        className="text-[rgba(32,33,39,.52)] font-sans text-xs"
+                        className="text-[var(--juba-muted)] font-sans text-xs"
                         aria-label={t('starsLabel', { rating: review.rating })}
                       >
                         {stars(review.rating)}
                       </span>
                     </div>
-                    <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                    <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
                       {t('learningLanguage', {
                         language: languageLabel(review.target_language),
                       })}{' '}
                       · {formatDate(review.created_at)}
                     </p>
-                    <p className="text-[rgba(32,33,39,.52)] font-sans text-sm leading-relaxed">
+                    <p className="text-[var(--juba-muted)] font-sans text-sm leading-relaxed">
                       {review.comment || t('ratingOnly')}
                     </p>
                   </div>
@@ -277,7 +277,7 @@ export default function AdminReviewsPage() {
                         handleApproval(review, !review.is_approved)
                       }
                       disabled={savingId === review.id}
-                      className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
+                      className="border-[var(--juba-border)] text-[var(--juba-ink,var(--juba-text))] text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
                     >
                       {savingId === review.id ? (
                         <Loader2 className="size-3.5 animate-spin" />
