@@ -47,7 +47,7 @@
   padding: 6px 10px;
   border: 1px solid var(--juba-border, var(--duo-line));
   border-radius: 9px;
-  background: var(--juba-soft, #f5f9f2);
+  background: var(--juba-soft, var(--duo-soft));
   color: var(--juba-green, var(--duo-green-dark));
   font-size: 11px;
   font-weight: 850;
@@ -71,7 +71,7 @@
   padding: 5px;
   border: 1px solid var(--juba-border, var(--duo-line));
   border-radius: 9px;
-  background: var(--juba-soft, #f7faf5);
+  background: var(--juba-soft, var(--duo-soft));
 }
 .language-control span {
   margin: 0 5px;
@@ -297,7 +297,7 @@
   padding: 7px 10px;
   border: 1px solid var(--juba-border, var(--duo-line));
   border-radius: 9px;
-  background: var(--juba-soft, #f5f9f2);
+  background: var(--juba-soft, var(--duo-soft));
   font-size: 11px;
 }
 .badge.unlocked {
@@ -415,7 +415,7 @@
   .games-header { min-height: 205px; padding: 19px 17px; border-radius: 12px; }
   .games-header h1 { max-width: 95%; font-size: 29px; }
   .games-brand { font-size: 10px; }
-  .language-control { background: var(--juba-soft, #f7faf5); }
+  .language-control { background: var(--juba-soft, var(--duo-soft)); }
   .stats-grid { gap: 8px; margin-bottom: 14px; }
   .stats-grid > div { min-height: 72px; padding: 11px 12px; }
   .stats-grid span { font-size: 23px; }
