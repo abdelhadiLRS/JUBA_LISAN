@@ -44,9 +44,9 @@ export default function InteractiveGamesPage() {
   ]
 
   return (
-    <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+    <main className="juba-games juba-reference-page" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <section className="games-shell">
-        <header className="games-header">
+        <header className="games-header juba-reference-hero">
           <div>
             <div className="games-brand">JUBA EDU</div>
             <h1>{t.title}</h1>
@@ -62,7 +62,7 @@ export default function InteractiveGamesPage() {
           </div>
         </header>
 
-        <section className="game-grid" aria-label={t.title}>
+        <section className="game-grid juba-reference-section" aria-label={t.title}>
           {cards.map((card) => (
             <Link key={card.href} href={`${card.href}?lang=${lang}`} className="game-card">
               <span className="game-icon">{card.icon}</span>
