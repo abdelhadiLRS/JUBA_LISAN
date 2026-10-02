@@ -912,7 +912,7 @@ export default function DashboardPage() {
   }
   .dashboard-course-path::after{
     content:"";position:absolute;left:31px;top:25px;
-    width:2px;height:calc((var(--course-path-progress, 0) / 100) * (100% - 50px));
+    width:2px;height:calc(var(--course-path-progress, 0) * (100% - 50px));
     border-radius:99px;background:var(--dash-green);pointer-events:none;
   }
   .dashboard-lesson{position:relative;z-index:1}
