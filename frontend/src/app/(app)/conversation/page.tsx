@@ -23,8 +23,8 @@ import { useTranslations } from 'next-intl'
 
 function ConversationLoading() {
   return (
-    <div className="flex min-h-[calc(100vh-56px)] w-full items-center justify-center px-4 py-6 sm:px-6 lg:px-8">
-      <div className="juba-reference-list-card flex w-full max-w-[520px] items-center justify-center rounded-[10px] px-5 py-8 text-sm font-semibold text-neutral-500 shadow-none">
+    <div className="flex w-full min-h-0 items-center justify-center px-4 py-6 sm:px-6 lg:px-8 box-border">
+      <div className="juba-reference-list-card flex w-full max-w-[520px] items-center justify-center rounded-[10px] px-5 py-8 text-sm font-semibold text-[var(--duo-muted)] shadow-none">
         <PageLoading minHeight="min-h-0" />
       </div>
     </div>
