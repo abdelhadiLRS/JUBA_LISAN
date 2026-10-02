@@ -372,7 +372,7 @@ export default function AdminUserStatsPage() {
   ).length
 
   return (
-    <div className="mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-admin-users-shell space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <div className="juba-reference-hero flex flex-wrap items-center justify-between gap-3 p-5">
         <div className="flex min-w-0 items-center gap-2">
           <Link
@@ -571,7 +571,7 @@ export default function AdminUserStatsPage() {
                         {lang?.name ?? pl.target_language}
                       </span>
                       {isActive ? (
-                        <span className="text-[var(--duo-ink)] bg-[#5862e2]/20 text-[#5862e2] shrink-0 px-2 py-0.5 font-sans text-xs tracking-wide">
+                        <span className="text-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-green)_16%,transparent)] text-[var(--duo-green-dark)] shrink-0 px-2 py-0.5 font-sans text-xs tracking-wide">
                           {pl.cefr_level} / {t('statsActive')}
                         </span>
                       ) : (
@@ -729,7 +729,7 @@ export default function AdminUserStatsPage() {
               <button
                 onClick={saveQuota}
                 disabled={quotaSaving || !quotaValuesValid}
-                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                className="bg-[var(--duo-green)] text-[var(--duo-ink)] hover:bg-[#52bd00] inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
               >
                 {quotaSaving && (
                   <Loader2
