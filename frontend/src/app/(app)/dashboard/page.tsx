@@ -393,6 +393,7 @@ export default function DashboardPage() {
               <div className="dash2-progress"><span><b>{planCompletion}%</b> {t('nextStep')}</span><div><i style={{width: planCompletion + '%'}} /></div></div>
               <div className="dash2-progress-info"><span>{t('today')} <b>{completedLessonCount}/{Math.max(1,todayLessons.length)}</b></span><span>{t('streak')} <b>{streak}</b></span><span>{t('xp')} <b>{xp}</b></span></div>
               <div className="dash2-lessons">
+                <div className="dash2-timeline-line" aria-hidden="true" />
                 {todayLessons.length ? todayLessons.map((lesson,index) => {
                   const done = Boolean((lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted)
                   const current = !done && (!nextLesson || lesson.id === nextLesson.id)
