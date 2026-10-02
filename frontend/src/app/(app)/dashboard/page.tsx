@@ -716,7 +716,9 @@ export default function DashboardPage() {
   .dashboard-outline-button:focus-visible,
   .dashboard-green-button:focus-visible,
   .dashboard-tools-card>a:focus-visible,
-  .dashboard-friend-row:focus-visible{
+  .dashboard-friend-row:focus-visible,
+  .dashboard-mini-link:focus-visible,
+  .dashboard-premium button:focus-visible{
     outline:2px solid #8bd85c;
     outline-offset:2px;
   }
