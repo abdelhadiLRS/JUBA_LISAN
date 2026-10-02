@@ -210,7 +210,7 @@ export default function LevelTestPage() {
   // Start warning dialog — shown before any loading begins
   if (showStartWarning) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center">
         <ConfirmDialog
           open={true}
           title={t('startWarningTitle')}
@@ -240,8 +240,8 @@ export default function LevelTestPage() {
 
   if (step === 'error') {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[var(--juba-lilac)] bg-white w-full max-w-md border">
+      <div className="juba-reference-page flex min-h-[60vh] items-center justify-center p-6">
+        <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-md rounded-[10px] border">
           <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
             <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
@@ -310,7 +310,7 @@ export default function LevelTestPage() {
 
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[var(--juba-lilac)] bg-white w-full max-w-lg border">
+        <div className="juba-reference-assessment-card border-[var(--juba-lilac)] bg-white w-full max-w-lg rounded-[10px] border">
           {/* Header */}
           <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
@@ -413,7 +413,7 @@ export default function LevelTestPage() {
     <div className="flex min-h-[60vh] items-center justify-center p-6">
       <div className="border-[var(--juba-lilac)] bg-white w-full max-w-lg border">
         {/* Header */}
-        <div className="border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
+        <div className="juba-reference-card-header border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
