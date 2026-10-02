@@ -325,7 +325,7 @@ export default function AdminFeedbackPage() {
   }
 
   return (
-    <div className="juba-admin-feedback-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+    <div className="juba-admin-feedback-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
       <AdminPageHeader
         eyebrow={`${tAdmin('title')} / ${tAdmin('feedback')}`}
         title={tAdmin('reviewFeedback')}
