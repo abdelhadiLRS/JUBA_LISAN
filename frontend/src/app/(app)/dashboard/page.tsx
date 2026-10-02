@@ -946,6 +946,8 @@ export default function DashboardPage() {
   .dashboard-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0}
   .dashboard-card-header>div{min-width:0;flex:1}
   .dashboard-card-header>div>h2,.dashboard-card-header>div>p{overflow:hidden;text-overflow:ellipsis}
+  .dashboard-card-header>div>h2{white-space:nowrap}
+  .dashboard-card-header>div>p{white-space:nowrap}
 
   .dashboard-card-header h2{margin:3px 0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
   .dashboard-card-header p{margin:0;color:#999;font-size:10px;line-height:1.4}
@@ -969,7 +971,8 @@ export default function DashboardPage() {
   .dashboard-outline-button:hover,.dashboard-green-button:hover{filter:brightness(.98)}
   .dashboard-outline-button:hover{background:#f7fbf4}
   .dashboard-progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
-  .dashboard-progress-row>strong{min-width:30px;text-align:right}
+  .dashboard-progress-row>strong{min-width:30px;text-align:right;flex:none}
+
   .dashboard-course-path{position:relative;--course-path-progress:0}
   .dashboard-course-path::before{
     content:"";position:absolute;left:31px;top:25px;bottom:25px;
@@ -1014,6 +1017,8 @@ export default function DashboardPage() {
   .dashboard-course-path .dashboard-lesson-copy>span{
     max-width:52ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
+  .dashboard-course-path .dashboard-lesson-copy{min-width:0}
+
   .dashboard-course-path .dashboard-lesson-action{
     min-width:112px;display:flex;justify-content:flex-end;
   }
