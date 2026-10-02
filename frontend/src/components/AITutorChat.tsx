@@ -76,10 +76,10 @@ const AITutorChat: React.FC = () => {
   };
 
   return (
-    <div className="rounded-[13px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm flex h-[600px] flex-col overflow-hidden">
+    <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm flex h-[600px] flex-col overflow-hidden">
       <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] p-4 sm:p-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[13px] border border-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] shadow-sm">
+          <div className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-[var(--duo-ink)] bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] shadow-sm">
             <Bot className="h-5 w-5 text-[var(--duo-ink)]" aria-hidden="true" />
           </div>
           <div>
@@ -114,7 +114,7 @@ const AITutorChat: React.FC = () => {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[82%] rounded-[13px] border p-4 shadow-sm ${
+              className={`max-w-[82%] rounded-[10px] border p-4 shadow-sm ${
                 message.role === 'user'
                   ? 'rounded-br-md border-[var(--duo-ink)] bg-[var(--duo-green)] text-white'
                   : 'rounded-bl-md border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)]'
@@ -139,7 +139,7 @@ const AITutorChat: React.FC = () => {
 
         {isLoading && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-            <div className="rounded-[13px] rounded-bl-md border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm">
+            <div className="rounded-[10px] rounded-bl-md border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-sm">
               <div className="flex items-center gap-1.5" aria-label="جاري الرد">
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-green)]" />
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] [animation-delay:150ms]" />
