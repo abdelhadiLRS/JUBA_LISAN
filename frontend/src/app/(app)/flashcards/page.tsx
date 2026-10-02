@@ -142,7 +142,7 @@ export default function FlashcardsPage() {
     cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
 
   return (
-    <div className="juba-mobile-flashcards w-full space-y-6 px-4 py-6 sm:px-6 md:py-8">
+    <div className="juba-page-shell juba-mobile-flashcards w-full space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
       <div className="rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
