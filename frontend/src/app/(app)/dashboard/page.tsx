@@ -1134,6 +1134,15 @@ export default function DashboardPage() {
   .dashboard-friends-card .dashboard-section-label svg{flex:none}
   .dashboard-friends-card .dashboard-mini-link{white-space:nowrap}
   .dashboard-profile-photo .h-full{width:100%;height:100%}
+  .dashboard-v3-card-head h2{margin:0;color:#505650;font-size:16px;font-weight:800;letter-spacing:-.01em}
+  .dashboard-v3-card-head>div>h2{margin-top:3px}
+  .dashboard-v3-card-head>div>h3{margin-top:3px}
+  .dashboard-v3-card-head>div>span{line-height:1.2}
+  .dashboard-daily .dashboard-v3-card-head{padding-bottom:0}
+  .dashboard-daily .dashboard-v3-card-head>strong{padding-top:2px}
+  .dashboard-insight-footer{display:grid;grid-template-columns:auto auto auto auto;align-items:center;gap:5px 7px;margin-top:11px;color:#9a9f98;font-size:8px}
+  .dashboard-insight-footer b{color:#555;font-size:9px;font-weight:850}
+  .dashboard-insight-footer b:nth-of-type(2){color:#58a91b}
 
   .dashboard-v3-card-head>div{min-width:0}
   .dashboard-v3-card-head h3{margin:0;color:#565c55;font-size:12px;font-weight:850;letter-spacing:-.01em}
