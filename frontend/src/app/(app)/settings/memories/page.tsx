@@ -133,12 +133,12 @@ export default function SettingsMemoriesPage() {
         </h1>
       </nav>
 
-      <div className="juba-reference-list-card card p-6">
+      <div className="juba-reference-list-card p-6">
         <div className="border-[#ededff] mb-4 flex items-center gap-2 border-b pb-4">
           <span aria-hidden="true" className="text-[#202127] text-[rgba(32,33,39,.52)]">
             ●
           </span>
-          <h2 className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+          <h2 className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('sectionMemory')}
           </h2>
         </div>
@@ -179,7 +179,7 @@ export default function SettingsMemoriesPage() {
             <button
               type="submit"
               disabled={loading || loadError || mutating || !content.trim()}
-              className="bg-[#5862e2] text-[#202127] text-[#202127] hover:bg-[#5862e2]-bright flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-sans font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+              className="juba-primary-button flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-sans font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-50"
             >
               {adding && (
                 <span className="spinner-border spinner-border-sm" aria-hidden="true" />
@@ -203,19 +203,19 @@ export default function SettingsMemoriesPage() {
         {loading ? (
           <PageLoading fullScreen={false} />
         ) : loadError ? (
-          <div role="alert" className="border-red-200/50 border p-4">
+          <div role="alert" className="juba-reference-list-card border-red-200/50 p-4">
             <p className="text-rose-600 mb-3 font-sans text-xs">
               {t('memoryLoadError')}
             </p>
             <button
               onClick={() => void loadMemories()}
-              className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase"
+              className="juba-secondary-button border-[#ededff] px-4 py-2 font-sans tracking-widest uppercase"
             >
               {tCommon('retry')}
             </button>
           </div>
         ) : memories.length === 0 ? (
-          <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans">
+          <p className="text-[rgba(32,33,39,.52)] font-sans">
             {t('memoryEmpty')}
           </p>
         ) : (
@@ -224,7 +224,7 @@ export default function SettingsMemoriesPage() {
               {memories.map((memory) => (
                 <li
                   key={memory.id}
-                  className="border-[#ededff] flex items-start justify-between gap-3 border p-3"
+                  className="juba-reference-list-card flex items-start justify-between gap-3 p-3"
                 >
                   <div className="flex-1 space-y-1">
                     <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
@@ -258,7 +258,7 @@ export default function SettingsMemoriesPage() {
                 setClearConfirm(true)
               }}
               disabled={mutating}
-              className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] border-[#ededff] hover:text-rose-600 hover:border-red-200/50 w-full border py-2 font-sans tracking-widest uppercase transition-colors"
+              className="juba-secondary-button w-full border-[#ededff] py-2 font-sans tracking-widest uppercase text-[rgba(32,33,39,.52)] hover:border-red-200/50 hover:text-rose-600"
             >
               {t('memoryClearAll')}
             </button>
