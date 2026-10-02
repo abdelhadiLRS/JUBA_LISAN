@@ -1142,8 +1142,8 @@ export default function DashboardPage() {
   .dashboard-friend-avatar img{width:100%;height:100%;object-fit:cover}
   .dashboard-friend-copy{min-width:0;display:flex;flex-direction:column;gap:2px;flex:1}
   .dashboard-friend-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#555;font-size:10px}
-  .dashboard-friend-copy small{color:#999;font-size:8px}
-  .dashboard-friend-arrow{color:#aaa;font-size:17px}
+  .dashboard-friend-copy small{color:#999;font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-friend-arrow{flex:none;color:#aaa;font-size:17px}
   .dashboard-friends-empty{display:block;padding:12px;color:#999;font-size:9px;text-decoration:none}
   .dashboard-premium{
     display:flex;flex-direction:column;gap:10px;padding:15px;
@@ -1152,8 +1152,8 @@ export default function DashboardPage() {
   }
   .dashboard-premium-icon{color:#e2a800}
   .dashboard-premium>div:nth-child(2){display:flex;flex-direction:column;gap:3px}
-  .dashboard-premium strong{color:#66571e;font-size:11px}
-  .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5}
+  .dashboard-premium strong{color:#66571e;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-premium span{color:#9b9060;font-size:8px;line-height:1.5;overflow:hidden}
   .dashboard-premium button{width:100%;padding:7px 9px;border:0;border-radius:7px;background:#e7b000;color:#fff;font-size:9px;font-weight:800;cursor:pointer;transition:filter .14s ease,transform .12s ease}
   .dashboard-premium button:hover{filter:brightness(.98)}
   .dashboard-premium button:active{transform:translateY(1px)}
