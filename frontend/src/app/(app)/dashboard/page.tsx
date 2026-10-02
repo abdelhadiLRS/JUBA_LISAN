@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState, useCallback, type CSSProperties } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import {
   ArrowUpRight,
   BookOpen,
   Check,
-  ChevronDown,
   Flame,
   Headphones,
   LayoutDashboard,
