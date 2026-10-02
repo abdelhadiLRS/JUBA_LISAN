@@ -432,7 +432,7 @@ export default function AdminUsersPage() {
   }
 
   return (
-    <div className="juba-admin-users-shell juba-reference-page mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+    <div className="juba-admin-users-shell mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 lg:px-8">
       <AdminPageHeader
         eyebrow={`${t('title')} / ${t('users')}`}
         title={t('users')}
