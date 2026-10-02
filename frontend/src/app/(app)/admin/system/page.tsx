@@ -204,13 +204,13 @@ export default function AdminSystemPage() {
       <AdminNav />
 
       {maintenanceError && (
-        <div className="juba-reference-list-card border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+        <div className="juba-reference-list-card border-red-200/60 text-[var(--duo-red,#dc2626)] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
           {maintenanceError}
         </div>
       )}
 
       <div
-        className={`juba-reference-list-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[var(--juba-border)] bg-[#fff]'}`}
+        className={`juba-reference-list-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[var(--juba-border)] bg-[var(--duo-card)]'}`}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
@@ -243,7 +243,7 @@ export default function AdminSystemPage() {
             disabled={maintenanceLoading}
             className={`juba-primary-button inline-flex shrink-0 items-center justify-center gap-2 disabled:opacity-50 ${
               maintenanceMode
-                ? 'bg-[#202127] text-white hover:opacity-90'
+                ? 'bg-[var(--duo-ink)] text-white hover:opacity-90'
                  : 'bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)]'
             }`}
           >
@@ -255,7 +255,7 @@ export default function AdminSystemPage() {
         </div>
       </div>
 
-      <section className="juba-reference-list-card border-[var(--juba-border)] bg-[#fff] border p-5">
+      <section className="juba-reference-list-card border-[var(--juba-border)] bg-[var(--duo-card)] border p-5">
         <div className="border-[var(--juba-border)] mb-5 flex gap-3 border-b pb-4">
           <Megaphone
             className="text-[var(--duo-green-dark)] mt-0.5 size-5 shrink-0"
@@ -281,7 +281,7 @@ export default function AdminSystemPage() {
             {bannerError && (
               <p
                 role="alert"
-                className="border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]"
+                className="border-red-200/60 text-[var(--duo-red,#dc2626)] border px-4 py-3 font-sans text-xs border-[var(--juba-border)]"
               >
                 {bannerError}
               </p>
