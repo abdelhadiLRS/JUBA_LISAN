@@ -1094,6 +1094,23 @@ export default function DashboardPage() {
   .dashboard-lesson.current .dashboard-lesson-copy strong{color:#465343}
   .dashboard-lesson.current .dashboard-lesson-copy>span{color:#858e81}
   .dashboard-lesson.current .dashboard-lesson-action{padding-inline-start:4px}
+  .dashboard-lesson.current .dashboard-path-node{
+    transition:transform .14s ease,box-shadow .14s ease;
+  }
+  .dashboard-lesson.current:hover .dashboard-path-node{
+    transform:scale(1.035);
+    box-shadow:0 0 0 5px #f1faec,0 2px 6px rgba(88,204,2,.12);
+  }
+  .dashboard-lesson.current .dashboard-green-button{
+    min-height:30px;
+    padding:7px 11px;
+    box-shadow:0 2px 0 var(--dash-green-dark),0 3px 8px rgba(88,204,2,.08);
+  }
+  .dashboard-lesson.current .dashboard-green-button:hover{
+    transform:translateY(-1px);
+    filter:brightness(1.01);
+    box-shadow:0 2px 0 var(--dash-green-dark),0 5px 10px rgba(88,204,2,.1);
+  }
   .dashboard-lesson-action{align-self:stretch;display:flex;align-items:center}
   .dashboard-completed,.dashboard-locked{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;min-width:112px;color:#a1a69f;font-size:8px;font-weight:800}
   .dashboard-completed svg{color:#58a91b}
