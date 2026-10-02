@@ -23,7 +23,7 @@ export function AdminPageHeader({
             {eyebrow}
           </span>
         </div>
-        <h1 className="juba-admin-title text-[var(--duo-ink)] text-xl font-black tracking-tight">
+        <h1 className="juba-admin-title text-[var(--juba-ink,var(--duo-ink))] text-xl font-black tracking-tight">
           {title}
         </h1>
       </div>
@@ -71,12 +71,12 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="juba-admin-metric rounded-[10px] border border-[#e9eee5] bg-white shadow-sm flex items-center justify-between gap-3 px-4 py-3">
+    <div className="juba-admin-metric rounded-[12px] border border-[#e9eee5] bg-white shadow-sm flex items-center justify-between gap-3 px-4 py-3">
       <div className="min-w-0">
-        <p className="juba-admin-metric-label text-[10px] text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
+        <p className="juba-admin-metric-label text-[10px] text-[var(--juba-muted,var(--duo-muted))] mb-1 font-sans tracking-widest uppercase">
           {label}
         </p>
-        <p className="juba-admin-metric-value text-[var(--duo-ink)] truncate text-lg font-black">{value}</p>
+        <p className="juba-admin-metric-value text-[var(--juba-ink,var(--duo-ink))] truncate text-lg font-black">{value}</p>
       </div>
       <span className="juba-admin-metric-icon"><Icon className="size-5 shrink-0" aria-hidden="true" /></span>
     </div>
@@ -91,9 +91,9 @@ export function AdminBadge({
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'danger'
 }) {
   const toneClass = {
-    neutral: 'border-[var(--duo-line)] text-[var(--duo-muted)]',
+    neutral: 'border-[var(--duo-line)] text-[var(--juba-muted,var(--duo-muted))]',
     info: 'border-[color-mix(in_srgb,var(--duo-blue)_40%,transparent)] text-[var(--duo-blue)]',
-    success: 'border-[color-mix(in_srgb,var(--duo-green)_40%,transparent)] text-[var(--duo-green-dark)]',
+    success: 'border-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_40%,transparent)] text-[var(--juba-green-dark,var(--duo-green-dark))]',
     warning: 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] text-[var(--duo-yellow)]',
     danger: 'border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] text-[var(--duo-red)]',
   }[tone]
