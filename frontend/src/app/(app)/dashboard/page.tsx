@@ -966,6 +966,10 @@ export default function DashboardPage() {
   .dashboard-lesson.current .dashboard-path-node{width:34px;height:34px;margin-inline-start:-2px;box-shadow:0 0 0 5px #f4faef;font-size:10px}
   .dashboard-lesson-current-action{display:flex;align-items:center;gap:7px}
   .dashboard-lesson-current-action>span{font-size:8px;font-weight:900;color:#58a91b;letter-spacing:.04em;text-transform:uppercase}
+  .dashboard-lesson-action{align-self:stretch;display:flex;align-items:center}
+  .dashboard-completed,.dashboard-locked{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;min-width:112px;color:#a1a69f;font-size:8px;font-weight:800}
+  .dashboard-completed svg{color:#58a91b}
+  .dashboard-locked{color:#c0c5bd}
 
   .dashboard-progress-track{height:6px;flex:1;overflow:hidden;border-radius:99px;background:#eef1ed}
   .dashboard-progress-track span{display:block;height:100%;border-radius:inherit;background:var(--dash-yellow)}
