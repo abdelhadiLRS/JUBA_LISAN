@@ -342,20 +342,20 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:1px solid var(--duo-line)!important}
         .juba-mobile-chat .juba-chat-profile-metrics div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:2px!important;padding:10px 2px!important;border-inline-end:1px solid var(--duo-line)!important}
         .juba-mobile-chat .juba-chat-profile-metrics div:last-child{border-inline-end:0!important}
-        .juba-mobile-chat .juba-chat-profile-metrics b{color:#58a91b!important;font-size:14px!important}
+        .juba-mobile-chat .juba-chat-profile-metrics b{color:var(--duo-green-dark)!important;font-size:14px!important}
         .juba-mobile-chat .juba-chat-profile-metrics small{color:var(--duo-muted)!important;font-size:8px!important}
         .juba-mobile-chat .juba-chat-side-card{border:1px solid var(--duo-line)!important;border-radius:12px!important;background:var(--duo-card)!important;padding:16px!important;margin-bottom:14px!important}
         .juba-mobile-chat .juba-chat-side-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
         .juba-mobile-chat .juba-chat-side-card-head h3{margin:3px 0 0!important;color:var(--duo-ink)!important;font-size:13px!important;font-weight:800!important}
         .juba-mobile-chat .juba-chat-side-label{color:var(--duo-muted)!important;font-size:9px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
         .juba-mobile-chat .juba-chat-achievement{display:flex!important;gap:10px!important;align-items:center!important;margin-top:13px!important}
-        .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:#eef9df!important;color:#58a91b!important;display:grid!important;place-items:center!important;flex:none!important}
+        .juba-mobile-chat .juba-chat-achievement-icon{width:46px!important;height:46px!important;border-radius:11px!important;background:var(--duo-soft)!important;color:var(--duo-green-dark)!important;display:grid!important;place-items:center!important;flex:none!important}
         .juba-mobile-chat .juba-chat-achievement strong{display:block!important;color:var(--duo-ink)!important;font-size:10px!important}
         .juba-mobile-chat .juba-chat-achievement span{display:block!important;color:var(--duo-muted)!important;font-size:8px!important;margin-top:3px!important}
         .juba-mobile-chat .juba-chat-friends-list{margin-top:8px!important}
         .juba-mobile-chat .juba-chat-friends-empty{display:block!important;padding:12px 0!important;color:var(--duo-muted)!important;font-size:9px!important}
-        .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid #f0f0f0!important;background:var(--duo-card)!important;text-align:start!important}
-        .juba-mobile-chat .juba-chat-friend-avatar{width:32px!important;height:32px!important;border-radius:50%!important;overflow:hidden!important;background:#f1f3f0!important;display:grid!important;place-items:center!important;color:#888!important;font-size:9px!important;font-weight:800!important;flex:none!important}
+        .juba-mobile-chat .juba-chat-friend{display:flex!important;align-items:center!important;gap:9px!important;width:100%!important;padding:8px 0!important;border:0!important;border-top:1px solid var(--duo-line)!important;background:var(--duo-card)!important;text-align:start!important}
+        .juba-mobile-chat .juba-chat-friend-avatar{width:32px!important;height:32px!important;border-radius:50%!important;overflow:hidden!important;background:var(--duo-soft)!important;display:grid!important;place-items:center!important;color:#888!important;font-size:9px!important;font-weight:800!important;flex:none!important}
         .juba-mobile-chat .juba-chat-friend-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
         .juba-mobile-chat .juba-chat-friend-copy{min-width:0!important;display:flex!important;flex-direction:column!important;gap:2px!important}
         .juba-mobile-chat .juba-chat-friend-copy strong{font-size:9px!important;color:var(--duo-ink)!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
@@ -372,7 +372,7 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{overflow:hidden!important}
         .juba-mobile-chat .juba-chat-side-card-head{padding-top:10px!important;padding-bottom:8px!important}
         .juba-mobile-chat .juba-chat-friend{transition:background .15s ease!important}
-        .juba-mobile-chat .juba-chat-friend:hover{background:#f8fbf6!important}
+        .juba-mobile-chat .juba-chat-friend:hover{background:var(--duo-soft)!important}
         .juba-mobile-chat .border-t-2.border-\\[var\\(--duo-line\\)\\]{box-shadow:0 -1px 0 rgba(237,240,234,.35)!important}
         .juba-mobile-chat input{outline:none!important}
         @media (max-width:1023px){
@@ -387,7 +387,7 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-rail{background:var(--duo-card)!important;border-color:var(--duo-line)!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-color:var(--duo-line)!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-card:hover,.juba-mobile-chat .juba-chat-side-card:hover{box-shadow:0 3px 10px rgba(30,50,20,.04)!important}
-        .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid #58cc02!important;outline-offset:2px!important}
+        .juba-mobile-chat input:focus-visible,.juba-mobile-chat button:focus-visible{outline:2px solid var(--duo-green)!important;outline-offset:2px!important}
 
         /* Reference shell reconciliation — shared page geometry */
         .juba-mobile-chat{background:transparent!important}
@@ -402,18 +402,18 @@ export default function ChatPage() {
         @media(max-width:1023px){.juba-mobile-chat .chat-conversations-sidebar{box-shadow:4px 0 16px rgba(30,50,20,.045)!important}}
         
         /* Reference fidelity pass 30 — final chat geometry consolidation */
-        .juba-mobile-chat .chat-conversations-sidebar{width:250px!important;border-right:1px solid #e8ede5!important}
+        .juba-mobile-chat .chat-conversations-sidebar{width:250px!important;border-right:1px solid var(--duo-line)!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:60px!important;min-height:60px!important;padding:0 15px!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important;border-bottom:1px solid #f0f2ee!important;border-inline-start:3px solid transparent!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\\[var\\(--duo-line\\)\\]{background:#edf8e6!important;border-inline-start-color:#58cc02!important}
-        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding:0 18px!important;border-bottom:1px solid #e8ede5!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:48px!important;padding:8px 13px!important;border-bottom:1px solid var(--duo-line)!important;border-inline-start:3px solid transparent!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\\[var\\(--duo-line\\)\\]{background:var(--duo-soft)!important;border-inline-start-color:var(--duo-green)!important}
+        .juba-mobile-chat>div.flex.flex-1>div:first-child{height:60px!important;min-height:60px!important;padding:0 18px!important;border-bottom:1px solid var(--duo-line)!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:960px!important;padding:22px 28px!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:10px!important}
-        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-8.w-8{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px #e7ebe4!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-8.w-8{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--duo-line)!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\\[72\\%\\].min-w-\\[8rem\\]{min-width:0!important;max-width:72%!important}
-        .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{max-width:960px!important;width:100%!important;margin:0 auto!important;padding:11px 24px 14px!important;border-top:1px solid #e8ede5!important}
+        .juba-mobile-chat .border-t.border-\\[var\\(--duo-line\\)\\]{max-width:960px!important;width:100%!important;margin:0 auto!important;padding:11px 24px 14px!important;border-top:1px solid var(--duo-line)!important}
         .juba-mobile-chat input{height:42px!important;padding:10px 13px!important;border-radius:10px!important}
-        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid #e8ede5!important}
+        .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;padding:14px!important;border-inline-start:1px solid var(--duo-line)!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border-radius:11px!important}
         .juba-mobile-chat .juba-chat-profile-hero strong{font-size:14px!important;font-weight:800!important}
         .juba-mobile-chat .juba-chat-profile-metrics b{font-size:13px!important}
@@ -430,27 +430,27 @@ export default function ChatPage() {
         .juba-mobile-chat{background:var(--duo-card)!important;color:var(--duo-ink)!important;gap:0!important}
         .juba-mobile-chat .chat-conversations-sidebar{width:270px!important;background:var(--duo-card)!important;border-right:1px solid var(--duo-line)!important;box-shadow:none!important}
         .juba-mobile-chat .chat-conversations-sidebar>div:first-child{height:62px!important;padding:0 16px!important;border-bottom:1px solid var(--duo-line)!important;display:flex!important;align-items:center!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child span{color:#777!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important}
-        .juba-mobile-chat .chat-conversations-sidebar>div:first-child button{border:0!important;background:#58cc02!important;color:var(--duo-card)!important;border-radius:7px!important;padding:7px 10px!important;font-size:9px!important;font-weight:800!important;box-shadow:0 2px 0 #46a302!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:50px!important;border-bottom:1px solid #f1f1f1!important;border-inline-start:3px solid transparent!important;padding:9px 14px!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group:hover{background:#fafdf8!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\[var\(--duo-line\)\]{background:#f0fae9!important;border-inline-start-color:#58cc02!important}
-        .juba-mobile-chat .chat-conversations-sidebar .group span{font-size:10px!important;color:#666!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child span{color:var(--duo-muted)!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important}
+        .juba-mobile-chat .chat-conversations-sidebar>div:first-child button{border:0!important;background:var(--duo-green)!important;color:var(--duo-card)!important;border-radius:7px!important;padding:7px 10px!important;font-size:9px!important;font-weight:800!important;box-shadow:0 2px 0 var(--duo-green-dark)!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group{min-height:50px!important;border-bottom:1px solid var(--duo-line)!important;border-inline-start:3px solid transparent!important;padding:9px 14px!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group:hover{background:var(--duo-soft)!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group.bg-\[var\(--duo-line\)\]{background:var(--duo-soft)!important;border-inline-start-color:var(--duo-green)!important}
+        .juba-mobile-chat .chat-conversations-sidebar .group span{font-size:10px!important;color:var(--duo-muted)!important}
         .juba-mobile-chat>div:last-of-type{background:var(--duo-card)!important}
         .juba-mobile-chat>div:last-of-type>div:first-child{height:62px!important;background:var(--duo-card)!important;border-bottom:1px solid var(--duo-line)!important;padding:0 22px!important}
-        .juba-mobile-chat>div:last-of-type>div:first-child button{color:#777!important;font-size:12px!important}
+        .juba-mobile-chat>div:last-of-type>div:first-child button{color:var(--duo-muted)!important;font-size:12px!important}
         .juba-mobile-chat>div:last-of-type>div:first-child>span{color:var(--duo-muted)!important;font-size:10px!important}
         .juba-mobile-chat .word-selectable{border:0!important;border-radius:12px!important;box-shadow:none!important;padding:12px 15px!important;font-size:13px!important;line-height:1.55!important}
-        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-green\)\]{background:#dcf8c6!important;color:#3d5c34!important}
-        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-card\)\]{background:#f6f7f6!important;color:var(--duo-ink)!important}
+        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-green\)\]{background:var(--duo-soft)!important;color:var(--duo-ink)!important}
+        .juba-mobile-chat .word-selectable.bg-\[var\(--duo-card\)\]{background:var(--duo-soft)!important;color:var(--duo-ink)!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4{max-width:920px!important;width:100%!important;margin:0 auto!important;padding:28px 34px!important;scrollbar-width:thin!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4>div.flex.items-end{margin-bottom:4px!important}
-        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-7.w-7{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px #e9ece8!important}
+        .juba-mobile-chat .min-h-0.flex-1.space-y-4 .h-7.w-7{width:30px!important;height:30px!important;border:0!important;box-shadow:0 0 0 1px var(--duo-line)!important}
         .juba-mobile-chat .min-h-0.flex-1.space-y-4 .max-w-\[75\%\].min-w-\[10rem\]{min-width:0!important;max-width:68%!important}
         .juba-mobile-chat .border-t-2.border-\[var\(--duo-line\)\]{max-width:920px!important;width:100%!important;margin:0 auto!important;border-top:1px solid var(--duo-line)!important;background:var(--duo-card)!important;padding:14px 28px 18px!important}
-        .juba-mobile-chat input{border:1px solid #e4e8e2!important;border-radius:10px!important;background:var(--duo-card)!important;box-shadow:none!important;padding:12px 14px!important;color:var(--duo-ink)!important}
-        .juba-mobile-chat input:focus{border-color:#58cc02!important;box-shadow:0 0 0 3px rgba(88,204,2,.1)!important}
-        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{border:0!important;border-radius:9px!important;background:#58cc02!important;box-shadow:0 2px 0 #46a302!important;padding-inline:20px!important}
+        .juba-mobile-chat input{border:1px solid var(--duo-line)!important;border-radius:10px!important;background:var(--duo-card)!important;box-shadow:none!important;padding:12px 14px!important;color:var(--duo-ink)!important}
+        .juba-mobile-chat input:focus{border-color:var(--duo-green)!important;box-shadow:0 0 0 3px rgba(88,204,2,.1)!important}
+        .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{border:0!important;border-radius:9px!important;background:var(--duo-green)!important;box-shadow:0 2px 0 var(--duo-green-dark)!important;padding-inline:20px!important}
         .juba-mobile-chat .chat-sidebar-backdrop{background:rgba(0,0,0,.18)!important}
         @media (max-width:1023px){
           .juba-mobile-chat .chat-conversations-sidebar{width:min(86vw,300px)!important}
@@ -469,10 +469,10 @@ export default function ChatPage() {
         .juba-mobile-chat input{height:44px!important;border-radius:9px!important}
         .juba-mobile-chat button.rounded-xl.border-2.border-\[var\(--duo-green-dark\)\]{height:44px!important;border-radius:9px!important}
         .juba-mobile-chat .juba-chat-profile-rail{width:276px!important;min-width:276px!important;background:var(--duo-card)!important;border-left:1px solid var(--duo-line)!important;padding:18px!important;gap:12px!important}
-        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid #e8ece5!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
+        .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid var(--duo-line)!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(30,50,20,.025)!important}
         .juba-mobile-chat .juba-chat-profile-hero{padding:18px 16px 14px!important}
         .juba-mobile-chat .juba-chat-profile-photo{width:68px!important;height:68px!important;border-radius:50%!important}
-        .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid #eef1ec!important}
+        .juba-mobile-chat .juba-chat-profile-metrics{min-height:56px!important;border-top:1px solid var(--duo-line)!important}
         @media (max-width:1023px){.juba-mobile-chat .juba-chat-profile-rail{display:none!important}.juba-mobile-chat .chat-conversations-sidebar{width:min(82vw,300px)!important}}
 
         /* Reference fidelity pass 2 — message rhythm and profile rail */
@@ -542,8 +542,8 @@ export default function ChatPage() {
         }
 
         /* reference fidelity pass 7 — screenshot-level chat shell and message rhythm */
-        .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid #e8ede5!important;background:var(--duo-card)!important}
-        .juba-mobile-chat .juba-chat-profile-rail{border-left:1px solid #e8ede5!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .chat-conversations-sidebar{border-right:1px solid var(--duo-line)!important;background:var(--duo-card)!important}
+        .juba-mobile-chat .juba-chat-profile-rail{border-left:1px solid var(--duo-line)!important;background:var(--duo-card)!important}
         .juba-mobile-chat .juba-chat-profile-card,.juba-mobile-chat .juba-chat-side-card{border:1px solid #e7ece3!important;border-radius:14px!important;background:var(--duo-card)!important}
         .juba-mobile-chat .juba-chat-profile-hero{padding:18px 16px 15px!important}
         .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid var(--duo-line)!important}
@@ -664,7 +664,7 @@ export default function ChatPage() {
         .juba-mobile-chat .juba-chat-profile-hero strong{color:#30362f!important}
         .juba-mobile-chat .juba-chat-profile-metrics{border-top:1px solid #f0f2ed!important}
         .juba-mobile-chat .juba-chat-friend{transition:background-color .14s ease!important}
-        .juba-mobile-chat .juba-chat-friend:hover{background:#f7fbf4!important}
+        .juba-mobile-chat .juba-chat-friend:hover{background:var(--duo-soft)!important}
         .juba-mobile-chat>div.flex.flex-1>div:last-child{background:var(--duo-card)!important;border-top:1px solid #edf1ea!important}
         @media (max-width:900px){.juba-mobile-chat{background:var(--duo-card)!important}.juba-mobile-chat .min-h-0.flex-1.space-y-4{background:var(--duo-card)!important}}
 
