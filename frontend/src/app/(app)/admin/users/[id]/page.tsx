@@ -729,7 +729,7 @@ export default function AdminUserStatsPage() {
               <button
                 onClick={saveQuota}
                 disabled={quotaSaving || !quotaValuesValid}
-                className="bg-[var(--duo-green)] text-[var(--duo-ink)] hover:bg-[#52bd00] inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                className="bg-[var(--duo-green)] text-[var(--duo-ink)] hover:bg-[var(--duo-green-dark)] inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
               >
                 {quotaSaving && (
                   <Loader2
