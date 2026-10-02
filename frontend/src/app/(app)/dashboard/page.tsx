@@ -773,8 +773,8 @@ export default function DashboardPage() {
   .dashboard-welcome-copy{min-width:0;flex:1}
   .dashboard-section-label{
     display:inline-flex;align-items:center;gap:5px;
-    color:#969d94;font-size:9px;font-weight:850;
-    letter-spacing:.06em;text-transform:uppercase;
+    color:#a0a69f;font-size:8px;font-weight:850;
+    letter-spacing:.08em;text-transform:uppercase;
   }
   .dashboard-welcome-copy h2{
     margin:4px 0 7px;color:#4d534d;
@@ -1147,7 +1147,7 @@ export default function DashboardPage() {
   .dashboard-friends-card .dashboard-section-label svg{flex:none}
   .dashboard-friends-card .dashboard-mini-link{white-space:nowrap}
   .dashboard-profile-photo .h-full{width:100%;height:100%}
-  .dashboard-section-label{display:block;color:#a0a69f;font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+  .dashboard-section-label{display:inline-flex;align-items:center;gap:5px;color:#a0a69f;font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
   .dashboard-daily .dashboard-v3-card-head{padding-bottom:0}
   .dashboard-daily .dashboard-v3-card-head>strong{padding-top:2px}
   .dashboard-insight-footer{display:grid;grid-template-columns:auto auto auto auto;align-items:center;gap:5px 7px;margin-top:11px;color:#9a9f98;font-size:8px}
