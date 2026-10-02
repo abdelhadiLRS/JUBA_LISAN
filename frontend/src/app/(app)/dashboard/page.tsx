@@ -752,9 +752,9 @@ export default function DashboardPage() {
   .dashboard-v3-card-head>div{min-width:0}
 
   .dashboard-v3-welcome{
-    min-height:136px;
+    min-height:132px;
     display:flex;align-items:center;justify-content:space-between;gap:20px;
-    padding:22px 20px;
+    padding:20px 20px;
     border:1px solid var(--dash-border);
     border-radius:12px;
     background:#fff;
@@ -768,7 +768,7 @@ export default function DashboardPage() {
   }
   .dashboard-welcome-copy h2{
     margin:4px 0 7px;color:#4d534d;
-    font-size:28px;line-height:1.15;font-weight:650;letter-spacing:-.035em;
+    font-size:26px;line-height:1.15;font-weight:650;letter-spacing:-.035em;
   }
   .dashboard-welcome-copy p{margin:0;color:#858c83;font-size:13px}
   .dashboard-welcome-meta{
