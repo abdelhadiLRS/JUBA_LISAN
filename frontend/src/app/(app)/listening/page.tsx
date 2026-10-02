@@ -413,7 +413,7 @@ function ListeningPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="juba-reference-page juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="w-full max-w-[1480px] mx-auto box-border juba-mobile-listening mx-auto w-full max-w-[1480px] space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* Score card */}
         <div className="juba-panel rounded-[10px] p-5">
           <div className="flex items-center justify-between">
