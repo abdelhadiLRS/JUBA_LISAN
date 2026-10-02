@@ -192,7 +192,7 @@ export default function VocabularySetPage({
               <button
                 onClick={handleAddAll}
                 disabled={adding}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 px-5 py-2.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="juba-primary-button text-sm font-bold tracking-widest uppercase disabled:opacity-40"
               >
                 {adding ? '...' : t('addAll', { count: vocabSet.words.length })}
               </button>
@@ -203,7 +203,7 @@ export default function VocabularySetPage({
       </div>
 
       {nativeLanguageName && (
-        <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
+        <div className="juba-reference-list-card">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
@@ -346,7 +346,7 @@ export default function VocabularySetPage({
       )}
 
       {/* Word list */}
-      <div className="border-[var(--juba-lilac)] bg-white divide-fl-border-2 divide-y border">
+      <div className="juba-reference-list-card divide-y">
         {vocabSet.words.map((word, i) => (
           <div key={i} className="space-y-1.5 px-5 py-4">
             <div className="flex items-baseline gap-3">
