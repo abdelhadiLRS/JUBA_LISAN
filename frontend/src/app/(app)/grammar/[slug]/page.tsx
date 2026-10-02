@@ -188,7 +188,8 @@ export default function GrammarDetailPage({
 
   return (
     <div className="juba-reference-page mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
+      <section className="juba-reference-hero">
+        <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
           href="/grammar"
           className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
@@ -201,7 +202,8 @@ export default function GrammarDetailPage({
         </span>
         <span>{'\u203a'}</span>
         <span className="text-[var(--juba-text)] tracking-wide">{topic.title}</span>
-      </nav>
+        </nav>
+      </section>
 
       <div className="juba-reference-list-card">
         <div className="juba-reference-list-card flex items-center gap-2 border-b px-6 py-4">
