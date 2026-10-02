@@ -29,10 +29,10 @@ export default function AdaptiveQuizCard({
   }
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--juba-bg,var(--duo-bg))] p-4 sm:p-6">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-[0_1px_2px_rgba(36,48,32,.025)]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between border-b border-[var(--juba-border,var(--duo-line))] bg-[var(--duo-bg)] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2">
             <span className="text-xs text-[var(--duo-muted)]">●</span>
             <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
@@ -40,10 +40,10 @@ export default function AdaptiveQuizCard({
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[var(--duo-muted)] border-[var(--duo-line)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
+            <span className="text-xs text-[var(--duo-muted)] border-[var(--juba-border,var(--duo-line))] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {question.difficulty}
             </span>
-            <span className="text-xs text-[var(--duo-muted)] border-[var(--duo-line)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
+            <span className="text-xs text-[var(--duo-muted)] border-[var(--juba-border,var(--duo-line))] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {skillLabelMap[question.skill] ?? question.skill}
             </span>
           </div>
@@ -75,7 +75,7 @@ export default function AdaptiveQuizCard({
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="flex w-full items-start gap-3 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)] "
+                  className="flex w-full items-start gap-3 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-colors hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-green-dark)] "
                 >
                   <span className="text-xs text-[var(--duo-muted)] shrink-0 font-sans">
                     {labels[i]}.
