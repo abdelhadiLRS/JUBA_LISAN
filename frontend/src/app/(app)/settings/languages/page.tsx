@@ -112,22 +112,22 @@ export default function MyLanguagesPage() {
       )}
 
       {/* Breadcrumb */}
-      <nav className="text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono">
+      <nav className="juba-reference-section-head mb-6 flex items-center gap-2">
         <Link
           href="/settings"
-          className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
+          className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
         >
           {tSettings('title')}
         </Link>
         <span>›</span>
-        <span className="text-[var(--juba-text)] tracking-widest uppercase">
+        <span className="text-[var(--duo-ink)] font-sans text-xs font-semibold tracking-wide uppercase">
           {t('myLanguages')}
         </span>
       </nav>
 
       {/* Header + Add button */}
-      <div className="juba-reference-hero mb-6 flex items-center justify-between">
-        <h1 className="text-[var(--juba-text)] font-mono text-xl font-bold tracking-widest uppercase">
+      <div className="juba-reference-hero flex items-center justify-between">
+        <h1 className="text-[var(--duo-ink)] font-sans text-xl font-bold tracking-tight">
           {t('myLanguages')}
         </h1>
         {unusedCodes.length > 0 && (
@@ -166,9 +166,7 @@ export default function MyLanguagesPage() {
               return (
                 <div
                   key={ulang.target_language}
-                  className={`juba-reference-list-card bg-white border p-5 ${
-                    isActive ? 'border-[var(--juba-violet)]/50' : 'border-[var(--juba-lilac)]'
-                  }`}
+                  className={`juba-reference-list-card p-5 ${isActive ? 'border-[var(--duo-green-dark)]/40' : ''}`}
                 >
                   {/* Top row: flag + name + status */}
                   <div className="mb-3 flex items-center gap-3">
