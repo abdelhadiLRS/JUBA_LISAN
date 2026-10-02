@@ -912,6 +912,7 @@ export default function DashboardPage() {
   .dashboard-v3-chart-col small{transition:color .14s ease}
     display:block;min-width:24px;text-align:center;line-height:1;
   }
+  .dashboard-v3-chart-col small:focus-visible{outline:2px solid #b8e79b;outline-offset:3px;border-radius:4px}
   .dashboard-v3-chart-col.active span{background:var(--dash-green)}
   .dashboard-v3-chart-col small{color:#929991;font-size:9px}
   .dashboard-v3-chart-col.active small{color:#58a91b;font-weight:800}
