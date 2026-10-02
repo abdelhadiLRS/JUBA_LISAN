@@ -277,7 +277,7 @@ export default function GamesPage() {
   }
 
   return (
-    <main className="juba-games w-full" dir={direction}>
+    <main className="juba-page-shell juba-games w-full" dir={direction}>
       <section className="games-shell juba-reference-page-inner">
         <header className="games-header juba-reference-hero">
           <div>
