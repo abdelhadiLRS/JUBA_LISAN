@@ -1,95 +1,56 @@
 from __future__ import annotations
-
 import asyncio
+import math
 import struct
-
-from fastapi import APIRouter, Depends, Request, WebSocket, WebSocketDisconnect
+import time
+from contextlib import asynccontextmanager
+from fastapi import APIRouter, Depends, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
-from jwt.exceptions import PyJWTError
 from pydantic import BaseModel
 from sqlalchemy import select
-
 from app.core.app_logger import get_logger
 from app.core.config import settings
-from app.core.deps import (
-    MAINTENANCE_KEY,
-    get_current_user,
-    get_redis,
-    require_not_maintenance,
-)
+from app.core.deps import MAINTENANCE_KEY, get_current_user, get_redis, require_not_maintenance
 from app.core.limiter import limiter
 from app.core.security import decode_access_token
 from app.models.conversation import Conversation as ConversationModel
 from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.models.user_language import UserLanguage
-from app.services.assessment_voice_trial import (
-    AssessmentVoiceTrial,
-    consume_assessment_voice_trial_token,
-    validate_assessment_voice_trial_token,
-)
+from app.services.assessment_voice_trial import consume_assessment_voice_trial_token, validate_assessment_voice_trial_token
 from app.services.conversation_pipeline import ConversationPipeline
-from app.services.freemium_service import (
-    check_voice_quota,
-    is_freemium_trial_active,
-)
+from app.services.feature_quota_service import quota_status, reserve, settle
+from app.services.subscription_catalog import SESSION_SECONDS, effective_tier
+from app.services.voice_quota_delivery import VoiceDelivery
 from app.services.language_helpers import voice_session_title
 from app.services.llm_adapter import llm_adapter
 from app.services.memory_service import get_user_memories
 from app.services.quota_service import check_all_quotas
-from app.services.subscription_service import is_subscribed
 from app.utils.db import db_session
-from app.utils.redis import redis_client as _redis_client
 
 logger = get_logger(__name__)
-
 router = APIRouter(tags=["conversation"])
 
 
-# ── Shared voice access check ──────────────────────────────────────────────────
-
-
-async def _check_voice_access(
-    user: User,
-    redis_client,
-    voice_trial_token: str | None = None,
-) -> tuple[bool, bool, AssessmentVoiceTrial | None, int]:
-    """Check whether a user can access voice conversation.
-
-    Returns (allowed, freemium_ok, voice_trial, freemium_remaining_seconds).
-    - allowed: overall access granted
-    - freemium_ok: access via freemium voice quota (for usage recording)
-    - voice_trial: access via one-time assessment demo (None if not used)
-    - freemium_remaining_seconds: remaining seconds when access is via voice quota
-
-    Check order: subscribed → freemium trial → freemium voice quota → assessment trial.
-    """
-    if is_subscribed(user, settings.STRIPE_ENABLED):
-        return True, False, None, 0
-
-    if is_freemium_trial_active(user.freemium_trial_ends_at):
-        return True, False, None, 0
-
+@asynccontextmanager
+async def _optional_redis():
+    generator = get_redis()
     try:
-        vq = await check_voice_quota(redis_client, user.id)
-        if vq.allowed:
-            return True, True, None, vq.remaining
-    except Exception:
-        logger.exception("[voice_access] Redis unavailable during freemium quota check")
+        yield await anext(generator)
+    finally:
+        await generator.aclose()
 
-    try:
-        trial = await validate_assessment_voice_trial_token(
-            redis_client,
-            user=user,
-            token=voice_trial_token,
-            stripe_enabled=settings.STRIPE_ENABLED,
-        )
-        if trial:
-            return True, False, trial, 0
-    except Exception:
-        logger.exception("[voice_access] Redis unavailable during assessment trial validation")
 
-    return False, False, None, 0
+async def _check_voice_access(user: User, redis_client, voice_trial_token: str | None = None):
+    if not settings.STRIPE_ENABLED:
+        return True, False, None, 0
+    async with db_session() as db:
+        state = await quota_status(db, user)
+    remaining = state["features"]["voice"]["remaining"]
+    trial = None
+    if remaining > 0 and voice_trial_token and redis_client is not None:
+        trial = await validate_assessment_voice_trial_token(redis_client, user=user, token=voice_trial_token, stripe_enabled=True)
+    return remaining > 0, False, trial, remaining
 
 
 class ConversationWarmupRequest(BaseModel):
@@ -97,454 +58,165 @@ class ConversationWarmupRequest(BaseModel):
 
 
 def _make_silence_wav(duration_ms: int = 100, sample_rate: int = 16000) -> bytes:
-    """Return a minimal valid PCM WAV with silence (for STT warmup)."""
-    num_samples = sample_rate * duration_ms // 1000
-    data = b"\x00" * (num_samples * 2)  # 16-bit mono
-    byte_rate = sample_rate * 2
-    header = struct.pack(
-        "<4sI4s4sIHHIIHH4sI",
-        b"RIFF",
-        36 + len(data),
-        b"WAVE",
-        b"fmt ",
-        16,
-        1,
-        1,
-        sample_rate,
-        byte_rate,
-        2,
-        16,
-        b"data",
-        len(data),
-    )
-    return header + data
+    data = b"\x00" * (sample_rate * duration_ms // 1000 * 2)
+    return struct.pack("<4sI4s4sIHHIIHH4sI", b"RIFF", 36 + len(data), b"WAVE", b"fmt ", 16, 1, 1,
+                       sample_rate, sample_rate * 2, 2, 16, b"data", len(data)) + data
 
 
 @router.post("/api/conversation/warmup")
 @limiter.limit("20/minute")
-async def conversation_warmup(
-    request: Request,
-    data: ConversationWarmupRequest | None = None,
-    _maintenance: None = Depends(require_not_maintenance),
-    current_user: User = Depends(get_current_user),
-    redis=Depends(get_redis),
-) -> JSONResponse:
-    """Pre-heat TTS and STT services before a conversation session starts.
-
-    Awaits model loading synchronously so the caller knows the models are
-    ready before opening the WebSocket. The frontend must await this call
-    and only then connect the WebSocket.
-    """
-    allowed, _, _, _ = await _check_voice_access(
-        current_user,
-        redis,
-        voice_trial_token=data.trial_token if data else None,
-    )
+async def conversation_warmup(request: Request, data: ConversationWarmupRequest | None = None,
+    _maintenance: None = Depends(require_not_maintenance), current_user: User = Depends(get_current_user), redis=Depends(get_redis)) -> JSONResponse:
+    if current_user.role == "admin":
+        raise HTTPException(status_code=403, detail="Learning features are available to learners only")
+    allowed, _, _, _ = await _check_voice_access(current_user, redis, data.trial_token if data else None)
     if not allowed:
-        return JSONResponse({"detail": "subscription_required"}, status_code=402)
-
-    tts_service = getattr(request.app.state, "tts_service", None)
-    stt_service = getattr(request.app.state, "stt_service", None)
-
+        return JSONResponse({"detail": "voice_quota_exhausted"}, status_code=402)
     tasks = []
-    if tts_service:
-        tasks.append(_warmup_tts(tts_service))
-    if stt_service:
-        tasks.append(_warmup_stt(stt_service))
+    if getattr(request.app.state, "tts_service", None):
+        tasks.append(_warmup_tts(request.app.state.tts_service))
+    if getattr(request.app.state, "stt_service", None):
+        tasks.append(_warmup_stt(request.app.state.stt_service))
     if tasks:
         await asyncio.gather(*tasks)
-
     return JSONResponse({"status": "ready"})
 
 
-async def _warmup_tts(tts_service: object) -> None:
+async def _warmup_tts(service):
     try:
-        # OpenAI TTS warmup is just a lightweight model check; calling health
-        # avoids a full synthesis request during session start.
-        if hasattr(tts_service, "model"):
-            await tts_service.health()  # type: ignore[union-attr]
+        if hasattr(service, "model"):
+            await service.health()
         else:
-            # Local Kokoro benefits from a real synthesis once to warm model
-            # caches on first use.
-            await tts_service.synthesize("ready")  # type: ignore[union-attr]
-        logger.info("[warmup] TTS ready")
-    except Exception as exc:
-        logger.warning("[warmup] TTS warmup error: %s", exc)
+            await service.synthesize("ready")
+    except Exception:
+        logger.exception("TTS warmup failed")
 
 
-async def _warmup_stt(stt_service: object) -> None:
+async def _warmup_stt(service):
     try:
-        wav = _make_silence_wav()
-        await stt_service.transcribe(wav, "warmup.wav", "audio/wav")  # type: ignore[union-attr]
-        logger.info("[warmup] STT ready")
-    except Exception as exc:
-        logger.warning("[warmup] STT warmup error: %s", exc)
+        await service.transcribe(_make_silence_wav(), "warmup.wav", "audio/wav")
+    except Exception:
+        logger.exception("STT warmup failed")
+
+
+async def _reject(ws, code, message, close_code=1008):
+    await ws.send_json({"type": "error", "code": code, "message": message})
+    await ws.close(code=close_code)
 
 
 @router.websocket("/ws/conversation")
-async def conversation_ws(
-    websocket: WebSocket,
-) -> None:
-    # --- Accept first, then authenticate via first JSON message ---
+async def conversation_ws(websocket: WebSocket) -> None:
     await websocket.accept()
-
-    initial_context_raw: list | None = None
     try:
-        auth_msg = await asyncio.wait_for(websocket.receive_json(), timeout=10.0)
-        token = auth_msg.get("token", "")
-        initial_context_raw = auth_msg.get("context")  # optional chat history
-        voice_pref: str = auth_msg.get("voice", "") or ""
-        voice_trial_token: str | None = auth_msg.get("voice_trial_token")
-        target_language_from_client: str | None = auth_msg.get("target_language")
-        client_conversation_id_raw = auth_msg.get(
-            "conversation_id"
-        )  # optional: reserved for future API use
-        if settings.TTS_PROVIDER == "openai":
-            _VALID_VOICES = frozenset(
-                {
-                    "alloy",
-                    "ash",
-                    "coral",
-                    "echo",
-                    "fable",
-                    "nova",
-                    "onyx",
-                    "sage",
-                    "shimmer",
-                }
-            )
-            if voice_pref not in _VALID_VOICES:
-                voice_pref = ""
-        else:
-            voice_pref = ""  # local TTS ignores voice param
-        payload = decode_access_token(token)
+        auth = await asyncio.wait_for(websocket.receive_json(), timeout=10)
+        payload = decode_access_token(auth.get("token", ""))
         user_id = int(payload["sub"])
-    except (TimeoutError, PyJWTError, KeyError, ValueError, Exception):  # noqa: BLE001
-        logger.warning("[conversation] Auth failed — closing WS 1008")
-        await websocket.send_json(
-            {"type": "error", "code": "auth_failed", "message": "Authentication failed"}
-        )
-        await websocket.close(code=1008)
+    except Exception:
+        await _reject(websocket, "auth_failed", "Authentication failed")
         return
-
-    async with db_session() as db:
-        user = await db.get(User, user_id)
-        if user.role == "admin":
-            logger.info("[conversation] Admin access denied — closing WS 1008")
-            await websocket.send_json(
-                {
-                    "type": "error",
-                    "code": "learner_only",
-                    "message": "Voice conversation is available to learners only.",
-                }
-            )
-            await websocket.close(code=1008)
-            return
-
-        if not user or not user.is_active:
-            logger.warning(
-                "[conversation] User %s not found or inactive — closing WS 1008",
-                user_id,
-            )
-            await websocket.close(code=1008)
-            return
-
-        # Check maintenance mode
+    reservation = None
+    pipeline = None
+    delivered = VoiceDelivery(websocket)
+    started = None
+    async with _optional_redis() as redis:
         try:
-            async with _redis_client() as redis_check:
-                maintenance = await redis_check.get(MAINTENANCE_KEY)
-            if maintenance == "1" and user.role != "admin":
-                logger.info(
-                    "[conversation] Maintenance mode active — closing WS for user %s",
-                    user_id,
-                )
-                await websocket.send_json(
-                    {
-                        "type": "error",
-                        "code": "maintenance_mode",
-                        "message": "Service temporarily unavailable — maintenance mode is active.",
-                    }
-                )
-                await websocket.close(code=1013)
-                return
+            async with db_session() as db:
+                user = await db.get(User, user_id)
+                if user is None or not user.is_active:
+                    await _reject(websocket, "auth_failed", "User is unavailable")
+                    return
+                if user.role == "admin":
+                    await _reject(websocket, "learner_only", "Voice conversation is available to learners only")
+                    return
+                if redis is not None:
+                    try:
+                        if await redis.get(MAINTENANCE_KEY) == "1":
+                            await _reject(websocket, "maintenance_mode", "Service temporarily unavailable", 1013)
+                            return
+                    except Exception:
+                        logger.exception("Could not check maintenance flag")
+                tts = getattr(websocket.app.state, "tts_service", None)
+                stt = getattr(websocket.app.state, "stt_service", None)
+                if tts is None or stt is None:
+                    await _reject(websocket, "services_disabled", "TTS and STT must be enabled", 1011)
+                    return
+                from app.services.user_language_service import get_active_language
+                active_language = await get_active_language(db, user_id)
+                selected = auth.get("target_language")
+                if selected:
+                    language = (await db.execute(select(UserLanguage).where(UserLanguage.user_id == user_id, UserLanguage.target_language == selected))).scalar_one_or_none()
+                    if language is None:
+                        await _reject(websocket, "invalid_language", "Choose a language on your account")
+                        return
+                else:
+                    language = active_language
+                target = language.target_language if language else "en-GB"
+                plan = (await db.execute(select(StudyPlan).where(StudyPlan.user_language_id == language.id, StudyPlan.is_active.is_(True)).limit(1))).scalar_one_or_none() if language else None
+                plan_id = plan.id if plan else None
+                cefr = plan.cefr_level if plan else "A2"
+                max_duration = user.conversation_max_duration
+                voice_trial = None
+                if settings.STRIPE_ENABLED:
+                    allowed, _, voice_trial, remaining = await _check_voice_access(user, redis, auth.get("voice_trial_token"))
+                    if not allowed:
+                        await _reject(websocket, "voice_quota_exhausted", "Monthly voice allowance is exhausted")
+                        return
+                    max_duration = min(SESSION_SECONDS[effective_tier(user, trial_enabled=settings.FREEMIUM_TRIAL_ENABLED)], remaining)
+                    if voice_trial:
+                        max_duration = min(max_duration, voice_trial.duration_seconds)
+                    reservation = await reserve(user, "voice", max_duration)
+                elif redis is not None:
+                    max_duration, code, message, close_code = await check_all_quotas(redis, user_id, user.monthly_tokens_limit,
+                        user.conversation_daily_minutes, user.conversation_weekly_minutes, user.conversation_weekly_sessions, max_duration)
+                    if code:
+                        await _reject(websocket, code, message, close_code)
+                        return
+                if voice_trial:
+                    await consume_assessment_voice_trial_token(redis, user=user, token=voice_trial.token)
+                    await db.commit()
+                conv = None
+                identifier = auth.get("conversation_id")
+                if isinstance(identifier, int) and not isinstance(identifier, bool) and identifier > 0:
+                    existing = await db.get(ConversationModel, identifier)
+                    if existing and existing.user_id == user_id and (not existing.target_language or existing.target_language == target):
+                        conv = existing
+                if conv is None:
+                    conv = ConversationModel(user_id=user_id, title=voice_session_title(user.native_language), source="voice", study_plan_id=plan_id, target_language=target)
+                    db.add(conv)
+                    await db.commit()
+                    await db.refresh(conv)
+                try:
+                    memories = await get_user_memories(db, user_id)
+                except Exception:
+                    memories = []
+                raw_context = auth.get("context")
+                context = [{"role": item["role"], "content": item["content"][:2000]} for item in raw_context[:20]
+                    if isinstance(item, dict) and item.get("role") in ("user", "assistant") and isinstance(item.get("content"), str) and item["content"].strip()] if isinstance(raw_context, list) else None
+                voice = auth.get("voice", "")
+                if settings.TTS_PROVIDER != "openai" or voice not in {"alloy", "ash", "coral", "echo", "fable", "nova", "onyx", "sage", "shimmer"}:
+                    voice = ""
+                pipeline = ConversationPipeline(llm=llm_adapter, tts=tts, stt=stt, cefr_level=cefr,
+                    native_language=user.native_language, target_language=target, student_name=user.display_name,
+                    max_duration=max_duration, inactivity_timeout=user.conversation_inactivity_timeout,
+                    initial_context=context, user_id=user_id, conversation_id=conv.id, bio=user.bio,
+                    learning_goals=user.learning_goals, memories=memories, voice=voice, study_plan_id=plan_id)
+                # Hosted mode uses the new monthly reservation only; no double charging.
+                pipeline._redis = None if settings.STRIPE_ENABLED else redis
+                pipeline._freemium_voice = False
+            started = time.monotonic()
+            await pipeline.run(delivered)
+        except HTTPException as exc:
+            await _reject(websocket, "voice_quota_exhausted" if exc.status_code == 402 else "internal_error", "Voice session could not be started")
+        except (WebSocketDisconnect, asyncio.CancelledError):
+            logger.info("Voice client disconnected")
         except Exception:
-            pass  # Redis failure → allow through
-
-        # Check subscription, freemium trial, freemium voice quota, or assessment voice trial.
-        allowed = False
-        voice_trial = None
-        freemium_ok = False
-        freemium_remaining_seconds = 0
-        try:
-            async with _redis_client() as redis_access:
-                allowed, freemium_ok, voice_trial, freemium_remaining_seconds = (
-                    await _check_voice_access(
-                        user, redis_access, voice_trial_token=voice_trial_token
-                    )
-                )
-        except Exception:
-            logger.exception(
-                "[conversation] Redis unavailable during voice access check — blocking"
-            )
-        if not allowed:
-            logger.info(
-                "[conversation] User %s has no active subscription — closing WS 1008",
-                user_id,
-            )
-            await websocket.send_json(
-                {
-                    "type": "error",
-                    "code": "subscription_required",
-                    "message": "Voice conversation is not available on your current plan.",
-                }
-            )
-            await websocket.close(code=1008)
-            return
-
-        # --- Guard: TTS and STT must be enabled ---
-        tts_service = getattr(websocket.app.state, "tts_service", None)
-        stt_service = getattr(websocket.app.state, "stt_service", None)
-        if tts_service is None or stt_service is None:
-            logger.warning("[conversation] TTS or STT disabled — rejecting WS for user %s", user_id)
-            await websocket.send_json(
-                {
-                    "type": "error",
-                    "code": "services_disabled",
-                    "message": "TTS and STT must be enabled for conversation mode.",
-                }
-            )
-            await websocket.close(code=1011)
-            return
-
-        # --- CEFR level and target language from active StudyPlan ---
-        from app.services.user_language_service import get_active_language
-
-        plan: StudyPlan | None = None
-        if target_language_from_client:
-            ul_result = await db.execute(
-                select(UserLanguage).where(
-                    UserLanguage.user_id == user_id,
-                    UserLanguage.target_language == target_language_from_client,
-                )
-            )
-            ul = ul_result.scalar_one_or_none()
-            if ul:
-                plan_result = await db.execute(
-                    select(StudyPlan)
-                    .where(
-                        StudyPlan.user_language_id == ul.id,
-                        StudyPlan.is_active == True,  # noqa: E712
-                    )
-                    .limit(1)
-                )
-                plan = plan_result.scalar_one_or_none()
-        if not plan:
-            active_lang = await get_active_language(db, user_id)
-            if active_lang:
-                result = await db.execute(
-                    select(StudyPlan)
-                    .where(
-                        StudyPlan.user_language_id == active_lang.id,
-                        StudyPlan.is_active == True,  # noqa: E712
-                    )
-                    .limit(1)
-                )
-                plan = result.scalar_one_or_none()
-        if not plan:
-            # No plan for the selected language — use A2 + the selected language
-            cefr_level = "A2"
-            study_plan_id_for_conv = None
-            if target_language_from_client:
-                target_language = target_language_from_client
-            elif active_lang:
-                target_language = active_lang.target_language
-            else:
-                target_language = "en-GB"
-        else:
-            cefr_level = plan.cefr_level
-            if target_language_from_client:
-                target_language = target_language_from_client
-            else:
-                ul_row = await db.execute(
-                    select(UserLanguage).where(UserLanguage.id == plan.user_language_id)
-                )
-                ul = ul_row.scalar_one_or_none()
-                target_language = ul.target_language if ul else plan.target_language
-            study_plan_id_for_conv = plan.id
-
-        # Read user settings before session closes to avoid DetachedInstanceError
-        max_duration = (
-            voice_trial.duration_seconds if voice_trial else user.conversation_max_duration
-        )
-        if freemium_ok and freemium_remaining_seconds > 0:
-            max_duration = min(max_duration, freemium_remaining_seconds)
-        inactivity_timeout = user.conversation_inactivity_timeout
-        native_language = user.native_language
-        student_name = user.display_name
-        user_bio = user.bio
-        user_learning_goals = user.learning_goals
-        weekly_sessions_limit = user.conversation_weekly_sessions
-        daily_minutes_limit = user.conversation_daily_minutes
-        weekly_minutes_limit = user.conversation_weekly_minutes
-        monthly_tokens_limit = user.monthly_tokens_limit
-
-    # Validate and sanitize optional chat context passed from the tutor chat
-    valid_context: list[dict] | None = None
-    if isinstance(initial_context_raw, list):
-        sanitized = [
-            {"role": m["role"], "content": m["content"]}
-            for m in initial_context_raw[:20]
-            if isinstance(m, dict)
-            and m.get("role") in ("user", "assistant")
-            and isinstance(m.get("content"), str)
-            and m["content"].strip()
-        ]
-        if sanitized:
-            valid_context = sanitized
-
-    logger.info(
-        "[conversation] Session started — user=%s cefr=%s max_duration=%ss inactivity=%ss context_turns=%s",
-        user_id,
-        cefr_level,
-        max_duration,
-        inactivity_timeout,
-        len(valid_context) if valid_context else 0,
-    )
-    # (already accepted at the top)
-
-    # --- Quota checks ---
-    async with _redis_client() as redis:
-        try:
-            max_duration, err_code, err_msg, close_code = await check_all_quotas(
-                redis,
-                user_id,
-                monthly_tokens_limit,
-                daily_minutes_limit,
-                weekly_minutes_limit,
-                weekly_sessions_limit,
-                max_duration,
-            )
-            if err_code is not None:
-                logger.info(
-                    "[conversation] Quota exceeded — user=%s code=%s msg=%s",
-                    user_id,
-                    err_code,
-                    err_msg,
-                )
-                await websocket.send_json({"type": "error", "code": err_code, "message": err_msg})
-                await websocket.close(code=close_code)  # type: ignore[arg-type]
-                return
-        except Exception as exc:
-            logger.error("[conversation] Quota check failed: %s", exc)
-            raise
-
-        if voice_trial:
-            try:
-                async with db_session() as db_trial:
-                    trial_user = await db_trial.get(User, user_id)
-                    if trial_user:
-                        await consume_assessment_voice_trial_token(
-                            redis,
-                            user=trial_user,
-                            token=voice_trial.token,
-                        )
-                        await db_trial.commit()
-            except Exception as exc:
-                logger.error("[conversation] Failed to consume voice trial: %s", exc)
-                await websocket.send_json(
-                    {
-                        "type": "error",
-                        "code": "internal_error",
-                        "message": "Failed to initialise trial conversation.",
-                    }
-                )
-                await websocket.close(code=1011)
-                return
-
-        # Create or reuse a Conversation record so the full transcript is persisted
-        # to the same chat_history table used by text chats — this makes voice
-        # sessions visible & reviewable in the tutor chat sidebar.
-        # The frontend currently never sends conversation_id, so a new record is
-        # always created. The reuse path is kept for future API flexibility.
-        conversation_id: int | None = None
-        try:
-            async with db_session() as db_conv:
-                # Reuse path: if a caller explicitly passes a valid conversation_id
-                # that belongs to this user, append to that conversation.
-                if (
-                    isinstance(client_conversation_id_raw, (int, float))
-                    and int(client_conversation_id_raw) > 0
-                ):
-                    existing = await db_conv.get(ConversationModel, int(client_conversation_id_raw))
-                    if (
-                        existing
-                        and existing.user_id == user_id
-                        and (
-                            not existing.target_language
-                            or existing.target_language == target_language
-                        )
-                    ):
-                        conversation_id = existing.id
-                if conversation_id is None:
-                    conv = ConversationModel(
-                        user_id=user_id,
-                        title=voice_session_title(native_language),
-                        source="voice",
-                        study_plan_id=study_plan_id_for_conv,
-                        target_language=target_language,
-                    )
-                    db_conv.add(conv)
-                    await db_conv.commit()
-                    await db_conv.refresh(conv)
-                    conversation_id = conv.id
-        except Exception as exc:
-            logger.error("[conversation] Failed to create conversation record: %s", exc)
-            await websocket.send_json(
-                {
-                    "type": "error",
-                    "code": "internal_error",
-                    "message": "Failed to initialise conversation session.",
-                }
-            )
-            await websocket.close(code=1011)
-            return
-
-        # Fetch user memories filtered by study plan
-        memories = []
-        try:
-            async with db_session() as db_mem:
-                memories = await get_user_memories(db_mem, user_id)
-        except Exception:
-            pass
-
-        pipeline = ConversationPipeline(
-            llm=llm_adapter,
-            tts=tts_service,
-            stt=stt_service,
-            cefr_level=cefr_level,
-            native_language=native_language,
-            target_language=target_language,
-            student_name=student_name,
-            max_duration=max_duration,
-            inactivity_timeout=inactivity_timeout,
-            initial_context=valid_context,
-            user_id=user_id,
-            conversation_id=conversation_id,
-            bio=user_bio,
-            learning_goals=user_learning_goals,
-            memories=memories,
-            voice=voice_pref,
-            study_plan_id=study_plan_id_for_conv,
-        )
-        pipeline._redis = redis
-        pipeline._freemium_voice = freemium_ok
-
-        try:
-            await pipeline.run(websocket)
-        except WebSocketDisconnect:
-            logger.info("[conversation] WebSocketDisconnect — user=%s", user_id)
-        except asyncio.CancelledError:
-            logger.info("[conversation] CancelledError — user=%s", user_id)
+            logger.exception("Voice session failed")
         finally:
-            await pipeline.cleanup()
-            logger.info("[conversation] Session ended — user=%s", user_id)
+            try:
+                if pipeline is not None:
+                    await pipeline.cleanup()
+            finally:
+                if reservation is not None:
+                    seconds = min(reservation.amount, max(1, math.ceil(time.monotonic() - started))) if started is not None and delivered.successful_turns else 0
+                    reservation.charge(seconds)
+                    await settle(reservation, success=seconds > 0)
