@@ -46,6 +46,7 @@ from app.schemas.auth import (
     UserUpdateRequest,
 )
 from app.services import email_service
+from app.services.subscription_trial_service import issue_go_trial
 
 logger = get_logger(__name__)
 
@@ -208,13 +209,8 @@ async def register(
     await db.commit()
     await db.refresh(user)
 
-    # Start freemium trial for new users when STRIPE_ENABLED and FREEMIUM_TRIAL_ENABLED
-    if settings.STRIPE_ENABLED and settings.FREEMIUM_TRIAL_ENABLED:
-        user.freemium_trial_ends_at = datetime.now(UTC).replace(tzinfo=None) + timedelta(
-            days=settings.FREEMIUM_TRIAL_DAYS
-        )
-        user.freemium_trial_used = True
-        await db.commit()
+    # Preserve automatic activation, with the same atomic catalog policy as /trial.
+    await issue_go_trial(db, user)
 
     # UserLanguage is created during onboarding when the user picks a language.
 
@@ -362,20 +358,13 @@ async def get_me(
     db: AsyncSession = Depends(get_db),
 ):
     try:
-        if (
-            settings.STRIPE_ENABLED
-            and settings.FREEMIUM_TRIAL_ENABLED
-            and current_user.freemium_trial_ends_at is None
-            and not current_user.freemium_trial_used
-            and current_user.subscription_status not in ("active", "trialing")
-        ):
-            current_user.freemium_trial_ends_at = datetime.now(UTC).replace(
-                tzinfo=None
-            ) + timedelta(days=settings.FREEMIUM_TRIAL_DAYS)
-            current_user.freemium_trial_used = True
-            await db.commit()
+        # Keep legacy automatic activation without extending an existing trial.
+        await issue_go_trial(db, current_user)
     except Exception:
-        pass
+        # A failed claim must not leave the account session unusable for auth.
+        await db.rollback()
+        await db.refresh(current_user)
+        logger.warning("Could not issue Go trial during account read", exc_info=True)
 
     return current_user
 
@@ -691,7 +680,7 @@ async def reset_password(
     redis: Redis | None = Depends(get_redis),
 ):
     redis_client = _require_redis(redis, "Password reset")
-    user_id_str = await redis_client.get(f"reset_password:{data.token}")
+    user_id_str = await redis_client.get(f"reset_password:{token}")
     if not user_id_str:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired reset token")
     user = await db.get(User, int(user_id_str))

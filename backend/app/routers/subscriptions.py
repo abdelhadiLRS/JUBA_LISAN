@@ -1,8 +1,6 @@
 """Product state, server-issued trial and standalone correction."""
-from datetime import UTC, datetime, timedelta
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
-from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.database import get_db
@@ -11,7 +9,8 @@ from app.core.limiter import limiter
 from app.models.user import User
 from app.services.feature_quota_service import feature_quota, quota_status
 from app.services.llm_adapter import llm_adapter
-from app.services.subscription_catalog import SESSION_SECONDS, TRIAL_DAYS, MAX_TRANSLATION_CHARS, public_catalog
+from app.services.subscription_catalog import SESSION_SECONDS, MAX_TRANSLATION_CHARS, public_catalog
+from app.services.subscription_trial_service import issue_go_trial, trial_available
 
 router = APIRouter(prefix="/api/subscriptions", tags=["subscriptions"])
 
@@ -31,8 +30,7 @@ async def my_subscription(request: Request, user: User = Depends(get_current_use
         "cancel_at_period_end": user.cancel_at_period_end,
         "subscription_ends_at": user.subscription_ends_at,
         "trial_ends_at": user.freemium_trial_ends_at,
-        "trial_available": bool(settings.STRIPE_ENABLED and settings.FREEMIUM_TRIAL_ENABLED and not user.freemium_trial_used
-                                and user.subscription_status not in ("active", "trialing")),
+        "trial_available": trial_available(user),
         "voice_session_max_seconds": SESSION_SECONDS[result["tier"]],
         "enforced_features": ["chat", "lessons", "reading", "listening", "flashcards", "translation", "voice", "tts"]})
     return result
@@ -43,13 +41,9 @@ async def my_subscription(request: Request, user: User = Depends(get_current_use
 async def start_trial(request: Request, user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     if not settings.STRIPE_ENABLED or not settings.FREEMIUM_TRIAL_ENABLED:
         raise HTTPException(status_code=409, detail="Trial is not available")
-    end = (datetime.now(UTC) + timedelta(days=TRIAL_DAYS)).replace(tzinfo=None)
-    changed = (await db.execute(update(User).where(User.id == user.id, User.freemium_trial_used.is_(False),
-        User.subscription_status.notin_(["active", "trialing"])).values(freemium_trial_used=True, freemium_trial_ends_at=end).returning(User.id))).scalar_one_or_none()
-    if changed is None:
+    end = await issue_go_trial(db, user)
+    if end is None:
         raise HTTPException(status_code=409, detail="Trial was already used or account is subscribed")
-    await db.commit()
-    await db.refresh(user)
     return {"tier": "go", "trial_ends_at": end, "card_required": False}
 
 
