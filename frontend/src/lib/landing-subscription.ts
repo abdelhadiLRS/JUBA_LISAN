@@ -1,44 +1,30 @@
-interface LandingSubscriptionState {
-  subscribed: boolean
-  trialUsed: boolean
-}
+import {apiFetch} from '@/lib/api'
+import {useAuthStore} from '@/store/auth'
 
-let subscriptionStatusPromise: Promise<LandingSubscriptionState> | null = null
+interface LandingSubscriptionState{subscribed:boolean;trialUsed:boolean}
+let pending:{token:string|null;promise:Promise<LandingSubscriptionState>}|null=null
 
-export async function getLandingSubscriptionState(): Promise<LandingSubscriptionState> {
-  if (subscriptionStatusPromise) return subscriptionStatusPromise
-
-  subscriptionStatusPromise = (async () => {
-    try {
-      const refreshRes = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        credentials: 'include',
-      })
-      if (!refreshRes.ok) return { subscribed: false, trialUsed: false }
-
-      const { access_token } = await refreshRes.json()
-
-      const meRes = await fetch('/api/auth/me', {
-        headers: { Authorization: `Bearer ${access_token}` },
-        credentials: 'include',
-      })
-      if (!meRes.ok) return { subscribed: false, trialUsed: false }
-
-      const me = await meRes.json()
-      const status: string = me.subscription_status ?? 'none'
-      return {
-        subscribed: status === 'active' || status === 'trialing',
-        trialUsed: Boolean(me.trial_used),
-      }
-    } catch {
-      return { subscribed: false, trialUsed: false }
-    }
+/** Share only an in-flight request for the same token, never stale account state. */
+export async function getLandingSubscriptionState():Promise<LandingSubscriptionState>{
+  const token=useAuthStore.getState().accessToken
+  if(pending?.token===token)return pending.promise
+  const promise=(async()=>{
+    const controller=new AbortController()
+    const timeout=setTimeout(()=>controller.abort(),12000)
+    try{
+      // apiFetch handles refresh through the centralized auth flow.
+      const response=await apiFetch('/api/auth/me',{signal:controller.signal})
+      if(!response.ok)throw new Error('Subscription status could not be verified')
+      const me=await response.json()
+      if(typeof me.subscription_status!=='string')throw new Error('Invalid subscription status')
+      return {subscribed:me.subscription_status==='active'||me.subscription_status==='trialing',trialUsed:me.trial_used===true}
+    }finally{clearTimeout(timeout)}
   })()
-
-  return subscriptionStatusPromise
+  const request={token,promise};pending=request
+  try{return await promise}finally{if(pending===request)pending=null}
 }
 
-export async function hasActiveLandingSubscription(): Promise<boolean> {
-  const state = await getLandingSubscriptionState()
-  return state.subscribed
+/** Legacy boolean read; cannot authorize payment. Strict callers use the state API. */
+export async function hasActiveLandingSubscription():Promise<boolean>{
+  try{return (await getLandingSubscriptionState()).subscribed}catch{return false}
 }
