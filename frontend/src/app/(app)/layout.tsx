@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
-import { useProgressStore } from '@/store/progress'
 import { useConfigStore } from '@/store/config'
 import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
@@ -19,6 +18,7 @@ import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 import { BookOpen, ChartNoAxesColumnIncreasing, Gamepad2, Headphones, Languages, MessageCircle, Settings, Users, Library, ClipboardCheck, UserRound, Search, Trophy, Sparkles, Menu, X, ChevronDown } from 'lucide-react'
 import './reference-dashboard.css'
 import './app-layout-fix.css'
+import './nunito-local.css'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const locale = useLocale()
@@ -46,42 +46,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const [trialDaysLeft, setTrialDaysLeft] = useState(0)
-
   const mainNavItems = [
-    { href: '/progress', label: tNav('progress'), icon: ChartNoAxesColumnIncreasing },
-    { href: '/games', label: tNav('games'), icon: Gamepad2 },
-    { href: '/flashcards', label: tNav('flashcards'), icon: Library },
-    { href: '/friends', label: tNav('friends'), icon: Users },
-    { href: '/chat', label: tNav('tutor'), icon: MessageCircle },
-    { href: '/listening', label: tNav('listening'), icon: Headphones },
-    { href: '/reading', label: tNav('reading'), icon: BookOpen },
-    { href: '/conversation', label: tNav('conversation'), icon: Languages },
-    { href: '/assessment', label: tNav('assessment'), icon: ClipboardCheck },
-    { href: '/coach', label: tNav('coach'), icon: Sparkles },
-    { href: '/review', label: tNav('review'), icon: Trophy },
-    { href: '/translator', label: tNav('translator'), icon: Search },
+    { href: '/progress', label: tNav('progress'), icon: ChartNoAxesColumnIncreasing }, { href: '/games', label: tNav('games'), icon: Gamepad2 }, { href: '/flashcards', label: tNav('flashcards'), icon: Library }, { href: '/friends', label: tNav('friends'), icon: Users }, { href: '/chat', label: tNav('tutor'), icon: MessageCircle }, { href: '/listening', label: tNav('listening'), icon: Headphones }, { href: '/reading', label: tNav('reading'), icon: BookOpen }, { href: '/conversation', label: tNav('conversation'), icon: Languages }, { href: '/assessment', label: tNav('assessment'), icon: ClipboardCheck }, { href: '/coach', label: tNav('coach'), icon: Sparkles }, { href: '/review', label: tNav('review'), icon: Trophy }, { href: '/translator', label: tNav('translator'), icon: Search },
   ]
-  const resourceNavItems = [
-    { href: '/grammar', label: tNav('grammar'), icon: BookOpen },
-    { href: '/vocabulary', label: tNav('vocabulary'), icon: Languages },
-    { href: '/phrasebook', label: tNav('phrasebook'), icon: Library },
-  ]
-  const bottomNavItems = [
-    { href: '/settings', label: tNav('settings'), icon: Settings },
-    { href: '/faq', label: tNav('faq'), icon: MessageCircle },
-    { href: '/feedback', label: tNav('feedback'), icon: MessageCircle },
-  ]
-  const topNavItems = [
-    { href: '/dashboard', label: tNav('home') },
-    { href: '/plan', label: tNav('myPlan') },
-    { href: '/courses', label: tNav('courses') },
-  ]
+  const resourceNavItems = [{ href: '/grammar', label: tNav('grammar'), icon: BookOpen }, { href: '/vocabulary', label: tNav('vocabulary'), icon: Languages }, { href: '/phrasebook', label: tNav('phrasebook'), icon: Library }]
+  const bottomNavItems = [{ href: '/settings', label: tNav('settings'), icon: Settings }, { href: '/faq', label: tNav('faq'), icon: MessageCircle }, { href: '/feedback', label: tNav('feedback'), icon: MessageCircle }]
+  const topNavItems = [{ href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/courses', label: tNav('courses') }]
   const PREMIUM_HREFS = new Set(['/chat', '/listening', '/reading', '/conversation'])
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
   const active = (href: string) => pathname === href || pathname.startsWith(href + '/')
   const closeMobileMenu = () => { setMobileMenuOpen(false); setResourcesOpen(false); mobileMenuTriggerRef.current?.focus() }
   async function handleResendVerification() { const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' }); if (res.ok) setResendSent(true) }
-  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const res = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'include' }); if (!res.ok) { logout(); router.push('/login'); return } const { access_token } = await res.json(); setTokens(access_token) } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me)); if (me.learning_goals === null) { router.replace('/onboarding'); return } } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init() }, [])
+  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const res = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'include' }); if (!res.ok) { logout(); router.push('/login'); return } const { access_token } = await res.json(); setTokens(access_token) } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me)); if (me.learning_goals === null) router.replace('/onboarding') } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init() }, [])
   useEffect(() => { if (user?.subscription_status === 'trialing' && user?.subscription_ends_at && stripeEnabled) { setTrialDaysLeft(Math.max(1, Math.ceil((new Date(user.subscription_ends_at).getTime() - Date.now()) / 86400000))); return } if (user?.freemium_trial_ends_at && stripeEnabled && user?.subscription_status !== 'active' && user?.subscription_status !== 'trialing') { const end = new Date(user.freemium_trial_ends_at); if (end > new Date()) { setTrialDaysLeft(Math.max(1, Math.ceil((end.getTime() - Date.now()) / 86400000))); return } } setTrialDaysLeft(0) }, [user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at, stripeEnabled])
   useEffect(() => { setMobileMenuOpen(false); setResourcesOpen(resourceNavItems.some(item => active(item.href))) }, [pathname])
   useEffect(() => { if (!mobileMenuOpen) return; const panel = mobileMenuPanelRef.current; const getFocusableElements = () => Array.from(panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? []).filter(element => !element.closest('[hidden]') && element.getAttribute('aria-hidden') !== 'true'); getFocusableElements()[0]?.focus(); const handleKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMobileMenuOpen(false); setResourcesOpen(false); mobileMenuTriggerRef.current?.focus(); return } if (event.key !== 'Tab') return; const elements = getFocusableElements(); if (!elements.length) { event.preventDefault(); return } const first = elements[0]; const last = elements[elements.length - 1]; if (event.shiftKey && (document.activeElement === first || !panel?.contains(document.activeElement))) { event.preventDefault(); last.focus() } else if (!event.shiftKey && (document.activeElement === last || !panel?.contains(document.activeElement))) { event.preventDefault(); first.focus() } }; const previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden'; document.addEventListener('keydown', handleKeyDown); return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', handleKeyDown) } }, [mobileMenuOpen])

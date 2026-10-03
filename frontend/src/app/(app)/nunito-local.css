@@ -1,0 +1,17 @@
+/* Local-font policy: no external font request. Browsers with Nunito installed use it; otherwise the bundled system fallback keeps layout stable. */
+@font-face{
+  font-family:"JUBA Nunito Local";
+  src:local("Nunito"),local("Nunito Variable"),local("Nunito Regular");
+  font-style:normal;
+  font-weight:200 1000;
+  font-display:swap;
+}
+@font-face{
+  font-family:"JUBA Nunito Local";
+  src:local("Nunito Italic"),local("Nunito Variable Italic");
+  font-style:italic;
+  font-weight:200 1000;
+  font-display:swap;
+}
+.juba-app-shell{font-family:"JUBA Nunito Local",Nunito,"Segoe UI",Arial,sans-serif!important;}
+.juba-app-shell :is(h1,h2,h3,h4,h5,h6,button,a,input,textarea,select){font-family:inherit;}
