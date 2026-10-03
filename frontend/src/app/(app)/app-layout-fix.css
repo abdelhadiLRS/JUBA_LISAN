@@ -10,11 +10,22 @@
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
 .juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 
-/* Dashboard reference toolbar: the two account actions join the profile icon row on the right. */
+/* Dashboard visual calibration against the 1280px reference. */
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard{font-family:Arial,"Segoe UI",system-ui,sans-serif;letter-spacing:-.005em;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-card-head h2{font-size:15px!important;letter-spacing:-.01em;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-progress-row>div>span{font-size:11px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-progress-row>small{font-size:10px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-rail{margin-block-start:-42px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-utilities{position:relative!important;z-index:5!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-profile-stats{font-size:13px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-chart:has(.reference-dashboard-chart-empty) .reference-dashboard-chart-axis{display:none!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-chart:has(.reference-dashboard-chart-empty) .reference-dashboard-chart-empty{inset-inline:0!important;inset-block-start:12px!important;}
+
+/* Contact and logout are anchored to the actual profile toolbar row, not the viewport. */
 @media(min-width:901px){
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user{display:contents!important;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user>*:not(.juba-duo-user-action){display:none!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{position:fixed!important;z-index:35;top:354px!important;width:40px!important;height:40px!important;margin:0!important;padding:0!important;border:0!important;border-radius:6px!important;background:transparent!important;color:var(--juba-muted)!important;font-size:0!important;display:grid!important;place-items:center!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{position:absolute!important;z-index:35;top:243px!important;width:40px!important;height:40px!important;margin:0!important;padding:0!important;border:0!important;border-radius:6px!important;background:transparent!important;color:var(--juba-muted)!important;font-size:0!important;display:grid!important;place-items:center!important;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:64px!important;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:24px!important;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type::before{content:'✉';font-size:17px;}
