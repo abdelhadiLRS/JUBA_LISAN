@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { BookMarked, Layers, Sparkles, Volume2 } from 'lucide-react'
+import { BookMarked, Layers, Sparkles, CheckCircle2, Mic, RefreshCw } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
@@ -11,517 +11,98 @@ import { VoiceRecorder } from '@/components/ui/VoiceRecorder'
 import { PageLoading } from '@/components/ui/page-loading'
 import { TargetLanguageText } from '@/components/TargetLanguageText'
 import { CEFR_LEVELS } from '@/data/curriculum'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
+import '../resource-reference.css'
+import './learning-session.css'
 
-interface CardData {
-  id: number
-  word: string
-  definition: string
-  example_sentence: string
-  translation: string
-  ease_factor: number
-  interval: number
-  repetitions: number
-  source?: string | null
-}
-
-const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-[12px] border border-[var(--juba-green-dark,var(--duo-green-dark))] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
-const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)]'
-
-export default function FlashcardsPage() {
-  const t = useTranslations('flashcards')
-  const tCommon = useTranslations('common')
-  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const [cards, setCards] = useState<CardData[]>([])
-  const [current, setCurrent] = useState(0)
-  const [flipped, setFlipped] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [total, setTotal] = useState(0)
-  const [showGenerate, setShowGenerate] = useState(false)
-  const [genTopic, setGenTopic] = useState('')
-  const [genCount, setGenCount] = useState(10)
-  const [genCefr, setGenCefr] = useState('B1')
-  const [generating, setGenerating] = useState(false)
-  const [genError, setGenError] = useState('')
-  const [speakingMode, setSpeakingMode] = useState(false)
-
-  const loadDue = useCallback(async () => {
-    setLoading(true)
-    try {
-      const res = await apiFetch('/api/flashcards/due')
-      if (res.ok) {
-        const data = await res.json()
-        setCards(data.due)
-        setTotal(data.total)
-        setCurrent(0)
-        setFlipped(false)
-      }
-    } catch {
-      /* ignore */
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  const activeLangCode = activeLanguage?.code
-
-  useEffect(() => {
-    loadDue()
-  }, [loadDue, activeLangCode])
-
-  async function reviewCard(quality: number) {
-    if (cards.length === 0) return
-    const card = cards[current]
-    await apiFetch(`/api/flashcards/${card.id}/review`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quality }),
-    })
-    if (current < cards.length - 1) {
-      setCurrent(current + 1)
-      setFlipped(false)
-    } else {
-      await loadDue()
-    }
+interface CardData{id:number;word:string;definition:string;example_sentence:string;translation:string;ease_factor:number;interval:number;repetitions:number;source?:string|null}
+export default function FlashcardsPage(){
+  const t=useTranslations('flashcards')
+  const tCommon=useTranslations('common')
+  const activeLanguage=useLanguageStore(s=>s.activeLanguage)
+  const [cards,setCards]=useState<CardData[]>([])
+  const [current,setCurrent]=useState(0)
+  const [flipped,setFlipped]=useState(false)
+  const [loading,setLoading]=useState(true)
+  const [total,setTotal]=useState(0)
+  const [showGenerate,setShowGenerate]=useState(false)
+  const [genTopic,setGenTopic]=useState('')
+  const [genCount,setGenCount]=useState(10)
+  const [genCefr,setGenCefr]=useState('B1')
+  const [generating,setGenerating]=useState(false)
+  const [genError,setGenError]=useState('')
+  const [speakingMode,setSpeakingMode]=useState(false)
+  const [reviewing,setReviewing]=useState(false)
+  const [loadError,setLoadError]=useState(false)
+  const [reviewError,setReviewError]=useState('')
+  const [completed,setCompleted]=useState(0)
+  const [voiceFeedback,setVoiceFeedback]=useState<{text:string;correct:boolean;expected:string}|null>(null)
+  const reviewLock=useRef(false)
+  const generationLock=useRef(false)
+  const loadVersion=useRef(0)
+  const contextVersion=useRef(0)
+  const mounted=useRef(true)
+  const languageCode=activeLanguage?.code??'en-GB'
+  useEffect(()=>{mounted.current=true;return ()=>{mounted.current=false;contextVersion.current+=1;loadVersion.current+=1}},[])
+  const loadDue=useCallback(async()=>{
+    const version=++loadVersion.current
+    setLoading(true);setLoadError(false)
+    try{
+      const res=await apiFetch('/api/flashcards/due')
+      if(!res.ok)throw new Error()
+      const data=await res.json() as {due:CardData[];total:number}
+      if(!mounted.current||version!==loadVersion.current)return
+      setCards(data.due);setTotal(data.total);setCurrent(0);setCompleted(0);setFlipped(false);setReviewError('');setVoiceFeedback(null)
+    }catch{if(mounted.current&&version===loadVersion.current)setLoadError(true)}finally{if(mounted.current&&version===loadVersion.current)setLoading(false)}
+  },[])
+  useEffect(()=>{contextVersion.current+=1;void loadDue()},[loadDue,languageCode])
+  async function reviewCard(quality:number,expectedId?:number){
+    const card=cards[current]
+    if(!card||reviewLock.current||loading||(expectedId!==undefined&&expectedId!==card.id))return
+    reviewLock.current=true;setReviewing(true);setReviewError('')
+    const context=contextVersion.current
+    try{
+      const res=await apiFetch(`/api/flashcards/${card.id}/review`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quality})})
+      if(!res.ok)throw new Error(tCommon('error'))
+      markLearningProgressUpdated()
+      if(!mounted.current||context!==contextVersion.current)return
+      setCompleted(value=>value+1)
+      if(current<cards.length-1){setCurrent(value=>value+1);setFlipped(false)}else await loadDue()
+    }catch{if(mounted.current&&context===contextVersion.current)setReviewError(tCommon('error'))}finally{reviewLock.current=false;if(mounted.current)setReviewing(false)}
   }
-
-  async function handleSpeakingTranscription(transcription: string) {
-    if (cards.length === 0) return
-    const card = cards[current]
-    const norm = (s: string) =>
-      s
-        .trim()
-        .toLowerCase()
-        .replace(/[\p{P}\p{S}\s]+/gu, '')
-    const isCorrect = norm(transcription) === norm(card.word)
-    await reviewCard(isCorrect ? 5 : 2)
+  async function handleSpeakingTranscription(transcription:string,expectedId:number){
+    const card=cards[current]
+    if(!card||card.id!==expectedId||reviewLock.current)return
+    const normalize=(value:string)=>value.trim().toLowerCase().replace(/[\p{P}\p{S}\s]+/gu,'')
+    const correct=normalize(transcription)===normalize(card.word)
+    setVoiceFeedback({text:transcription,correct,expected:card.word})
+    await reviewCard(correct?5:2,expectedId)
   }
-
-  async function generateCards(e: React.FormEvent) {
-    e.preventDefault()
-    if (!genTopic.trim()) return
-    setGenerating(true)
-    setGenError('')
-    try {
-      const res = await apiFetch('/api/flashcards/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: genTopic.trim(),
-          count: genCount,
-          cefr_level: genCefr,
-          target_language: activeLanguage?.code,
-        }),
-      })
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        throw new Error(data.detail || `Error ${res.status}`)
-      }
-      setShowGenerate(false)
-      setGenTopic('')
-      await loadDue()
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : ''
-      setGenError(
-        msg === 'No active study plan found'
-          ? tCommon('noActivePlan')
-          : tCommon('errorMessage')
-      )
-    } finally {
-      setGenerating(false)
-    }
+  async function generateCards(event:FormEvent){
+    event.preventDefault()
+    if(!genTopic.trim()||generationLock.current||reviewLock.current)return
+    generationLock.current=true;setGenerating(true);setGenError('')
+    const context=contextVersion.current
+    try{
+      const res=await apiFetch('/api/flashcards/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:genTopic.trim(),count:genCount,cefr_level:genCefr,target_language:activeLanguage?.code})})
+      if(!res.ok){const data=await res.json().catch(()=>({}));throw new Error(data.detail||`Error ${res.status}`)}
+      if(!mounted.current||context!==contextVersion.current)return
+      setShowGenerate(false);setGenTopic('');await loadDue()
+    }catch(err){if(mounted.current&&context===contextVersion.current)setGenError(err instanceof Error&&err.message==='No active study plan found'?tCommon('noActivePlan'):tCommon('error'))}finally{generationLock.current=false;if(mounted.current)setGenerating(false)}
   }
-
-  if (loading) {
-    return <PageLoading />
-  }
-
-  const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
-  const sessionProgress =
-    cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
-
-  return (
-    <div className="juba-page-shell juba-page-shell juba-mobile-flashcards w-full space-y-6 px-4 py-6 sm:px-6 md:py-8">
-      {/* Header */}
-      <div className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] p-5 shadow-[0_1px_2px_rgba(36,48,32,.025)] sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-[var(--juba-ink,var(--duo-ink))] text-xl font-bold tracking-tight">
-            {t('title')}
-          </h1>
-          <p className="text-[var(--juba-muted,var(--duo-muted))] mt-1 text-sm">
-            {total} {t('total')} ·{' '}
-            <span
-              className="font-semibold"
-              style={{ color: 'var(--juba-green-dark,var(--duo-green-dark))' }}
-            >
-              {cards.length} {t('due')}
-            </span>
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href="/flashcards/vocabulary" className={btnSecondary}>
-            <BookMarked className="h-4 w-4" aria-hidden="true" />
-            {t('myVocabularyBtn')}
-          </Link>
-          <button
-            type="button"
-            aria-expanded={showGenerate}
-            onClick={() => {
-              setShowGenerate(!showGenerate)
-            }}
-            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-green-dark,var(--duo-green-dark))]' : 'bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--duo-green-dark))]'}`}
-          >
-            <Sparkles className="h-4 w-4" aria-hidden="true" />
-            {t('generateBtn')}
-          </button>
-        </div>
-      </div></div>
-
-      {/* Generate panel */}
-      {showGenerate && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] rounded-[12px] p-5">
-          <p className="text-[var(--juba-muted,var(--duo-muted))] mb-4 text-xs font-semibold tracking-wide uppercase">
-            {t('generate')}
-          </p>
-          {genError && (
-            <div
-              className="mb-4 rounded-[12px] px-4 py-3 text-sm"
-              role="alert"
-              style={{
-                color: 'var(--juba-red,var(--duo-red))',
-                background:
-                  'color-mix(in srgb, var(--juba-red,var(--duo-red)) 8%, transparent)',
-                border:
-                  '1px solid color-mix(in srgb, var(--juba-red,var(--duo-red)) 30%, transparent)',
-              }}
-            >
-              {genError}
-            </div>
-          )}
-          <form onSubmit={generateCards} className="space-y-4">
-            <div>
-              <label htmlFor="flashcard-topic" className="text-[var(--juba-ink,var(--duo-ink))] mb-2 block text-xs font-semibold tracking-wide uppercase">
-                {t('topic')}
-              </label>
-              <input
-                id="flashcard-topic"
-                type="text"
-                value={genTopic}
-                onChange={(e) => setGenTopic(e.target.value)}
-                required
-                placeholder={t('topicPlaceholder')}
-                className="bg-[var(--juba-bg,var(--duo-bg))] border-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))] placeholder:text-[var(--juba-muted,var(--duo-muted))] focus:border-[var(--juba-green-dark,var(--duo-green-dark))] w-full rounded-[12px] border px-4 py-3 text-sm transition-colors focus:outline-none"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="flashcard-count" className="text-[var(--juba-ink,var(--duo-ink))] mb-2 block text-xs font-semibold tracking-wide uppercase">
-                  {t('count')}
-                </label>
-                <select
-                  id="flashcard-count"
-                  value={genCount}
-                  onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-[var(--juba-bg,var(--duo-bg))] border-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))] focus:border-[var(--juba-green,var(--duo-green))] focus:ring-2 focus:ring-[var(--juba-green,var(--duo-green))]/15 w-full rounded-[12px] border px-4 py-3 text-sm focus:outline-none"
-                >
-                  {[5, 10, 15, 20].map((n) => (
-                    <option key={n} value={n}>
-                      {n} {t('cards')}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="flashcard-level" className="text-[var(--juba-ink,var(--duo-ink))] mb-2 block text-xs font-semibold tracking-wide uppercase">
-                  {t('level')}
-                </label>
-                <select
-                  id="flashcard-level"
-                  value={genCefr}
-                  onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-[var(--juba-bg,var(--duo-bg))] border-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))] focus:border-[var(--juba-green,var(--duo-green))] focus:ring-2 focus:ring-[var(--juba-green,var(--duo-green))]/15 w-full rounded-[12px] border px-4 py-3 text-sm focus:outline-none"
-                >
-                  {CEFR_LEVELS.map((l) => (
-                    <option key={l} value={l}>
-                      {l}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <button
-              type="submit"
-              disabled={generating || !genTopic.trim()}
-              className={`${btnPrimary} w-full bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--duo-green-dark))]`}
-            >
-              {generating ? (
-                <>
-                  <Layers
-                    className="h-4 w-4 animate-pulse"
-                    aria-hidden="true"
-                  />
-                  {t('generating')}
-                </>
-              ) : (
-                t('submit')
-              )}
-            </button>
-          </form>
-        </div>
-      )}
-
-      {/* No cards */}
-      {cards.length === 0 && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] rounded-[12px] border px-6 py-12 text-center">
-          <span
-            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[12px]"
-            style={{
-              color: 'var(--juba-green-dark,var(--duo-green-dark))',
-              background: 'color-mix(in srgb, var(--juba-green,var(--duo-green)) 12%, transparent)',
-            }}
-          >
-            <CheckBadgeIcon />
-          </span>
-          <p className="text-[var(--juba-ink,var(--duo-ink))] text-sm font-medium">{t('noDue')}</p>
-          {total === 0 && (
-            <p className="text-[var(--juba-muted,var(--duo-muted))] mt-2 text-sm">{t('noCardsHint')}</p>
-          )}
-          <button type="button" onClick={loadDue} className={btnSecondary + ' mt-6'}>
-            {t('refresh')}
-          </button>
-        </div>
-      )}
-
-      {/* Card review */}
-      {cards.length > 0 && (
-        <>
-          {/* Session progress */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[var(--juba-muted,var(--duo-muted))] text-xs font-semibold">
-                {current + 1} / {cards.length} due
-              </span>
-              {/* Mode toggle */}
-              <div className="bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)] inline-flex rounded-[12px] p-1">
-                <button
-                  type="button"
-                  aria-pressed={!speakingMode}
-                  onClick={() => {
-                    setSpeakingMode(false)
-                    setFlipped(false)
-                  }}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                    !speakingMode
-                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-[0_1px_2px_rgba(36,48,32,.025)]'
-                      : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))]'
-                  }`}
-                >
-                  {t('standardMode')}
-                </button>
-                <button
-                  type="button"
-                  aria-pressed={speakingMode}
-                  onClick={() => {
-                    setSpeakingMode(true)
-                    setFlipped(false)
-                  }}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                    speakingMode
-                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-[0_1px_2px_rgba(36,48,32,.025)]'
-                      : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))]'
-                  }`}
-                >
-                  {t('speakingMode')}
-                </button>
-              </div>
-            </div>
-            <div className="bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)] h-1.5 overflow-hidden rounded-full">
-              <div
-                className="h-full rounded-full transition-colors duration-500"
-                style={{
-                  width: `${sessionProgress}%`,
-                  background: 'var(--juba-green-dark,var(--duo-green-dark))',
-                }}
-              />
-            </div>
-          </div>
-
-          {/* ── Standard mode ── */}
-          {!speakingMode && (
-            <>
-              <div
-                className="juba-card cursor-pointer select-none overflow-hidden border border-[var(--juba-border,var(--duo-line))] shadow-[0_1px_2px_rgba(36,48,32,.025)]"
-                onClick={() => setFlipped(!flipped)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    setFlipped(!flipped)
-                  }
-                }}
-                aria-label={flipped ? t('tapToHide') : t('tapToReveal')}
-              >
-                <div className="juba-reference-card-header border-[var(--juba-border,var(--duo-line))] flex items-center justify-between border-b px-6 py-3.5">
-                  <span className="text-[var(--juba-muted,var(--duo-muted))] text-xs font-semibold tracking-wide uppercase">
-                    {flipped ? t('back') : t('front')}
-                  </span>
-                  <span className="text-[var(--juba-muted,var(--duo-muted))] text-xs">
-                    {flipped ? t('tapToHide') : t('tapToReveal')}
-                  </span>
-                </div>
-
-                <div className="juba-reference-card-body flex flex-col items-center justify-center gap-4 p-10 text-center">
-                  {!flipped ? (
-                    <div className="flex items-center gap-3">
-                      <TargetLanguageText
-                        as="p"
-                        languageCode={targetLanguageCode}
-                        className="text-[var(--juba-ink,var(--duo-ink))] text-3xl font-bold"
-                      >
-                        {cards[current].word}
-                      </TargetLanguageText>
-                      <span onClick={(e) => e.stopPropagation()}>
-                        <AudioPlayer text={cards[current].word} size="md" />
-                      </span>
-                    </div>
-                  ) : (
-                    <>
-                      <TargetLanguageText
-                        as="p"
-                        languageCode={targetLanguageCode}
-                        className="text-[var(--juba-ink,var(--duo-ink))] text-2xl font-bold leading-relaxed"
-                      >
-                        {cards[current].definition}
-                      </TargetLanguageText>
-                      {cards[current].example_sentence && (
-                        <TargetLanguageText
-                          as="p"
-                          languageCode={targetLanguageCode}
-                          className="text-[var(--juba-ink,var(--duo-ink))] italic"
-                        >
-                          {cards[current].example_sentence}
-                        </TargetLanguageText>
-                      )}
-                      {cards[current].translation && (
-                        <p className="text-[var(--juba-muted,var(--duo-muted))] border-[var(--juba-border,var(--duo-line))] mt-1 border-t pt-3 text-sm">
-                          {cards[current].translation}
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {flipped && (
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  {[
-                    {
-                      key: 'again',
-                      q: 0,
-                      style: { color: 'var(--juba-red,var(--duo-red))' },
-                    },
-                    {
-                      key: 'hard',
-                      q: 3,
-                      style: { color: 'var(--juba-muted,var(--duo-muted))' },
-                    },
-                    { key: 'good', q: 4, style: { color: 'var(--juba-ink,var(--duo-ink))' } },
-                    {
-                      key: 'easy',
-                      q: 5,
-                      style: {
-                        color: 'var(--juba-green-dark,var(--duo-green-dark))',
-                        borderColor:
-                          'color-mix(in srgb, var(--juba-green-dark,var(--duo-green-dark)) 45%, var(--juba-border,var(--duo-line)))',
-                      },
-                    },
-                  ].map(({ key, q, style }) => (
-                    <button
-                      type="button"
-                      key={q}
-                      onClick={() => reviewCard(q)}
-                      className="juba-reference-action w-full min-w-0 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] py-3 text-sm font-semibold transition-colors hover:border-[color-mix(in_srgb,var(--juba-border,var(--duo-line))_60%,var(--juba-ink,var(--duo-ink)))] hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)]"
-                      style={style}
-                    >
-                      {t(key)}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-
-          {/* ── Speaking mode ── */}
-          {speakingMode && (
-            <div className="border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] rounded-[12px]">
-              <div className="border-[var(--juba-border,var(--duo-line))] flex items-center justify-between border-b px-5 py-3.5">
-                <p className="text-[var(--juba-muted,var(--duo-muted))] text-xs font-semibold tracking-wide uppercase">
-                  {t('speakingMode')}
-                </p>
-                <span className="flex items-center gap-1.5 text-xs text-[var(--juba-muted,var(--duo-muted))]">
-                  <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />
-                  {t('sayWord')}
-                </span>
-              </div>
-
-              <div className="flex flex-col items-center justify-center gap-5 p-10 text-center">
-                <TargetLanguageText
-                  as="p"
-                  languageCode={targetLanguageCode}
-                  className="text-[var(--juba-ink,var(--duo-ink))] text-2xl font-bold leading-relaxed"
-                >
-                  {cards[current].definition}
-                </TargetLanguageText>
-                {cards[current].example_sentence && (
-                  <TargetLanguageText
-                    as="p"
-                    languageCode={targetLanguageCode}
-                    className="text-[var(--juba-ink,var(--duo-ink))] italic"
-                  >
-                    {cards[current].example_sentence}
-                  </TargetLanguageText>
-                )}
-                {cards[current].translation && (
-                  <p className="text-[var(--juba-muted,var(--duo-muted))] border-[var(--juba-border,var(--duo-line))] mt-1 border-t pt-3 text-sm">
-                    {cards[current].translation}
-                  </p>
-                )}
-                <VoiceRecorder
-                  onTranscription={handleSpeakingTranscription}
-                  maxSeconds={5}
-                  className="mt-2"
-                />
-              </div>
-            </div>
-          )}
-
-          <p className="text-[var(--juba-muted,var(--duo-muted))] text-center text-xs tabular-nums">
-            EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
-            {cards[current].interval}d · {t('repetitions')}{' '}
-            {cards[current].repetitions}
-          </p>
-        </>
-      )}
-    </div>
-  )
-}
-
-function CheckBadgeIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-6 w-6"
-      aria-hidden="true"
-    >
-      <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
-  )
+  const card=cards[current]
+  const sessionProgress=cards.length?Math.min(100,Math.round(completed/cards.length*100)):0
+  return <div className="juba-page-shell reference-resource-page learning-session">
+    <header className="learning-session-header"><Layers size={40} aria-hidden="true"/><div><h1>{t('title')}</h1><p>{total} {t('total')} · {cards.length} {t('due')}</p></div><div className="learning-session-actions"><Link className="juba-secondary-button" href="/flashcards/vocabulary"><BookMarked size={16}/>{t('myVocabularyBtn')}</Link><button className="juba-primary-button" aria-expanded={showGenerate} aria-controls="flashcard-generation" onClick={()=>setShowGenerate(value=>!value)} disabled={reviewing||generating}><Sparkles size={16}/>{t('generateBtn')}</button></div></header>
+    {showGenerate&&<section className="reference-resource-panel" id="flashcard-generation"><header className="reference-resource-panel-head"><h2>{t('generate')}</h2></header><form className="learning-generation-form" onSubmit={generateCards}>{genError&&<p className="learning-session-error" role="alert">{genError}</p>}<label htmlFor="flashcard-topic">{t('topic')}</label><input className="juba-input" id="flashcard-topic" value={genTopic} onChange={event=>setGenTopic(event.target.value)} placeholder={t('topicPlaceholder')} required disabled={generating}/><div className="learning-generation-options"><div><label htmlFor="flashcard-count">{t('count')}</label><select className="juba-input" id="flashcard-count" value={genCount} onChange={event=>setGenCount(Number(event.target.value))} disabled={generating}>{[5,10,15,20].map(count=><option key={count} value={count}>{count} {t('cards')}</option>)}</select></div><div><label htmlFor="flashcard-level">{t('level')}</label><select className="juba-input" id="flashcard-level" value={genCefr} onChange={event=>setGenCefr(event.target.value)} disabled={generating}>{CEFR_LEVELS.map(level=><option key={level} value={level}>{level}</option>)}</select></div></div><button className="juba-primary-button" disabled={generating||reviewing||!genTopic.trim()}>{generating?t('generating'):t('submit')}</button></form></section>}
+    {loading?<PageLoading/>:loadError?<section className="reference-resource-panel reference-resource-state" role="alert"><p>{tCommon('error')}</p><button className="juba-secondary-button" disabled={reviewing} onClick={()=>void loadDue()}>{tCommon('retry')}</button></section>:!card?<section className="reference-resource-panel reference-resource-state"><CheckCircle2 size={40}/><p>{t('noDue')}</p>{total===0&&<p>{t('noCardsHint')}</p>}<button className="juba-secondary-button" onClick={()=>void loadDue()}><RefreshCw size={16}/>{t('refresh')}</button></section>:<>
+      <section className="learning-session-status"><div><span>{completed}/{cards.length} {t('due')}</span><div className="learning-session-progress" role="progressbar" aria-label={t('title')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={sessionProgress}><span style={{width:sessionProgress+'%'}}/></div></div><div className="learning-session-modes" role="group" aria-label={t('title')}><button aria-pressed={!speakingMode} disabled={reviewing||generating} onClick={()=>{setSpeakingMode(false);setFlipped(false);setVoiceFeedback(null)}}>{t('standardMode')}</button><button aria-pressed={speakingMode} disabled={reviewing||generating} onClick={()=>{setSpeakingMode(true);setFlipped(false);setVoiceFeedback(null)}}><Mic size={14}/>{t('speakingMode')}</button></div></section>
+      {reviewError&&<div className="learning-session-error" role="alert">{reviewError}</div>}
+      {voiceFeedback&&<div className="learning-voice-feedback" data-correct={voiceFeedback.correct} role="status"><span dir="auto">{voiceFeedback.text}</span><strong dir="auto">{voiceFeedback.expected}</strong>{voiceFeedback.correct&&<CheckCircle2 size={18} aria-hidden="true"/>}</div>}
+      <section className="reference-resource-panel learning-flashcard" aria-busy={reviewing}><header className="reference-resource-panel-head"><h2>{speakingMode?t('speakingMode'):flipped?t('back'):t('front')}</h2><span>{current+1}/{cards.length}</span></header>
+        {!speakingMode?<><div className="learning-flashcard-prompt"><TargetLanguageText as="p" languageCode={languageCode} dir="auto" className="learning-flashcard-word">{card.word}</TargetLanguageText><AudioPlayer text={card.word} size="md"/></div>{flipped&&<div className="learning-flashcard-answer" id="flashcard-answer"><TargetLanguageText as="p" languageCode={languageCode} dir="auto">{card.definition}</TargetLanguageText>{card.example_sentence&&<TargetLanguageText as="p" languageCode={languageCode} dir="auto" className="learning-flashcard-example">{card.example_sentence}</TargetLanguageText>}{card.translation&&<p dir="auto">{card.translation}</p>}</div>}<div className="learning-flashcard-reveal"><button className="juba-secondary-button" onClick={()=>setFlipped(value=>!value)} disabled={reviewing||generating} aria-expanded={flipped}>{flipped?t('tapToHide'):t('tapToReveal')}</button></div>{flipped&&<div className="learning-flashcard-ratings">{[{key:'again',quality:0},{key:'hard',quality:3},{key:'good',quality:4},{key:'easy',quality:5}].map(({key,quality})=><button key={key} data-rating={key} disabled={reviewing||generating} onClick={()=>void reviewCard(quality)}>{t(key)}</button>)}</div>}</>:<div className="learning-speaking-card"><TargetLanguageText as="p" languageCode={languageCode} dir="auto">{card.definition}</TargetLanguageText>{card.example_sentence&&<TargetLanguageText as="p" languageCode={languageCode} dir="auto" className="learning-flashcard-example">{card.example_sentence}</TargetLanguageText>}{card.translation&&<p dir="auto">{card.translation}</p>}<p className="learning-speaking-instruction">{t('sayWord')}</p>{!reviewing&&!generating&&<VoiceRecorder key={card.id+'-'+languageCode} onTranscription={text=>handleSpeakingTranscription(text,card.id)} maxSeconds={5}/>}</div>}
+        <footer className="learning-flashcard-schedule">EF {card.ease_factor.toFixed(2)} · {t('interval')} {card.interval}d · {t('repetitions')} {card.repetitions}</footer>
+      </section>
+    </>}
+  </div>
 }
