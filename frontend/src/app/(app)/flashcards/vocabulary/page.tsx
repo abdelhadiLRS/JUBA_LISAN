@@ -1,244 +1,82 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { Library, Search, Trash2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
 import { PageLoading } from '@/components/ui/page-loading'
 import { Pagination } from '@/components/ui/pagination'
+import '../../resource-reference.css'
 
-interface VocabItem {
-  id: number
-  word: string
-  definition: string
-  example_sentence: string
-  translation: string
-}
-
-interface GuestVocabItem {
-  id: string
-  sourceText: string
-  translation: string
-  sourceLanguage: string
-  targetLanguage: string
-  createdAt: string
-  mastery: number
-  nextReviewAt: string
-}
-
-const LIMIT = 10
-const GUEST_VOCABULARY_KEY = 'juba_lisan_saved_vocabulary'
-
-export default function VocabularyPage() {
-  const t = useTranslations('flashcards')
-
-  const [items, setItems] = useState<VocabItem[]>([])
-  const [guestItems, setGuestItems] = useState<GuestVocabItem[]>([])
-  const [total, setTotal] = useState(0)
-  const [page, setPage] = useState(1)
-  const [pages, setPages] = useState(1)
-  const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [deletingId, setDeletingId] = useState<number | null>(null)
-
-  function loadGuestVocabulary() {
-    try {
-      const stored = JSON.parse(localStorage.getItem(GUEST_VOCABULARY_KEY) || '[]')
-      setGuestItems(Array.isArray(stored) ? stored : [])
-    } catch {
-      setGuestItems([])
-    }
+interface VocabItem{id:number;word:string;definition:string;example_sentence:string;translation:string}
+interface GuestVocabItem{id:string;sourceText:string;translation:string;sourceLanguage:string;targetLanguage:string;createdAt:string;mastery:number;nextReviewAt:string}
+const LIMIT=10
+const GUEST_VOCABULARY_KEY='juba_lisan_saved_vocabulary'
+export default function VocabularyPage(){
+  const t=useTranslations('flashcards')
+  const tCommon=useTranslations('common')
+  const rtl=useLocale()==='ar'
+  const [items,setItems]=useState<VocabItem[]>([])
+  const [guestItems,setGuestItems]=useState<GuestVocabItem[]>([])
+  const [total,setTotal]=useState(0)
+  const [page,setPage]=useState(1)
+  const [pages,setPages]=useState(1)
+  const [search,setSearch]=useState('')
+  const [debouncedSearch,setDebouncedSearch]=useState('')
+  const [loading,setLoading]=useState(true)
+  const [deletingId,setDeletingId]=useState<number|null>(null)
+  const [loadError,setLoadError]=useState(false)
+  const [actionError,setActionError]=useState(false)
+  useEffect(()=>{try{const stored=JSON.parse(localStorage.getItem(GUEST_VOCABULARY_KEY)||'[]');setGuestItems(Array.isArray(stored)?stored:[])}catch{setGuestItems([])}},[])
+  useEffect(()=>{const timer=setTimeout(()=>{setDebouncedSearch(search);setPage(1)},300);return ()=>clearTimeout(timer)},[search])
+  const loadPage=useCallback(async(p:number,q:string)=>{
+    setLoading(true);setLoadError(false)
+    try{
+      const params=new URLSearchParams({page:String(p),limit:String(LIMIT),search:q})
+      const res=await apiFetch(`/api/flashcards/vocabulary?${params}`)
+      if(!res.ok)throw new Error()
+      const data=await res.json();setItems(data.items);setTotal(data.total);setPage(data.page);setPages(data.pages)
+    }catch{setLoadError(true)}finally{setLoading(false)}
+  },[])
+  useEffect(()=>{void loadPage(page,debouncedSearch)},[page,debouncedSearch,loadPage])
+  async function deleteItem(id:number){
+    setDeletingId(id);setActionError(false)
+    try{const res=await apiFetch(`/api/flashcards/${id}`,{method:'DELETE'});if(!res.ok)throw new Error();await loadPage(page,debouncedSearch)}catch{setActionError(true)}finally{setDeletingId(null)}
   }
-
-  useEffect(() => {
-    loadGuestVocabulary()
-  }, [])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search)
-      setPage(1)
-    }, 300)
-    return () => clearTimeout(timer)
-  }, [search])
-
-  const loadPage = useCallback(async (p: number, q: string) => {
-    setLoading(true)
-    try {
-      const params = new URLSearchParams({
-        page: String(p),
-        limit: String(LIMIT),
-        search: q,
-      })
-      const res = await apiFetch(`/api/flashcards/vocabulary?${params}`)
-      if (res.ok) {
-        const data = await res.json()
-        setItems(data.items)
-        setTotal(data.total)
-        setPage(data.page)
-        setPages(data.pages)
-      }
-    } catch {
-      /* ignore */
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    loadPage(page, debouncedSearch)
-  }, [page, debouncedSearch, loadPage])
-
-  async function deleteItem(id: number) {
-    setDeletingId(id)
-    try {
-      await apiFetch(`/api/flashcards/${id}`, { method: 'DELETE' })
-      await loadPage(page, debouncedSearch)
-    } catch {
-      /* ignore */
-    } finally {
-      setDeletingId(null)
-    }
+  function deleteGuestItem(id:string){
+    const next=guestItems.filter(item=>item.id!==id)
+    try{localStorage.setItem(GUEST_VOCABULARY_KEY,JSON.stringify(next));setGuestItems(next);setActionError(false)}catch{setActionError(true)}
   }
-
-  function deleteGuestItem(id: string) {
-    const next = guestItems.filter((item) => item.id !== id)
-    setGuestItems(next)
-    try {
-      localStorage.setItem(GUEST_VOCABULARY_KEY, JSON.stringify(next))
-    } catch {
-      /* ignore */
-    }
-  }
-
-  return (
-    <div className="juba-page-shell w-full space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 box-border">
-      <div className="juba-reference-hero flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-[var(--juba-muted)]">●</span>
-          <span className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
-            {t('myVocabulary')}
-          </span>
-          {!loading && (
-            <span className="text-fl-hint text-[var(--juba-muted)] font-mono tracking-widest">
-              {total}
-            </span>
-          )}
-        </div>
-        <Link
-          href="/flashcards"
-          className="text-[var(--juba-muted)] hover:text-[var(--juba-ink,var(--juba-text))] border-[var(--juba-border)] hover:border-[var(--duo-green)] border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
-        >
-          ← {t('backToFlashcards')}
-        </Link>
-      </div>
-
-      {guestItems.length > 0 && (
-        <section className="juba-card rounded-[10px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] p-5">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--juba-muted)]">
-                JUBA LISAN · Visitor learning
-              </p>
-              <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--juba-ink,var(--juba-text))]">
-                Saved from Instant Translator
-              </h2>
-              <p className="mt-1 text-xs font-semibold text-[var(--juba-muted)]">
-                These items are saved in this browser. Sign in later to sync them with your account.
-              </p>
-            </div>
-            <Link
-              href="/register"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] px-4 py-2 text-xs font-black text-[var(--juba-ink,var(--juba-text))] shadow-sm transition-colors"             >
-              Create account to sync
-            </Link>
-          </div>
-          <div className="mt-4 grid gap-2">
-            {guestItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-start justify-between gap-3 rounded-[10px] border border-[var(--juba-border)] bg-[var(--juba-card,var(--duo-card))] px-4 py-3"
-              >
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-black text-neutral-950">{item.sourceText}</p>
-                    <span className="rounded-full bg-neutral-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
-                      {item.sourceLanguage === 'auto' ? 'auto' : item.sourceLanguage}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm font-semibold text-[var(--juba-ink,var(--juba-text))]">{item.translation}</p>
-                  <div className="mt-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--juba-muted)]">
-                    <span>Mastery {item.mastery}%</span>
-                    <span>Review ready</span>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => deleteGuestItem(item.id)}
-                  className="shrink-0 rounded-full border border-[var(--juba-border)] px-2.5 py-1 text-[10px] font-black text-[var(--juba-muted)] transition hover:bg-[var(--duo-ink,#202127)] hover:text-white"
-                  aria-label="Remove saved item"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <input
-        type="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder={t('vocabularySearch')}
-        className="bg-[var(--juba-border)]/40 border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-fl-border focus:border-[var(--duo-green)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
-      />
-
-      <div className="border-[var(--juba-border)] bg-white border">
-        {loading ? (
-          <PageLoading fullScreen={false} className="block p-5" />
-        ) : items.length === 0 ? (
-          <p className="text-[var(--juba-muted)] p-5 font-mono text-xs tracking-widest uppercase">
-            {debouncedSearch ? t('myVocabularyNoResults') : t('myVocabularyEmpty')}
-          </p>
-        ) : (
-          <div className="divide-fl-border divide-y">
-            {items.map((item) => (
-              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-3">
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <p className="text-[var(--juba-text)] font-mono text-xs font-bold">{item.word}</p>
-                    <AudioPlayer text={item.word} size="sm" />
-                  </div>
-                  <p className="text-[var(--juba-muted)] mt-0.5 font-mono text-xs leading-relaxed">{item.definition}</p>
-                  <p className="text-[var(--juba-muted)] text-[var(--juba-text)] mt-1 font-mono tracking-widest uppercase">{item.translation}</p>
-                </div>
-                <button
-                  onClick={() => deleteItem(item.id)}
-                  disabled={deletingId === item.id}
-                  className="text-[var(--juba-muted)] shrink-0 font-mono text-xs transition-colors hover:text-red-400 disabled:opacity-40"
-                  aria-label="Delete"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <Pagination
-        page={page - 1}
-        totalPages={pages}
-        loading={loading}
-        onPageChange={(p) => setPage(p + 1)}
-        prevLabel={`← ${t('vocabularyPrev')}`}
-        nextLabel={`${t('vocabularyNext')} →`}
-        pageInfo={t('vocabularyPageInfo', { page, pages })}
-        className="gap-2 border-0 bg-transparent"
-      />
-    </div>
-  )
+  const Back=rtl?ChevronRight:ChevronLeft
+  return <div className="juba-page-shell reference-resource-page reference-flash-vocabulary" dir={rtl?'rtl':'ltr'}>
+    <style>{`
+      .juba-app-shell .reference-flash-vocab-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+      .juba-app-shell .reference-flash-vocab-header>.reference-resource-heading{flex:1;}
+      .juba-app-shell .reference-flash-vocab-header>a{padding-inline:12px;}
+      .juba-app-shell .reference-flash-vocab-search{display:flex;align-items:center;gap:12px;padding:16px;color:var(--juba-muted);}
+      .juba-app-shell .reference-flash-vocab-search input{width:100%;min-width:0;flex:1;padding:8px 12px;}
+      .juba-app-shell .reference-flash-vocab-row{display:flex;align-items:flex-start;gap:16px;padding:16px;border-block-end:1px solid var(--juba-border);}
+      .juba-app-shell .reference-flash-vocab-row:last-child{border:0;}
+      .juba-app-shell .reference-flash-vocab-row>div{flex:1;min-width:0;}
+      .juba-app-shell .reference-flash-vocab-word{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+      .juba-app-shell .reference-flash-vocab-word strong{font-size:15px;font-weight:650;overflow-wrap:anywhere;}
+      .juba-app-shell .reference-flash-vocab-word>span{font-size:10px;color:var(--juba-muted);padding:4px 6px;background:var(--juba-soft);border-radius:4px;}
+      .juba-app-shell .reference-flash-vocab-row p{font-size:14px;line-height:1.6;color:var(--juba-muted);margin:6px 0 0;overflow-wrap:anywhere;}
+      .juba-app-shell .reference-flash-vocab-remove{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid var(--juba-border);border-radius:5px;background:transparent;color:var(--juba-muted);}
+      .juba-app-shell .reference-flash-vocab-remove:hover{color:var(--duo-red);border-color:var(--duo-red);}
+      .juba-app-shell .reference-flash-vocab-guest-info{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px;border-block-end:1px solid var(--juba-border);}
+      .juba-app-shell .reference-flash-vocab-guest-info p{flex:1;font-size:13px;line-height:1.6;color:var(--juba-muted);margin:0;}
+      .juba-app-shell .reference-flash-vocab-guest-info a{padding-inline:12px;}
+      .juba-app-shell .reference-flash-vocab-error{padding:12px 16px;border:1px solid var(--duo-red);border-radius:6px;font-size:13px;color:var(--duo-red);}
+      @media(max-width:640px){.juba-app-shell .reference-flash-vocab-remove{width:44px;height:44px;}.juba-app-shell .reference-flash-vocab-header>a{width:100%;}}
+    `}</style>
+    <div className="reference-flash-vocab-header"><header className="reference-resource-heading"><Library size={40} aria-hidden="true"/><div><h1>{t('myVocabulary')}</h1>{!loading&&<p>{total}</p>}</div></header><Link href="/flashcards" className="juba-secondary-button"><Back size={16}/>{t('backToFlashcards')}</Link></div>
+    {actionError&&<p className="reference-flash-vocab-error" role="alert">{tCommon('error')}</p>}
+    {guestItems.length>0&&<section className="reference-resource-panel"><header className="reference-resource-panel-head"><h2>{rtl?'محفوظ من المترجم':'Saved from Instant Translator'}</h2><span>{guestItems.length}</span></header><div className="reference-flash-vocab-guest-info"><p>{rtl?'هذه الكلمات محفوظة في هذا المتصفح.':'These items are saved in this browser.'}</p><Link className="juba-secondary-button" href="/register">{rtl?'إنشاء حساب':'Create account'}</Link></div>{guestItems.map(item=><article className="reference-flash-vocab-row" key={item.id}><div><div className="reference-flash-vocab-word"><strong dir="auto">{item.sourceText}</strong><span>{item.sourceLanguage}</span></div><p dir="auto">{item.translation}</p><p className="reference-resource-caption">{rtl?'الإتقان':'Mastery'} {item.mastery}%</p></div><button className="reference-flash-vocab-remove" onClick={()=>deleteGuestItem(item.id)} aria-label={(rtl?'إزالة':'Remove')+': '+item.sourceText}><Trash2 size={16}/></button></article>)}</section>}
+    <section className="reference-resource-panel"><label className="reference-flash-vocab-search"><Search size={18} aria-hidden="true"/><input className="juba-input" type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder={t('vocabularySearch')} aria-label={t('vocabularySearch')}/></label></section>
+    <section className="reference-resource-panel" aria-busy={loading}>{loading?<PageLoading fullScreen={false} className="block p-5"/>:loadError?<div className="reference-resource-state" role="alert"><p>{tCommon('error')}</p><button className="juba-secondary-button" onClick={()=>void loadPage(page,debouncedSearch)}>{tCommon('retry')}</button></div>:!items.length?<div className="reference-resource-state"><Library size={28}/><p>{debouncedSearch?t('myVocabularyNoResults'):t('myVocabularyEmpty')}</p></div>:items.map(item=><article className="reference-flash-vocab-row" key={item.id}><div><div className="reference-flash-vocab-word"><strong dir="auto">{item.word}</strong><AudioPlayer text={item.word} size="sm"/></div><p dir="auto">{item.definition}</p><p dir="auto">{item.translation}</p></div><button className="reference-flash-vocab-remove" onClick={()=>void deleteItem(item.id)} disabled={deletingId===item.id} aria-label={(rtl?'حذف':'Delete')+': '+item.word}>{deletingId===item.id?'…':<Trash2 size={16}/>}</button></article>)}</section>
+    <Pagination page={page-1} totalPages={pages} loading={loading} onPageChange={value=>setPage(value+1)} prevLabel={t('vocabularyPrev')} nextLabel={t('vocabularyNext')} pageInfo={t('vocabularyPageInfo',{page,pages})} className="gap-2 border-0 bg-transparent"/>
+  </div>
 }
