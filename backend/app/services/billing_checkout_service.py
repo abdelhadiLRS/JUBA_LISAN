@@ -1,4 +1,4 @@
-"""Durable checkout idempotency across tabs, workers and uncertain Stripe replies."""
+"""Durable checkout idempotency, including delayed failed-creation retries."""
 from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 import stripe
@@ -13,6 +13,12 @@ from app.services.subscription_catalog import PRICES, price_id
 
 def get(obj, key, default=None):
     return obj.get(key, default) if isinstance(obj, dict) else getattr(obj, key, default)
+
+
+def invalid_creation_window(exc) -> bool:
+    # Rotate ONLY after Stripe explicitly rejects expiry validation. A timeout or
+    # ambiguous API error may hide an accepted session and must retain its key.
+    return isinstance(exc, stripe.InvalidRequestError) and getattr(exc, "param", None) == "expires_at"
 
 
 async def checked_checkout(body, user, db) -> dict:
@@ -45,7 +51,7 @@ async def checked_checkout(body, user, db) -> dict:
     elif intent.tier != body.tier or intent.interval != body.interval:
         raise HTTPException(status_code=409, detail="A different checkout is pending. Complete it or wait for it to expire.")
     identifier, expires_at, existing_url = intent.identifier, intent.expires_at, intent.url
-    await db.commit()  # Persist idempotency before any paid-session creation.
+    await db.commit()
     if existing_url:
         return {"url": existing_url}
     customer_id = user.stripe_customer_id
@@ -58,12 +64,37 @@ async def checked_checkout(body, user, db) -> dict:
         user.stripe_customer_id = customer_id
         await db.commit()
     metadata = {"user_id": str(user.id), "tier": body.tier, "interval": body.interval}
-    session = await stripe.checkout.Session.create_async(customer=customer_id,
-        line_items=[{"price": selected_price, "quantity": 1}], mode="subscription", locale="auto",
-        allow_promotion_codes=True, metadata=metadata, subscription_data={"metadata": metadata},
-        expires_at=int(expires_at.replace(tzinfo=UTC).timestamp()),
-        success_url=f"{settings.STRIPE_BASE_URL}/billing/success", cancel_url=f"{settings.STRIPE_BASE_URL}/billing/canceled",
-        idempotency_key=f"juba-checkout-{identifier}")
+    async def create(key, expiration):
+        return await stripe.checkout.Session.create_async(customer=customer_id,
+            line_items=[{"price": selected_price, "quantity": 1}], mode="subscription", locale="auto",
+            allow_promotion_codes=True, metadata=metadata, subscription_data={"metadata": metadata},
+            expires_at=int(expiration.replace(tzinfo=UTC).timestamp()),
+            success_url=f"{settings.STRIPE_BASE_URL}/billing/success", cancel_url=f"{settings.STRIPE_BASE_URL}/billing/canceled",
+            idempotency_key=f"juba-checkout-{key}")
+    try:
+        session = await create(identifier, expires_at)
+    except stripe.InvalidRequestError as exc:
+        if not invalid_creation_window(exc):
+            raise
+        # A rejected expiry request did not create a new session. Serialize renewal
+        # and reuse another worker's already-renewed intent instead of rotating again.
+        await db.execute(update(BillingIntent).where(BillingIntent.user_id == user.id).values(identifier=BillingIntent.identifier))
+        await db.refresh(user)
+        if user.subscription_status in ("active", "trialing"):
+            raise HTTPException(status_code=409, detail="Manage your existing subscription in the billing portal") from exc
+        intent = await db.get(BillingIntent, user.id)
+        await db.refresh(intent)
+        if intent.identifier == identifier:
+            intent.identifier = str(uuid4())
+            intent.expires_at = datetime.now(UTC).replace(tzinfo=None) + timedelta(minutes=31)
+            intent.url = None
+        elif intent.tier != body.tier or intent.interval != body.interval:
+            raise HTTPException(status_code=409, detail="Checkout selection changed; review your plan") from exc
+        identifier, expires_at, existing_url = intent.identifier, intent.expires_at, intent.url
+        await db.commit()
+        if existing_url:
+            return {"url": existing_url}
+        session = await create(identifier, expires_at)
     url = get(session, "url")
     if not url:
         raise HTTPException(status_code=502, detail="Stripe did not return a checkout URL")
