@@ -1,10 +1,10 @@
 from datetime import datetime
-
 from pydantic import BaseModel, Field
+from app.services.subscription_catalog import MAX_CHAT_CHARS
 
 
 class ChatRequest(BaseModel):
-    message: str = Field(min_length=1, max_length=5000)
+    message: str = Field(min_length=1, max_length=MAX_CHAT_CHARS)
     conversation_id: int | None = None
 
 
@@ -27,5 +27,4 @@ class ConversationResponse(BaseModel):
     source: str
     created_at: datetime
     updated_at: datetime
-
     model_config = {"from_attributes": True}
