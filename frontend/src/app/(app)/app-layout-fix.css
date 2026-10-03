@@ -24,6 +24,21 @@
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:focus-visible{outline:2px solid var(--juba-green-dark)!important;outline-offset:2px;}
   .juba-app-shell .juba-duo-sidebar .juba-duo-nav-link{min-height:34px!important;margin-block:1px!important;padding-block:6px!important;}
   .juba-app-shell .juba-duo-sidebar .juba-duo-nav-section-label{margin-block:8px 2px!important;}
+
+  /* Dashboard reference: the two real buttons sit beside Friends, Chat, FAQ and Settings. */
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{
+    position:fixed!important;
+    z-index:35;
+    top:326px!important;
+    width:34px!important;
+    height:40px!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+  }
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:62px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:28px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{background:var(--juba-green-soft)!important;border-radius:6px!important;}
 }
 
 /* Product decision: the authenticated shell owns language context, not a visible top switcher. */
