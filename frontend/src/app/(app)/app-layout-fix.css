@@ -8,18 +8,27 @@
 .juba-app-shell .juba-chat-reference .chat-conversations-sidebar{border-inline-end:1px solid var(--juba-border)!important;}
 .juba-app-shell .juba-chat-reference .chat-profile-rail{border-inline-start:1px solid var(--juba-border)!important;}
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
-/* The desktop sidebar is navigation only. Account identity/actions stay out of its visual frame. */
-.juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:none!important;}
-.juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:hidden!important;scrollbar-width:none!important;}
+/* Desktop: navigation only, no account footer block or scroll track. */
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:flex!important;position:absolute!important;inset-block-end:0;inset-inline:0;align-items:center;justify-content:flex-end;gap:4px;height:48px;padding:7px 12px!important;background:var(--juba-card)!important;border-block-start:1px solid var(--juba-border)!important;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .reference-account,.juba-app-shell .juba-duo-sidebar>.juba-duo-user .reference-trial,.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-version{display:none!important;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{display:grid!important;place-items:center;width:34px;height:34px;margin:0;padding:0!important;border:1px solid var(--juba-border)!important;border-radius:6px!important;background:var(--juba-card)!important;color:var(--juba-muted)!important;font-size:0!important;line-height:1;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type::before{content:'✉';font-size:16px;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type::before{content:'↪';font-size:18px;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{color:var(--juba-green-dark)!important;background:var(--juba-green-soft)!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:hidden!important;scrollbar-width:none!important;padding-block-end:58px!important;}
 .juba-app-shell .juba-duo-sidebar .juba-duo-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;}
 .juba-app-shell .juba-duo-sidebar .juba-duo-nav-link{min-height:34px!important;margin-block:1px!important;padding-block:6px!important;}
 .juba-app-shell .juba-duo-sidebar .juba-duo-nav-section-label{margin-block:8px 2px!important;}
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:focus-visible{outline:2px solid var(--juba-green-dark)!important;outline-offset:2px;}
 /* Product decision: the authenticated shell owns language context, not a visible top switcher. */
 .juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 @media(max-width:900px){
   .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
   .juba-app-shell .juba-chat-reference{height:calc(100dvh - 54px);min-height:0;}
   .juba-app-shell .juba-page-shell{max-width:none!important;}
-  .juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:auto!important;}
-  .juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:block!important;}
+  .juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:auto!important;padding-block-end:16px!important;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user{position:static!important;display:block!important;height:auto;padding:12px!important;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user .reference-account,.juba-app-shell .juba-duo-sidebar>.juba-duo-user .reference-trial,.juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-version{display:block!important;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{display:inline-flex!important;width:auto;height:44px;padding:4px!important;font-size:12px!important;border:0!important;background:transparent!important;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action::before{content:none!important;}
 }
