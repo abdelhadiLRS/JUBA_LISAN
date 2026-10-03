@@ -1,129 +1,43 @@
 'use client'
+import Link from 'next/link'
+import {useEffect,useState} from 'react'
+import {useLocale} from 'next-intl'
+import {apiFetch} from '@/lib/api'
+import {useAuthStore} from '@/store/auth'
 
-import { useEffect, useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { useFreemiumStore } from '@/store/freemium'
-import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
-import { useConfigStore } from '@/store/config'
-import { Clock3, LockKeyhole, AlertCircle } from 'lucide-react'
-
-interface FreemiumQuotaBannerProps {
-  feature: 'chat' | 'lessons' | 'listening' | 'reading' | 'voice'
-  className?: string
-}
-
-export function FreemiumQuotaBanner({
-  feature,
-  className = '',
-}: FreemiumQuotaBannerProps) {
-  const t = useTranslations('freemium')
-  const user = useAuthStore((s) => s.user)
-  const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
-  const status = useFreemiumStore((s) => s.status)
-  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
-
-  const trial = isFreemiumTrialActive(user, stripeEnabled)
-
-  useEffect(() => {
-    if (trial && user?.freemium_trial_ends_at) {
-      const endsAt = new Date(user.freemium_trial_ends_at)
-      const days = Math.max(
-        1,
-        Math.ceil((endsAt.getTime() - Date.now()) / 86400000)
-      )
-      setTrialDaysLeft(days)
+type Feature='chat'|'lessons'|'listening'|'reading'|'voice'|'flashcards'|'translation'|'tts'
+type Status={tier:string;metered:boolean;features:Record<Feature,{remaining:number;limit:number;reserved:number;unit:string;period:string;resets_at:string}>}
+export function FreemiumQuotaBanner({feature,className=''}:{feature:Feature;className?:string}){
+  const ar=useLocale().startsWith('ar'),token=useAuthStore(s=>s.accessToken)
+  const [status,setStatus]=useState<Status|null>(null),[failed,setFailed]=useState(false)
+  useEffect(()=>{
+    if(!token){setStatus(null);return}
+    const controller=new AbortController();let busy=false
+    async function refresh(){
+      if(busy||document.hidden)return
+      busy=true
+      try{
+        const response=await apiFetch('/api/subscriptions/me',{signal:controller.signal})
+        if(!response.ok)throw new Error()
+        const data=await response.json()
+        if(!controller.signal.aborted){setStatus(data);setFailed(false)}
+      }catch{if(!controller.signal.aborted)setFailed(true)}finally{busy=false}
     }
-  }, [trial, user?.freemium_trial_ends_at])
-
-  if (!stripeEnabled) return null
-  if (isSubscribed(user, stripeEnabled)) return null
-
-  if (trial) {
-    return (
-      <div
-        className={`juba-billing-quota flex min-h-10 items-center justify-between rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 text-xs shadow-sm ${className}`}
-      >
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-muted)]">
-          <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
-          {t('trialDaysLeft', { days: trialDaysLeft })}
-        </span>
-        <span className="juba-badge tracking-widest uppercase">
-          {t('trialUnlimited')}
-        </span>
-      </div>
-    )
-  }
-
-  if (!status) return null
-
-  const limits: Record<
-    string,
-    { remaining: number; limit: number; label: string }
-  > = {
-    chat: {
-      remaining: status.chat_remaining,
-      limit: status.chat_limit,
-      label: t('chatLabel'),
-    },
-    lessons: {
-      remaining: status.lessons_remaining,
-      limit: status.lessons_limit,
-      label: t('lessonsLabel'),
-    },
-    listening: {
-      remaining: status.listening_remaining,
-      limit: status.listening_limit,
-      label: t('listeningLabel'),
-    },
-    reading: {
-      remaining: status.reading_remaining,
-      limit: status.reading_limit,
-      label: t('readingLabel'),
-    },
-    voice: {
-      remaining: Math.ceil(status.voice_remaining_seconds / 60),
-      limit: Math.ceil(status.voice_limit_seconds / 60),
-      label: t('voiceLabel'),
-    },
-  }
-
-  const info = limits[feature]
-  if (!info) return null
-
-  // Feature blocked entirely for free users (limit === 0)
-  if (info.limit === 0) {
-    return (
-      <div
-        className={`flex min-h-10 items-center justify-between rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2 font-sans text-xs shadow-sm ${className}`}
-      >
-        <span className="font-semibold text-[var(--duo-muted)]">{info.label}</span>
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-green-dark)]">
-          <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
-          {t('requiresSubscription')}
-        </span>
-      </div>
-    )
-  }
-
-  const pct = info.limit > 0 ? (info.remaining / info.limit) * 100 : 100
-  const low = pct <= 25
-
-  return (
-    <div
-      className={`border-[var(--duo-line)] bg-[var(--duo-card)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
-    >
-      <span className="text-[var(--duo-muted)]">
-        {info.label}:{' '}
-        <span className={low ? 'font-bold text-[var(--duo-red)]' : 'font-semibold text-[var(--duo-muted)]'}>
-          {info.remaining}/{info.limit}
-        </span>
-      </span>
-      {low && (
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-green-dark)]">
-          <AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />
-          {t('freeLimit')}
-        </span>
-      )}
-    </div>
-  )
+    setStatus(null);void refresh()
+    const timer=setInterval(()=>void refresh(),60000)
+    const onVisible=()=>void refresh()
+    window.addEventListener('focus',onVisible);document.addEventListener('visibilitychange',onVisible)
+    return()=>{controller.abort();clearInterval(timer);window.removeEventListener('focus',onVisible);document.removeEventListener('visibilitychange',onVisible)}
+  },[token,feature])
+  if(status&&!status.metered)return null
+  if(failed)return <p className={className} role="status">{ar?'تعذّر تحديث الحصة.':'Could not update allowance.'} <Link href="/settings/subscription">{ar?'تفاصيل الاشتراك':'Subscription details'}</Link></p>
+  const quota=status?.features[feature]
+  if(!quota)return null
+  const seconds=quota.unit==='seconds'
+  const remaining=seconds?Math.floor(quota.remaining/60):quota.remaining,limit=seconds?quota.limit/60:quota.limit
+  const label=ar?({chat:'رسائل المعلم',lessons:'دروس جديدة',listening:'تمارين استماع جديدة',reading:'تمارين قراءة جديدة',voice:'دقائق المحادثة',flashcards:'بطاقات جديدة',translation:'ترجمة وتصحيح',tts:'دقائق النطق'})[feature]:({chat:'Tutor messages',lessons:'New lessons',listening:'New listening exercises',reading:'New reading exercises',voice:'Voice minutes',flashcards:'New cards',translation:'Translation and correction',tts:'Pronunciation minutes'})[feature]
+  return <div className={`juba-billing-quota flex flex-wrap items-center justify-between gap-2 border px-3 py-2 ${className}`}>
+    <span>{status?.tier==='go'?'Go':status?.tier==='plus'?'Plus':'Free'} · {label}: <strong>{remaining}/{limit}</strong> {ar?'متبقي':'remaining'}</span>
+    <Link href="/settings/subscription">{ar?'التجديد':'Resets'} {new Date(quota.resets_at).toLocaleDateString(ar?'ar':'en-US')}</Link>
+  </div>
 }
