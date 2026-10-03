@@ -8,6 +8,8 @@
 .juba-app-shell .juba-chat-reference .chat-conversations-sidebar{border-inline-end:1px solid var(--juba-border)!important;}
 .juba-app-shell .juba-chat-reference .chat-profile-rail{border-inline-start:1px solid var(--juba-border)!important;}
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
+/* Product decision: the authenticated shell owns language context, not a visible top switcher. */
+.juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 @media(max-width:900px){
   .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
   .juba-app-shell .juba-chat-reference{height:calc(100dvh - 54px);min-height:0;}

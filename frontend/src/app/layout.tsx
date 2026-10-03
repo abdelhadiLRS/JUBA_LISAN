@@ -6,8 +6,6 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { CookieBanner } from '@/components/CookieBanner'
-import { VisitorTranslator } from '@/components/VisitorTranslator'
-import { SiteLocaleSwitcher } from '@/components/SiteLocaleSwitcher'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://jubalisan.com'),
@@ -35,8 +33,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>{children}</ThemeProvider>
           <CookieBanner />
-          <VisitorTranslator />
-          <SiteLocaleSwitcher locale={locale as import('@/lib/locales').Locale} />
         </NextIntlClientProvider>
       </body>
     </html>
