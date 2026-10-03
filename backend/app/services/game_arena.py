@@ -8,7 +8,6 @@ GAMES = {"quick_choice", "spelling", "word_scramble", "memory", "matching"}
 
 
 def letters(word):
-    """Keep combining marks on their base character (including Arabic)."""
     result = []
     for character in unicodedata.normalize("NFC", word):
         if unicodedata.combining(character) and result:
@@ -33,21 +32,16 @@ def create(game, entries, difficulty, relaxed=False, now=None):
     count = 3 + difficulty - 1 if game in {"memory", "matching"} else 5
     if len(bank) < max(count, 4):
         raise ValueError("Not enough authored vocabulary for this language and level")
-    state = dict(
-        arena=1, game=game, difficulty=difficulty, relaxed=relaxed,
+    state = dict(arena=1, game=game, difficulty=difficulty, relaxed=relaxed,
         phase="playing", index=0, total=count, lives=3, correct=0,
         attempts=0, matched=[], opened=[], feedback=None, log=[],
-        deadline=None, cooldown=0, started=now, questions=[], cards=[],
-        max_moves=18 + difficulty * 4,
-    )
+        deadline=None, cooldown=0, started=now, questions=[], cards=[], max_moves=18 + difficulty * 4)
     if game in {"memory", "matching"}:
         cards = []
         for word, definition in bank[:count]:
             key = str(uuid4())
-            cards += [
-                dict(id=str(uuid4()), label=word, pair=key, side="word"),
-                dict(id=str(uuid4()), label=definition, pair=key, side="meaning"),
-            ]
+            cards += [dict(id=str(uuid4()), label=word, pair=key, side="word"),
+                      dict(id=str(uuid4()), label=definition, pair=key, side="meaning")]
         rng.shuffle(cards)
         state["cards"] = cards
     else:
@@ -60,9 +54,7 @@ def create(game, entries, difficulty, relaxed=False, now=None):
             rng.shuffle(choices)
             tiles = [dict(id=str(uuid4()), label=char) for char in letters(word)]
             rng.shuffle(tiles)
-            state["questions"].append(dict(
-                word=word, definition=definition, choices=choices, tiles=tiles,
-            ))
+            state["questions"].append(dict(word=word, definition=definition, choices=choices, tiles=tiles))
         if game == "quick_choice" and not relaxed:
             state["deadline"] = now + 14 - difficulty * 2
     return state
@@ -70,37 +62,23 @@ def create(game, entries, difficulty, relaxed=False, now=None):
 
 def public(state):
     """Strict allowlist: never send solutions, deck labels, pairs or move log."""
-    out = {key: state[key] for key in (
-        "game", "difficulty", "phase", "index", "total", "lives", "correct",
-        "attempts", "max_moves", "feedback", "deadline", "relaxed",
-    )}
+    out = {key: state[key] for key in ("game", "difficulty", "phase", "index", "total", "lives", "correct",
+        "attempts", "max_moves", "feedback", "deadline", "relaxed")}
     out["version"] = len(state["log"])
     out["server_time"] = time.time()
     if state["game"] in {"memory", "matching"}:
-        out["cards"] = [
-            dict(id=card["id"], side=card["side"],
-                 label=card["label"] if (
-                     state["game"] == "matching"
-                     or card["id"] in state["opened"] + state["matched"]
-                 ) else None,
-                 matched=card["id"] in state["matched"],
-                 opened=card["id"] in state["opened"])
-            for card in state["cards"]
-        ]
+        out["cards"] = [dict(id=card["id"], side=card["side"],
+            label=card["label"] if state["game"] == "matching" or card["id"] in state["opened"] + state["matched"] else None,
+            matched=card["id"] in state["matched"], opened=card["id"] in state["opened"]) for card in state["cards"]]
     elif state["index"] < len(state["questions"]) and state["phase"] != "finished":
         question = state["questions"][state["index"]]
-        out["question"] = (
-            dict(prompt=question["word"], choices=question["choices"])
-            if state["game"] == "quick_choice"
-            else dict(prompt=question["definition"], tiles=question["tiles"])
-        )
+        out["question"] = dict(prompt=question["word"], choices=question["choices"]) if state["game"] == "quick_choice" else dict(prompt=question["definition"], tiles=question["tiles"])
     if "result" in state:
         out["result"] = state["result"]
     return out
 
 
 def apply(state, move, now=None):
-    """Mutate one locked session. Request IDs make lost-response retries safe."""
     now = time.time() if now is None else now
     action_id = move["action_id"]
     prior = next((item for item in state["log"] if item["action_id"] == action_id), None)
@@ -114,24 +92,20 @@ def apply(state, move, now=None):
         raise ValueError("Stale move; reload the round")
     if len(state["log"]) >= 100:
         raise ValueError("Move limit reached")
-    kind = move["kind"]
-    game = state["game"]
+    kind, game = move["kind"], state["game"]
     if kind == "leave":
         if state["attempts"] == 0:
             raise ValueError("Play at least one move before saving")
-        state["phase"] = "finished"
-        state["won"] = False
+        state["phase"], state["won"] = "finished", False
     elif kind == "continue" and state["phase"] == "feedback":
-        state["feedback"] = None
-        state["phase"] = "playing"
+        state["feedback"], state["phase"] = None, "playing"
         state["index"] += 1
         if game == "quick_choice" and not state["relaxed"]:
             state["deadline"] = now + 14 - state["difficulty"] * 2
     elif kind == "hide" and game == "memory" and len(state["opened"]) == 2:
         if now < state["cooldown"]:
             raise ValueError("Wait before closing the cards")
-        state["opened"] = []
-        state["feedback"] = None
+        state["opened"], state["feedback"] = [], None
     elif kind == "flip" and game == "memory" and state["phase"] == "playing":
         card_id = move.get("value", "")
         card = next((c for c in state["cards"] if c["id"] == card_id), None)
@@ -145,8 +119,7 @@ def apply(state, move, now=None):
             if correct:
                 state["matched"] += state["opened"]
                 state["correct"] += 1
-            state["feedback"] = dict(correct=correct)
-            state["cooldown"] = now + 0.8
+            state["feedback"], state["cooldown"] = dict(correct=correct), now + 0.8
             if state["correct"] == state["total"] or state["attempts"] >= state["max_moves"]:
                 state["phase"] = "finished"
                 state["won"] = state["correct"] == state["total"]
@@ -166,8 +139,7 @@ def apply(state, move, now=None):
         else:
             state["lives"] -= 1
         if state["correct"] == state["total"] or state["lives"] == 0:
-            state["phase"] = "finished"
-            state["won"] = state["lives"] > 0
+            state["phase"], state["won"] = "finished", state["lives"] > 0
     elif kind in {"answer", "timeout"} and game not in {"memory", "matching"} and state["phase"] == "playing":
         question = state["questions"][state["index"]]
         expired = state["deadline"] is not None and now >= state["deadline"]
@@ -189,12 +161,10 @@ def apply(state, move, now=None):
             state["correct"] += 1
         else:
             state["lives"] -= 1
-        state["feedback"] = dict(correct=correct, answer=question["word"],
-                                 meaning=question["definition"])
+        state["feedback"] = dict(correct=correct, answer=question["word"], meaning=question["definition"])
         state["deadline"] = None
         if state["index"] + 1 == state["total"] or state["lives"] == 0:
-            state["phase"] = "finished"
-            state["won"] = state["lives"] > 0
+            state["phase"], state["won"] = "finished", state["lives"] > 0
         else:
             state["phase"] = "feedback"
     else:
@@ -204,10 +174,7 @@ def apply(state, move, now=None):
 
 
 def score(state):
-    """No speed bonus or subscription multiplier; only validated learning."""
-    return dict(
-        correct=state["correct"], questions=state["total"],
+    """Challenge completion and attempt accuracy are deliberately different."""
+    return dict(correct=state["correct"], questions=state["attempts"], challenge_items=state["total"],
         round_score=round(state["correct"] / state["total"] * 100),
-        xp=state["correct"] * 5,
-        won=bool(state.get("won", False)),
-    )
+        xp=state["correct"] * 5, won=bool(state.get("won", False)))
