@@ -1,0 +1,45 @@
+.juba-app-shell .reference-vocabulary{display:flex;flex-direction:column;gap:24px;}
+.juba-app-shell .reference-vocab-header{display:flex;align-items:center;gap:16px;min-height:100px;flex-wrap:wrap;}
+.juba-app-shell .reference-vocab-header>svg{color:var(--juba-green);flex:none;}
+.juba-app-shell .reference-vocab-header>div{flex:1;min-width:0;}
+.juba-app-shell .reference-vocab-header h1{font-size:28px;font-weight:650;margin:0;line-height:1.3;}
+.juba-app-shell .reference-vocab-header p{font-size:13px;color:var(--juba-muted);margin:6px 0 0;}
+.juba-app-shell .reference-vocab-header>a{padding-inline:12px;}
+.juba-app-shell .reference-vocab-panel{border:1px solid var(--juba-border);border-radius:6px;overflow:hidden;background:var(--juba-card);}
+.juba-app-shell .reference-vocab-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-block-end:1px solid var(--juba-border);}
+.juba-app-shell .reference-vocab-panel-head h2{font-size:14px;font-weight:650;margin:0;}
+.juba-app-shell .reference-vocab-panel-head>span{font-size:11px;color:var(--juba-muted);}
+.juba-app-shell .reference-vocab-panel-head>a{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--juba-green-dark);}
+.juba-app-shell .reference-vocab-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:16px;}
+.juba-app-shell .reference-vocab-stats>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.juba-app-shell .reference-vocab-stats svg{color:var(--juba-green);flex:none;}
+.juba-app-shell .reference-vocab-stats span{font-size:11px;color:var(--juba-muted);}
+.juba-app-shell .reference-vocab-stats strong{width:100%;font-size:20px;font-weight:650;font-variant-numeric:tabular-nums;}
+.juba-app-shell .reference-vocab-progress{padding:16px;border-block-start:1px solid var(--juba-border);}
+.juba-app-shell .reference-vocab-progress>div:first-child{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--juba-muted);margin-block-end:8px;}
+.juba-app-shell .reference-vocab-track{height:8px;overflow:hidden;border-radius:3px;background:var(--juba-soft);}
+.juba-app-shell .reference-vocab-track>span{display:block;height:100%;border-radius:inherit;background:var(--juba-yellow);}
+.juba-app-shell .reference-vocab-filters{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px;}
+.juba-app-shell .reference-vocab-search{display:flex;align-items:center;gap:8px;color:var(--juba-muted);flex:1;min-width:200px;max-width:460px;}
+.juba-app-shell .reference-vocab-search input{flex:1;min-width:0;padding:8px 12px;width:100%;}
+.juba-app-shell .reference-vocab-tabs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.juba-app-shell .reference-vocab-tabs button{min-height:36px;padding:6px 12px;border:1px solid var(--juba-border);border-radius:5px;font-size:12px;color:var(--juba-muted);background:var(--juba-card);}
+.juba-app-shell .reference-vocab-tabs button[aria-pressed="true"]{color:var(--juba-green-dark);background:var(--juba-green-soft);border-color:var(--juba-green);}
+.juba-app-shell .reference-vocab-set-row{display:grid;grid-template-columns:36px minmax(0,1fr) auto 16px;align-items:center;gap:12px;padding:16px;border-block-end:1px solid var(--juba-border);text-decoration:none;color:var(--juba-ink);}
+.juba-app-shell .reference-vocab-set-row:last-child{border:0;}
+.juba-app-shell .reference-vocab-set-row:hover{background:var(--juba-green-soft);}
+.juba-app-shell .reference-vocab-set-row strong{display:block;font-size:14px;font-weight:600;}
+.juba-app-shell .reference-vocab-set-row small{display:block;font-size:11px;color:var(--juba-muted);margin-block-start:4px;}
+.juba-app-shell .reference-vocab-set-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:4px;background:var(--juba-green-soft);color:var(--juba-green-dark);}
+.juba-app-shell .reference-vocab-intro{font-size:13px;color:var(--juba-muted);margin:16px;}
+.juba-app-shell .reference-vocab-saved{display:flex;flex-direction:column;padding-inline:16px;}
+.juba-app-shell .reference-vocab-saved>div{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:16px;padding-block:12px;border-block-start:1px solid var(--juba-border);font-size:14px;}
+.juba-app-shell .reference-vocab-saved span{color:var(--juba-muted);}
+.juba-app-shell .reference-vocab-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 16px;border:1px solid var(--juba-border);border-radius:6px;color:var(--juba-muted);font-size:14px;text-align:center;}
+.juba-app-shell .reference-vocab-empty p{margin:0;}
+.juba-app-shell .reference-vocab-empty button{padding-inline:12px;}
+.juba-app-shell .reference-vocab-alert{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 16px;border:1px solid var(--duo-red);border-radius:6px;font-size:13px;}
+.juba-app-shell .reference-vocab-alert button{padding-inline:12px;}
+.juba-app-shell .reference-vocab-loading{display:flex;flex-direction:column;gap:16px;}
+.juba-app-shell .reference-vocab-loading>div{height:80px;border:1px solid var(--juba-border);border-radius:6px;background:var(--juba-soft);}
+@media(max-width:640px){.juba-app-shell .reference-vocabulary{gap:16px;}.juba-app-shell .reference-vocab-header h1{font-size:24px;}.juba-app-shell .reference-vocab-header>svg{width:32px;height:32px;}.juba-app-shell .reference-vocab-stats{grid-template-columns:1fr 1fr;}.juba-app-shell .reference-vocab-tabs button{min-height:44px;}.juba-app-shell .reference-vocab-panel-head{flex-wrap:wrap;}.juba-app-shell .reference-vocab-set-row{gap:8px;grid-template-columns:32px minmax(0,1fr) auto 16px;}.juba-app-shell .reference-vocab-set-icon{width:32px;height:32px;}}
