@@ -315,7 +315,7 @@ function ListeningPage() {
           </h1>
           <button
             onClick={loadNext}
-            className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
@@ -349,7 +349,7 @@ function ListeningPage() {
                     <p className="text-[var(--juba-ink,var(--duo-ink))] font-sans text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] font-sans">
+                    <p className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-green-dark,var(--duo-green-dark))] font-sans">
                       +{item.xp_earned} XP
                     </p>
                   </div>
@@ -372,7 +372,7 @@ function ListeningPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
+                  className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -434,7 +434,7 @@ function ListeningPage() {
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] mt-1 font-sans text-xl font-bold">
+                <p className="text-[var(--juba-green-dark,var(--duo-green-dark))] mt-1 font-sans text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -475,7 +475,7 @@ function ListeningPage() {
             return (
               <div
                 key={q.index}
-                className={`rounded-[12px] border p-4 shadow-sm ${
+                className={`rounded-[12px] border p-4 shadow-[0_1px_2px_rgba(36,48,32,.025)] ${
                   isCorrect
                     ? 'border-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_45%,transparent)] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]'
                     : 'border-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_45%,transparent)] bg-[color-mix(in_srgb,var(--juba-red,var(--duo-red))_8%,transparent)]'
@@ -494,7 +494,7 @@ function ListeningPage() {
                       key={k}
                       className={`px-3 py-1.5 ${
                         k === correctKey
-                          ? 'font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]'
+                          ? 'font-bold text-[var(--juba-green-dark,var(--duo-green-dark))]'
                           : k === userAnswer && !isCorrect
                             ? 'text-[var(--juba-red,var(--duo-red))] line-through opacity-70'
                             : 'text-[var(--juba-muted,var(--duo-muted))]'
@@ -564,7 +564,7 @@ function ListeningPage() {
           </h1>
           <button
             onClick={() => loadHistory(0)}
-            className="text-[var(--juba-ink,var(--duo-ink))] text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))] font-sans tracking-widest uppercase transition-colors"
           >
             {t('history')}
           </button>
@@ -677,8 +677,8 @@ function ListeningPage() {
                           }
                           className={`w-full rounded-[12px] border border-[var(--juba-border,var(--duo-line))] px-3 py-2 text-left transition-colors ${
                             selected
-                              ? 'border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] bg-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))]'
-                              : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-border,var(--duo-line))]'
+                              ? 'border-[var(--juba-green-dark,var(--duo-green-dark))] bg-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))]'
+                              : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:border-[var(--juba-green-dark,var(--duo-green-dark))] hover:text-[var(--juba-ink,var(--duo-ink))] hover:bg-[var(--juba-border,var(--duo-line))]'
                           }`}
                         >
                           <span className="text-[var(--juba-ink,var(--duo-ink))] font-sans font-bold">
