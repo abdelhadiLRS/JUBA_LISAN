@@ -1,89 +1,114 @@
 'use client'
 
 import Link from 'next/link'
-import {useEffect,useRef,useState} from 'react'
-import {useTranslations} from 'next-intl'
-import {Circle,CircleDot,Diamond,Check,Minus} from 'lucide-react'
-import {getLandingSubscriptionState} from '@/lib/landing-subscription'
-import {pricingAction,type PricingAction} from '@/lib/landing-pricing-policy'
+import {useEffect, useRef, useState} from 'react'
+import {useLocale} from 'next-intl'
 import {apiFetch} from '@/lib/api'
 import {useAuthStore} from '@/store/auth'
+import './subscription-pricing.css'
 
-type BillingInterval='monthly'|'yearly'
-interface PricingSectionProps{stripeEnabled:boolean;trialDays:number;hasSession:boolean;priceMonthly:number;priceYearly:number;totalPriceMonthly:number;totalPriceYearly:number}
-type Config={ready:boolean;allowRegistration:boolean;stripeEnabled:boolean;trialDays:number;monthly:number;yearly:number;originalMonthly:number;originalYearly:number}
-export default function PricingSection(props:PricingSectionProps){
-  const t=useTranslations('billing'),landing=useTranslations('landing'),common=useTranslations('common')
-  const [config,setConfig]=useState<Config>({ready:false,allowRegistration:false,stripeEnabled:props.stripeEnabled,trialDays:props.trialDays,monthly:props.priceMonthly,yearly:props.priceYearly,originalMonthly:props.totalPriceMonthly,originalYearly:props.totalPriceYearly})
-  const [subscribed,setSubscribed]=useState<boolean|null>(props.hasSession?null:false)
-  const [trialUsed,setTrialUsed]=useState(false)
-  const [loading,setLoading]=useState<BillingInterval|null>(null)
-  const [error,setError]=useState<string|null>(null)
-  const [retry,setRetry]=useState(0)
-  const lock=useRef(false),context=useRef(0)
-  const token=useAuthStore(s=>s.accessToken)
+type Tier = 'free' | 'go' | 'plus'
+type Interval = 'monthly' | 'yearly'
+type Allowance = {limit:number;period:'day'|'week'|'month';unit:'requests'|'cards'|'seconds'}
+type Plan = {tier:Tier;prices:Record<Interval,number>;checkout_available:Record<Interval,boolean>;voice_session_max_seconds:number;allowances:Record<string,Allowance>}
+type Catalog = {currency:string;metered:boolean;plans:Plan[];trial:{tier:string;days:number;card_required:boolean}}
+type Account = {tier:Tier;subscription_status:string;trial_available:boolean;trial_ends_at:string|null}
+interface PricingSectionProps {stripeEnabled:boolean;trialDays:number;hasSession:boolean;priceMonthly:number;priceYearly:number;totalPriceMonthly:number;totalPriceYearly:number}
+
+export default function PricingSection(props:PricingSectionProps) {
+  const locale = useLocale(), ar = locale.startsWith('ar')
+  const token = useAuthStore(s=>s.accessToken)
+  const signedIn = props.hasSession || !!token
+  const [catalog,setCatalog] = useState<Catalog|null>(null)
+  const [account,setAccount] = useState<Account|null>(null)
+  const [allowRegistration,setAllowRegistration] = useState(false)
+  const [interval,setInterval] = useState<Interval>('monthly')
+  const [error,setError] = useState<string|null>(null)
+  const [loading,setLoading] = useState<string|null>(null)
+  const [retry,setRetry] = useState(0)
+  const lock = useRef(false), epoch = useRef(0)
+  const word = (arabic:string, english:string)=>ar?arabic:english
   useEffect(()=>{
-    const epoch=++context.current
-    const controller=new AbortController()
-    const timeout=setTimeout(()=>controller.abort(),10000)
-    setConfig(value=>({...value,ready:false}));setError(null)
-    setSubscribed(props.hasSession?null:false)
-    const number=(value:unknown,fallback:number)=>typeof value==='number'&&Number.isFinite(value)&&value>=0?value:fallback
-    void apiFetch('/api/config',{signal:controller.signal}).then(async response=>{
+    const version = ++epoch.current, controller = new AbortController()
+    const timeout = setTimeout(()=>controller.abort(),12000)
+    setCatalog(null);setAccount(null);setError(null);setLoading(null)
+    void (async()=>{
+      try {
+        const response = await apiFetch('/api/config',{signal:controller.signal})
+        if(!response.ok)throw new Error()
+        const config = await response.json()
+        const products = config.subscription_catalog as Catalog|undefined
+        if(!products || !Array.isArray(products.plans) || products.plans.length!==3)throw new Error()
+        let current:Account|null = null
+        if(signedIn){
+          const res = await apiFetch('/api/subscriptions/me',{signal:controller.signal})
+          if(!res.ok)throw new Error()
+          current = await res.json()
+        }
+        if(version!==epoch.current)return
+        setCatalog(products);setAllowRegistration(config.allow_registration===true);setAccount(current)
+      }catch{if(version===epoch.current)setError(ar?'تعذّر تحميل الباقات.':'Could not load plans.')}
+      finally{clearTimeout(timeout)}
+    })()
+    return()=>{epoch.current++;controller.abort();clearTimeout(timeout)}
+  },[signedIn,token,retry,ar])
+
+  async function act(kind:'checkout'|'portal'|'trial', tier?:Tier) {
+    if(lock.current || !catalog || !signedIn)return
+    lock.current=true;setLoading(kind==='checkout'?tier!:kind);setError(null)
+    const version=epoch.current
+    try {
+      const response=await apiFetch(kind==='trial'?'/api/subscriptions/trial':`/api/billing/${kind}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        ...(kind==='checkout'?{body:JSON.stringify({tier,interval})}:{})})
       if(!response.ok)throw new Error()
       const data=await response.json()
-      if(epoch!==context.current)return
-      setConfig({ready:true,allowRegistration:data.allow_registration===true,stripeEnabled:data.stripe_enabled===true,trialDays:number(data.stripe_trial_days,0),monthly:number(data.price_monthly,0),yearly:number(data.price_yearly,0),originalMonthly:number(data.total_price_monthly,0),originalYearly:number(data.total_price_yearly,0)})
-    }).catch(()=>{if(epoch===context.current)setError(common('error'))}).finally(()=>clearTimeout(timeout))
-    if(props.hasSession)void getLandingSubscriptionState().then(state=>{
-      if(epoch!==context.current)return
-      setSubscribed(state.subscribed);setTrialUsed(state.trialUsed)
-    }).catch(()=>{if(epoch===context.current)setError(common('error'))})
-    return()=>{context.current++;controller.abort();clearTimeout(timeout)}
-  },[props.hasSession,token,retry,common])
-  function action(paid:boolean,price:number):PricingAction{return pricingAction({paid,price,hasSession:props.hasSession,allowRegistration:config.allowRegistration,stripeEnabled:config.stripeEnabled,subscribed,configReady:config.ready})}
-  async function checkout(interval:BillingInterval){
-    const price=interval==='monthly'?config.monthly:config.yearly
-    if(lock.current||action(true,price)!=='checkout')return
-    lock.current=true;setLoading(interval);setError(null)
-    const epoch=context.current
-    try{
-      // Recheck billing immediately before payment, even if cached landing data
-      // or another browser tab changed the server configuration.
-      const fresh=await apiFetch('/api/config')
-      if(!fresh.ok)throw new Error(t('checkoutError'))
-      const cfg=await fresh.json()
-      const currentPrice=interval==='monthly'?cfg.price_monthly:cfg.price_yearly
-      if(cfg.stripe_enabled!==true||typeof currentPrice!=='number'||currentPrice<=0)throw new Error(t('checkoutError'))
-      if(epoch!==context.current)return
-      const response=await apiFetch('/api/billing/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:interval})})
-      if(!response.ok)throw new Error(t('checkoutError'))
-      const data=await response.json()
-      if(typeof data.url!=='string')throw new Error(t('checkoutError'))
+      if(version!==epoch.current)return
+      if(kind==='trial'){setRetry(x=>x+1);return}
+      if(typeof data.url!=='string')throw new Error()
       const url=new URL(data.url)
-      if(url.protocol!=='https:')throw new Error(t('checkoutError'))
-      if(epoch===context.current)window.location.assign(url.toString())
-    }catch{if(epoch===context.current)setError(t('checkoutError'))}finally{lock.current=false;if(epoch===context.current)setLoading(null)}
+      const expected=kind==='portal'?'billing.stripe.com':'checkout.stripe.com'
+      if(url.protocol!=='https:' || url.hostname!==expected)throw new Error()
+      window.location.assign(url.toString())
+    }catch{if(version===epoch.current)setError(ar?'تعذّر تنفيذ الطلب. لم يتم تأكيد أي دفع.':'Request failed. No payment was confirmed.')}
+    finally{lock.current=false;if(version===epoch.current)setLoading(null)}
   }
-  const paidLabel=trialUsed||config.trialDays<=0?t('ctaRegisterTrialUsed'):t('ctaRegister')
-  const plans=[{name:t('planFreeBadge'),icon:Circle,paid:false,interval:'monthly' as BillingInterval,price:0,original:0,period:'',badge:null,desc:t('planFreeDesc')},{name:t('planMonthlyName'),icon:CircleDot,paid:true,interval:'monthly' as BillingInterval,price:config.monthly,original:config.originalMonthly,period:t('month'),badge:config.trialDays>0&&!trialUsed?t('trialDays',{days:config.trialDays}):t('trialBadgeTrialUsed'),desc:null},{name:t('planYearlyName'),icon:Diamond,paid:true,interval:'yearly' as BillingInterval,price:config.yearly,original:config.originalYearly,period:t('year'),badge:t('bestValue'),desc:null}]
-  // Paid plans are not advertised when server configuration disables billing.
-  const visiblePlans=config.stripeEnabled?plans:plans.slice(0,1)
-  function cta(paid:boolean,interval:BillingInterval,price:number){
-    const state=action(paid,price)
-    if(state==='wait')return <button type="button" disabled className="juba-ff-plan-cta" aria-busy="true">{common('loading')}</button>
-    if(state==='checkout')return <button type="button" className="juba-ff-plan-cta inline-block px-6 py-2.5 text-center font-semibold" disabled={loading!==null} onClick={()=>void checkout(interval)}>{loading===interval?t('checkoutLoading'):paidLabel}</button>
-    const href=state==='dashboard'?'/dashboard':state==='login'?'/login':paid?`/register?plan=${interval}`:'/register'
-    const label=state==='dashboard'?landing('dashboard'):state==='login'?landing('signIn'):paid?paidLabel:t('planFreeCta')
-    return <Link href={href} className={paid?'juba-ff-plan-cta inline-block px-6 py-2.5 text-center':'juba-ff-plan-free-link inline-block px-6 py-2.5 text-center'}>{label}</Link>
+  const names:Record<string,string>={chat:word('رسائل المعلم','Tutor messages'),lessons:word('دروس جديدة','New lessons'),
+    reading:word('تمارين قراءة جديدة','New reading exercises'),listening:word('تمارين استماع جديدة','New listening exercises'),
+    flashcards:word('بطاقات مولّدة بالذكاء الاصطناعي','AI-generated cards'),translation:word('ترجمة وتصحيح مستقل','Translation and standalone correction'),
+    voice:word('محادثة صوتية','Voice conversation'),tts:word('صوت نطق جديد خارج المحادثة','Standalone pronunciation audio')}
+  function allowance(value:Allowance) {
+    const number=value.unit==='seconds'?value.limit/60:value.limit
+    const unit=value.unit==='seconds'?word('دقيقة','min'):value.unit==='cards'?word('بطاقة','cards'):''
+    const period=value.period==='day'?word('يوم','day'):value.period==='week'?word('أسبوع','week'):word('شهر','month')
+    return `${new Intl.NumberFormat(locale).format(number)} ${unit} / ${period}`
   }
-  const rows=[...['f1','f2','f3','f4','f5'].map(key=>({label:t(`freeFeature.${key}`),free:true as boolean|'limited',monthly:true,yearly:true})),...['l1','l2','l3','l4','l5'].map(key=>({label:t(`freeFeature.${key}`),free:'limited' as const,monthly:true,yearly:true})),{label:t('planFeature.feature1'),free:false,monthly:true,yearly:true},{label:t('planFeature.feature2'),free:false,monthly:false,yearly:true}]
-  return <section aria-labelledby="juba-landing-pricing-title" className="juba-ff-pricing w-full">
-    <div className="juba-ff-pricing-intro mx-auto mb-10 max-w-3xl px-5 text-center"><h2 id="juba-landing-pricing-title" className="juba-ff-pricing-title">{t('pricingTitle')}</h2>{config.ready&&config.stripeEnabled&&<p>{trialUsed||config.trialDays<=0?t('pricingDescTrialUsed'):t('pricingDesc',{days:config.trialDays})}</p>}</div>
-    {error&&<div role="alert" className="juba-ff-plan-error mb-4"><p>{error}</p><button type="button" disabled={loading!==null} onClick={()=>setRetry(value=>value+1)}>{common('retry')}</button></div>}
-    <div className={`mb-12 grid grid-cols-1 gap-4 ${config.stripeEnabled?'md:grid-cols-3':''}`}>
-      {visiblePlans.map(plan=>{const Icon=plan.icon;return <div key={plan.name} className={`juba-ff-plan-card flex flex-col gap-4 border border-[var(--busuu-line)] p-6 ${!plan.paid?'juba-ff-plan-free':plan.interval==='yearly'?'juba-ff-plan-yearly':'juba-ff-plan-paid'}`}><div className="juba-ff-plan-head flex items-center justify-between border-b pb-3"><div className="flex items-center gap-2"><Icon className="juba-ff-plan-icon h-5 w-5"/><span className="juba-ff-plan-name font-semibold">{plan.name}</span></div>{plan.badge&&<span className="juba-ff-plan-badge border px-2 py-1">{plan.badge}</span>}</div><div className="min-h-[4.25rem]">{plan.paid?<>{plan.original>plan.price&&<p className="juba-ff-plan-old line-through">{t('priceOriginal',{price:plan.original,period:plan.period})}</p>}<p className="juba-ff-plan-price flex items-baseline gap-2 text-2xl font-bold">{config.ready&&plan.price>0?t('priceAmount',{amount:plan.price}):common('loading')}<span className="juba-ff-period text-sm">/ {plan.period}</span></p></>:<p className="juba-ff-plan-desc text-sm">{config.ready&&!config.stripeEnabled?landing('heroSub'):plan.desc}</p>}</div>{cta(plan.paid,plan.interval,plan.price)}</div>})}
-    </div>
-    {config.ready&&config.stripeEnabled&&<><div className="juba-ff-comparison overflow-x-auto border border-[var(--busuu-line)]" role="region" aria-label={t('pricingTitle')} tabIndex={0}><table className="w-full min-w-[680px] table-fixed"><caption className="sr-only">{t('pricingTitle')}</caption><thead><tr className="juba-ff-comparison-head border-b"><th className="w-[42%] px-5 py-3 text-start"><span className="sr-only">{landing('navFeatures')}</span></th>{[t('planFreeName'),t('planMonthlyName'),t('planYearlyName')].map(name=><th key={name} className="px-4 py-3 text-center">{name}</th>)}</tr></thead><tbody>{rows.map((row,index)=><tr key={index} className="border-b border-[var(--busuu-line)]"><th scope="row" className="juba-ff-table-cell px-5 py-3 text-start text-xs font-normal">{row.label}</th>{[row.free,row.monthly,row.yearly].map((value,column)=><td key={column} className="px-4 py-3 text-center">{value==='limited'?<span className="juba-ff-limited text-xs">{t('limitedLabel')}</span>:value?<Check className="juba-ff-check mx-auto h-4 w-4" aria-label={common('done')}/>:<Minus className="juba-ff-minus mx-auto h-4 w-4" aria-label={common('back')}/>}</td>)}</tr>)}</tbody></table></div><div className="mt-8 text-center">{cta(true,'yearly',config.yearly)}</div></>}
+  function action(plan:Plan) {
+    if(!signedIn)return <Link className="juba-tier-action" href={allowRegistration?`/register?tier=${plan.tier}&interval=${interval}`:'/login'}>{allowRegistration?word('ابدأ','Get started'):word('تسجيل الدخول','Sign in')}</Link>
+    if(plan.tier==='free' || !catalog?.metered)return <Link className="juba-tier-action" href="/dashboard">{word('واصل التعلم','Keep learning')}</Link>
+    if(account?.subscription_status==='active' || account?.subscription_status==='trialing')return <button className="juba-tier-action" disabled={!!loading} onClick={()=>void act('portal')}>{account.tier===plan.tier?word('إدارة اشتراكك','Manage subscription'):word('تغيير الباقة','Change plan')}</button>
+    return <button className="juba-tier-action" disabled={!!loading || !plan.checkout_available[interval]} onClick={()=>void act('checkout',plan.tier)}>{loading===plan.tier?word('جارٍ التحويل','Opening checkout'):plan.checkout_available[interval]?word('اشترك','Subscribe'):word('الدفع غير مفعّل بعد','Checkout not configured')}</button>
+  }
+  return <section className="juba-tier-pricing" aria-labelledby="juba-landing-pricing-title" dir={ar?'rtl':'ltr'}>
+    <header><div><h2 id="juba-landing-pricing-title">{word('اختر مساحة تعلّمك','Choose your learning plan')}</h2><p>{word('نفس قواعد التعلّم والمنافسة. حصص ذكاء اصطناعي مختلفة.','Same learning and competition rules. Different AI allowances.')}</p></div>
+      <div className="juba-tier-interval" role="group" aria-label={word('مدة الفوترة','Billing interval')}>
+        {(['monthly','yearly'] as const).map(value=><button key={value} type="button" aria-pressed={interval===value} disabled={!!loading} onClick={()=>setInterval(value)}>{value==='monthly'?word('شهري','Monthly'):word('سنوي','Yearly')}</button>)}
+      </div></header>
+    {error&&<p role="alert">{error} <button disabled={!!loading} onClick={()=>setRetry(x=>x+1)}>{word('إعادة المحاولة','Retry')}</button></p>}
+    {!catalog&&!error&&<p role="status">{word('جارٍ تحميل الأسعار والحدود','Loading prices and limits')}</p>}
+    {catalog&&<><div className="juba-tier-table" role="region" aria-label={word('مقارنة الباقات','Plan comparison')} tabIndex={0}><table>
+      <caption className="sr-only">{word('أسعار وحدود Free وGo وPlus','Free, Go and Plus prices and limits')}</caption>
+      <thead><tr><th scope="col">{word('المزايا','Features')}</th>{catalog.plans.map(plan=><th key={plan.tier} scope="col"><span className="juba-tier-name">{plan.tier==='free'?'Free':plan.tier==='go'?'Go':'Plus'}</span>
+        <span className="juba-tier-price">{new Intl.NumberFormat(locale,{style:'currency',currency:catalog.currency}).format(plan.prices[interval]/100)}</span><span className="juba-tier-period">{interval==='monthly'?word('في الشهر','per month'):word('في السنة، تُدفع سنويًا','per year, billed annually')}</span>{action(plan)}</th>)}</tr></thead>
+      <tbody>{Object.entries(names).map(([key,label])=><tr key={key}><th scope="row">{label}</th>{catalog.plans.map(plan=><td key={plan.tier}>{allowance(plan.allowances[key])}</td>)}</tr>)}
+        <tr><th scope="row">{word('الحد الأقصى للجلسة الصوتية','Maximum voice session')}</th>{catalog.plans.map(plan=><td key={plan.tier}>{plan.voice_session_max_seconds/60} {word('دقيقة','min')}</td>)}</tr>
+        <tr><th scope="row">{word('التقييم، الخطة، المراجع والمراجعة','Assessment, plan, references and review')}</th>{catalog.plans.map(plan=><td key={plan.tier}>{word('متاحة','Included')}</td>)}</tr>
+        <tr><th scope="row">{word('الألعاب والدوريات','Games and leagues')}</th>{catalog.plans.map(plan=><td key={plan.tier}>{word('نفس قواعد XP','Same XP rules')}</td>)}</tr>
+      </tbody></table></div>
+      {!catalog.metered?<p>{word('الوضع المحلي بلا بوابة دفع. هذه حصص الخدمة المستضافة وليست قيودًا على نسختك المحلية.','Self-hosted mode has no paywall. These are hosted-service allowances, not limits on your local installation.')}</p>:<p>{word('الحصص مشتركة بين لغات الحساب وتتجدد بتوقيت UTC، بلا ترحيل. المراجعة والطلبات الفاشلة لا تخصم حصة التوليد.','Allowances are shared across account languages and reset in UTC, without rollover. Reviews and failed requests do not consume generation quota.')}</p>}
+      {catalog.metered&&<p>{word('حتى 2000 حرف للرسالة، 1000 حرف للترجمة، و20 بطاقة في طلب التوليد الواحد. لا أفضلية مدفوعة في XP.','Up to 2,000 characters per tutor message, 1,000 per translation and 20 cards per generation request. No paid XP advantage.')}</p>}
+      {account?.trial_available&&<button className="juba-tier-trial" disabled={!!loading} onClick={()=>void act('trial')}>{word('جرّب Go لمدة 7 أيام دون بطاقة','Try Go for 7 days, no card')}</button>}
+      {account?.trial_ends_at&&<p>{word('تنتهي التجربة في','Trial ends on')} {new Date(account.trial_ends_at.endsWith('Z')?account.trial_ends_at:`${account.trial_ends_at}Z`).toLocaleDateString(locale)}</p>}
+    </>}
   </section>
 }
