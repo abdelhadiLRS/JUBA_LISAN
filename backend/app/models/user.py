@@ -24,63 +24,26 @@ class User(Base):
     ui_locale: Mapped[str | None] = mapped_column(String(10), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    conversation_max_duration: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_CONVERSATION_MAX_DURATION,
-    )
-    conversation_inactivity_timeout: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT,
-    )
-    conversation_weekly_sessions: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_CONVERSATION_WEEKLY_SESSIONS,
-    )
-    conversation_daily_minutes: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_CONVERSATION_DAILY_MINUTES,
-    )
-    conversation_weekly_minutes: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_CONVERSATION_WEEKLY_MINUTES,
-    )
-    monthly_tokens_limit: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=settings.DEFAULT_MONTHLY_TOKENS_LIMIT,
-    )
-    # Stripe subscription
+    conversation_max_duration: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_CONVERSATION_MAX_DURATION)
+    conversation_inactivity_timeout: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT)
+    conversation_weekly_sessions: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_CONVERSATION_WEEKLY_SESSIONS)
+    conversation_daily_minutes: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_CONVERSATION_DAILY_MINUTES)
+    conversation_weekly_minutes: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_CONVERSATION_WEEKLY_MINUTES)
+    monthly_tokens_limit: Mapped[int] = mapped_column(Integer, nullable=False, default=settings.DEFAULT_MONTHLY_TOKENS_LIMIT)
     stripe_customer_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
     stripe_subscription_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    subscription_status: Mapped[str] = mapped_column(
-        String(20),
-        nullable=False,
-        default="none",
-        # Values: "none" plus Stripe Subscription.status values used by Checkout.
-    )
+    subscription_status: Mapped[str] = mapped_column(String(20), nullable=False, default="none")
+    subscription_tier: Mapped[str] = mapped_column(String(10), nullable=False, default="free", server_default="free")
     subscription_ends_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     cancel_at_period_end: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     trial_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    assessment_voice_trial_used: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=False
-    )
+    assessment_voice_trial_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     freemium_trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     freemium_trial_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     avatar: Mapped[str | None] = mapped_column(Text, nullable=True)
     bio: Mapped[str | None] = mapped_column(Text, nullable=True)
-    learning_goals: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON array string
+    learning_goals: Mapped[str | None] = mapped_column(Text, nullable=True)
     dismissed_dashboard_banner_revision: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
-    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None))
     last_login: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-
-    # AI Tutor Relationships
-    ai_sessions: Mapped[list["AISession"]] = relationship(
-        "AISession", back_populates="user", cascade="all, delete-orphan", lazy="select"
-    )
+    ai_sessions: Mapped[list["AISession"]] = relationship("AISession", back_populates="user", cascade="all, delete-orphan", lazy="select")
