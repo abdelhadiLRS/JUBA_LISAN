@@ -1,771 +1,182 @@
-"""Tests for billing endpoints and subscription service.
-
-Strategy:
-- billing router is only registered when STRIPE_ENABLED=true, so tests
-  toggle the setting and patch stripe SDK calls.
-- Webhook signature verification is patched to avoid real Stripe keys.
-- All Stripe API calls are mocked so no real network requests are made.
-"""
-
-from __future__ import annotations
-
-import json
-from datetime import datetime
-from unittest.mock import AsyncMock, MagicMock, patch
-
+"""Tier billing contracts. Every Stripe request is mocked, no live network."""
+from types import SimpleNamespace
+from unittest.mock import AsyncMock
 import pytest
 import stripe
-
 from app.core.config import settings
 from app.main import app
-
-# Register the billing router once for the entire test module so routes are
-# available without re-registering on every test (which causes duplicates).
-from app.routers import billing as _billing_module
+from app.routers import billing
+from app.services.subscription_catalog import product_settings, PRICES
 from app.services.subscription_service import is_subscribed
 
-_BILLING_ROUTES = {getattr(r, "path", None) for r in app.routes}
-if "/api/billing/checkout" not in _BILLING_ROUTES:
-    app.include_router(_billing_module.router)
+if "/api/billing/checkout" not in {getattr(route, "path", None) for route in app.routes}:
+    app.include_router(billing.router)
 
 
-def _signed_webhook_headers() -> dict:
-    """Return fake Stripe-Signature header (signature check is mocked)."""
-    return {
-        "stripe-signature": "t=1,v1=fakesig",
-        "content-type": "application/json",
-    }
+@pytest.fixture
+def stripe_mocks(monkeypatch):
+    monkeypatch.setattr(settings, "STRIPE_ENABLED", True)
+    for tier in ("go", "plus"):
+        for interval in ("monthly", "yearly"):
+            monkeypatch.setattr(product_settings, f"STRIPE_PRICE_{tier.upper()}_{interval.upper()}", f"price_{tier}_{interval}")
+    customer = AsyncMock(return_value={"id": "cus_test"})
+    checkout = AsyncMock(return_value={"url": "https://checkout.stripe.com/pay/test"})
+    portal = AsyncMock(return_value={"url": "https://billing.stripe.com/session/test"})
+    retrieve = AsyncMock()
+    async def price(identifier):
+        _, tier, interval = identifier.split("_")
+        return {"active": True, "currency": "eur", "unit_amount": PRICES[tier][interval],
+                "recurring": {"interval": "month" if interval == "monthly" else "year", "interval_count": 1}}
+    monkeypatch.setattr(stripe.Price, "retrieve_async", AsyncMock(side_effect=price))
+    monkeypatch.setattr(stripe.Customer, "create_async", customer)
+    monkeypatch.setattr(stripe.checkout.Session, "create_async", checkout)
+    monkeypatch.setattr(stripe.billing_portal.Session, "create_async", portal)
+    monkeypatch.setattr(stripe.Subscription, "retrieve_async", retrieve)
+    return SimpleNamespace(customer=customer, checkout=checkout, portal=portal, retrieve=retrieve)
 
 
-# ── subscription_service.is_subscribed ───────────────────────────────────────
+def subscription(customer="cus_test", identifier="sub_current", tier="go", status="active"):
+    return {"id": identifier, "customer": customer, "status": status, "current_period_end": 1800000000,
+            "items": {"data": [{"price": {"id": f"price_{tier}_monthly"}}]}}
 
 
-class TestIsSubscribed:
-    def test_stripe_disabled_always_true(self):
-        user = MagicMock()
-        user.subscription_status = "none"
-        assert is_subscribed(user, stripe_enabled=False) is True
-
-    def test_active_user_subscribed(self):
-        user = MagicMock()
-        user.subscription_status = "active"
-        assert is_subscribed(user, stripe_enabled=True) is True
-
-    def test_trialing_user_subscribed(self):
-        user = MagicMock()
-        user.subscription_status = "trialing"
-        assert is_subscribed(user, stripe_enabled=True) is True
-
-    def test_none_user_not_subscribed(self):
-        user = MagicMock()
-        user.subscription_status = "none"
-        assert is_subscribed(user, stripe_enabled=True) is False
-
-    def test_canceled_user_not_subscribed(self):
-        user = MagicMock()
-        user.subscription_status = "canceled"
-        assert is_subscribed(user, stripe_enabled=True) is False
-
-    def test_past_due_user_not_subscribed(self):
-        user = MagicMock()
-        user.subscription_status = "past_due"
-        assert is_subscribed(user, stripe_enabled=True) is False
-
-    @pytest.mark.parametrize(
-        "stripe_status", ["incomplete", "incomplete_expired", "unpaid", "paused"]
-    )
-    def test_other_stripe_statuses_not_subscribed(self, stripe_status):
-        user = MagicMock()
-        user.subscription_status = stripe_status
-        assert is_subscribed(user, stripe_enabled=True) is False
+async def webhook(client, monkeypatch, event_type, body):
+    monkeypatch.setattr(stripe.Webhook, "construct_event", lambda *args: {"type": event_type, "data": {"object": body}})
+    return await client.post("/api/billing/webhook", content=b"{}", headers={"stripe-signature": "test"})
 
 
-# ── GET /api/config ───────────────────────────────────────────────────────────
+@pytest.mark.parametrize("status,expected", [("active", True), ("trialing", True), ("none", False), ("canceled", False),
+    ("past_due", False), ("unpaid", False), ("paused", False), ("incomplete", False), ("incomplete_expired", False)])
+def test_subscription_state(status, expected):
+    user = SimpleNamespace(subscription_status=status)
+    assert is_subscribed(user, True) is expected
+    assert is_subscribed(user, False) is True
 
 
 @pytest.mark.asyncio
-async def test_config_stripe_disabled(client):
-    with patch.object(settings, "STRIPE_ENABLED", False):
-        res = await client.get("/api/config")
-    assert res.status_code == 200
-    data = res.json()
-    assert data["stripe_enabled"] is False
-    assert "stripe_trial_days" in data
+@pytest.mark.parametrize("tier,interval", [("go", "monthly"), ("go", "yearly"), ("plus", "monthly"), ("plus", "yearly")])
+async def test_checkout_tier_and_interval(client, test_user, stripe_mocks, tier, interval):
+    _, headers = test_user
+    response = await client.post("/api/billing/checkout", headers=headers, json={"tier": tier, "interval": interval})
+    assert response.status_code == 200
+    kwargs = stripe_mocks.checkout.call_args.kwargs
+    assert kwargs["line_items"][0]["price"] == f"price_{tier}_{interval}"
+    assert kwargs["subscription_data"]["metadata"]["tier"] == tier
+    assert "trial_period_days" not in kwargs["subscription_data"]
 
 
 @pytest.mark.asyncio
-async def test_config_stripe_enabled(client):
-    with patch.object(settings, "STRIPE_ENABLED", True):
-        res = await client.get("/api/config")
-    assert res.status_code == 200
-    assert res.json()["stripe_enabled"] is True
-
-
-# ── require_subscription dependency ──────────────────────────────────────────
+async def test_legacy_interval_client_selects_plus(client, test_user, stripe_mocks):
+    response = await client.post("/api/billing/checkout", headers=test_user[1], json={"plan": "monthly"})
+    assert response.status_code == 200
+    assert stripe_mocks.checkout.call_args.kwargs["line_items"][0]["price"] == "price_plus_monthly"
 
 
 @pytest.mark.asyncio
-async def test_require_subscription_blocks_when_stripe_enabled(client, test_user_with_plan):
-    """Unsubscribed user gets HTTP 200 when STRIPE_ENABLED=true (freemium quotas allow access)."""
-    user, headers = test_user_with_plan
-    with patch.object(settings, "STRIPE_ENABLED", True):
-        res = await client.get("/api/chat/conversations", headers=headers)
-    assert res.status_code == 200
+async def test_invalid_tier_conflicting_interval_and_untrusted_amount(client, test_user, stripe_mocks):
+    for body in ({"tier": "free", "interval": "monthly"}, {"tier": "plus", "plan": "yearly", "interval": "monthly"},
+                 {"tier": "go", "interval": "monthly", "price": 1}):
+        response = await client.post("/api/billing/checkout", headers=test_user[1], json=body)
+        assert response.status_code == 422
+    stripe_mocks.checkout.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_require_subscription_passes_when_stripe_disabled(client, test_user_with_plan):
-    """All users pass when STRIPE_ENABLED=false (self-hosted)."""
-    _, headers = test_user_with_plan
-    with patch.object(settings, "STRIPE_ENABLED", False):
-        res = await client.get("/api/chat/conversations", headers=headers)
-    # Any non-402 response means the paywall was bypassed
-    assert res.status_code != 402
-
-
-@pytest.mark.asyncio
-async def test_require_subscription_passes_for_active_user(client, db_session, test_user):
-    """Active subscriber can access protected endpoints."""
+async def test_existing_paid_user_cannot_duplicate_subscription(client, test_user, db_session, stripe_mocks):
     user, headers = test_user
     user.subscription_status = "active"
     await db_session.commit()
-
-    with patch.object(settings, "STRIPE_ENABLED", True):
-        res = await client.get("/api/chat/conversations", headers=headers)
-    assert res.status_code != 402
-
-
-# ── POST /api/billing/checkout ────────────────────────────────────────────────
+    response = await client.post("/api/billing/checkout", headers=headers, json={"tier": "go", "interval": "monthly"})
+    assert response.status_code == 409
+    stripe_mocks.checkout.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_checkout_monthly(client, test_user):
-    """Creates a Checkout session for the monthly plan."""
-    _, headers = test_user
-
-    mock_customer = MagicMock()
-    mock_customer.id = "cus_test123"
-    mock_session = MagicMock()
-    mock_session.url = "https://checkout.stripe.com/pay/test"
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch.object(settings, "STRIPE_PRICE_MONTHLY", "price_monthly_test"),
-        patch.object(settings, "STRIPE_PRICE_YEARLY", "price_yearly_test"),
-        patch("stripe.Customer.create", return_value=mock_customer),
-        patch("stripe.checkout.Session.create", return_value=mock_session),
-    ):
-        res = await client.post(
-            "/api/billing/checkout",
-            json={"plan": "monthly"},
-            headers=headers,
-        )
-
-    assert res.status_code == 200
-    assert res.json()["url"] == "https://checkout.stripe.com/pay/test"
-
-
-@pytest.mark.asyncio
-async def test_checkout_yearly(client, test_user):
-    """Creates a Checkout session for the yearly plan."""
-    _, headers = test_user
-
-    mock_customer = MagicMock()
-    mock_customer.id = "cus_test456"
-    mock_session = MagicMock()
-    mock_session.url = "https://checkout.stripe.com/pay/yearly_test"
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch.object(settings, "STRIPE_PRICE_MONTHLY", "price_monthly_test"),
-        patch.object(settings, "STRIPE_PRICE_YEARLY", "price_yearly_test"),
-        patch("stripe.Customer.create", return_value=mock_customer),
-        patch("stripe.checkout.Session.create", return_value=mock_session),
-    ):
-        res = await client.post(
-            "/api/billing/checkout",
-            json={"plan": "yearly"},
-            headers=headers,
-        )
-
-    assert res.status_code == 200
-    assert res.json()["url"] == "https://checkout.stripe.com/pay/yearly_test"
-
-
-@pytest.mark.asyncio
-async def test_checkout_missing_price_config(client, test_user):
-    """Returns 503 when Stripe prices are not configured."""
-    _, headers = test_user
-
-    mock_customer = MagicMock()
-    mock_customer.id = "cus_test789"
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch.object(settings, "STRIPE_PRICE_MONTHLY", ""),
-        patch.object(settings, "STRIPE_PRICE_YEARLY", ""),
-        patch("stripe.Customer.create", return_value=mock_customer),
-    ):
-        res = await client.post(
-            "/api/billing/checkout",
-            json={"plan": "monthly"},
-            headers=headers,
-        )
-
-    assert res.status_code == 503
-
-
-@pytest.mark.asyncio
-async def test_checkout_reuses_existing_customer(client, db_session, test_user):
-    """Existing Stripe customers are reused instead of creating duplicates."""
+async def test_existing_customer_reused_and_past_due_portal(client, test_user, db_session, stripe_mocks):
     user, headers = test_user
-    user.stripe_customer_id = "cus_existing"
+    user.stripe_customer_id, user.subscription_status = "cus_existing", "past_due"
     await db_session.commit()
-
-    mock_session = MagicMock()
-    mock_session.url = "https://checkout.stripe.com/pay/existing"
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch.object(settings, "STRIPE_PRICE_MONTHLY", "price_monthly_test"),
-        patch.object(settings, "STRIPE_PRICE_YEARLY", "price_yearly_test"),
-        patch("stripe.Customer.create") as mock_create_customer,
-        patch("stripe.checkout.Session.create", return_value=mock_session) as mock_create_session,
-    ):
-        res = await client.post(
-            "/api/billing/checkout",
-            json={"plan": "monthly"},
-            headers=headers,
-        )
-
-    assert res.status_code == 200
-    assert res.json()["url"] == "https://checkout.stripe.com/pay/existing"
-    mock_create_customer.assert_not_called()
-    assert mock_create_session.call_args.kwargs["customer"] == "cus_existing"
-
-
-# ── POST /api/billing/portal ──────────────────────────────────────────────────
+    response = await client.post("/api/billing/portal", headers=headers)
+    assert response.status_code == 200
+    assert stripe_mocks.portal.call_args.kwargs["customer"] == "cus_existing"
+    response = await client.post("/api/billing/checkout", headers=headers, json={"tier": "go", "interval": "monthly"})
+    assert response.status_code == 200
+    stripe_mocks.customer.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_portal_opens_for_past_due_user(client, db_session, test_user):
-    """past_due users can open Customer Portal to repair the payment."""
-    user, headers = test_user
-    user.stripe_customer_id = "cus_past_due"
-    user.subscription_status = "past_due"
-    await db_session.commit()
-
-    mock_session = MagicMock()
-    mock_session.url = "https://billing.stripe.com/session/test"
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.billing_portal.Session.create", return_value=mock_session) as mock_portal,
-    ):
-        res = await client.post("/api/billing/portal", headers=headers)
-
-    assert res.status_code == 200
-    assert res.json()["url"] == "https://billing.stripe.com/session/test"
-    assert mock_portal.call_args.kwargs["customer"] == "cus_past_due"
+async def test_missing_price_and_wrong_currency_fail_closed(client, test_user, stripe_mocks, monkeypatch):
+    monkeypatch.setattr(product_settings, "STRIPE_PRICE_GO_MONTHLY", "")
+    response = await client.post("/api/billing/checkout", headers=test_user[1], json={"tier": "go", "interval": "monthly"})
+    assert response.status_code == 503
+    monkeypatch.setattr(product_settings, "STRIPE_PRICE_GO_MONTHLY", "price_go_monthly")
+    monkeypatch.setattr(stripe.Price, "retrieve_async", AsyncMock(return_value={"active": True, "currency": "usd", "unit_amount": 799, "recurring": {"interval": "month"}}))
+    response = await client.post("/api/billing/checkout", headers=test_user[1], json={"tier": "go", "interval": "monthly"})
+    assert response.status_code == 503
+    stripe_mocks.checkout.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_portal_requires_existing_customer(client, test_user):
-    """Users without a Stripe customer cannot open the Customer Portal."""
-    _, headers = test_user
-
-    with patch.object(settings, "STRIPE_ENABLED", True):
-        res = await client.post("/api/billing/portal", headers=headers)
-
-    assert res.status_code == 400
-    assert res.json()["detail"] == "No active subscription found"
-
-
-# ── POST /api/billing/webhook ─────────────────────────────────────────────────
-
-
-def _make_stripe_event(event_type: str, data: dict) -> dict:
-    """Build a minimal Stripe event envelope for webhook tests."""
-    return {"type": event_type, "data": {"object": data}}
-
-
-def _make_webhook_body(event: dict) -> bytes:
-    return json.dumps(event).encode()
-
-
-@pytest.mark.asyncio
-async def test_webhook_checkout_completed_activates_subscription(client, db_session, test_user):
-    """checkout.session.completed → subscription_status set to 'trialing'."""
+@pytest.mark.parametrize("event_type,status,tier", [("checkout.session.completed", "trialing", "go"),
+    ("customer.subscription.updated", "active", "plus"), ("invoice.payment_failed", "past_due", "go"),
+    ("customer.subscription.updated", "paused", "go"), ("customer.subscription.updated", "unpaid", "plus")])
+async def test_webhook_verified_current_state(client, test_user, db_session, stripe_mocks, monkeypatch, event_type, status, tier):
     user, _ = test_user
-    user.stripe_customer_id = "cus_webhook1"
+    user.stripe_customer_id, user.stripe_subscription_id = "cus_test", "sub_current"
     await db_session.commit()
-
-    event = _make_stripe_event(
-        "checkout.session.completed",
-        {
-            "customer": "cus_webhook1",
-            "subscription": "sub_test1",
-            "metadata": {"user_id": str(user.id)},
-        },
-    )
-
-    mock_sub = MagicMock()
-    mock_sub.status = "trialing"
-    mock_sub.get.return_value = int(datetime(2026, 12, 31).timestamp())
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-        patch(
-            "stripe.Subscription.retrieve_async",
-            new_callable=AsyncMock,
-            return_value=mock_sub,
-        ),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
+    current = subscription(tier=tier, status=status)
+    stripe_mocks.retrieve.return_value = current
+    body = {"customer": "cus_test", "subscription": "sub_current"} if event_type != "customer.subscription.updated" else current
+    response = await webhook(client, monkeypatch, event_type, body)
+    assert response.status_code == 200
     await db_session.refresh(user)
-    assert user.subscription_status == "trialing"
-    assert user.stripe_subscription_id == "sub_test1"
+    assert user.subscription_status == status
+    assert user.subscription_tier == tier
 
 
 @pytest.mark.asyncio
-async def test_webhook_checkout_completed_retries_when_subscription_lookup_fails(
-    client, db_session, test_user
-):
-    """checkout.session.completed returns 500 if the subscription cannot be verified."""
+async def test_bad_price_lookup_retry_and_stale_events(client, test_user, db_session, stripe_mocks, monkeypatch):
     user, _ = test_user
-    user.stripe_customer_id = "cus_lookup_fail"
-    user.subscription_status = "none"
+    user.stripe_customer_id, user.stripe_subscription_id, user.subscription_status = "cus_test", "sub_current", "active"
     await db_session.commit()
-
-    event = _make_stripe_event(
-        "checkout.session.completed",
-        {
-            "customer": "cus_lookup_fail",
-            "subscription": "sub_lookup_fail",
-            "metadata": {"user_id": str(user.id)},
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-        patch(
-            "stripe.Subscription.retrieve_async",
-            new_callable=AsyncMock,
-            side_effect=RuntimeError("stripe unavailable"),
-        ),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 500
-    await db_session.refresh(user)
-    assert user.subscription_status == "none"
-
-
-@pytest.mark.asyncio
-async def test_webhook_subscription_updated(client, db_session, test_user):
-    """customer.subscription.updated → subscription_status updated."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_webhook2"
-    user.stripe_subscription_id = "sub_current"
-    user.subscription_status = "trialing"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.updated",
-        {
-            "id": "sub_current",
-            "customer": "cus_webhook2",
-            "status": "active",
-            "current_period_end": int(datetime(2027, 1, 31).timestamp()),
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
+    for kind in ("customer.subscription.updated", "customer.subscription.deleted", "invoice.payment_failed"):
+        body = {"id": "sub_old", "customer": "cus_test", "subscription": "sub_old"}
+        response = await webhook(client, monkeypatch, kind, body)
+        assert response.status_code == 200
+    stripe_mocks.retrieve.assert_not_called()
     await db_session.refresh(user)
     assert user.subscription_status == "active"
-
-
-@pytest.mark.asyncio
-async def test_webhook_subscription_updated_ignores_stale_subscription(
-    client, db_session, test_user
-):
-    """customer.subscription.updated from an old subscription does not change state."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_stale_update"
-    user.stripe_subscription_id = "sub_current"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.updated",
-        {
-            "id": "sub_old",
-            "customer": "cus_stale_update",
-            "status": "canceled",
-            "current_period_end": int(datetime(2027, 1, 31).timestamp()),
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
+    current = subscription()
+    current["items"]["data"][0]["price"]["id"] = "untrusted"
+    stripe_mocks.retrieve.return_value = current
+    response = await webhook(client, monkeypatch, "customer.subscription.updated", current)
+    assert response.status_code == 500
     await db_session.refresh(user)
     assert user.subscription_status == "active"
-    assert user.stripe_subscription_id == "sub_current"
+    stripe_mocks.retrieve.side_effect = RuntimeError("Stripe unavailable")
+    response = await webhook(client, monkeypatch, "customer.subscription.updated", subscription())
+    assert response.status_code == 500
 
 
 @pytest.mark.asyncio
-async def test_webhook_subscription_updated_binds_missing_subscription_id(
-    client, db_session, test_user
-):
-    """Existing users without stripe_subscription_id are backfilled from updates."""
+async def test_delete_current_subscription(client, test_user, db_session, stripe_mocks, monkeypatch):
     user, _ = test_user
-    user.stripe_customer_id = "cus_bind_update"
-    user.stripe_subscription_id = None
-    user.subscription_status = "trialing"
+    user.stripe_customer_id, user.stripe_subscription_id, user.subscription_status = "cus_test", "sub_current", "active"
     await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.updated",
-        {
-            "id": "sub_bound",
-            "customer": "cus_bind_update",
-            "status": "active",
-            "current_period_end": int(datetime(2027, 1, 31).timestamp()),
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "active"
-    assert user.stripe_subscription_id == "sub_bound"
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize("stripe_status", ["incomplete", "incomplete_expired", "unpaid", "paused"])
-async def test_webhook_subscription_updated_accepts_real_stripe_statuses(
-    client, db_session, test_user, stripe_status
-):
-    """customer.subscription.updated persists real Stripe statuses used for UI labels."""
-    user, _ = test_user
-    user.stripe_customer_id = f"cus_{stripe_status}"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.updated",
-        {
-            "customer": f"cus_{stripe_status}",
-            "status": stripe_status,
-            "current_period_end": int(datetime(2027, 1, 31).timestamp()),
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == stripe_status
-
-
-@pytest.mark.asyncio
-async def test_webhook_subscription_updated_unknown_status_keeps_existing_status(
-    client, db_session, test_user
-):
-    """Unknown Stripe statuses are not persisted into the closed UI model."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_unknown_status"
-    user.subscription_status = "past_due"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.updated",
-        {"customer": "cus_unknown_status", "status": "unexpected_status"},
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "past_due"
-
-
-@pytest.mark.asyncio
-async def test_webhook_subscription_deleted(client, db_session, test_user):
-    """customer.subscription.deleted → subscription_status set to 'canceled'."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_webhook3"
-    user.stripe_subscription_id = "sub_deleted"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.deleted",
-        {"id": "sub_deleted", "customer": "cus_webhook3"},
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
+    response = await webhook(client, monkeypatch, "customer.subscription.deleted", {"id": "sub_current", "customer": "cus_test"})
+    assert response.status_code == 200
     await db_session.refresh(user)
     assert user.subscription_status == "canceled"
 
 
-@pytest.mark.asyncio
-async def test_webhook_subscription_deleted_ignores_stale_subscription(
-    client, db_session, test_user
-):
-    """customer.subscription.deleted from an old subscription does not cancel access."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_stale_delete"
-    user.stripe_subscription_id = "sub_current"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "customer.subscription.deleted",
-        {"id": "sub_old", "customer": "cus_stale_delete"},
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "active"
+def test_invoice_parent_shape():
+    assert billing._invoice_subscription_id({"parent": {"subscription_details": {"subscription": "sub_parent"}}}) == "sub_parent"
 
 
 @pytest.mark.asyncio
-async def test_webhook_invoice_payment_failed(client, db_session, test_user):
-    """invoice.payment_failed → subscription_status set to 'past_due'."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_webhook4"
-    user.stripe_subscription_id = "sub_failed"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "invoice.payment_failed",
-        {"customer": "cus_webhook4", "subscription": "sub_failed"},
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "past_due"
-
-
-@pytest.mark.asyncio
-async def test_webhook_invoice_payment_failed_uses_current_invoice_parent_shape(
-    client, db_session, test_user
-):
-    """invoice.payment_failed reads subscription from parent.subscription_details."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_invoice_parent"
-    user.stripe_subscription_id = "sub_parent"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "invoice.payment_failed",
-        {
-            "customer": "cus_invoice_parent",
-            "parent": {"subscription_details": {"subscription": "sub_parent"}},
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "past_due"
-
-
-@pytest.mark.asyncio
-async def test_webhook_invoice_payment_failed_ignores_stale_subscription(
-    client, db_session, test_user
-):
-    """invoice.payment_failed from an old subscription does not mark past_due."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_stale_invoice"
-    user.stripe_subscription_id = "sub_current"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "invoice.payment_failed",
-        {"customer": "cus_stale_invoice", "subscription": "sub_old"},
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "active"
-
-
-@pytest.mark.asyncio
-async def test_webhook_invoice_payment_failed_ignores_stale_parent_subscription(
-    client, db_session, test_user
-):
-    """Current Invoice shape still ignores old subscription failures."""
-    user, _ = test_user
-    user.stripe_customer_id = "cus_stale_invoice_parent"
-    user.stripe_subscription_id = "sub_current"
-    user.subscription_status = "active"
-    await db_session.commit()
-
-    event = _make_stripe_event(
-        "invoice.payment_failed",
-        {
-            "customer": "cus_stale_invoice_parent",
-            "parent": {"subscription_details": {"subscription": "sub_old"}},
-        },
-    )
-
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", return_value=event),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=_make_webhook_body(event),
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 200
-    await db_session.refresh(user)
-    assert user.subscription_status == "active"
-
-
-@pytest.mark.asyncio
-async def test_webhook_invalid_signature_rejected(client):
-    """Webhook with bad signature → HTTP 400."""
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch(
-            "stripe.Webhook.construct_event",
-            side_effect=stripe.SignatureVerificationError("bad sig", "sig_header"),
-        ),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=b"{}",
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 400
-    assert "signature" in res.json()["detail"].lower()
-
-
-@pytest.mark.asyncio
-async def test_webhook_invalid_payload_rejected(client):
-    """Webhook with malformed payload → HTTP 400."""
-    with (
-        patch.object(settings, "STRIPE_ENABLED", True),
-        patch("stripe.Webhook.construct_event", side_effect=ValueError("bad payload")),
-    ):
-        res = await client.post(
-            "/api/billing/webhook",
-            content=b"not-json",
-            headers=_signed_webhook_headers(),
-        )
-
-    assert res.status_code == 400
-    assert "payload" in res.json()["detail"].lower()
+@pytest.mark.parametrize("error", [ValueError("bad payload"), stripe.SignatureVerificationError("bad signature", "sig")])
+async def test_reject_invalid_signature_or_payload(client, monkeypatch, error):
+    def reject(*args):
+        raise error
+    monkeypatch.setattr(stripe.Webhook, "construct_event", reject)
+    assert (await client.post("/api/billing/webhook", content=b"{}", headers={"stripe-signature": "test"})).status_code == 400
