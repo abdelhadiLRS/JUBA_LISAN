@@ -1,12 +1,10 @@
 from collections.abc import AsyncIterator
-
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import PyJWTError as JWTError
 from redis.asyncio import Redis
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.core.config import settings
 from app.core.database import get_db
 from app.core.security import decode_access_token
@@ -15,40 +13,28 @@ from app.models.user import User
 from app.services.subscription_service import is_subscribed
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
-
 MAINTENANCE_KEY = "maintenance_mode"
 REDIS_SOCKET_TIMEOUT = 5.0
 
 
 async def get_redis() -> AsyncIterator[Redis | None]:
-    """Yield Redis when enabled; Desktop mode does not require a Redis server."""
     if not settings.REDIS_ENABLED or not settings.REDIS_URL:
         yield None
         return
-
-    redis = Redis.from_url(
-        settings.REDIS_URL,
-        decode_responses=True,
-        socket_connect_timeout=REDIS_SOCKET_TIMEOUT,
-        socket_timeout=REDIS_SOCKET_TIMEOUT,
-    )
+    redis = Redis.from_url(settings.REDIS_URL, decode_responses=True, socket_connect_timeout=REDIS_SOCKET_TIMEOUT, socket_timeout=REDIS_SOCKET_TIMEOUT)
     try:
         yield redis
     finally:
         await redis.aclose()
 
 
-async def get_current_user(
-    token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
-) -> User:
+async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)) -> User:
     try:
-        payload = decode_access_token(token)
-        user_id = int(payload["sub"])
+        user_id = int(decode_access_token(token)["sub"])
     except (JWTError, KeyError, ValueError):
         raise HTTPException(status_code=401, detail="Invalid token") from None
-
     user = await db.get(User, user_id)
-    if not user or not user.is_active:
+    if user is None or not user.is_active:
         raise HTTPException(status_code=401, detail="User not found or inactive")
     return user
 
@@ -59,242 +45,78 @@ async def require_admin(current_user: User = Depends(get_current_user)) -> User:
     return current_user
 
 
-async def check_maintenance_mode(redis: Redis | None = None) -> None:
-    """Raise 503 if maintenance mode is active in Redis."""
-    if redis is None:
-        return
-
-    try:
-        if await redis.get(MAINTENANCE_KEY) == "1":
-            raise HTTPException(
-                status_code=503,
-                detail="Service temporarily unavailable — maintenance mode is active",
-            )
-    except HTTPException:
-        raise
-    except Exception:
-        pass  # Redis failure → allow through
-
-
 async def require_learner(current_user: User = Depends(get_current_user)) -> User:
-    """Allow learner-only application APIs; administrators use the admin API surface."""
     if current_user.role == "admin":
         raise HTTPException(status_code=403, detail="Learning features are available to learners only")
     return current_user
 
 
-async def require_subscription(
-    current_user: User = Depends(get_current_user),
-) -> User:
-    """Dependency for endpoints gated by subscription.
+async def check_maintenance_mode(redis: Redis | None = None) -> None:
+    if redis is None:
+        return
+    try:
+        if await redis.get(MAINTENANCE_KEY) == "1":
+            raise HTTPException(status_code=503, detail="Service temporarily unavailable: maintenance mode is active")
+    except HTTPException:
+        raise
+    except Exception:
+        pass
 
-    Returns the user unchanged when STRIPE_ENABLED=false (self-hosted mode).
-    Raises HTTP 402 when STRIPE_ENABLED=true and user has no active subscription.
-    """
+
+async def require_subscription(current_user: User = Depends(get_current_user)) -> User:
     if not is_subscribed(current_user, settings.STRIPE_ENABLED):
         raise HTTPException(status_code=402, detail="subscription_required")
     return current_user
 
 
-async def check_subscription_or_freemium_access(
-    feature: str, redis: Redis | None, current_user: User
-) -> None:
-    """Raise unless the user has subscription, trial, or remaining feature quota."""
-    if not settings.STRIPE_ENABLED:
+async def check_subscription_or_freemium_access(feature: str, redis: Redis | None, current_user: User) -> None:
+    # Completion of an already-persisted lesson is not new AI generation.
+    if not settings.STRIPE_ENABLED or feature == "lessons":
         return
-
-    if is_subscribed(current_user, settings.STRIPE_ENABLED):
-        return
-
-    from app.services.freemium_service import is_freemium_trial_active
-
-    if is_freemium_trial_active(current_user.freemium_trial_ends_at):
-        return
-
-    if redis is None:
-        raise HTTPException(
-            status_code=402,
-            detail={
-                "reason": "freemium_unavailable",
-                "feature": feature,
-                "remaining": 0,
-                "limit": 0,
-            },
-        )
-
-    try:
-        from app.services.freemium_service import (
-            check_chat_quota,
-            check_lesson_quota,
-            check_listening_quota,
-            check_reading_quota,
-            check_voice_quota,
-        )
-
-        check_map = {
-            "chat": check_chat_quota,
-            "lessons": check_lesson_quota,
-            "listening": check_listening_quota,
-            "reading": check_reading_quota,
-            "voice": check_voice_quota,
-        }
-        checker = check_map.get(feature)
-        if checker is None:
-            raise HTTPException(status_code=402, detail="subscription_required")
-
-        result = await checker(redis, current_user.id)
-        if not result.allowed:
-            raise HTTPException(
-                status_code=402,
-                detail={
-                    "reason": "freemium_exhausted",
-                    "feature": feature,
-                    "remaining": result.remaining,
-                    "limit": result.limit,
-                },
-            )
-    except HTTPException:
-        raise
-    except Exception:
-        raise HTTPException(
-            status_code=402,
-            detail={
-                "reason": "freemium_unavailable",
-                "feature": feature,
-                "remaining": 0,
-                "limit": 0,
-            },
-        ) from None
+    from app.core.database import AsyncSessionLocal
+    from app.services.feature_quota_service import quota_status
+    async with AsyncSessionLocal() as db:
+        result = await quota_status(db, current_user)
+    quota = result["features"].get(feature)
+    if quota is None or quota["remaining"] <= 0:
+        raise HTTPException(status_code=402, detail={"reason": "quota_exhausted", "feature": feature,
+            "tier": result["tier"], "remaining": quota["remaining"] if quota else 0, "limit": quota["limit"] if quota else 0})
+    # Mutating generation routes must additionally reserve via feature_quota.
 
 
 def require_subscription_or_freemium(feature: str):
-    """Factory for subscription/freemium feature access."""
-    async def _check(
-        redis: Redis | None = Depends(get_redis),
-        current_user: User = Depends(get_current_user),
-    ) -> User:
+    async def check(redis: Redis | None = Depends(get_redis), current_user: User = Depends(get_current_user)) -> User:
         await check_subscription_or_freemium_access(feature, redis, current_user)
         return current_user
-
-    return _check
+    return check
 
 
 def require_subscription_or_freemium_readonly(feature: str):
-    """Factory for read-only subscription/freemium access."""
-    async def _check(
-        redis: Redis | None = Depends(get_redis),
-        current_user: User = Depends(get_current_user),
-    ) -> User:
-        if not settings.STRIPE_ENABLED:
-            return current_user
-
-        if is_subscribed(current_user, settings.STRIPE_ENABLED):
-            return current_user
-
-        from app.services.freemium_service import is_freemium_trial_active
-
-        if is_freemium_trial_active(current_user.freemium_trial_ends_at):
-            return current_user
-
-        if redis is None:
-            raise HTTPException(
-                status_code=402,
-                detail={
-                    "reason": "freemium_unavailable",
-                    "feature": feature,
-                    "remaining": 0,
-                    "limit": 0,
-                },
-            )
-
-        try:
-            from app.services.freemium_service import (
-                check_chat_quota,
-                check_lesson_quota,
-                check_listening_quota,
-                check_reading_quota,
-                check_voice_quota,
-            )
-
-            check_map = {
-                "chat": check_chat_quota,
-                "lessons": check_lesson_quota,
-                "listening": check_listening_quota,
-                "reading": check_reading_quota,
-                "voice": check_voice_quota,
-            }
-            checker = check_map.get(feature)
-            if checker is None:
-                raise HTTPException(status_code=402, detail="subscription_required")
-
-            result = await checker(redis, current_user.id)
-            if result.limit == 0:
-                raise HTTPException(status_code=402, detail="subscription_required")
-        except HTTPException:
-            raise
-        except Exception:
-            raise HTTPException(
-                status_code=402,
-                detail={
-                    "reason": "freemium_unavailable",
-                    "feature": feature,
-                    "remaining": 0,
-                    "limit": 0,
-                },
-            ) from None
-
+    async def check(current_user: User = Depends(get_current_user)) -> User:
+        # Saved content, history and replay remain accessible at zero generation quota.
         return current_user
+    return check
 
-    return _check
 
-
-async def require_not_maintenance(
-    current_user: User = Depends(get_current_user),
-    redis: Redis | None = Depends(get_redis),
-) -> None:
-    """Dependency for operational features disabled during maintenance mode."""
+async def require_not_maintenance(current_user: User = Depends(get_current_user), redis: Redis | None = Depends(get_redis)) -> None:
     if current_user.role != "admin":
         await check_maintenance_mode(redis)
 
 
-async def get_active_study_plan(
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-) -> StudyPlan:
-    """Return the active study plan for the user's active language."""
+async def get_active_study_plan_optional(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> StudyPlan | None:
     from app.services.user_language_service import get_active_language
+    language = await get_active_language(db, current_user.id)
+    if language is None:
+        return None
+    return (await db.execute(select(StudyPlan).where(StudyPlan.user_language_id == language.id, StudyPlan.is_active.is_(True)))).scalar_one_or_none()
 
-    active_lang = await get_active_language(db, current_user.id)
-    if not active_lang:
+
+async def get_active_study_plan(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> StudyPlan:
+    from app.services.user_language_service import get_active_language
+    language = await get_active_language(db, current_user.id)
+    if language is None:
         raise HTTPException(status_code=404, detail="No active language set")
-
-    result = await db.execute(
-        select(StudyPlan).where(
-            StudyPlan.user_language_id == active_lang.id,
-            StudyPlan.is_active == True,  # noqa: E712
-        )
-    )
-    plan = result.scalar_one_or_none()
-    if not plan:
+    plan = (await db.execute(select(StudyPlan).where(StudyPlan.user_language_id == language.id, StudyPlan.is_active.is_(True)))).scalar_one_or_none()
+    if plan is None:
         raise HTTPException(status_code=404, detail="No active study plan found")
     return plan
-
-
-async def get_active_study_plan_optional(
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-) -> StudyPlan | None:
-    """Return the active study plan, or None if no plan exists yet."""
-    from app.services.user_language_service import get_active_language
-
-    active_lang = await get_active_language(db, current_user.id)
-    if not active_lang:
-        return None
-
-    result = await db.execute(
-        select(StudyPlan).where(
-            StudyPlan.user_language_id == active_lang.id,
-            StudyPlan.is_active == True,  # noqa: E712
-        )
-    )
-    return result.scalar_one_or_none()
