@@ -30,12 +30,16 @@ async def get_redis() -> AsyncIterator[Redis | None]:
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)) -> User:
     try:
-        user_id = int(decode_access_token(token)["sub"])
-    except (JWTError, KeyError, ValueError):
+        claims = decode_access_token(token)
+        user_id = int(claims["sub"])
+        version = claims.get("sv", 0)
+        if type(version) is not int or version < 0:
+            raise ValueError("Invalid session revision")
+    except (JWTError, KeyError, ValueError, TypeError):
         raise HTTPException(status_code=401, detail="Invalid token") from None
     user = await db.get(User, user_id)
-    if user is None or not user.is_active:
-        raise HTTPException(status_code=401, detail="User not found or inactive")
+    if user is None or not user.is_active or version != user.session_version:
+        raise HTTPException(status_code=401, detail="Session expired or account inactive")
     return user
 
 
@@ -70,7 +74,6 @@ async def require_subscription(current_user: User = Depends(get_current_user)) -
 
 
 async def check_subscription_or_freemium_access(feature: str, redis: Redis | None, current_user: User) -> None:
-    # Completion of an already-persisted lesson is not new AI generation.
     if not settings.STRIPE_ENABLED or feature == "lessons":
         return
     from app.core.database import AsyncSessionLocal
@@ -81,7 +84,6 @@ async def check_subscription_or_freemium_access(feature: str, redis: Redis | Non
     if quota is None or quota["remaining"] <= 0:
         raise HTTPException(status_code=402, detail={"reason": "quota_exhausted", "feature": feature,
             "tier": result["tier"], "remaining": quota["remaining"] if quota else 0, "limit": quota["limit"] if quota else 0})
-    # Mutating generation routes must additionally reserve via feature_quota.
 
 
 def require_subscription_or_freemium(feature: str):
@@ -93,7 +95,6 @@ def require_subscription_or_freemium(feature: str):
 
 def require_subscription_or_freemium_readonly(feature: str):
     async def check(current_user: User = Depends(get_current_user)) -> User:
-        # Saved content, history and replay remain accessible at zero generation quota.
         return current_user
     return check
 

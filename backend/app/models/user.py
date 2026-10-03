@@ -18,6 +18,7 @@ class User(Base):
     email: Mapped[str | None] = mapped_column(String(255), unique=True, nullable=True)
     display_name: Mapped[str] = mapped_column(String(100), nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    session_version: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     role: Mapped[str] = mapped_column(String(10), nullable=False, default="user")
     native_language: Mapped[str] = mapped_column(String(10), nullable=False)
     target_language: Mapped[str] = mapped_column(String(10), nullable=False, default="en-GB")
@@ -50,13 +51,7 @@ class User(Base):
 
 
 class AdminBootstrapClaim(Base):
-    """Permanent singleton, committed in the first registration's transaction.
-
-    Not linked to a user: deleting accounts must never re-enable auto-admin.
-    Importing User also registers this table for Desktop create_all and Alembic.
-    """
-
+    """Permanent singleton committed in the first registration transaction."""
     __tablename__ = "admin_bootstrap_claims"
     __table_args__ = (CheckConstraint("id = 1", name="ck_admin_bootstrap_singleton"),)
-
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False)
