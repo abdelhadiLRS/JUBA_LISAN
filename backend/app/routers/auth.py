@@ -680,7 +680,7 @@ async def reset_password(
     redis: Redis | None = Depends(get_redis),
 ):
     redis_client = _require_redis(redis, "Password reset")
-    user_id_str = await redis_client.get(f"reset_password:{token}")
+    user_id_str = await redis_client.get(f"reset_password:{data.token}")
     if not user_id_str:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired reset token")
     user = await db.get(User, int(user_id_str))
