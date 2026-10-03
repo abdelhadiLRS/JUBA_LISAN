@@ -22,7 +22,7 @@
   direction: inherit;
 }
 
-/* The sidebar is a viewport anchor, not a column that moves with page content. */
+/* Fixed viewport anchor with a quiet structural divider, not a heavy card edge. */
 .juba-app-shell .juba-duo-sidebar {
   display: flex!important;
   flex-direction: column!important;
@@ -36,7 +36,8 @@
   overflow: hidden!important;
   background: var(--juba-card)!important;
   border: 0!important;
-  box-shadow: none!important;
+  border-inline-end: 1px solid var(--juba-border)!important;
+  box-shadow: 1px 0 12px oklch(30% .01 130 / .025)!important;
 }
 .juba-app-shell .reference-brand{display:flex;align-items:center;gap:8px;height:76px;min-height:76px;padding-inline:20px;color:var(--juba-green-dark);font-size:14px;font-weight:800;white-space:nowrap;}
 .juba-app-shell .juba-duo-logo-mark{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--juba-green);color:var(--juba-card);font-size:10px;font-weight:800;box-shadow:none;}
@@ -64,8 +65,6 @@
 .juba-app-shell .juba-duo-version{font-size:9px;color:var(--juba-muted);margin-block:4px;}
 .juba-app-shell .juba-duo-user-action{padding:4px;margin-inline-end:4px;border:0;background:transparent;color:var(--juba-muted);font-size:10px;border-radius:4px;}
 .juba-app-shell .juba-duo-user-action:hover{color:var(--juba-green-dark);background:var(--juba-green-soft);}
-
-/* Every page shares the same content origin, with no artificial left/right gutter. */
 .juba-app-shell .juba-duo-main{display:flex!important;flex-direction:column!important;min-width:0!important;min-height:100dvh!important;margin-inline-start:var(--juba-sidebar-width)!important;background:var(--juba-bg)!important;overflow-x:clip;}
 .juba-app-shell .juba-app-topbar{display:flex!important;align-items:center!important;gap:16px!important;height:64px!important;min-height:64px!important;flex:0 0 64px!important;padding-inline:24px!important;background:var(--juba-card)!important;border:0!important;position:sticky;inset-block-start:0;z-index:30;}
 .juba-app-shell .juba-app-topnav{display:flex;align-items:center;gap:24px;flex:1;min-width:0;height:100%;}
