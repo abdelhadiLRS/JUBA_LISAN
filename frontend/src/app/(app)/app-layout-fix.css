@@ -9,7 +9,6 @@
 .juba-app-shell .juba-chat-reference .chat-profile-rail{border-inline-start:1px solid var(--juba-border)!important;}
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
 
-/* Desktop sidebar: flatten the wrappers so utility actions sit in the same visual list. */
 @media(min-width:901px){
   .juba-app-shell .juba-duo-sidebar{display:flex!important;flex-direction:column!important;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-nav{display:contents!important;overflow:visible!important;padding:0!important;}
@@ -17,7 +16,7 @@
   .juba-app-shell .juba-duo-sidebar>.juba-duo-nav>.juba-duo-nav-divider{order:3!important;border-block-start:1px solid var(--juba-border)!important;margin-block-start:8px!important;padding-block-start:7px!important;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:contents!important;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user>*:not(.juba-duo-user-action){display:none!important;}
-  .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{order:2!important;display:grid!important;place-items:center;width:34px;height:34px;margin:0;padding:0!important;border:1px solid var(--juba-border)!important;border-radius:6px!important;background:var(--juba-card)!important;color:var(--juba-muted)!important;font-size:0!important;line-height:1;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{display:grid!important;place-items:center;width:34px;height:34px;margin:0;padding:0!important;border:1px solid var(--juba-border)!important;border-radius:6px!important;background:var(--juba-card)!important;color:var(--juba-muted)!important;font-size:0!important;line-height:1;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type::before{content:'✉';font-size:16px;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type::before{content:'↪';font-size:18px;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{color:var(--juba-green-dark)!important;background:var(--juba-green-soft)!important;}
@@ -25,23 +24,23 @@
   .juba-app-shell .juba-duo-sidebar .juba-duo-nav-link{min-height:34px!important;margin-block:1px!important;padding-block:6px!important;}
   .juba-app-shell .juba-duo-sidebar .juba-duo-nav-section-label{margin-block:8px 2px!important;}
 
-  /* Dashboard reference: the two real buttons sit beside Friends, Chat, FAQ and Settings. */
+  /* Dashboard profile toolbar: Contact and Log out sit in the same row as Friends, Chat, FAQ and Settings. */
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{
     position:fixed!important;
     z-index:35;
-    top:326px!important;
-    width:34px!important;
+    top:354px!important;
+    width:40px!important;
     height:40px!important;
+    margin:0!important;
     border:0!important;
-    border-radius:0!important;
+    border-radius:6px!important;
     background:transparent!important;
   }
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:62px!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:28px!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{background:var(--juba-green-soft)!important;border-radius:6px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:304px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:264px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{background:var(--juba-green-soft)!important;}
 }
 
-/* Product decision: the authenticated shell owns language context, not a visible top switcher. */
 .juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 @media(max-width:900px){
   .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
