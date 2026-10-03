@@ -1,4 +1,6 @@
 from app.models.ai_session import AISession, SpeechAnalysis, SessionStatus, SpeechQuality
+from app.models.billing_intent import BillingIntent
+from app.models.feature_usage import FeatureUsage, FeatureReservation
 from app.models.chat_history import ChatHistory
 from app.models.competency import UserCompetency
 from app.models.conversation import Conversation
@@ -27,42 +29,9 @@ from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.models.user_language import UserLanguage
 
-__all__ = [
-    "AISession",
-    "SpeechAnalysis",
-    "SessionStatus",
-    "SpeechQuality",
-    "ChatHistory",
-    "UserCompetency",
-    "Conversation",
-    "DashboardBanner",
-    "FeedbackComment",
-    "FeedbackEntry",
-    "FeedbackReadState",
-    "FeedbackVote",
-    "FriendConnection",
-    "DirectMessage",
-    "Flashcard",
-    "GameProgress",
-    "GameProgressEvent", "GameSession",
-    "ExerciseAttempt",
-    "Exercise",
-    "Lesson",
-    "ListeningAttempt",
-    "ListeningExercise",
-    "LearningGoal",
-    "LearningGoalMilestone",
-    "LeagueMembership",
-    "LeagueSeason",
-    "LLMUsage",
-    "Memory",
-    "Progress",
-    "RefreshToken",
-    "ReadingAttempt",
-    "ReadingExercise",
-    "ResourceNativeHelp",
-    "Review",
-    "StudyPlan",
-    "User",
-    "UserLanguage",
-]
+__all__ = ["AISession", "SpeechAnalysis", "SessionStatus", "SpeechQuality", "BillingIntent", "FeatureUsage", "FeatureReservation",
+    "ChatHistory", "UserCompetency", "Conversation", "DashboardBanner", "FeedbackComment", "FeedbackEntry", "FeedbackReadState",
+    "FeedbackVote", "FriendConnection", "DirectMessage", "Flashcard", "GameProgress", "GameProgressEvent", "GameSession",
+    "ExerciseAttempt", "Exercise", "Lesson", "ListeningAttempt", "ListeningExercise", "LearningGoal", "LearningGoalMilestone",
+    "LeagueMembership", "LeagueSeason", "LLMUsage", "Memory", "Progress", "RefreshToken", "ReadingAttempt", "ReadingExercise",
+    "ResourceNativeHelp", "Review", "StudyPlan", "User", "UserLanguage"]
