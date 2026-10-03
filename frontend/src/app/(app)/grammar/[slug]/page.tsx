@@ -1,514 +1,102 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { use, useCallback, useEffect, useState, type ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { use } from 'react'
-import { useTranslations } from 'next-intl'
-import {
-  getGrammarNativeHelp,
-  getGrammarTopics,
-  type GrammarNativeHelp,
-  type GrammarTopic,
-} from '@/data/grammar'
+import { useLocale, useTranslations } from 'next-intl'
+import { BookOpen, ChevronLeft, ChevronRight, ChevronDown, Languages, Check, X } from 'lucide-react'
+import { getGrammarNativeHelp, getGrammarTopics, type GrammarNativeHelp, type GrammarTopic } from '@/data/grammar'
 import { TargetLanguageText } from '@/components/TargetLanguageText'
 import { useAuthStore } from '@/store/auth'
 import { useLanguageStore } from '@/store/language'
 import { PageLoading } from '@/components/ui/page-loading'
+import '../../resource-reference.css'
 
-function renderExplanation(text: string) {
-  const lines = text.split('\n')
-  return lines.map((line, i) => {
-    if (line.startsWith('- ')) {
-      return (
-        <li
-          key={i}
-          className="text-[var(--duo-muted)] font-mono text-xs leading-relaxed"
-        >
-          <span className="text-[var(--duo-muted)] mr-2">{'\u00b7'}</span>
-          <RichText text={line.slice(2)} />
-        </li>
-      )
-    }
-    if (line.trim() === '') return null
-    if (line.startsWith('|')) {
-      return (
-        <tr key={i}>
-          {line
-            .split('|')
-            .filter(Boolean)
-            .map((cell, ci) => (
-              <td
-                key={ci}
-                className="text-[var(--duo-ink)] text-[var(--duo-muted)] border-[var(--juba-border,var(--duo-line))] border px-3 py-1.5 font-mono"
-              >
-                <RichText text={cell.trim()} />
-              </td>
-            ))}
-        </tr>
-      )
-    }
-    return (
-      <p key={i} className="text-[var(--duo-muted)] font-mono text-xs leading-relaxed">
-        <RichText text={line} />
-      </p>
-    )
-  })
-}
-
-function RichText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/)
-  return (
-    <>
-      {parts.map((part, i) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
-          return (
-            <strong key={i} className="text-[var(--duo-ink)] font-bold">
-              {part.slice(2, -2)}
-            </strong>
-          )
-        }
-        if (part.startsWith('`') && part.endsWith('`')) {
-          return (
-            <code key={i} className="bg-[var(--juba-border)] text-[var(--duo-ink)] px-1 font-mono">
-              {part.slice(1, -1)}
-            </code>
-          )
-        }
-        return <span key={i}>{part}</span>
-      })}
-    </>
-  )
-}
-
-export default function GrammarDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const t = useTranslations('grammar')
-  const tCommon = useTranslations('common')
-  const tNav = useTranslations('nav')
-  const tTargetLang = useTranslations('targetLanguages')
-  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const user = useAuthStore((s) => s.user)
-  const nativeLanguageName = user?.native_language
-    ? tTargetLang(user.native_language)
-    : ''
-  const { slug } = use(params)
-
-  const [topics, setTopics] = useState<GrammarTopic[]>([])
-  const [loading, setLoading] = useState(true)
-  const [loadError, setLoadError] = useState(false)
-  const [nativeHelpOpen, setNativeHelpOpen] = useState(false)
-  const [nativeHelp, setNativeHelp] = useState<GrammarNativeHelp | null>(null)
-  const [loadingNativeHelp, setLoadingNativeHelp] = useState(false)
-  const [nativeHelpError, setNativeHelpError] = useState(false)
-
-  const topic = topics.find((t) => t.slug === slug)
-  const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
-
-  const fetchTopics = useCallback(async (lang: string) => {
-    setLoading(true)
-    setLoadError(false)
-    try {
-      const data = await getGrammarTopics(lang)
-      setTopics(data)
-    } catch {
-      setLoadError(true)
-      setTopics([])
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchTopics(targetLanguageCode)
-  }, [targetLanguageCode, fetchTopics])
-
-  useEffect(() => {
-    if (!topic) return
-    setNativeHelp(null)
-    setNativeHelpError(false)
-    setNativeHelpOpen(topic.level === 'A1' || topic.level === 'A2')
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- topic?.slug and topic?.level avoid unnecessary runs; topic object identity changes every render
-  }, [topic?.slug, topic?.level, targetLanguageCode])
-
-  const generateNativeHelp = useCallback(async () => {
-    if (!topic || loadingNativeHelp) return
-    setLoadingNativeHelp(true)
-    setNativeHelpError(false)
-    try {
-      const help = await getGrammarNativeHelp(topic.slug, targetLanguageCode)
-      if (help) {
-        setNativeHelp(help)
-      } else {
-        setNativeHelpError(true)
-      }
-    } catch {
-      setNativeHelpError(true)
-    } finally {
-      setLoadingNativeHelp(false)
-    }
-  }, [loadingNativeHelp, targetLanguageCode, topic])
-
-  useEffect(() => {
-    if (nativeHelpOpen && topic && !nativeHelp && !loadingNativeHelp) {
-      generateNativeHelp()
-    }
-  }, [generateNativeHelp, loadingNativeHelp, nativeHelp, nativeHelpOpen, topic])
-
-  if (loading) {
-    return <PageLoading />
+function RichText({text}:{text:string}){return <>{text.split(/(\*\*[^*]+\*\*|`[^`]+`)/).map((part,index)=>part.startsWith('**')&&part.endsWith('**')?<strong key={index}>{part.slice(2,-2)}</strong>:part.startsWith('`')&&part.endsWith('`')?<code key={index}>{part.slice(1,-1)}</code>:<span key={index}>{part}</span>)}</>}
+function Explanation({text}:{text:string}){
+  const lines=text.split('\n')
+  const blocks:ReactNode[]=[]
+  let index=0
+  while(index<lines.length){
+    const line=lines[index]
+    if(!line.trim()){index++;continue}
+    if(line.startsWith('|')){
+      const rows:string[]=[]
+      const start=index
+      while(index<lines.length&&lines[index].startsWith('|')){if(!/^\|?[\s:|\-]+$/.test(lines[index]))rows.push(lines[index]);index++}
+      blocks.push(<div className="reference-resource-table" key={start}><table><tbody>{rows.map((row,rowIndex)=><tr key={rowIndex}>{row.split('|').filter(cell=>cell.trim()).map((cell,cellIndex)=><td dir="auto" key={cellIndex}><RichText text={cell.trim()}/></td>)}</tr>)}</tbody></table></div>)
+    }else if(line.startsWith('- ')){
+      const items:string[]=[]
+      const start=index
+      while(index<lines.length&&lines[index].startsWith('- ')){items.push(lines[index].slice(2));index++}
+      blocks.push(<ul key={start}>{items.map((item,itemIndex)=><li key={itemIndex} dir="auto"><RichText text={item}/></li>)}</ul>)
+    }else{blocks.push(<p key={index} dir="auto"><RichText text={line}/></p>);index++}
   }
+  return <div className="reference-resource-prose">{blocks}</div>
+}
+function Panel({title,children}:{title:string;children:ReactNode}){return <section className="reference-resource-panel"><header className="reference-resource-panel-head"><h2>{title}</h2></header><div className="reference-resource-body">{children}</div></section>}
 
-  if (loadError) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[var(--duo-muted)] font-mono text-sm">{tCommon('error')}</p>
-        <button
-          onClick={() => fetchTopics(targetLanguageCode)}
-          className="text-[var(--duo-green-dark)] font-mono text-xs tracking-widest uppercase underline"
-        >
-          {tCommon('retry')}
-        </button>
-      </div>
-    )
-  }
-
-  if (!topic) notFound()
-
-  const hasTable = topic.explanation.includes('|')
-  const explanationLines = topic.explanation.split('\n')
-  const hasList = explanationLines.some((l) => l.startsWith('- '))
-
-  const relatedTopics = topic.related
-    .map((s) => topics.find((t) => t.slug === s))
-    .filter(Boolean)
-
-  return (
-    <div className="juba-page-shell mx-auto w-full max-w-[1480px] space-y-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <section className="juba-reference-hero">
-        <nav className="text-[var(--duo-ink)] text-[var(--duo-muted)] flex items-center gap-2 font-mono">
-        <Link
-          href="/grammar"
-          className="hover:text-[var(--duo-ink)] tracking-widest uppercase transition-colors"
-        >
-          {tNav('grammar')}
-        </Link>
-        <span>{'\u203a'}</span>
-        <span className="text-[var(--duo-muted)] tracking-widest uppercase">
-          {topic.level}
-        </span>
-        <span>{'\u203a'}</span>
-        <span className="text-[var(--duo-ink)] tracking-wide">{topic.title}</span>
-        </nav>
-      </section>
-
-      <div className="juba-reference-list-card">
-        <div className="juba-reference-list-card flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-            {t('backToGrammar')}
-          </span>
-        </div>
-        <div className="space-y-3 px-6 py-5">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
-              {topic.level}
-            </span>
-            <span className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
-              {topic.category}
-            </span>
-          </div>
-          <h1 className="text-[var(--duo-ink)] font-mono text-xl font-bold tracking-wide">
-            {topic.title}
-          </h1>
-          <p className="text-[var(--duo-muted)] font-mono text-xs leading-relaxed">
-            {topic.summary}
-          </p>
-          {topic.structure && (
-            <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-border)]/40 border px-4 py-3">
-              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-1 font-mono tracking-widest uppercase">
-                {t('structure')}
-              </p>
-              <p className="text-[var(--duo-ink)] font-mono text-xs">{topic.structure}</p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-        <div className="juba-reference-card-header flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-            {t('explanation')}
-          </span>
-        </div>
-        <div className="space-y-2 px-6 py-5">
-          {hasTable ? (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <tbody>{renderExplanation(topic.explanation)}</tbody>
-              </table>
-            </div>
-          ) : hasList ? (
-            <ul className="space-y-1">
-              {renderExplanation(topic.explanation)}
-            </ul>
-          ) : (
-            <div className="space-y-2">
-              {renderExplanation(topic.explanation)}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {nativeLanguageName && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-          <button
-            type="button"
-            onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-[var(--juba-border,var(--duo-line))] text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
-            aria-expanded={nativeHelpOpen}
-          >
-            <span>
-              {tCommon('nativeHelpTitle', { language: nativeLanguageName })}
-            </span>
-            <span>{nativeHelpOpen ? '−' : '+'}</span>
-          </button>
-          {nativeHelpOpen && (
-            <div className="space-y-4 px-6 py-5">
-              {loadingNativeHelp ? (
-                <p className="text-[var(--duo-muted)] font-mono text-xs">
-                  {tCommon('nativeHelpLoading', {
-                    language: nativeLanguageName,
-                  })}
-                </p>
-              ) : nativeHelp ? (
-                <>
-                  <div className="space-y-2">
-                    <p className="text-[var(--duo-muted)] text-sm leading-relaxed">
-                      {nativeHelp.summary}
-                    </p>
-                    <p className="text-[var(--duo-muted)] text-sm leading-relaxed">
-                      {nativeHelp.explanation}
-                    </p>
-                  </div>
-
-                  {nativeHelp.key_points.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-                        {tCommon('nativeHelpKeyPoints')}
-                      </p>
-                      <ul className="space-y-1">
-                        {nativeHelp.key_points.map((point, i) => (
-                          <li key={i} className="text-[var(--duo-muted)] text-sm">
-                            <span className="text-[var(--duo-muted)] mr-2">·</span>
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {nativeHelp.examples.length > 0 && (
-                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-                        {t('examples')}
-                      </p>
-                      {nativeHelp.examples.map((ex, i) => (
-                        <div key={i} className="space-y-0.5">
-                          <TargetLanguageText
-                            languageCode={targetLanguageCode}
-                            className="text-[var(--duo-muted)] text-sm italic"
-                          >
-                            {ex.sentence}
-                          </TargetLanguageText>
-                          <p className="text-[var(--duo-muted)] text-sm">{ex.note}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-                        {tCommon('nativeHelpCommonTraps')}
-                      </p>
-                      {nativeHelp.common_traps.map((trap, i) => (
-                        <div key={i} className="space-y-0.5">
-                          <p className="text-[var(--duo-muted)] text-sm">
-                            {trap.mistake}
-                          </p>
-                          <p className="text-[var(--duo-muted)] text-sm">{trap.fix}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-[var(--juba-border,var(--duo-line))] space-y-2 border-t pt-3">
-                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-                        {tCommon('nativeHelpMiniGlossary')}
-                      </p>
-                      {nativeHelp.mini_glossary.map((item, i) => (
-                        <div key={i}>
-                          <TargetLanguageText
-                            languageCode={targetLanguageCode}
-                            className="text-[var(--duo-muted)] text-sm font-bold"
-                          >
-                            {item.term}
-                          </TargetLanguageText>
-                          <p className="text-[var(--duo-muted)] text-sm">
-                            {item.meaning}
-                          </p>
-                          {item.note && (
-                            <p className="text-[var(--duo-muted)] text-sm">
-                              {item.note}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="text-center">
-                  <button
-                    type="button"
-                    onClick={generateNativeHelp}
-                    className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-mono text-sm transition-colors"
-                  >
-                    {nativeHelpError
-                      ? tCommon('retry')
-                      : tCommon('nativeHelpShow', {
-                          language: nativeLanguageName,
-                        })}
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-
-      {topic.rules.length > 0 && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-              {t('keyRules')}
-            </span>
-          </div>
-          <ul className="space-y-2 px-6 py-5">
-            {topic.rules.map((rule, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-0.5 shrink-0 font-mono">
-                  {i + 1}.
-                </span>
-                <p className="text-[var(--duo-muted)] font-mono text-xs leading-relaxed">
-                  {rule}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {topic.examples.length > 0 && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-              {t('examples')}
-            </span>
-          </div>
-          <div className="space-y-3 px-6 py-5">
-            {topic.examples.map((ex, i) => (
-              <div
-                key={i}
-                className="border-[var(--juba-border,var(--duo-line))] space-y-0.5 border-l-2 pl-4"
-              >
-                <p className="text-[var(--duo-ink)] font-mono text-xs">{ex.text}</p>
-                {ex.note && (
-                  <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono italic">
-                    {ex.note}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {topic.common_mistakes.length > 0 && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-              {t('commonMistakes')}
-            </span>
-          </div>
-          <div className="space-y-4 px-6 py-5">
-            {topic.common_mistakes.map((m, i) => (
-              <div key={i} className="space-y-1.5">
-                {m.wrong && (
-                  <div className="flex items-start gap-2">
-                    <span className="text-[var(--duo-ink)] shrink-0 font-mono text-red-500">
-                      {'\u2717'}
-                    </span>
-                    <p className="text-[var(--duo-muted)] font-mono text-xs line-through">
-                      {m.wrong}
-                    </p>
-                  </div>
-                )}
-                {m.correct && (
-                  <div className="flex items-start gap-2">
-                    <span className="text-[var(--duo-ink)] shrink-0 font-mono text-green-500">
-                      {'\u2713'}
-                    </span>
-                    <p className="text-[var(--duo-ink)] font-mono text-xs">{m.correct}</p>
-                  </div>
-                )}
-                {m.note && (
-                  <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] pl-5 font-mono">
-                    {m.note}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {relatedTopics.length > 0 && (
-        <div className="border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] border">
-          <div className="border-[var(--juba-border,var(--duo-line))] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
-              {t('relatedTopics')}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2 px-6 py-5">
-            {relatedTopics.map(
-              (rt) =>
-                rt && (
-                  <Link
-                    key={rt.slug}
-                    href={`/grammar/${rt.slug}`}
-                    className="juba-secondary-button font-mono tracking-widest uppercase"
-                  >
-                    {'\u25cf'} {rt.title}
-                    <span className="text-[var(--duo-muted)] ml-2">{rt.level}</span>
-                  </Link>
-                )
-            )}
-          </div>
-        </div>
-      )}
-
-      <Link
-        href="/grammar"
-        className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] inline-block font-mono tracking-widest uppercase transition-colors"
-      >
-        {'\u2190'} {t('backLink')}
-      </Link>
-    </div>
-  )
+export default function GrammarDetailPage({params}:{params:Promise<{slug:string}>}){
+  const {slug}=use(params)
+  const t=useTranslations('grammar')
+  const tCommon=useTranslations('common')
+  const tNav=useTranslations('nav')
+  const tTargetLang=useTranslations('targetLanguages')
+  const rtl=useLocale()==='ar'
+  const activeLanguage=useLanguageStore(s=>s.activeLanguage)
+  const user=useAuthStore(s=>s.user)
+  const nativeLanguageName=user?.native_language?tTargetLang(user.native_language):''
+  const targetLanguageCode=activeLanguage?.code??'en-GB'
+  const [topics,setTopics]=useState<GrammarTopic[]>([])
+  const [loading,setLoading]=useState(true)
+  const [loadError,setLoadError]=useState(false)
+  const [nativeHelpOpen,setNativeHelpOpen]=useState(false)
+  const [nativeHelp,setNativeHelp]=useState<GrammarNativeHelp|null>(null)
+  const [loadingNativeHelp,setLoadingNativeHelp]=useState(false)
+  const [nativeHelpError,setNativeHelpError]=useState(false)
+  const topic=topics.find(item=>item.slug===slug)
+  const fetchTopics=useCallback(async(lang:string)=>{
+    setLoading(true);setLoadError(false)
+    try{setTopics(await getGrammarTopics(lang))}catch{setLoadError(true);setTopics([])}finally{setLoading(false)}
+  },[])
+  useEffect(()=>{void fetchTopics(targetLanguageCode)},[targetLanguageCode,fetchTopics])
+  useEffect(()=>{
+    setNativeHelp(null);setNativeHelpError(false)
+    setNativeHelpOpen(topic?.level==='A1'||topic?.level==='A2')
+  },[topic?.slug,topic?.level,targetLanguageCode])
+  const generateNativeHelp=useCallback(async()=>{
+    if(!topic||loadingNativeHelp)return
+    setLoadingNativeHelp(true);setNativeHelpError(false)
+    try{const help=await getGrammarNativeHelp(topic.slug,targetLanguageCode);if(help)setNativeHelp(help);else setNativeHelpError(true)}catch{setNativeHelpError(true)}finally{setLoadingNativeHelp(false)}
+  },[loadingNativeHelp,targetLanguageCode,topic])
+  useEffect(()=>{
+    if(nativeLanguageName&&nativeHelpOpen&&topic&&!nativeHelp&&!loadingNativeHelp&&!nativeHelpError)void generateNativeHelp()
+  },[nativeLanguageName,nativeHelpOpen,topic,nativeHelp,loadingNativeHelp,nativeHelpError,generateNativeHelp])
+  if(loading)return <div className="juba-page-shell"><PageLoading/></div>
+  if(loadError)return <div className="juba-page-shell"><section className="reference-resource-state" role="alert"><BookOpen size={28}/><p>{tCommon('error')}</p><button className="juba-secondary-button" onClick={()=>void fetchTopics(targetLanguageCode)}>{tCommon('retry')}</button></section></div>
+  if(!topic)notFound()
+  const relatedTopics=topic.related.map(related=>topics.find(item=>item.slug===related)).filter((item):item is GrammarTopic=>Boolean(item))
+  const Back=rtl?ChevronRight:ChevronLeft
+  const Forward=rtl?ChevronLeft:ChevronRight
+  return <div className="juba-page-shell reference-resource-page" dir={rtl?'rtl':'ltr'}>
+    <nav className="reference-resource-breadcrumb" aria-label={t('backToGrammar')}><Link href="/grammar"><Back size={14}/>{tNav('grammar')}</Link><span aria-hidden="true">/</span><span>{topic.level}</span><span aria-hidden="true">/</span><span dir="auto">{topic.title}</span></nav>
+    <header className="reference-resource-heading"><BookOpen size={40} aria-hidden="true"/><div><h1 dir="auto">{topic.title}</h1><p dir="auto">{topic.summary}</p><div className="reference-resource-tags"><span>{topic.level}</span><span>{topic.category}</span></div></div></header>
+    <div className="reference-resource-detail-grid"><div className="reference-resource-primary">
+      {topic.structure&&<Panel title={t('structure')}><p className="reference-resource-formula" dir="auto">{topic.structure}</p></Panel>}
+      <Panel title={t('explanation')}><Explanation text={topic.explanation}/></Panel>
+      {topic.examples.length>0&&<Panel title={t('examples')}><div className="reference-resource-items">{topic.examples.map((example,index)=><article key={index}><TargetLanguageText as="p" languageCode={targetLanguageCode} dir="auto">{example.text}</TargetLanguageText>{example.note&&<p className="reference-resource-caption" dir="auto">{example.note}</p>}</article>)}</div></Panel>}
+      {topic.common_mistakes.length>0&&<Panel title={t('commonMistakes')}><div className="reference-resource-items">{topic.common_mistakes.map((mistake,index)=><article className="reference-resource-mistake" key={index}>{mistake.wrong&&<div><X size={16} aria-hidden="true"/><p dir="auto"><s>{mistake.wrong}</s></p></div>}{mistake.correct&&<div><Check size={16} aria-hidden="true"/><p dir="auto">{mistake.correct}</p></div>}{mistake.note&&<p className="reference-resource-caption" dir="auto">{mistake.note}</p>}</article>)}</div></Panel>}
+      {nativeLanguageName&&<section className="reference-resource-panel"><button className="reference-resource-help-toggle" aria-expanded={nativeHelpOpen} aria-controls="grammar-native-help" onClick={()=>setNativeHelpOpen(value=>!value)}><Languages size={20}/><span>{tCommon('nativeHelpTitle',{language:nativeLanguageName})}</span><ChevronDown size={16}/></button><div className="reference-resource-body reference-resource-native" id="grammar-native-help" hidden={!nativeHelpOpen}>{loadingNativeHelp?<p role="status">{tCommon('nativeHelpLoading',{language:nativeLanguageName})}</p>:nativeHelp?<>
+        <p dir="auto">{nativeHelp.summary}</p><p dir="auto">{nativeHelp.explanation}</p>
+        {nativeHelp.key_points.length>0&&<section><h3>{tCommon('nativeHelpKeyPoints')}</h3><ul>{nativeHelp.key_points.map((point,index)=><li key={index} dir="auto">{point}</li>)}</ul></section>}
+        {nativeHelp.examples.length>0&&<section><h3>{t('examples')}</h3>{nativeHelp.examples.map((example,index)=><article key={index}><TargetLanguageText as="p" languageCode={targetLanguageCode} dir="auto">{example.sentence}</TargetLanguageText><p dir="auto">{example.note}</p></article>)}</section>}
+        {nativeHelp.common_traps.length>0&&<section><h3>{tCommon('nativeHelpCommonTraps')}</h3>{nativeHelp.common_traps.map((trap,index)=><article key={index}><p dir="auto">{trap.mistake}</p><p dir="auto">{trap.fix}</p></article>)}</section>}
+        {nativeHelp.mini_glossary.length>0&&<section><h3>{tCommon('nativeHelpMiniGlossary')}</h3>{nativeHelp.mini_glossary.map((item,index)=><article key={index}><TargetLanguageText languageCode={targetLanguageCode} dir="auto" className="font-semibold">{item.term}</TargetLanguageText><p dir="auto">{item.meaning}</p>{item.note&&<p dir="auto">{item.note}</p>}</article>)}</section>}
+      </>:<div className="reference-resource-state">{nativeHelpError&&<p role="alert">{tCommon('error')}</p>}<button className="juba-secondary-button" onClick={()=>void generateNativeHelp()}>{nativeHelpError?tCommon('retry'):tCommon('nativeHelpShow',{language:nativeLanguageName})}</button></div>}</div></section>}
+    </div><aside className="reference-resource-secondary">
+      {topic.rules.length>0&&<Panel title={t('keyRules')}><ol className="reference-resource-rule-list">{topic.rules.map((rule,index)=><li key={index}><span>{index+1}</span><p dir="auto">{rule}</p></li>)}</ol></Panel>}
+      {relatedTopics.length>0&&<section className="reference-resource-panel"><header className="reference-resource-panel-head"><h2>{t('relatedTopics')}</h2></header>{relatedTopics.map(related=><Link className="reference-resource-link-row" key={related.slug} href={'/grammar/'+related.slug}><span><strong dir="auto">{related.title}</strong><small>{related.level}</small></span><Forward size={16}/></Link>)}</section>}
+    </aside></div>
+    <Link href="/grammar" className="reference-resource-back"><Back size={16}/>{t('backLink')}</Link>
+  </div>
 }
