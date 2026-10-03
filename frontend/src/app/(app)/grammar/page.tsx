@@ -1,152 +1,69 @@
 'use client'
 
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { BookOpen, Search, ChevronRight } from 'lucide-react'
 import { getGrammarTopics, type GrammarTopic } from '@/data/grammar'
 import type { GrammarCategory } from '@/data/types'
 import { CEFR_LEVELS } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
 import { PageLoading } from '@/components/ui/page-loading'
 
-function TopicCard({ topic }: { topic: GrammarTopic }) {
-  return (
-    <Link
-      href={`/grammar/${topic.slug}`}
-      className="juba-card juba-reference-list-card group block rounded-[10px] border border-[var(--juba-border,var(--duo-line))] p-0 transition-colors hover:shadow-sm"
-    >
-      <div className="space-y-2 px-4 py-4">
-        <div className="flex items-start justify-between gap-2">
-          <p className="text-[var(--juba-ink,var(--duo-ink))] group-hover:text-[var(--juba-green,var(--duo-green-dark))] text-xs leading-snug font-bold tracking-wide transition-colors">
-            {topic.title}
-          </p>
-          <span className="border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-            {topic.level}
-          </span>
-        </div>
-        <p className="text-[var(--juba-muted,var(--duo-muted))] text-xs leading-relaxed">
-          {topic.summary}
-        </p>
-        <span className="bg-[var(--juba-border,var(--duo-line))] text-[var(--juba-green,var(--duo-green-dark))] inline-block rounded-full px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-          {topic.category}
-        </span>
-      </div>
-    </Link>
-  )
-}
-
 export default function GrammarIndexPage() {
-  const t = useTranslations('grammar')
-  const tCommon = useTranslations('common')
-  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const [topics, setTopics] = useState<GrammarTopic[]>([])
-  const [loading, setLoading] = useState(true)
-  const [loadError, setLoadError] = useState(false)
-  const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState<GrammarCategory | 'All'>('All')
-
-  const fetchTopics = useCallback(async (lang: string) => {
-    setLoading(true)
-    setLoadError(false)
-    try {
-      const data = await getGrammarTopics(lang)
-      setTopics(data)
-    } catch {
-      setLoadError(true)
-      setTopics([])
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchTopics(activeLanguage?.code ?? 'en-GB')
-  }, [activeLanguage?.code, fetchTopics])
-
-  const allCategories: GrammarCategory[] = useMemo(
-    () => Array.from(new Set(topics.map((t) => t.category))).sort() as GrammarCategory[],
-    [topics]
-  )
-
-  const filtered = useMemo(() => {
-    const q = search.toLowerCase()
-    return topics.filter((t) => {
-      const matchesSearch = !q || t.title.toLowerCase().includes(q) || t.summary.toLowerCase().includes(q) || t.category.toLowerCase().includes(q)
-      const matchesCategory = activeCategory === 'All' || t.category === activeCategory
-      return matchesSearch && matchesCategory
-    })
-  }, [search, activeCategory, topics])
-
-  const usedCategories = useMemo(() => {
-    const cats = new Set(topics.map((t) => t.category))
-    return allCategories.filter((c) => cats.has(c))
-  }, [topics, allCategories])
-
-  if (loading) return <PageLoading />
-
-  if (loadError) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6">
-        <p className="text-[var(--juba-muted,var(--duo-muted))] text-sm">{tCommon('error')}</p>
-        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="juba-secondary-button text-xs font-bold tracking-widest uppercase transition-colors">
-          {tCommon('retry')}
-        </button>
-      </div>
-    )
-  }
-
-  return (
-    <div className="juba-page-shell juba-mobile-grammar w-full space-y-5 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="juba-card juba-reference-filter-panel rounded-[10px] border border-[var(--juba-border,var(--duo-line))] p-0 shadow-sm">
-        <div className="border-b border-[var(--juba-border,var(--duo-line))] px-6 py-4">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[var(--duo-green)]" />
-            <span className="juba-eyebrow">{t('title')}</span>
-          </div>
-        </div>
-        <div className="space-y-4 px-6 py-5">
-          <p className="text-[var(--juba-muted,var(--duo-muted))] text-xs leading-relaxed">
-            {topics.length} topics · A1 – C2
-          </p>
-          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[10px] border border-[var(--juba-border,var(--duo-line))] bg-white px-4 py-2.5 text-sm text-[var(--juba-ink,var(--duo-ink))] placeholder:text-[var(--juba-muted,var(--duo-muted))] transition-colors focus:border-[var(--juba-green,var(--duo-green-dark))] focus:outline-none" />
-          <div className="juba-reference-tabs flex flex-wrap gap-2">
-            <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[var(--juba-ink,var(--duo-ink))] text-[white]' : 'border border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:bg-[var(--juba-border,var(--duo-line))]'}`}>
-              {t('allCategories')}
-            </button>
-            {usedCategories.map((cat) => (
-              <button key={cat} onClick={() => setActiveCategory(activeCategory === cat ? 'All' : cat)} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === cat ? 'bg-[var(--juba-border,var(--duo-line))] text-[var(--juba-green,var(--duo-green-dark))]' : 'border border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:bg-[var(--juba-border,var(--duo-line))]'}`}>
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {(search || activeCategory !== 'All') && <p className="text-xs font-medium text-[var(--juba-muted,var(--duo-muted))]">{t('topicsFound', { count: filtered.length })}</p>}
-
-      {CEFR_LEVELS.map((level) => {
-        const levelTopics = filtered.filter((t) => t.level === level)
-        if (!levelTopics.length) return null
-        return (
-          <section key={level} className="juba-reference-list-section space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="text-[var(--juba-ink,var(--duo-ink))] text-base font-bold tracking-widest">{level}</span>
-              <div className="h-px flex-1 bg-[var(--juba-border,var(--duo-line))]" />
-              <span className="text-xs text-[var(--juba-muted,var(--duo-muted))]">{levelTopics.length} topic{levelTopics.length !== 1 ? 's' : ''}</span>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {levelTopics.map((t) => <TopicCard key={t.slug} topic={t} />)}
-            </div>
-          </section>
-        )
-      })}
-
-      {filtered.length === 0 && (
-        <div className="juba-card space-y-4 px-6 py-10 text-center">
-          <p className="text-xs font-bold tracking-widest text-[var(--juba-muted,var(--duo-muted))] uppercase">{t('noResults')}</p>
-          {(search || activeCategory !== 'All') && <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="rounded-[10px] border border-[var(--juba-border,var(--duo-line))] px-4 py-2 text-xs font-bold text-[var(--juba-muted,var(--duo-muted))] transition-colors hover:bg-[var(--juba-border,var(--duo-line))]">{tCommon('clearFilters')}</button>}
-        </div>
-      )}
-    </div>
-  )
+  const t=useTranslations('grammar')
+  const tCommon=useTranslations('common')
+  const locale=useLocale()
+  const rtl=locale==='ar'
+  const activeLanguage=useLanguageStore(s=>s.activeLanguage)
+  const [topics,setTopics]=useState<GrammarTopic[]>([])
+  const [loading,setLoading]=useState(true)
+  const [loadError,setLoadError]=useState(false)
+  const [search,setSearch]=useState('')
+  const [activeCategory,setActiveCategory]=useState<GrammarCategory|'All'>('All')
+  const fetchTopics=useCallback(async(lang:string)=>{
+    setLoading(true);setLoadError(false)
+    try {setTopics(await getGrammarTopics(lang))} catch {setLoadError(true);setTopics([])} finally {setLoading(false)}
+  },[])
+  useEffect(()=>{void fetchTopics(activeLanguage?.code??'en-GB')},[activeLanguage?.code,fetchTopics])
+  const categories=useMemo(()=>Array.from(new Set(topics.map(topic=>topic.category))).sort() as GrammarCategory[],[topics])
+  const filtered=useMemo(()=>{const q=search.toLowerCase();return topics.filter(topic=>(!q||[topic.title,topic.summary,topic.category].some(value=>value.toLowerCase().includes(q)))&&(activeCategory==='All'||topic.category===activeCategory))},[topics,search,activeCategory])
+  const hasFilters=Boolean(search)||activeCategory!=='All'
+  return <div className="juba-page-shell reference-grammar" dir={rtl?'rtl':'ltr'}>
+    <style>{`
+      .juba-app-shell .reference-grammar{display:flex;flex-direction:column;gap:24px;}
+      .juba-app-shell .reference-grammar-header{display:flex;align-items:center;gap:16px;min-height:100px;}
+      .juba-app-shell .reference-grammar-header>svg{color:var(--juba-green);flex:none;}
+      .juba-app-shell .reference-grammar-header h1{font-size:28px;font-weight:650;margin:0;}
+      .juba-app-shell .reference-grammar-header p{font-size:13px;color:var(--juba-muted);margin:6px 0 0;}
+      .juba-app-shell .reference-grammar-filters{display:flex;flex-direction:column;gap:16px;padding:16px;border:1px solid var(--juba-border);border-radius:6px;background:var(--juba-card);}
+      .juba-app-shell .reference-grammar-search{display:flex;align-items:center;gap:8px;color:var(--juba-muted);max-width:480px;}
+      .juba-app-shell .reference-grammar-search input{width:100%;padding:8px 12px;}
+      .juba-app-shell .reference-grammar-categories{display:flex;flex-wrap:wrap;gap:8px;}
+      .juba-app-shell .reference-grammar-categories button{min-height:36px;padding:6px 12px;border:1px solid var(--juba-border);border-radius:5px;font-size:12px;background:var(--juba-card);color:var(--juba-muted);}
+      .juba-app-shell .reference-grammar-categories button[aria-pressed="true"]{color:var(--juba-green-dark);background:var(--juba-green-soft);border-color:var(--juba-green);}
+      .juba-app-shell .reference-grammar-level{border:1px solid var(--juba-border);border-radius:6px;background:var(--juba-card);overflow:hidden;}
+      .juba-app-shell .reference-grammar-level>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-block-end:1px solid var(--juba-border);}
+      .juba-app-shell .reference-grammar-level h2{font-size:15px;margin:0;font-weight:650;}
+      .juba-app-shell .reference-grammar-level>header>span{font-size:11px;color:var(--juba-muted);}
+      .juba-app-shell .reference-grammar-topic{display:grid;grid-template-columns:28px minmax(0,1fr) auto 16px;align-items:center;gap:12px;padding:14px 16px;border-block-end:1px solid var(--juba-border);text-decoration:none;color:var(--juba-ink);}
+      .juba-app-shell .reference-grammar-topic:last-child{border:0;}
+      .juba-app-shell .reference-grammar-topic:hover{background:var(--juba-green-soft);}
+      .juba-app-shell .reference-grammar-topic>svg{color:var(--juba-green-dark);}
+      .juba-app-shell .reference-grammar-topic strong{font-size:14px;font-weight:600;}
+      .juba-app-shell .reference-grammar-topic p{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--juba-muted);}
+      .juba-app-shell .reference-grammar-topic>span{font-size:11px;color:var(--juba-muted);padding:4px 8px;background:var(--juba-soft);border-radius:4px;}
+      .juba-app-shell .reference-grammar[dir="rtl"] .reference-grammar-topic>svg:last-child{transform:scaleX(-1);}
+      .juba-app-shell .reference-grammar-state{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border:1px solid var(--juba-border);border-radius:6px;padding:32px;font-size:14px;color:var(--juba-muted);text-align:center;}
+      .juba-app-shell .reference-grammar-count{font-size:12px;color:var(--juba-muted);margin:0;}
+      @media(max-width:640px){.juba-app-shell .reference-grammar{gap:16px;}.juba-app-shell .reference-grammar-header h1{font-size:24px;}.juba-app-shell .reference-grammar-categories button{min-height:44px;}.juba-app-shell .reference-grammar-topic{grid-template-columns:24px minmax(0,1fr) 16px;gap:8px;}.juba-app-shell .reference-grammar-topic>span{grid-column:2;justify-self:start;grid-row:2;}.juba-app-shell .reference-grammar-topic>svg:last-child{grid-column:3;grid-row:1;}}
+    `}</style>
+    <header className="reference-grammar-header"><BookOpen size={40} aria-hidden="true"/><div><h1>{t('title')}</h1><p>{topics.length} · A1 - C2</p></div></header>
+    {loading?<PageLoading/>:loadError?<div className="reference-grammar-state" role="alert"><p>{tCommon('error')}</p><button className="juba-secondary-button" onClick={()=>void fetchTopics(activeLanguage?.code??'en-GB')}>{tCommon('retry')}</button></div>:<>
+      <section className="reference-grammar-filters" aria-label={t('searchPlaceholder')}><label className="reference-grammar-search"><Search size={18} aria-hidden="true"/><input className="juba-input" type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder={t('searchPlaceholder')} aria-label={t('searchPlaceholder')}/></label><div className="reference-grammar-categories" role="group" aria-label={t('allCategories')}><button aria-pressed={activeCategory==='All'} onClick={()=>setActiveCategory('All')}>{t('allCategories')}</button>{categories.map(category=><button key={category} aria-pressed={activeCategory===category} onClick={()=>setActiveCategory(activeCategory===category?'All':category)}>{category}</button>)}</div></section>
+      {hasFilters&&<p className="reference-grammar-count" role="status">{t('topicsFound',{count:filtered.length})}</p>}
+      {CEFR_LEVELS.map(level=>{const levelTopics=filtered.filter(topic=>topic.level===level);return levelTopics.length?<section className="reference-grammar-level" key={level} aria-labelledby={'grammar-'+level}><header><h2 id={'grammar-'+level}>{level}</h2><span>{levelTopics.length}</span></header>{levelTopics.map(topic=><Link key={topic.slug} href={'/grammar/'+topic.slug} className="reference-grammar-topic"><BookOpen size={20} aria-hidden="true"/><div><strong>{topic.title}</strong><p>{topic.summary}</p></div><span>{topic.category}</span><ChevronRight size={16} aria-hidden="true"/></Link>)}</section>:null})}
+      {!filtered.length&&<div className="reference-grammar-state"><BookOpen size={28} aria-hidden="true"/><p>{t('noResults')}</p>{hasFilters&&<button className="juba-secondary-button" onClick={()=>{setSearch('');setActiveCategory('All')}}>{tCommon('clearFilters')}</button>}</div>}
+    </>}
+  </div>
 }
