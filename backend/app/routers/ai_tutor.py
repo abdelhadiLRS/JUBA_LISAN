@@ -1,4 +1,4 @@
-"""Legacy AI tutor endpoints with account-wide chat generation accounting."""
+"""Legacy tutor endpoints, account-wide allowance and atomic session persistence."""
 from __future__ import annotations
 import json
 from datetime import UTC, datetime
@@ -63,7 +63,7 @@ class SessionHistory(BaseModel):
 async def chat_with_tutor(request: ChatMessage, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> ChatResponse:
     if not request.message.strip():
         raise HTTPException(status_code=422, detail="Message must not be empty")
-    async with feature_quota(current_user, "chat"):
+    async with feature_quota(current_user, "chat", db=db) as quota:
         try:
             session = (await db.execute(select(AISession).where(AISession.user_id == current_user.id, AISession.language == request.language,
                 AISession.topic == request.topic, AISession.status == SessionStatus.ACTIVE))).scalar_one_or_none() if request.topic else None
@@ -72,12 +72,12 @@ async def chat_with_tutor(request: ChatMessage, current_user: User = Depends(get
                 db.add(session)
                 await db.flush()
             response = await OpenAIService().get_tutor_response(message=request.message, language=request.language, topic=request.topic,
-                                                                conversation_history=[], user_level="intermediate")
+                conversation_history=[], user_level="intermediate")
             if not str(response.get("response", "")).strip():
                 raise ValueError("Empty tutor response")
             session.total_messages += 1
-            await db.commit()
             result = ChatResponse(response=response["response"], session_id=session.id, message_count=session.total_messages, suggested_topic=response.get("suggested_topic"))
+            await quota.commit(db)
         except HTTPException:
             raise
         except Exception as exc:
@@ -94,7 +94,12 @@ async def analyze_speech(request: SpeechAnalysisRequest, current_user: User = De
         analysis = await service.analyze_pronunciation(transcription=transcription, expected_text=request.expected_text, language=request.language)
         score = analysis.get("overall_score", 0)
         quality = SpeechQuality.EXCELLENT if score >= 90 else SpeechQuality.GOOD if score >= 75 else SpeechQuality.FAIR if score >= 60 else SpeechQuality.NEEDS_IMPROVEMENT
-        record = SpeechAnalysis(session_id=None, transcription=transcription, expected_text=request.expected_text,
+        # Preserve the non-null owned-session invariant for speech analysis.
+        session = AISession(user_id=current_user.id, language=request.language, topic="pronunciation", status=SessionStatus.COMPLETED,
+            total_messages=0, duration_seconds=0, ended_at=datetime.now(UTC).replace(tzinfo=None))
+        db.add(session)
+        await db.flush()
+        record = SpeechAnalysis(session_id=session.id, transcription=transcription, expected_text=request.expected_text,
             pronunciation_score=analysis.get("pronunciation_score"), fluency_score=analysis.get("fluency_score"), accuracy_score=analysis.get("accuracy_score"),
             overall_quality=quality, feedback=analysis.get("feedback"), phoneme_errors=json.dumps(analysis.get("phoneme_errors", [])))
         db.add(record)
@@ -108,14 +113,15 @@ async def analyze_speech(request: SpeechAnalysisRequest, current_user: User = De
 
 @router.get("/sessions", response_model=list[SessionHistory])
 async def get_user_sessions(limit: int = 20, offset: int = 0, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> list[SessionHistory]:
-    rows = (await db.execute(select(AISession).where(AISession.user_id == current_user.id).order_by(desc(AISession.started_at)).offset(max(0, offset)).limit(max(1, min(limit, 100))))).scalars().all()
+    rows = (await db.execute(select(AISession).where(AISession.user_id == current_user.id).order_by(desc(AISession.started_at))
+        .offset(max(0, offset)).limit(max(1, min(limit, 100))))).scalars().all()
     return [SessionHistory(id=item.id, language=item.language, topic=item.topic, status=item.status.value, total_messages=item.total_messages,
         duration_seconds=item.duration_seconds, score=item.score, started_at=item.started_at, ended_at=item.ended_at) for item in rows]
 
 
 @router.post("/sessions/{session_id}/end")
 async def end_session(session_id: int, score: float | None = None, feedback: str | None = None,
-                      current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> dict[str, Any]:
+    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> dict[str, Any]:
     session = (await db.execute(select(AISession).where(AISession.id == session_id, AISession.user_id == current_user.id))).scalar_one_or_none()
     if session is None:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -125,4 +131,4 @@ async def end_session(session_id: int, score: float | None = None, feedback: str
     if feedback:
         session.feedback = feedback
     await db.commit()
-    return {"message": "Session ended successfully", "session_id": session_id}
+    return {"message":"Session ended successfully", "session_id":session_id}
