@@ -8,10 +8,18 @@
 .juba-app-shell .juba-chat-reference .chat-conversations-sidebar{border-inline-end:1px solid var(--juba-border)!important;}
 .juba-app-shell .juba-chat-reference .chat-profile-rail{border-inline-start:1px solid var(--juba-border)!important;}
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
+/* The desktop sidebar is navigation only. Account identity/actions stay out of its visual frame. */
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:none!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:hidden!important;scrollbar-width:none!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav-link{min-height:34px!important;margin-block:1px!important;padding-block:6px!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav-section-label{margin-block:8px 2px!important;}
 /* Product decision: the authenticated shell owns language context, not a visible top switcher. */
 .juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 @media(max-width:900px){
   .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
   .juba-app-shell .juba-chat-reference{height:calc(100dvh - 54px);min-height:0;}
   .juba-app-shell .juba-page-shell{max-width:none!important;}
+  .juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:auto!important;}
+  .juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:block!important;}
 }
