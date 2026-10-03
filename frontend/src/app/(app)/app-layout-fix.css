@@ -1,24 +1,5 @@
-/* Shared geometry and extracted Duolingo reference visual tokens. */
-.juba-app-shell{
-  --juba-brand-green:#58cc02;
-  --juba-green-dark:#46a302;
-  --juba-eel:#4b4b4b;
-  --juba-snow:#000000;
-  --juba-bee:#ffc800;
-  --juba-fox:#ff9600;
-  --juba-polar:#f7f7f7;
-  --juba-bg:#ffffff;
-  --juba-card:#ffffff;
-  --juba-soft:#f7f7f7;
-  --juba-border:#e5e5e5;
-  --juba-ink:#4b4b4b;
-  --juba-muted:#777777;
-  --juba-green:var(--juba-brand-green);
-  --juba-green-soft:#efffdc;
-  --juba-yellow:var(--juba-bee);
-  font-family:"Nunito",Arial,"Segoe UI",sans-serif!important;
-}
-.juba-app-shell :is(h1,h2,h3,h4,h5,h6,button,a,input,textarea,select){font-family:inherit;}
+/* Reference calibration layer: stable geometry, refined icon placement, and no legacy footer drift. */
+.juba-app-shell{font-family:"JUBA Nunito Local",Nunito,"Segoe UI",Arial,sans-serif!important;}
 .juba-app-shell .juba-duo-main{margin-inline-start:var(--juba-sidebar-width)!important;margin-inline-end:0!important;min-width:0!important;width:auto!important;max-width:none!important;}
 .juba-app-shell .juba-duo-page-frame{width:100%!important;max-width:none!important;margin:0!important;min-width:0!important;}
 .juba-app-shell .juba-dashboard-workspace>.juba-page-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;}
@@ -30,14 +11,44 @@
 .juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
 .juba-app-shell .reference-course-control,.juba-app-shell .juba-duo-mobile-menu>.relative{display:none!important;}
 
+/* Desktop sidebar is navigation only. */
+.juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:none!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:hidden!important;scrollbar-width:none!important;}
+.juba-app-shell .juba-duo-sidebar .juba-duo-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;}
+
+/* Dashboard reference grid: the right rail remains a single disciplined column. */
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard{font-family:"JUBA Nunito Local",Nunito,"Segoe UI",Arial,sans-serif!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-layout{grid-template-columns:minmax(0,1fr) 244px!important;gap:24px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-main{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:24px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-welcome{min-height:96px!important;margin-block-end:4px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-welcome h1{font-size:clamp(26px,2.65vw,34px)!important;font-weight:500!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-welcome h1 strong{font-weight:850!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-card{border-color:#e5e5e5!important;border-radius:7px!important;box-shadow:0 1px 3px rgba(75,75,75,.06)!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-card-head h2{font-size:15px!important;font-weight:800!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-progress-row{margin-block:17px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-tile{width:40px!important;height:40px!important;border-radius:5px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-track{height:10px!important;border-radius:3px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-track>span{background:#ffc800!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-rail{margin-block-start:-42px!important;gap:22px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-utilities{position:relative!important;z-index:5!important;min-height:48px!important;border-color:#e5e5e5!important;border-radius:7px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-utilities a{width:42px!important;height:42px!important;color:#777!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-utilities a:hover{color:#46a302!important;background:#efffdc!important;border-radius:6px;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-profile-stats{margin-block-start:18px!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-profile-stats svg{stroke-width:2.2!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-league{grid-column:2!important;grid-row:2 / span 2!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-history{grid-column:1!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-chart:has(.reference-dashboard-chart-empty) .reference-dashboard-chart-axis{display:none!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard-chart:has(.reference-dashboard-chart-empty) .reference-dashboard-chart-empty{inset-inline:0!important;inset-block-start:12px!important;}
+
+/* Six-icon profile toolbar placement: contact and logout occupy the two slots before the four real dashboard actions. */
 @media(min-width:901px){
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user{display:contents!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user>*:not(.juba-duo-user-action){display:none!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{position:absolute!important;z-index:35;top:243px!important;width:40px!important;height:40px!important;margin:0!important;padding:0!important;border:0!important;border-radius:6px!important;background:transparent!important;color:var(--juba-muted)!important;font-size:0!important;display:grid!important;place-items:center!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:64px!important;}
-  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:24px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action{position:fixed!important;z-index:35;top:301px!important;width:40px!important;height:40px!important;margin:0!important;padding:0!important;border:0!important;border-radius:6px!important;background:transparent!important;color:#777!important;font-size:0!important;display:grid!important;place-items:center!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type{inset-inline-end:192px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type{inset-inline-end:232px!important;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:first-of-type::before{content:'✉';font-size:17px;}
   .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:last-of-type::before{content:'↪';font-size:19px;}
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar>.juba-duo-user .juba-duo-user-action:hover{background:#efffdc!important;color:#46a302!important;}
 }
 @media(max-width:900px){
   .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
@@ -45,4 +56,6 @@
   .juba-app-shell .juba-page-shell{max-width:none!important;}
   .juba-app-shell .juba-duo-sidebar .juba-duo-nav{overflow-y:auto!important;}
   .juba-app-shell .juba-duo-sidebar>.juba-duo-user{display:block!important;}
+  .juba-app-shell:has(.reference-dashboard) .reference-dashboard-main{grid-template-columns:1fr!important;}
+  .juba-app-shell:has(.reference-dashboard) .reference-dashboard-league{grid-column:1!important;grid-row:auto!important;}
 }
