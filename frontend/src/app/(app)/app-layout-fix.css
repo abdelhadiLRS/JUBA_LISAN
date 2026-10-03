@@ -1,0 +1,15 @@
+/* Shared geometry guard. Loaded after route styles so legacy page wrappers cannot undo the fixed shell. */
+.juba-app-shell .juba-duo-main{margin-inline-start:var(--juba-sidebar-width)!important;margin-inline-end:0!important;min-width:0!important;width:auto!important;max-width:none!important;}
+.juba-app-shell .juba-duo-page-frame{width:100%!important;max-width:none!important;margin:0!important;min-width:0!important;}
+.juba-app-shell .juba-dashboard-workspace>.juba-page-shell{width:100%!important;max-width:1480px!important;margin-inline:auto!important;}
+.juba-app-shell .juba-page-shell{box-sizing:border-box!important;}
+.juba-app-shell .juba-mobile-chat,.juba-app-shell .juba-chat-reference{width:100%!important;max-width:none!important;margin-inline:auto!important;}
+.juba-app-shell .juba-chat-reference{height:calc(100dvh - 64px);min-height:600px;}
+.juba-app-shell .juba-chat-reference .chat-conversations-sidebar{border-inline-end:1px solid var(--juba-border)!important;}
+.juba-app-shell .juba-chat-reference .chat-profile-rail{border-inline-start:1px solid var(--juba-border)!important;}
+.juba-app-shell :is(.reference-resource-page,.reference-resource-detail-grid,.competition-panel,.juba-reference-hero,.juba-page-hero){min-width:0;}
+@media(max-width:900px){
+  .juba-app-shell .juba-duo-main{margin-inline-start:0!important;width:100%!important;padding-block-start:54px!important;}
+  .juba-app-shell .juba-chat-reference{height:calc(100dvh - 54px);min-height:0;}
+  .juba-app-shell .juba-page-shell{max-width:none!important;}
+}
