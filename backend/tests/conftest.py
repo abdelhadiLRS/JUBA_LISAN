@@ -42,8 +42,6 @@ async def setup_db(test_engine):
 
 @pytest_asyncio.fixture(autouse=True)
 async def shared_session_factory(test_session_factory):
-    # Covers real routes, streaming persistence and captured background factories.
-    # Direct service tests can still supply a factory explicitly.
     app.dependency_overrides[get_session_factory] = lambda: test_session_factory
     token = set_session_factory(test_session_factory)
     yield
@@ -77,6 +75,10 @@ def mock_redis():
             return store.get(key)
         async def delete(self, key):
             return int(store.pop(key, None) is not None)
+        async def eval(self, script, numkeys, key):
+            # The production script's entire GET+DEL executes in one operation.
+            assert numkeys == 1 and "redis.call('GET'" in script and "redis.call('DEL'" in script
+            return store.pop(key, None)
         async def exists(self, key):
             return int(key in store)
         async def getex(self, key):
@@ -93,7 +95,11 @@ def mock_redis():
 @pytest_asyncio.fixture
 async def client(db_session, mock_redis, test_session_factory):
     async def override_get_db():
-        yield db_session
+        try:
+            yield db_session
+        except BaseException:
+            await db_session.rollback()
+            raise
     app.dependency_overrides[get_db] = override_get_db
     app.dependency_overrides[get_session_factory] = lambda: test_session_factory
     from app.routers.admin import get_redis as admin_get_redis
@@ -119,7 +125,7 @@ async def test_user(db_session):
     db_session.add(UserLanguage(user_id=user.id, target_language="en-US", is_active=True))
     await db_session.commit()
     await db_session.refresh(user)
-    token = create_access_token(user.id, user.role)
+    token = create_access_token(user.id, user.role, user.session_version)
     return user, {"Authorization":f"Bearer {token}"}
 
 
@@ -135,7 +141,7 @@ async def admin_user(db_session):
     db_session.add(UserLanguage(user_id=user.id, target_language="en-US", is_active=True))
     await db_session.commit()
     await db_session.refresh(user)
-    return user, {"Authorization":f"Bearer {create_access_token(user.id,user.role)}"}
+    return user, {"Authorization":f"Bearer {create_access_token(user.id,user.role,user.session_version)}"}
 
 
 async def make_study_plan(db_session, *, user_id:int, target_language:str="en-US", **kwargs):
