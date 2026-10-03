@@ -1,57 +1,27 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { InteractiveGameBoard } from './InteractiveGameBoard'
-import { completeGameSession, startGameSession, type InteractiveGameChallenge, type InteractiveGameTrace, type GameId } from '@/lib/games/persist'
-import { useProgressStore } from '@/store/progress'
-import { markLearningProgressUpdated } from '@/lib/learning-progress'
+import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
+import { useLanguageStore } from '@/store/language'
+import { gameLanguageForTargetLanguage } from '@/lib/games/persist'
+import { EducationalGameSession } from './EducationalGameSession'
+import '@/app/(app)/games/educational-games.css'
 
 type Mode = 'memory' | 'matching' | 'ordering' | 'sentence_builder'
-type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh'
-
-export function InteractiveGamePage({ mode }: { mode: Mode }) {
-  const searchParams = useSearchParams()
-  const [lang, setLang] = useState<Lang>(() => { const value = searchParams.get('lang'); return value === 'ar' || value === 'fr' || value === 'en' || value === 'es' || value === 'de' || value === 'it' || value === 'pt' || value === 'ja' || value === 'ko' || value === 'zh' ? value : 'en' })
-  const [sessionId, setSessionId] = useState<string | null>(null)
-  const [dailyChallenge, setDailyChallenge] = useState(false)
-  const [dailyChallengeDate, setDailyChallengeDate] = useState('')
-  const [challenge, setChallenge] = useState<InteractiveGameChallenge>()
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [difficulty, setDifficulty] = useState(1)
-  const [review, setReview] = useState(false)
-  const setProgress = useProgressStore((state) => state.setProgress)
-
-  useEffect(() => {
-    const value = searchParams.get('lang')
-    if (value === 'ar' || value === 'fr' || value === 'en' || value === 'es' || value === 'de' || value === 'it' || value === 'pt' || value === 'ja' || value === 'ko' || value === 'zh') setLang(value)
-    const rawDifficulty = Number(searchParams.get('difficulty'))
-    if (Number.isInteger(rawDifficulty) && rawDifficulty >= 1 && rawDifficulty <= 3) setDifficulty(rawDifficulty)
-    setReview(searchParams.get('review') === 'true')
-  }, [searchParams])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true); setError(false); setSessionId(null); setDailyChallenge(false); setDailyChallengeDate(''); setChallenge(undefined)
-    void startGameSession(mode as GameId, lang, difficulty, review).then((session) => {
-      if (cancelled) return
-      setSessionId(session.session_id); setDailyChallenge(session.daily_challenge); setDailyChallengeDate(session.daily_challenge_date); setChallenge(session.interaction); setLoading(false)
-    }).catch(() => { if (!cancelled) { setLoading(false); setError(true) } })
-    return () => { cancelled = true }
-  }, [mode, lang, difficulty, review])
-
-  async function complete(trace: InteractiveGameTrace[]) {
-    if (!sessionId) return false
-    try {
-      const server = await completeGameSession(sessionId, [], dailyChallenge, dailyChallengeDate, trace)
-      setProgress({ streak: useProgressStore.getState().streak, xp: server.total_xp, skills: server.skills, gameStats: { gamesPlayed: server.games_played, questionsAnswered: server.questions_answered, correctAnswers: server.correct_answers, bestRoundScore: server.best_round_score, dailyChallengesCompleted: server.daily_challenges_completed, lastDailyChallengeDate: server.last_daily_challenge_date, currentCorrectStreak: server.current_correct_streak, bestCorrectStreak: server.best_correct_streak }, achievements: server.achievements as import('@/lib/games/achievements').AchievementId[] })
-      markLearningProgressUpdated()
-      return true
-    } catch { return false }
-  }
-
-  return <main className="juba-page-shell juba-games juba-reference-page min-h-[calc(100vh-80px)] bg-[var(--juba-bg,var(--duo-bg))] px-4 py-6 sm:px-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell mx-auto w-full max-w-[1480px]">
-    {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} title={mode === 'sentence_builder' ? (lang === 'ar' ? 'بناء الجملة' : lang === 'fr' ? 'Constructeur de phrases' : 'Sentence Builder') : undefined} />}
-  </div></main>
+export function InteractiveGamePage({mode}: {mode: Mode}) {
+  const router = useRouter()
+  const params = useSearchParams()
+  const arabic = useLocale().startsWith('ar')
+  const language = useLanguageStore(state => state.activeLanguage)
+  const code = language?.code ?? 'en-GB'
+  const [round, setRound] = useState(0)
+  const requested = Number(params.get('difficulty'))
+  const difficulty = Number.isInteger(requested) && requested >= 1 && requested <= 3 ? requested : 1
+  // The old ordering challenge was a shuffled arbitrary vocabulary list with
+  // no recoverable ordering rule. Teach sentence order instead, using the
+  // authored sentence's server-only solution, not its shuffled public array.
+  const gameId = mode === 'ordering' ? 'sentence_builder' : mode
+  const title = gameId === 'memory' ? (arabic ? 'ذاكرة الكلمات' : 'Word memory') : gameId === 'matching' ? (arabic ? 'وصل المعنى' : 'Meaning match') : (arabic ? 'مهندس الجمل' : 'Sentence architect')
+  return <main className="juba-page-shell educational-games" dir={arabic ? 'rtl' : 'ltr'}><EducationalGameSession key={`${gameId}:${code}:${difficulty}:${round}`} gameId={gameId} language={gameLanguageForTargetLanguage(code)} targetLanguage={code} difficulty={difficulty} arabic={arabic} title={title} onExit={() => router.push('/games')} onReplay={() => setRound(value => value + 1)} /></main>
 }
