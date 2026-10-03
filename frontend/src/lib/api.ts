@@ -8,8 +8,70 @@ const GUEST_COOKIE = 'juba_guest_id'
 const GUEST_COOKIE_MAX_AGE = 60 * 60 * 24 * 180
 const SYNC_NOTICE_KEY = 'juba_lisan_sync_notice'
 const AUTH_REQUEST_TIMEOUT_MS = 12_000
-let isRefreshing = false
 let refreshPromise: Promise<string | null> | null = null
+
+export class AuthSessionUnavailable extends Error {
+  constructor(){super('Could not renew the session. Check your connection and retry.');this.name='AuthSessionUnavailable'}
+}
+/** Always compose the caller's cancellation with our own bounded timeout. */
+async function fetchBounded(input:RequestInfo|URL,options:RequestInit,timeoutMs:number):Promise<Response>{
+  const controller=new AbortController()
+  const cancel=()=>controller.abort(options.signal?.reason)
+  if(options.signal?.aborted)cancel()
+  else options.signal?.addEventListener('abort',cancel,{once:true})
+  const timeout=setTimeout(()=>controller.abort(new DOMException('Request timed out','TimeoutError')),timeoutMs)
+  try{return await fetch(input,{...options,signal:controller.signal})}
+  finally{clearTimeout(timeout);options.signal?.removeEventListener('abort',cancel)}
+}
+async function refreshToken():Promise<string|null>{
+  if(refreshPromise)return refreshPromise
+  refreshPromise=(async()=>{
+    // Never clear a newly logged-in account if an old refresh response arrives.
+    const initial=useAuthStore.getState().accessToken
+    try{
+      const res=await fetchBounded(`${BASE_URL}/api/auth/refresh`,{method:'POST',credentials:'include'},AUTH_REQUEST_TIMEOUT_MS)
+      if(res.status===401||res.status===403){
+        if(useAuthStore.getState().accessToken===initial)useAuthStore.getState().logout()
+        return null
+      }
+      if(!res.ok)throw new AuthSessionUnavailable()
+      const data=await res.json() as {access_token?:string}
+      if(!data.access_token)throw new AuthSessionUnavailable()
+      if(useAuthStore.getState().accessToken!==initial)return useAuthStore.getState().accessToken
+      useAuthStore.getState().setTokens(data.access_token)
+      return data.access_token
+    }catch(error){
+      // No blind refresh POST retry: the first call may already have rotated.
+      throw error instanceof AuthSessionUnavailable?error:new AuthSessionUnavailable()
+    }finally{refreshPromise=null}
+  })()
+  return refreshPromise
+}
+export async function refreshAuthSession():Promise<string|null>{return refreshToken()}
+export async function apiFetch(url:string,options:RequestInit={}):Promise<Response>{
+  const {inc,dec}=useLoadingStore.getState();inc()
+  try{return await _apiFetch(url,options)}finally{dec()}
+}
+async function _apiFetch(url:string,options:RequestInit={}):Promise<Response>{
+  const token=useAuthStore.getState().accessToken
+  const headers=new Headers(options.headers);headers.set('Accept','application/json')
+  if(token)headers.set('Authorization',`Bearer ${token}`)
+  const requestOptions={...options,headers,credentials:'include' as const,cache:'no-store' as const}
+  const timeoutMs=url.startsWith('/api/auth/')?AUTH_REQUEST_TIMEOUT_MS:url.includes('/game-session/arena')?20_000:120_000
+  let res=await fetchBounded(`${BASE_URL}${url}`,requestOptions,timeoutMs)
+  const isAuthEntryPoint=url==='/api/auth/login'||url==='/api/auth/register'||url==='/api/auth/refresh'
+  if(res.status===401&&!isAuthEntryPoint){
+    const newToken=await refreshToken()
+    if(newToken){
+      // Do not replay an old account's request as a different logged-in account.
+      if(useAuthStore.getState().user?.id===undefined) return res
+      headers.set('Authorization',`Bearer ${newToken}`)
+      res=await fetchBounded(`${BASE_URL}${url}`,{...requestOptions,headers},timeoutMs)
+    }
+  }
+  return res
+}
+export function apiUrl(path:string):string{return `${BASE_URL}${path}`}
 
 export function ensureGuestCookie(): string | null {
   if (typeof document === 'undefined') return null
@@ -21,12 +83,6 @@ export function ensureGuestCookie(): string | null {
 }
 export function clearGuestCookie(): void { if (typeof document !== 'undefined') document.cookie = `${GUEST_COOKIE}=; Max-Age=0; Path=/; SameSite=Lax` }
 export async function readApiError(res: Response): Promise<string> { try { const data = (await res.json()) as { detail?: unknown; message?: unknown }; if (typeof data.detail === 'string') return data.detail; if (typeof data.message === 'string') return data.message; if (Array.isArray(data.detail)) return data.detail.map((item) => item && typeof item === 'object' && 'msg' in item ? String((item as { msg?: unknown }).msg ?? '') : String(item)).filter(Boolean).join(', ') } catch {} return res.statusText || `Request failed (${res.status})` }
-async function fetchAuthRequest(input: RequestInfo | URL, options: RequestInit): Promise<Response> { if (options.signal) return fetch(input, options); const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), AUTH_REQUEST_TIMEOUT_MS); try { return await fetch(input, { ...options, signal: controller.signal }) } finally { clearTimeout(timeout) } }
-async function refreshToken(): Promise<string | null> { if (isRefreshing && refreshPromise) return refreshPromise; isRefreshing = true; refreshPromise = (async () => { try { const res = await fetchAuthRequest(`${BASE_URL}/api/auth/refresh`, { method: 'POST', credentials: 'include' }); if (!res.ok) throw new Error('refresh failed'); const data = (await res.json()) as { access_token?: string }; if (!data.access_token) throw new Error('missing access token'); useAuthStore.getState().setTokens(data.access_token); return data.access_token } catch { useAuthStore.getState().logout(); return null } finally { isRefreshing = false; refreshPromise = null } })(); return refreshPromise }
-export async function refreshAuthSession(): Promise<string | null> { return refreshToken() }
-export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const { inc, dec } = useLoadingStore.getState(); inc(); try { return await _apiFetch(url, options) } finally { dec() } }
-async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const token = useAuthStore.getState().accessToken; const headers = new Headers(options.headers); headers.set('Accept', 'application/json'); if (token) headers.set('Authorization', `Bearer ${token}`); const requestOptions = { ...options, headers, credentials: 'include' as const, cache: 'no-store' as const }; const shouldTimeout = url === '/api/auth/me' || url === '/api/auth/refresh'; let res = shouldTimeout ? await fetchAuthRequest(`${BASE_URL}${url}`, requestOptions) : await fetch(`${BASE_URL}${url}`, requestOptions); const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'; if (res.status === 401 && !isAuthEntryPoint) { const newToken = await refreshToken(); if (newToken) { headers.set('Authorization', `Bearer ${newToken}`); res = await fetch(`${BASE_URL}${url}`, { ...requestOptions, headers }) } } return res }
-export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
 export type SkillMasterySnapshot = {
   skill: string
@@ -42,7 +98,6 @@ export type SkillMasterySnapshot = {
   mastery_rate: number
   covered_variants: number
 }
-
 export async function fetchLessonSkillMastery(lessonId: number, skill: string): Promise<SkillMasterySnapshot | null> {
   const normalizedSkill = skill.trim()
   if (!normalizedSkill) return null
@@ -50,12 +105,7 @@ export async function fetchLessonSkillMastery(lessonId: number, skill: string): 
   if (!res.ok) return null
   return (await res.json()) as SkillMasterySnapshot
 }
-
-export type SkillMasteryNextSnapshot = {
-  skill: SkillMasterySnapshot
-  reason: 'struggling' | 'unseen' | 'lowest_mastery'
-}
-
+export type SkillMasteryNextSnapshot = {skill: SkillMasterySnapshot;reason: 'struggling' | 'unseen' | 'lowest_mastery'}
 export async function fetchNextLessonSkillMastery(lessonId: number): Promise<SkillMasteryNextSnapshot | null> {
   const res = await apiFetch('/api/lessons/' + lessonId + '/mastery/skills/next')
   if (!res.ok) return null
@@ -70,7 +120,8 @@ function normalizeGuestSavedWord(value: unknown): TranslatorSavedWord | null { i
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] { const normalizedInput = normalizeGuestSavedWord(input); if (!normalizedInput) return []; if (typeof window === 'undefined') return [normalizedInput]; try { ensureGuestCookie(); const existing: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); const words = Array.isArray(existing) ? existing.map(normalizeGuestSavedWord).filter((item): item is TranslatorSavedWord => item !== null) : []; const normalized = normalizedInput.word.trim().toLowerCase(); const normalizedTarget = normalizedInput.target.trim().toLowerCase(); const next = [{ ...normalizedInput, createdAt: normalizedInput.createdAt || new Date().toISOString() }, ...words.filter((item) => !(item.word.trim().toLowerCase() === normalized && item.target.trim().toLowerCase() === normalizedTarget))].slice(0, 500); window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next)); return next } catch { return [normalizedInput] } }
 export function getGuestMemory(): TranslatorSavedWord[] { if (typeof window === 'undefined') return []; try { const value: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); return Array.isArray(value) ? value.map(normalizeGuestSavedWord).filter((item): item is TranslatorSavedWord => item !== null) : [] } catch { return [] } }
 export function getGuestReviewState(): Record<string, GuestReviewCard> { if (typeof window === 'undefined') return {}; try { const value: unknown = JSON.parse(window.localStorage.getItem(REVIEW_STORAGE_KEY) || '{}'); if (!value || typeof value !== 'object' || Array.isArray(value)) return {}; const result: Record<string, GuestReviewCard> = {}; for (const [key, card] of Object.entries(value)) { const normalized = normalizeGuestReviewCard(card); if (normalized) result[key] = normalized }; return result } catch { return {} } }
-export function clearGuestMemory(): void { if (typeof window !== 'undefined') { try { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY) } catch {} clearGuestCookie() } }
+export function clearGuestMemory(): void { if (typeof window !== 'undefined') { try { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY) } catch {} clearGuestCookie() }
+}
 export function getGuestSyncNotice(): { status: 'synced' | 'failed'; count: number; timestamp: number } | null { if (typeof window === 'undefined') return null; try { const value: unknown = JSON.parse(window.localStorage.getItem(SYNC_NOTICE_KEY) || 'null'); if (!value || typeof value !== 'object') return null; const item = value as { status?: unknown; count?: unknown; timestamp?: unknown }; if ((item.status !== 'synced' && item.status !== 'failed') || typeof item.count !== 'number' || typeof item.timestamp !== 'number') return null; return { status: item.status, count: item.count, timestamp: item.timestamp } } catch { return null } }
 export function clearGuestSyncNotice(): void { if (typeof window !== 'undefined') try { window.localStorage.removeItem(SYNC_NOTICE_KEY) } catch {} }
 export async function syncGuestMemoryAfterLogin(): Promise<boolean> { if (typeof window === 'undefined') return false; const words = getGuestMemory(); if (!words.length) return true; try { const languageRes = await apiFetch('/api/languages'); if (!languageRes.ok) { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() })); return false }; const languageData = (await languageRes.json()) as { languages?: unknown }; const activeLanguage = Array.isArray(languageData.languages) ? languageData.languages.find((language): language is { target_language?: unknown; is_active?: unknown } => !!language && typeof language === 'object' && language !== null && (language as { is_active?: unknown }).is_active === true && typeof (language as { target_language?: unknown }).target_language === 'string') : undefined; const activeTarget = activeLanguage?.target_language; if (!activeTarget || typeof activeTarget !== 'string') return false; const activeIso = activeTarget.split('-')[0].toLowerCase(); const wordsForActiveLanguage = words.filter((item) => item.target.trim().toLowerCase() === activeIso); if (!wordsForActiveLanguage.length) return true; const flashcards = wordsForActiveLanguage.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim(), source: 'from_text' })).filter((item) => item.word && item.translation); if (!flashcards.length) return true; const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) }); if (!res.ok) { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: flashcards.length, timestamp: Date.now() })); return false }; const remaining = words.filter((item) => item.target.trim().toLowerCase() !== activeIso); if (remaining.length) window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(remaining)); else { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); clearGuestCookie() }; window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: flashcards.length, timestamp: Date.now() })); return true } catch { try { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() })) } catch {} return false } }
