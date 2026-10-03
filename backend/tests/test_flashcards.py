@@ -359,3 +359,91 @@ async def test_create_flashcard_from_word(client, test_user, db_session, monkeyp
     assert data["word"] == "fleeting"
     assert data["source"] == "from_text"
     assert data["definition"] == "lasting a very short time"
+
+
+@pytest.mark.asyncio
+async def test_repeated_review_of_same_card_awards_xp_once(client, test_user, db_session):
+    """Re-submitting a review must not farm XP: only the due review earns it."""
+    user, headers = test_user
+
+    from sqlalchemy import select
+
+    from app.models.flashcard import Flashcard
+    from app.models.progress import Progress
+    from app.services.progress_service import XP_FLASHCARD_REVIEW
+
+    plan = await _seed_plan(db_session, user.id)
+    card = Flashcard(
+        user_id=user.id,
+        study_plan_id=plan.id,
+        word="repeat",
+        definition="to do again",
+        example_sentence="Repeat after me.",
+        translation="repetir",
+        next_review=date.today(),
+    )
+    db_session.add(card)
+    await db_session.commit()
+
+    for _ in range(10):
+        response = await client.post(
+            f"/api/flashcards/{card.id}/review",
+            headers=headers,
+            json={"quality": 4},
+        )
+        assert response.status_code == 200
+
+    rows = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert len(rows) == 1
+    assert rows[0].xp_earned == XP_FLASHCARD_REVIEW
+    assert "vocabulary" in (rows[0].skills or {})
+
+
+@pytest.mark.asyncio
+async def test_early_review_updates_schedule_without_xp(client, test_user, db_session):
+    user, headers = test_user
+
+    from sqlalchemy import select
+
+    from app.models.flashcard import Flashcard
+    from app.models.progress import Progress
+
+    plan = await _seed_plan(db_session, user.id)
+    card = Flashcard(
+        user_id=user.id,
+        study_plan_id=plan.id,
+        word="later",
+        definition="at a future time",
+        example_sentence="See you later.",
+        translation="luego",
+        next_review=date.today() + timedelta(days=3),
+    )
+    db_session.add(card)
+    await db_session.commit()
+
+    response = await client.post(
+        f"/api/flashcards/{card.id}/review",
+        headers=headers,
+        json={"quality": 5},
+    )
+    assert response.status_code == 200
+    assert response.json()["repetitions"] == 1
+
+    rows = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert len(rows) == 1
+    assert rows[0].xp_earned == 0
+    assert "vocabulary" in (rows[0].skills or {})

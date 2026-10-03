@@ -1,4 +1,6 @@
 import re
+from datetime import date
+
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -37,7 +39,6 @@ async def _get_active_plan_or_404(db: AsyncSession, user_id: int) -> StudyPlan:
 @router.get("/due", response_model=FlashcardListResponse)
 @limiter.limit("60/minute")
 async def get_due_flashcards(request: Request, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    from datetime import date
     plan = await _get_active_plan_or_404(db, current_user.id)
     filters = [Flashcard.user_id == current_user.id, Flashcard.study_plan_id == plan.id]
     due = (await db.execute(select(Flashcard).where(*filters, Flashcard.next_review <= date.today()).order_by(Flashcard.next_review))).scalars().all()
@@ -89,10 +90,15 @@ async def review_flashcard(request: Request, card_id: int, data: FlashcardReview
     card = (await db.execute(select(Flashcard).where(Flashcard.id == card_id, Flashcard.user_id == current_user.id, Flashcard.study_plan_id == plan.id).with_for_update())).scalar_one_or_none()
     if not card:
         raise HTTPException(status_code=404, detail="Flashcard not found")
+    # XP is earned only for a review the schedule actually asked for. The due
+    # state must be captured before SM-2 moves next_review into the future, so
+    # re-submitting the same review cannot farm XP. Early reviews still update
+    # the schedule and the vocabulary skill signal, but award no XP.
+    was_due = card.next_review is None or card.next_review <= date.today()
     card = sm2_update(card, data.quality)
     await db.commit()
     await db.refresh(card)
-    await update_daily_progress(db, current_user.id, flashcard_reviewed=True, skill="vocabulary", skill_score=min(data.quality / 5.0, 1.0), study_plan_id=plan.id)
+    await update_daily_progress(db, current_user.id, flashcard_reviewed=was_due, skill="vocabulary", skill_score=min(data.quality / 5.0, 1.0), study_plan_id=plan.id)
     return card
 
 
