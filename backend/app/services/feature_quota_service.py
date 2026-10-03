@@ -1,4 +1,8 @@
-"""Durable account-wide quotas with short reserve/settle transactions."""
+"""Reserve in a short transaction; save content and charge atomically.
+
+Persisting callers must use `await quota.commit(db)` instead of committing the
+content and later charging it. Nonpersistent outputs settle on context exit.
+"""
 from __future__ import annotations
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime, timedelta
@@ -8,19 +12,32 @@ from sqlalchemy import select, update, func
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from app.core.config import settings
-from app.core.database import AsyncSessionLocal
+from app.core.session_factory import current_session_factory
 from app.models.feature_usage import FeatureReservation, FeatureUsage
 from app.services.subscription_catalog import LIMITS, effective_tier, period_bounds
 
 
 class Reservation:
-    def __init__(self, identifier: str | None, amount: int):
+    def __init__(self, identifier: str | None, amount: int, session_factory=None):
         self.id, self.amount, self.actual = identifier, amount, amount
+        self.session_factory = session_factory or current_session_factory()
+        self.committed = False
 
     def charge(self, actual: int) -> None:
         if isinstance(actual, bool) or not isinstance(actual, int) or not 0 <= actual <= self.amount:
             raise ValueError("Actual usage must fit the reservation")
         self.actual = actual
+
+    async def commit(self, db) -> None:
+        """Flush content and charge on the SAME connection before the single commit."""
+        try:
+            await db.flush()
+            await settle(self, success=True, db=db)
+            await db.commit()
+            self.committed = True
+        except BaseException:
+            await db.rollback()
+            raise
 
 
 async def reserve(user, feature: str, amount: int = 1, *, session_factory=None) -> Reservation:
@@ -30,9 +47,9 @@ async def reserve(user, feature: str, amount: int = 1, *, session_factory=None) 
     allowance = LIMITS[tier].get(feature)
     if allowance is None:
         raise ValueError("Unknown metered feature")
+    factory = session_factory or current_session_factory()
     if not settings.STRIPE_ENABLED:
-        return Reservation(None, amount)
-    factory = session_factory or AsyncSessionLocal
+        return Reservation(None, amount, factory)
     now = datetime.now(UTC)
     start, end = period_bounds(allowance.period, now)
     start = start.replace(tzinfo=None)
@@ -61,40 +78,61 @@ async def reserve(user, feature: str, amount: int = 1, *, session_factory=None) 
         identifier = str(uuid4())
         db.add(FeatureReservation(id=identifier, usage_id=usage_id, amount=amount, state="pending",
             expires_at=(now + timedelta(hours=2)).replace(tzinfo=None)))
-    return Reservation(identifier, amount)
+    return Reservation(identifier, amount, factory)
 
 
-async def settle(reservation: Reservation, *, success: bool, session_factory=None) -> None:
-    if reservation.id is None:
+async def _settle_in_transaction(db, reservation: Reservation, success: bool) -> None:
+    pending = await db.get(FeatureReservation, reservation.id)
+    if pending is None:
+        raise HTTPException(status_code=503, detail="Quota reservation missing")
+    await db.execute(update(FeatureUsage).where(FeatureUsage.id == pending.usage_id).values(reserved=FeatureUsage.reserved))
+    row = (await db.execute(update(FeatureReservation).where(FeatureReservation.id == reservation.id,
+        FeatureReservation.state == "pending").values(state="charged" if success else "released")
+        .returning(FeatureReservation.usage_id, FeatureReservation.amount))).first()
+    if row is None:
+        await db.refresh(pending)
+        if success and pending.state != "charged":
+            raise HTTPException(status_code=503, detail="Quota reservation expired or released")
         return
-    factory = session_factory or AsyncSessionLocal
-    async with factory() as db, db.begin():
-        pending = await db.get(FeatureReservation, reservation.id)
-        if pending is None:
-            raise HTTPException(status_code=503, detail="Quota reservation missing")
-        await db.execute(update(FeatureUsage).where(FeatureUsage.id == pending.usage_id).values(reserved=FeatureUsage.reserved))
-        row = (await db.execute(update(FeatureReservation).where(FeatureReservation.id == reservation.id,
-            FeatureReservation.state == "pending").values(state="charged" if success else "released")
-            .returning(FeatureReservation.usage_id, FeatureReservation.amount))).first()
-        if row is None:
-            await db.refresh(pending)
-            if success and pending.state != "charged":
-                raise HTTPException(status_code=503, detail="Quota reservation expired or released")
-            return
-        await db.execute(update(FeatureUsage).where(FeatureUsage.id == row.usage_id)
-            .values(reserved=FeatureUsage.reserved - row.amount, used=FeatureUsage.used + (reservation.actual if success else 0)))
+    await db.execute(update(FeatureUsage).where(FeatureUsage.id == row.usage_id)
+        .values(reserved=FeatureUsage.reserved - row.amount, used=FeatureUsage.used + (reservation.actual if success else 0)))
+
+
+async def settle(reservation: Reservation, *, success: bool, session_factory=None, db=None) -> None:
+    if reservation.id is None or reservation.committed:
+        return
+    if db is not None:
+        await _settle_in_transaction(db, reservation, success)
+        return
+    factory = session_factory or reservation.session_factory
+    async with factory() as session, session.begin():
+        await _settle_in_transaction(session, reservation, success)
 
 
 @asynccontextmanager
-async def feature_quota(user, feature: str, amount: int = 1, *, session_factory=None):
+async def feature_quota(user, feature: str, amount: int = 1, *, session_factory=None, db=None):
+    # End a read transaction before a separate reserve writer (important for SQLite).
+    # Callers must not stage content until after reservation admission.
+    if db is not None:
+        if db.new or db.dirty or db.deleted:
+            raise RuntimeError("Reserve quota before staging content")
+        await db.commit()
     reservation = await reserve(user, feature, amount, session_factory=session_factory)
     try:
         yield reservation
     except BaseException:
-        await settle(reservation, success=False, session_factory=session_factory)
+        if db is not None:
+            await db.rollback()  # Release write locks BEFORE the compensating transaction.
+        if not reservation.committed:
+            await settle(reservation, success=False)
         raise
     else:
-        await settle(reservation, success=True, session_factory=session_factory)
+        if db is not None and not reservation.committed:
+            await db.rollback()
+            await settle(reservation, success=False)
+            raise RuntimeError("Persisted generation must call quota.commit(db)")
+        if not reservation.committed:
+            await settle(reservation, success=True)
 
 
 async def quota_status(db, user) -> dict:
@@ -102,13 +140,12 @@ async def quota_status(db, user) -> dict:
     now = datetime.now(UTC)
     earliest = min(period_bounds(period, now)[0] for period in ("day", "week", "month")).replace(tzinfo=None)
     rows = (await db.execute(select(FeatureUsage).where(FeatureUsage.user_id == user.id, FeatureUsage.period_start >= earliest)
-                            .execution_options(populate_existing=True))).scalars().all()
+        .execution_options(populate_existing=True))).scalars().all()
     live = {}
     if rows:
-        values = (await db.execute(select(FeatureReservation.usage_id, func.sum(FeatureReservation.amount))
+        live = dict((await db.execute(select(FeatureReservation.usage_id, func.sum(FeatureReservation.amount))
             .where(FeatureReservation.usage_id.in_([row.id for row in rows]), FeatureReservation.state == "pending",
-                   FeatureReservation.expires_at > now.replace(tzinfo=None)).group_by(FeatureReservation.usage_id))).all()
-        live = dict(values)
+                FeatureReservation.expires_at > now.replace(tzinfo=None)).group_by(FeatureReservation.usage_id))).all())
     result = {}
     for feature, allowance in LIMITS[tier].items():
         start, end = period_bounds(allowance.period, now)
