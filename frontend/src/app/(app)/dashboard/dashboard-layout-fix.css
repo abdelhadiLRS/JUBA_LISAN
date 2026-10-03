@@ -1,0 +1,11 @@
+/* The Dashboard stylesheet predates the fixed shell. These overrides keep its internal grid, but let the shared shell own the viewport geometry. */
+.juba-app-shell:has(.reference-dashboard){display:block!important;min-width:0!important;margin:0!important;padding:0!important;}
+.juba-app-shell:has(.reference-dashboard) .juba-duo-sidebar{position:fixed!important;inset-inline-start:0!important;inset-inline-end:auto!important;inset-block:0!important;margin:0!important;}
+.juba-app-shell:has(.reference-dashboard) .juba-duo-main{display:flex!important;flex-direction:column!important;position:relative!important;width:auto!important;max-width:none!important;min-width:0!important;margin-inline-start:var(--juba-sidebar-width)!important;margin-inline-end:0!important;padding:0!important;flex:initial!important;border:0!important;border-radius:0!important;box-shadow:none!important;}
+.juba-app-shell:has(.reference-dashboard) .juba-app-topbar{width:100%!important;align-self:stretch!important;margin:0!important;padding-inline:24px!important;border-radius:0!important;}
+.juba-app-shell:has(.reference-dashboard) .juba-duo-page-frame{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;}
+.juba-app-shell:has(.reference-dashboard) .reference-dashboard{width:100%!important;max-width:none!important;margin:0!important;}
+@media(max-width:900px){
+  .juba-app-shell:has(.reference-dashboard) .juba-duo-main{margin-inline-start:0!important;padding-block-start:54px!important;}
+  .juba-app-shell:has(.reference-dashboard) .juba-app-topbar{display:none!important;}
+}
