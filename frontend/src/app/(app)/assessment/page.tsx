@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-sm'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] shadow-[0_1px_2px_rgba(36,48,32,.025)]'
   const panelClass = 'rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)]/45 p-4'
-  const actionClass = 'w-full rounded-[12px] bg-[var(--juba-green,var(--duo-green))] px-4 py-3 font-bold text-white shadow-sm transition hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]'
+  const actionClass = 'w-full rounded-[12px] bg-[var(--juba-green,var(--duo-green))] px-4 py-3 font-bold text-white shadow-[0_1px_2px_rgba(36,48,32,.025)] transition hover:bg-[var(--juba-green-dark,var(--duo-green-dark))]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -340,7 +340,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={`${cardClass} juba-reference-assessment-card`}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">A</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--duo-green-dark))]">A</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('title')}</p>
               <p className="text-xs text-[var(--juba-muted,var(--duo-muted))]">{t('currentLevel')}</p>
@@ -404,12 +404,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-page-shell juba-mobile-assessment w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-        <div className="mb-5 flex items-center justify-between juba-card rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between juba-card rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] px-5 py-4 shadow-[0_1px_2px_rgba(36,48,32,.025)]">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[var(--juba-ink,var(--duo-ink))]">{currentLevel}</p>
           </div>
-          <div className="rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-bold text-[var(--juba-green-dark,var(--duo-green-dark))]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -424,7 +424,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">✓</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--duo-green-dark))]">✓</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('resultStep')}</p>
               <p className="text-xs text-[var(--juba-muted,var(--duo-muted))]">{t('cefrLevel')}</p>
@@ -443,7 +443,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[12px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-green,var(--duo-green))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]' : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[12px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-green,var(--duo-green))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--duo-green-dark))]' : 'border-[var(--juba-border,var(--duo-line))] text-[var(--juba-muted,var(--duo-muted))] hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -453,7 +453,7 @@ export default function AssessmentPage() {
             {result.strengths.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">{s}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-3 py-1.5 text-xs font-medium text-[var(--juba-green-dark,var(--duo-green-dark))]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
@@ -494,7 +494,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border,var(--duo-line))] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]">◉</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-sm font-bold text-[var(--juba-green-dark,var(--duo-green-dark))]">◉</span>
             <p className="text-xs font-bold uppercase tracking-wide text-[var(--juba-muted,var(--duo-muted))]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
