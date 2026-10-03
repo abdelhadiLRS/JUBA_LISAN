@@ -17,7 +17,9 @@ from fastapi import (
 )
 from fastapi.responses import FileResponse
 from redis.asyncio import Redis
-from sqlalchemy import delete, func, select, update
+from sqlalchemy import delete, select, update
+from sqlalchemy.dialects.postgresql import insert as pg_insert
+from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.app_logger import get_logger
@@ -33,7 +35,7 @@ from app.core.security import (
     verify_password,
 )
 from app.models.refresh_token import RefreshToken
-from app.models.user import User
+from app.models.user import AdminBootstrapClaim, User
 from app.models.user_language import UserLanguage
 from app.schemas.auth import (
     ForgotPasswordRequest,
@@ -55,6 +57,33 @@ logger = get_logger(__name__)
 _AVATARS_DIR: str | None = None
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+
+async def _claim_registration_role(db: AsyncSession) -> str:
+    """Claim bootstrap before any registration reads, without committing.
+
+    The singleton insert and new User must commit or roll back together. A
+    concurrent insert waits for the owner: commit makes it lose, rollback lets
+    it win. SQLite must acquire its write lock before reading users, avoiding
+    a read-transaction upgrade race. Consume bootstrap even with the flag off.
+    """
+    dialect = db.get_bind().dialect.name
+    if dialect == "postgresql":
+        insert = pg_insert
+    elif dialect == "sqlite":
+        insert = sqlite_insert
+    else:
+        raise RuntimeError("Atomic admin bootstrap requires PostgreSQL or SQLite")
+    result = await db.execute(
+        insert(AdminBootstrapClaim)
+        .values(id=1)
+        .on_conflict_do_nothing(index_elements=[AdminBootstrapClaim.id])
+        .returning(AdminBootstrapClaim.id)
+    )
+    if result.scalar_one_or_none() is None:
+        return "user"
+    existing_user = await db.scalar(select(User.id).limit(1))
+    return "admin" if settings.FIRST_USER_IS_ADMIN and existing_user is None else "user"
 
 
 def _hash_refresh_token(token: str) -> str:
@@ -183,6 +212,11 @@ async def register(
                 detail="Email domain not allowed",
             )
 
+    # First database statement: hold bootstrap ownership until User commits.
+    # Hash before taking the database lock to keep the critical section short.
+    hashed_password = hash_password(data.password)
+    role = await _claim_registration_role(db)
+
     existing = await db.execute(select(User).where(User.username == data.username))
     if existing.scalar_one_or_none():
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Username already taken")
@@ -191,14 +225,11 @@ async def register(
     if email_check.scalar_one_or_none():
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already taken")
 
-    user_count = await db.scalar(select(func.count(User.id)))
-    role = "admin" if (user_count == 0 and settings.FIRST_USER_IS_ADMIN) else "user"
-
     user = User(
         username=data.username,
         email=data.email,
         display_name=data.display_name or data.username,
-        hashed_password=hash_password(data.password),
+        hashed_password=hashed_password,
         native_language=data.native_language,
         target_language=data.target_language,
         role=role,
@@ -573,6 +604,7 @@ async def delete_me(
     token = request.cookies.get("refresh_token")
     if token:
         await _delete_refresh_token(redis, token, db)
+    response.delete_cookie("refresh_token")
     response.delete_cookie("refresh_token")
     old_path = _avatar_path_from_reference(current_user.avatar)
     if old_path and os.path.exists(old_path):

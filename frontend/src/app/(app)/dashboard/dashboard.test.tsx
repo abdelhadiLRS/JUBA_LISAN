@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import DashboardPage from './page'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 const { api, auth, language, progress, labels }=vi.hoisted(()=>({
   api:vi.fn(),auth:{user:{id:1,displayName:'Learner',username:'learner',avatar:null,subscription_status:'none',freemium_trial_ends_at:null},accessToken:'test-token'},
@@ -14,12 +15,12 @@ vi.mock('@/store/auth',()=>({useAuthStore:(selector:(s:typeof auth)=>unknown)=>s
 vi.mock('@/store/config',()=>({useConfigStore:(selector:(s:{stripeEnabled:boolean})=>unknown)=>selector({stripeEnabled:false})}))
 vi.mock('@/store/language',()=>({useLanguageStore:(selector:(s:typeof language)=>unknown)=>selector(language)}))
 vi.mock('@/store/progress',()=>({useProgressStore:()=>progress}))
-vi.mock('@/lib/learning-progress',()=>({subscribeToLearningProgressUpdated:()=>()=>{}}))
 vi.mock('@/components/tour/OnboardingTour',()=>({default:()=>null}))
 vi.mock('@/components/whats-new/WhatsNew',()=>({default:()=>null}))
 vi.mock('@/components/ui/page-loading',()=>({PageLoading:({label}:{label:string})=><p>{label}</p>}))
 vi.mock('@/components/billing/SubscriptionPlanButtons',()=>({SubscriptionPlanButtons:()=>null}))
 vi.mock('@/components/AuthAvatarImage',()=>({AuthAvatarImage:()=>null}))
+const channels:Array<EventTarget & {close:ReturnType<typeof vi.fn>}> = []
 const response=(data:unknown)=>({ok:true,status:200,json:async()=>data})
 const summary={total_xp:40,current_streak:2,total_lessons:3,accuracy:.82,vocabulary_progress:.2,vocabulary_mastered:2,vocabulary_total:10}
 const goal={daily_xp:15,daily_xp_target:30,daily_progress:.5,weekly_xp:75,weekly_xp_target:250,weekly_progress:.3}
@@ -33,6 +34,12 @@ function answers(url:string){
   return response([])
 }
 beforeEach(()=>{
+  channels.length=0
+  vi.stubGlobal('BroadcastChannel',class extends EventTarget {
+    close=vi.fn()
+    postMessage=vi.fn()
+    constructor(){super();channels.push(this)}
+  })
   api.mockReset();api.mockImplementation((url:string)=>Promise.resolve(answers(url)))
   language.activeLanguage={code:'it-IT'};language.isSwitching=false
   progress.setProgress.mockReset();progress.setTodayLessons.mockReset()
@@ -40,7 +47,7 @@ beforeEach(()=>{
   progress.setProgress.mockImplementation((p:{xp:number;streak:number})=>{progress.xp=p.xp;progress.streak=p.streak})
   progress.setTodayLessons.mockImplementation((lessons:Array<Record<string,unknown>>)=>{progress.todayLessons=lessons})
 })
-afterEach(cleanup)
+afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks()})
 
 describe('Reference Dashboard v4',()=>{
   it('shows real goals and league standings without automatically enrolling',async()=>{
@@ -90,5 +97,58 @@ describe('Reference Dashboard v4',()=>{
     pending.slice(0,6).forEach(({url,resolve})=>resolve(answers(url)))
     await Promise.resolve();await Promise.resolve()
     expect(screen.queryByRole('heading',{name:'Silver League'})).toBeNull()
+  })
+  it('removes all refresh listeners and closes the real progress subscription on unmount',async()=>{
+    const add=vi.spyOn(document,'addEventListener')
+    const remove=vi.spyOn(document,'removeEventListener')
+    const {unmount}=render(<DashboardPage/>)
+    await screen.findByRole('heading',{name:'Silver League'})
+    const visibilityListener=add.mock.calls.find(([type])=>type==='visibilitychange')?.[1]
+    expect(visibilityListener).toBeTruthy()
+    const channel=channels[0]
+    expect(channel).toBeTruthy()
+    unmount()
+    expect(remove).toHaveBeenCalledWith('visibilitychange',visibilityListener)
+    expect(channel.close).toHaveBeenCalledTimes(1)
+    const calls=api.mock.calls.length
+    await act(async()=>{
+      window.dispatchEvent(new Event('focus'))
+      document.dispatchEvent(new Event('visibilitychange'))
+      markLearningProgressUpdated()
+      window.dispatchEvent(new StorageEvent('storage',{key:'juba:learning-progress-updated',newValue:'1',storageArea:localStorage}))
+      channel.dispatchEvent(new MessageEvent('message',{data:{type:'juba:learning-progress-updated'}}))
+      await Promise.resolve()
+    })
+    expect(api).toHaveBeenCalledTimes(calls)
+  })
+  it('closes the old channel on context changes and refreshes only the current context',async()=>{
+    const {rerender,unmount}=render(<DashboardPage/>)
+    await screen.findByRole('heading',{name:'Silver League'})
+    const oldChannel=channels[0]
+    language.activeLanguage={code:'fr-FR'}
+    rerender(<DashboardPage/>)
+    await waitFor(()=>expect(api.mock.calls.some(([url])=>url.includes('target_language=fr-FR'))).toBe(true))
+    await waitFor(()=>expect(screen.queryByText('Loading progress')).toBeNull())
+    expect(oldChannel.close).toHaveBeenCalledTimes(1)
+    expect(channels).toHaveLength(2)
+    const calls=api.mock.calls.length
+    await act(async()=>{oldChannel.dispatchEvent(new MessageEvent('message',{data:{type:'juba:learning-progress-updated'}}))})
+    expect(api).toHaveBeenCalledTimes(calls)
+    await act(async()=>{markLearningProgressUpdated();await Promise.resolve()})
+    await waitFor(()=>expect(api).toHaveBeenCalledTimes(calls+6))
+    expect(api.mock.calls.slice(calls).some(([url])=>url.includes('target_language=it-IT'))).toBe(false)
+    unmount()
+    expect(channels[1].close).toHaveBeenCalledTimes(1)
+  })
+  it('does not publish pending results after unmount',async()=>{
+    const pending:Array<{url:string;resolve:(value:unknown)=>void}>=[]
+    api.mockImplementation((url:string)=>new Promise(resolve=>pending.push({url,resolve})))
+    const {unmount}=render(<DashboardPage/>)
+    await waitFor(()=>expect(pending).toHaveLength(6))
+    unmount()
+    progress.setProgress.mockClear();progress.setTodayLessons.mockClear()
+    await act(async()=>{pending.forEach(({url,resolve})=>resolve(answers(url)));await Promise.resolve()})
+    expect(progress.setProgress).not.toHaveBeenCalled()
+    expect(progress.setTodayLessons).not.toHaveBeenCalled()
   })
 })

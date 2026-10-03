@@ -131,7 +131,17 @@ export default function DashboardPage() {
   },[accountId,languageCode,switching,setProgress,setTodayLessons])
   useEffect(()=>{void loadData();return()=>{generation.current+=1;inFlight.current=false}},[loadData])
   const refresh=useCallback(()=>{if(inFlight.current||switching)return;setRefreshing(true);void loadData()},[loadData,switching])
-  useEffect(()=>{const onVisible=()=>{if(document.visibilityState==='visible')refresh()};window.addEventListener('focus',refresh);document.addEventListener('visibilitychange',onVisible);const unsubscribe=subscribeToLearningProgressUpdated(refresh);return()=>{window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',unsubscribe)}},[refresh])
+  useEffect(()=>{
+    const onVisible=()=>{if(document.visibilityState==='visible')refresh()}
+    window.addEventListener('focus',refresh)
+    document.addEventListener('visibilitychange',onVisible)
+    const unsubscribe=subscribeToLearningProgressUpdated(refresh)
+    return()=>{
+      window.removeEventListener('focus',refresh)
+      document.removeEventListener('visibilitychange',onVisible)
+      unsubscribe()
+    }
+  },[refresh])
   async function handleManageSubscription(){setPortalLoading(true);setPortalError(null);try{const res=await apiFetch('/api/billing/portal',{method:'POST'});if(!res.ok)throw new Error(tBilling('portalError'));const {url}=await res.json();window.location.assign(url)}catch(err){setPortalError(err instanceof Error?err.message:tBilling('portalError'));setPortalLoading(false)}}
   if(loading||switching)return <PageLoading label={t('loadingProgress')} minHeight="min-h-screen"/>
   const completedLessonCount=todayLessons.filter(l=>(l.id&&completedToday.includes(l.id))||l.isCompleted).length

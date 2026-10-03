@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from sqlalchemy import Boolean, DateTime, Integer, String, Text
+from sqlalchemy import Boolean, CheckConstraint, DateTime, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.config import settings
@@ -47,3 +47,16 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None))
     last_login: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     ai_sessions: Mapped[list["AISession"]] = relationship("AISession", back_populates="user", cascade="all, delete-orphan", lazy="select")
+
+
+class AdminBootstrapClaim(Base):
+    """Permanent singleton, committed in the first registration's transaction.
+
+    Not linked to a user: deleting accounts must never re-enable auto-admin.
+    Importing User also registers this table for Desktop create_all and Alembic.
+    """
+
+    __tablename__ = "admin_bootstrap_claims"
+    __table_args__ = (CheckConstraint("id = 1", name="ck_admin_bootstrap_singleton"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False)
