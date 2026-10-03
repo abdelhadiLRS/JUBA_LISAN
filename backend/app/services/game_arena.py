@@ -75,6 +75,7 @@ def public(state):
         "attempts", "max_moves", "feedback", "deadline", "relaxed",
     )}
     out["version"] = len(state["log"])
+    out["server_time"] = time.time()
     if state["game"] in {"memory", "matching"}:
         out["cards"] = [
             dict(id=card["id"], side=card["side"],
@@ -116,6 +117,8 @@ def apply(state, move, now=None):
     kind = move["kind"]
     game = state["game"]
     if kind == "leave":
+        if state["attempts"] == 0:
+            raise ValueError("Play at least one move before saving")
         state["phase"] = "finished"
         state["won"] = False
     elif kind == "continue" and state["phase"] == "feedback":
