@@ -15,6 +15,7 @@ from app.models.lesson import Exercise, Lesson
 from app.models.listening import ListeningAttempt, ListeningExercise
 from app.models.learning_goal import LearningGoal
 from app.models.learning_goal_milestone import LearningGoalMilestone
+from app.models.league import LeagueMembership, LeagueSeason
 from app.models.llm_usage import LLMUsage
 from app.models.memory import Memory
 from app.models.progress import Progress
@@ -51,6 +52,8 @@ __all__ = [
     "ListeningExercise",
     "LearningGoal",
     "LearningGoalMilestone",
+    "LeagueMembership",
+    "LeagueSeason",
     "LLMUsage",
     "Memory",
     "Progress",

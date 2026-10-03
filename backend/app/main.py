@@ -125,6 +125,7 @@ from app.routers import (
 from app.routers import config as config_router
 from app.routers import health as health_router
 from app.routers import community_professional as community_router
+from app.routers import leagues as leagues_router
 
 app.include_router(auth.router)
 app.include_router(admin.router)
@@ -158,6 +159,7 @@ app.include_router(health_router.router)
 app.include_router(vocabulary.router)
 app.include_router(social.router)
 app.include_router(community_router.router)
+app.include_router(leagues_router.router)
 
 if settings.STRIPE_ENABLED:
     import stripe as _stripe
