@@ -4,7 +4,8 @@ import logging
 import random
 from typing import Any
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.reading import ReadingAttempt, ReadingExercise
@@ -228,32 +229,49 @@ async def submit_attempt(
     study_plan_id: int | None = None,
 ) -> tuple[ReadingAttempt, ReadingExercise]:
     """
-    Score answers, persist attempt, increment view_count, award XP.
-    Returns (attempt, exercise).
-    Raises ValueError("exercise_not_found") if exercise_id is invalid.
-    Raises ValueError("already_attempted") if user already submitted for this exercise
-    and is_replay is False.
-    When is_replay=True the duplicate guard is skipped and xp_earned is forced to 0
-    (spec: replaying an exercise from history awards no additional XP).
+    Score answers and return (attempt, exercise).
+
+    First attempt: persists exactly one scored attempt, increments view_count
+    and awards XP. A partial unique index on (user_id, exercise_id) for
+    non-replay rows makes this safe under concurrent submissions: a duplicate
+    or the losing concurrent request raises ValueError("already_attempted") and awards nothing.
+
+    Replay (is_replay=True): read-only practice. It requires an earlier scored
+    attempt (otherwise a "replay" would reveal the answers before the scored
+    attempt), persists nothing, leaves view_count unchanged and never awards XP.
+    The returned attempt is transient and is not added to the session.
+
+    Raises ValueError("exercise_not_found") if exercise_id is invalid,
+    ValueError("already_attempted") for a second first attempt and
+    ValueError("not_attempted") for a replay without a prior attempt.
     """
     exercise = await db.get(ReadingExercise, exercise_id)
     if exercise is None:
         raise ValueError("exercise_not_found")
 
-    if not is_replay:
-        # Guard against duplicate submissions on first attempt
-        existing = await db.execute(
-            select(ReadingAttempt).where(
+    score, xp_earned = calculate_score(exercise.questions, answers)
+
+    if is_replay:
+        previous = await db.execute(
+            select(ReadingAttempt.id)
+            .where(
                 ReadingAttempt.user_id == user_id,
                 ReadingAttempt.exercise_id == exercise_id,
             )
+            .limit(1)
         )
-        if existing.scalar_one_or_none() is not None:
-            raise ValueError("already_attempted")
-
-    score, xp_earned = calculate_score(exercise.questions, answers)
-    if is_replay:
-        xp_earned = 0  # replays never award XP
+        if previous.scalar_one_or_none() is None:
+            raise ValueError("not_attempted")
+        attempt = ReadingAttempt(
+            user_id=user_id,
+            exercise_id=exercise_id,
+            study_plan_id=study_plan_id,
+            answers=answers,
+            score=score,
+            xp_earned=0,
+            is_replay=True,
+        )
+        return attempt, exercise
 
     attempt = ReadingAttempt(
         user_id=user_id,
@@ -262,13 +280,27 @@ async def submit_attempt(
         answers=answers,
         score=score,
         xp_earned=xp_earned,
+        is_replay=False,
     )
+    # The partial unique index on (user_id, exercise_id) for non-replay rows
+    # is the single source of truth: a sequential duplicate and the losing
+    # side of a concurrent race both fail here and award nothing.
     db.add(attempt)
+    try:
+        await db.flush()
+    except IntegrityError as exc:
+        await db.rollback()
+        raise ValueError("already_attempted") from exc
 
-    exercise.view_count += 1
+    await db.execute(
+        update(ReadingExercise)
+        .where(ReadingExercise.id == exercise_id)
+        .values(view_count=ReadingExercise.view_count + 1)
+    )
 
     await db.commit()
     await db.refresh(attempt)
+    await db.refresh(exercise)
 
     # Award XP via the shared progress service (creates today's row if missing)
     if xp_earned > 0:

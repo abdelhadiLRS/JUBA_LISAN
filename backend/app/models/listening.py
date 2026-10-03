@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from sqlalchemy import JSON, DateTime, ForeignKey, Index, Integer, String, Text
+from sqlalchemy import JSON, Boolean, DateTime, ForeignKey, Index, Integer, String, Text, false, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -33,9 +33,25 @@ class ListeningExercise(Base):
 
 
 class ListeningAttempt(Base):
-    """One row per user completion of a ListeningExercise."""
+    """One row per scored first completion of a ListeningExercise.
+
+    Replays are not persisted. ``is_replay`` only marks historical duplicate
+    rows created before migration 0071; the partial unique index guarantees a
+    single scored first attempt per user and exercise, even under concurrency.
+    """
 
     __tablename__ = "listening_attempts"
+
+    __table_args__ = (
+        Index(
+            "uq_listening_attempts_first_attempt",
+            "user_id",
+            "exercise_id",
+            unique=True,
+            sqlite_where=text("is_replay = 0"),
+            postgresql_where=text("is_replay = false"),
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(
@@ -57,6 +73,7 @@ class ListeningAttempt(Base):
     # {"0": "B", "1": "A", "2": "C", "3": "D", "4": "A"}
     score: Mapped[int] = mapped_column(Integer, nullable=False)  # 0–5
     xp_earned: Mapped[int] = mapped_column(Integer, nullable=False)
+    is_replay: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=false())
     completed_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )

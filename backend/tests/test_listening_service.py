@@ -233,14 +233,23 @@ class TestSubmitAttempt:
             )
 
     @pytest.mark.asyncio
-    async def test_replay_awards_no_xp(self, db_session, exercise, study_plan):
+    async def test_replay_awards_no_xp_and_persists_nothing(self, db_session, exercise, study_plan):
         from app.services.listening_service import submit_attempt
 
         ex, user_id = exercise
-        attempt, _ = await submit_attempt(
+        answers = {"0": "B", "1": "B", "2": "B", "3": "B", "4": "B"}
+        await submit_attempt(
             exercise_id=ex.id,
             user_id=user_id,
-            answers={"0": "B", "1": "B", "2": "B", "3": "B", "4": "B"},
+            answers=answers,
+            db=db_session,
+            is_replay=False,
+            study_plan_id=study_plan.id,
+        )
+        attempt, returned_ex = await submit_attempt(
+            exercise_id=ex.id,
+            user_id=user_id,
+            answers=answers,
             db=db_session,
             is_replay=True,
             study_plan_id=study_plan.id,
@@ -248,6 +257,26 @@ class TestSubmitAttempt:
 
         assert attempt.xp_earned == 0
         assert attempt.score == 5
+        assert returned_ex.play_count == 1
+        rows = (await db_session.execute(
+            select(ListeningAttempt).where(ListeningAttempt.user_id == user_id)
+        )).scalars().all()
+        assert len(rows) == 1
+
+    @pytest.mark.asyncio
+    async def test_replay_without_prior_attempt_raises(self, db_session, exercise, study_plan):
+        from app.services.listening_service import submit_attempt
+
+        ex, user_id = exercise
+        with pytest.raises(ValueError, match="not_attempted"):
+            await submit_attempt(
+                exercise_id=ex.id,
+                user_id=user_id,
+                answers={"0": "B", "1": "B", "2": "B", "3": "B", "4": "B"},
+                db=db_session,
+                is_replay=True,
+                study_plan_id=study_plan.id,
+            )
 
     @pytest.mark.asyncio
     async def test_exercise_not_found_raises(self, db_session, test_user):

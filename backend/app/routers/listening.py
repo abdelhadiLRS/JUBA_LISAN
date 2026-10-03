@@ -125,7 +125,7 @@ async def submit_listening_attempt(request: Request, body: ListeningSubmitReques
         attempt, exercise = await submit_attempt(body.exercise_id, current_user.id, body.answers, db, is_replay=body.replay, study_plan_id=plan.id)
     except ValueError as exc:
         reason = str(exc)
-        raise HTTPException(status_code=404 if reason == "exercise_not_found" else 409 if reason == "already_attempted" else 400, detail=reason) from exc
+        raise HTTPException(status_code=404 if reason == "exercise_not_found" else 409 if reason in {"already_attempted", "not_attempted"} else 400, detail=reason) from exc
     return ListeningSubmitResponse(score=attempt.score, xp_earned=attempt.xp_earned, text=exercise.text,
         correct_answers=[CorrectAnswerOut(index=q["index"], correct=q["correct"]) for q in exercise.questions])
 
