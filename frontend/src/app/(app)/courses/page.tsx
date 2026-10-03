@@ -2,213 +2,101 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles, Coffee, Utensils, Plane, Briefcase } from 'lucide-react'
+import { useLocale } from 'next-intl'
+import { BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Coffee, Utensils, Plane, Briefcase, ChevronRight, ChevronLeft } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
+import './courses-reference.css'
 
-interface StudyPlan {
-  cefr_level: CEFRLevel
-  generated_plan?: {
-    weekly_plan?: Array<{
-      days?: Array<{ unit_id: string }>
-    }>
-  }
+interface StudyPlan {cefr_level:CEFRLevel;generated_plan?:{weekly_plan?:Array<{days?:Array<{unit_id:string}>}>}}
+interface CompetencyRecord {unit_id:string;score:number}
+interface JourneyUnit {id:string;progress:number;state:string;lessons?:Array<{id:number;is_completed:boolean;state:string}>}
+const LEVEL_META:Record<CEFRLevel,{title:string;desc:string}>={
+  A1:{title:'A1 · Starter',desc:'Build your first practical vocabulary and everyday phrases.'},
+  A2:{title:'A2 · Elementary',desc:'Understand common situations and speak with more confidence.'},
+  B1:{title:'B1 · Intermediate',desc:'Express ideas, follow conversations, and read with independence.'},
+  B2:{title:'B2 · Upper Intermediate',desc:'Handle richer conversations and more precise language.'},
+  C1:{title:'C1 · Advanced',desc:'Develop fluent, nuanced communication for demanding contexts.'},
+  C2:{title:'C2 · Mastery',desc:'Refine precise, natural communication across demanding contexts.'},
 }
-
-interface CompetencyRecord {
-  unit_id: string
-  score: number
+const AR_LEVEL_META:Record<CEFRLevel,{title:string;desc:string}>={
+  A1:{title:'A1 · البداية',desc:'ابنِ مفرداتك الأولى والعبارات اليومية العملية.'},
+  A2:{title:'A2 · أساسي',desc:'افهم المواقف الشائعة وتحدث بثقة أكبر.'},
+  B1:{title:'B1 · متوسط',desc:'عبّر عن أفكارك وتابع المحادثات واقرأ باستقلالية.'},
+  B2:{title:'B2 · فوق المتوسط',desc:'تعامل مع محادثات أعمق ولغة أكثر دقة.'},
+  C1:{title:'C1 · متقدم',desc:'طوّر تواصلًا طليقًا ودقيقًا في المواقف المتقدمة.'},
+  C2:{title:'C2 · إتقان',desc:'حسّن التواصل الطبيعي والدقيق في مختلف المواقف.'},
 }
+const skills=[{icon:BookOpen,title:'Learn',text:'Build useful language in small, focused steps.',arTitle:'تعلّم',arText:'ابنِ لغة مفيدة بخطوات صغيرة ومركزة.'},{icon:Headphones,title:'Listen',text:'Train your ear with short real-world practice.',arTitle:'استمع',arText:'درّب أذنك بممارسة قصيرة من الواقع.'},{icon:Mic2,title:'Speak',text:'Turn recognition into confident active recall.',arTitle:'تحدث',arText:'حوّل معرفتك إلى استخدام فعلي بثقة.'}]
+const places=[{icon:Coffee,title:'Café',text:'Order, ask and respond.',arTitle:'المقهى',arText:'اطلب واسأل وأجب.'},{icon:Utensils,title:'Restaurant',text:'Food, requests and payment.',arTitle:'المطعم',arText:'الطعام والطلبات والدفع.'},{icon:Plane,title:'Travel',text:'Tickets, directions and arrival.',arTitle:'السفر',arText:'التذاكر والاتجاهات والوصول.'},{icon:Briefcase,title:'Work',text:'Meetings and everyday tasks.',arTitle:'العمل',arText:'الاجتماعات والمهام اليومية.'}]
+function lessonCount(plan:StudyPlan|null){return plan?.generated_plan?.weekly_plan?.reduce((total,week)=>total+(week.days?.length??0),0)??0}
+const clamp=(value:number)=>Math.max(0,Math.min(100,Number.isFinite(value)?value:0))
 
-const LEVEL_META: Record<CEFRLevel, { title: string; desc: string }> = {
-  A1: { title: 'A1 · Starter', desc: 'Build your first practical vocabulary and everyday phrases.' },
-  A2: { title: 'A2 · Elementary', desc: 'Understand common situations and speak with more confidence.' },
-  B1: { title: 'B1 · Intermediate', desc: 'Express ideas, follow conversations, and read with independence.' },
-  B2: { title: 'B2 · Upper Intermediate', desc: 'Handle richer conversations and more precise language.' },
-  C1: { title: 'C1 · Advanced', desc: 'Develop fluent, nuanced communication for demanding contexts.' },
-  C2: { title: 'C2 · Mastery', desc: 'Refine precise, natural communication across demanding contexts.' },
-}
-
-const skills = [
-  { icon: BookOpen, title: 'Learn', text: 'Build useful language in small, focused steps.' },
-  { icon: Headphones, title: 'Listen', text: 'Train your ear with short real-world practice.' },
-  { icon: Mic2, title: 'Speak', text: 'Turn recognition into confident active recall.' },
-]
-
-const places = [
-  { icon: Coffee, title: 'Café', text: 'Order, ask and respond.' },
-  { icon: Utensils, title: 'Restaurant', text: 'Food, requests and payment.' },
-  { icon: Plane, title: 'Travel', text: 'Tickets, directions and arrival.' },
-  { icon: Briefcase, title: 'Work', text: 'Meetings and everyday tasks.' },
-]
-
-function getPlanLessonCount(plan: StudyPlan | null): number {
-  return plan?.generated_plan?.weekly_plan?.reduce(
-    (total, week) => total + (week.days?.length ?? 0),
-    0,
-  ) ?? 0
-}
-
-export default function CoursesPage() {
-  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const [plan, setPlan] = useState<StudyPlan | null>(null)
-  const [competencies, setCompetencies] = useState<Record<string, number>>({})
-  const [levelUnits, setLevelUnits] = useState<Record<CEFRLevel, CurriculumUnit[]>>({} as Record<CEFRLevel, CurriculumUnit[]>)
-  const [journeyUnits, setJourneyUnits] = useState<Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }>>({})
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    let cancelled = false
-
-    async function load() {
-      setLoading(true)
-      try {
-        const language = activeLanguage?.code ?? 'en-GB'
-        const [planRes, compRes, journeyRes, ...curriculumResponses] = await Promise.all([
-          apiFetch('/api/study-plan/current').catch(() => null),
-          apiFetch('/api/progress/competencies').catch(() => null),
-          apiFetch('/api/study-plan/learning-path').catch(() => null),
-          ...CEFR_LEVELS.map((level) => getCurriculumUnits(level, language).catch(() => [])),
+export default function CoursesPage(){
+  const locale=useLocale()
+  const rtl=locale==='ar'
+  const activeLanguage=useLanguageStore(s=>s.activeLanguage)
+  const [plan,setPlan]=useState<StudyPlan|null>(null)
+  const [competencies,setCompetencies]=useState<Record<string,number>>({})
+  const [levelUnits,setLevelUnits]=useState<Record<CEFRLevel,CurriculumUnit[]>>({} as Record<CEFRLevel,CurriculumUnit[]>)
+  const [journeyUnits,setJourneyUnits]=useState<Record<string,JourneyUnit>>({})
+  const [loading,setLoading]=useState(true)
+  const [loadError,setLoadError]=useState(false)
+  const [reload,setReload]=useState(0)
+  useEffect(()=>{
+    let cancelled=false
+    async function load(){
+      setLoading(true);setLoadError(false)
+      try{
+        const language=activeLanguage?.code??'en-GB'
+        const [planRes,compRes,journeyRes,...curriculumResponses]=await Promise.all([
+          apiFetch('/api/study-plan/current').catch(()=>null),apiFetch('/api/progress/competencies').catch(()=>null),apiFetch('/api/study-plan/learning-path').catch(()=>null),...CEFR_LEVELS.map(level=>getCurriculumUnits(level,language).catch(()=>[])),
         ])
-        const nextPlan = planRes?.ok ? (await planRes.json() as StudyPlan) : null
-
-        if (cancelled) return
-        setPlan(nextPlan)
-
-        if (compRes?.ok) {
-          const raw = await compRes.json()
-          const next: Record<string, number> = {}
-          if (Array.isArray(raw)) {
-            for (const item of raw as CompetencyRecord[]) next[item.unit_id] = item.score
-          } else if (raw && typeof raw === 'object') {
-            Object.assign(next, raw as Record<string, number>)
-          }
-          if (!cancelled) setCompetencies(next)
-        }
-
-        if (journeyRes?.ok) {
-          const journey = await journeyRes.json()
-          const nextJourney: Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }> = {}
-          for (const section of journey.sections ?? []) {
-            for (const unit of section.units ?? []) nextJourney[unit.id] = unit
-          }
-          setJourneyUnits(nextJourney)
-        }
-
-        const units = Object.fromEntries(
-          CEFR_LEVELS.map((level, index) => [level, curriculumResponses[index] ?? []]),
-        ) as Record<CEFRLevel, CurriculumUnit[]>
-        setLevelUnits(units)
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
+        const nextPlan=planRes?.ok?await planRes.json() as StudyPlan:null
+        const nextCompetencies:Record<string,number>={}
+        if(compRes?.ok){const raw=await compRes.json();if(Array.isArray(raw)){for(const item of raw as CompetencyRecord[])nextCompetencies[item.unit_id]=item.score}else if(raw&&typeof raw==='object')Object.assign(nextCompetencies,raw as Record<string,number>)}
+        const nextJourney:Record<string,JourneyUnit>={}
+        if(journeyRes?.ok){const journey=await journeyRes.json();for(const section of journey.sections??[])for(const unit of section.units??[])nextJourney[unit.id]=unit}
+        if(cancelled)return
+        setPlan(nextPlan);setCompetencies(nextCompetencies);setJourneyUnits(nextJourney)
+        setLevelUnits(Object.fromEntries(CEFR_LEVELS.map((level,index)=>[level,curriculumResponses[index]??[]])) as Record<CEFRLevel,CurriculumUnit[]>)
+        if(!planRes||!compRes||!journeyRes||(!compRes.ok&&compRes.status>=500)||(!journeyRes.ok&&journeyRes.status>=500))setLoadError(true)
+      }catch{if(!cancelled)setLoadError(true)}finally{if(!cancelled)setLoading(false)}
     }
-
-    void load()
-    return () => { cancelled = true }
-  }, [activeLanguage?.code])
-
-  const currentLevel = plan?.cefr_level ?? null
-  const currentIndex = currentLevel ? CEFR_LEVELS.indexOf(currentLevel) : 0
-  const currentUnits = currentLevel ? (levelUnits[currentLevel] ?? []) : []
-  const currentProgress = useMemo(() => {
-    if (currentUnits.length === 0) return 0
-    const journeyScores = currentUnits.map((unit) => journeyUnits[unit.id]?.progress).filter((score): score is number => typeof score === 'number')
-    if (journeyScores.length) return Math.round((journeyScores.reduce((sum, score) => sum + score, 0) / journeyScores.length) * 100)
-    return Math.round((currentUnits.reduce((sum, unit) => sum + (competencies[unit.id] ?? 0), 0) / currentUnits.length) * 100)
-  }, [competencies, currentUnits, journeyUnits])
-  const currentLessonCount = getPlanLessonCount(plan)
-
-  return (
-    <main className="juba-page-shell juba-mobile-courses w-full px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-      <div className="w-full space-y-5">
-        <section className="juba-page-hero juba-reference-hero relative overflow-hidden p-5 sm:p-6">
-          <div className="relative z-10 max-w-4xl">
-            <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
-            <h1 className="mt-2 text-[28px] font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))] sm:text-4xl">Learn language you can actually use.</h1>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--juba-muted,var(--duo-muted))]">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
-            <div className="juba-reference-actions mt-5 flex flex-wrap gap-2.5">
-              <Link href="/learning-journey" className="juba-primary-button inline-flex items-center gap-2 text-sm font-bold transition-colors">Continue journey <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/assessment" className="juba-secondary-button inline-flex items-center gap-2 text-sm font-bold text-[var(--juba-ink,var(--duo-ink))] transition-colors">Find my level</Link>
-            </div>
-          </div>
-          <div className="juba-hero-glow" aria-hidden="true" />
-        </section>
-
-        <section className="grid gap-3 md:grid-cols-3">
-          {skills.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="juba-card p-5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]"><Icon className="h-5 w-5" /></div>
-              <h2 className="mt-4 text-xl font-black text-[var(--juba-ink,var(--duo-ink))]">{title}</h2>
-              <p className="mt-2 text-sm leading-6 text-[var(--juba-muted,var(--duo-muted))]">{text}</p>
-            </div>
-          ))}
-        </section>
-
-        <section>
-          <div className="juba-reference-section-head mb-4 flex flex-wrap items-end justify-between gap-3">
-            <div><p className="juba-eyebrow">Your roadmap</p><h2 className="mt-1 text-2xl font-extrabold tracking-tight text-[var(--juba-ink,var(--duo-ink))] sm:text-3xl">One path. Six levels.</h2></div>
-            <span className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-bg,var(--duo-bg))] px-3 py-2 text-xs font-bold text-[var(--juba-muted,var(--duo-muted))]">CEFR · {CEFR_LEVELS.length} levels</span>
-          </div>
-
-          {loading ? (
-            <div className="grid gap-4 lg:grid-cols-2" aria-label="Loading courses">
-              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse p-6" />)}
-            </div>
-          ) : (
-            <div className="grid gap-5 lg:grid-cols-2">
-              {CEFR_LEVELS.map((level, index) => {
-                const unlocked = currentLevel ? index <= currentIndex : index === 0
-                const current = level === currentLevel
-                const units = levelUnits[level] ?? []
-                const journeyLevelUnits = units.map((unit) => journeyUnits[unit.id]).filter(Boolean)
-                const totalLessons = journeyLevelUnits.reduce((sum, unit) => sum + (unit?.lessons?.length ?? 0), 0)
-                const progress = current
-                  ? currentProgress
-                  : journeyLevelUnits.length
-                    ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100)
-                    : 0
-                const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
-
-                return (
-                  <article key={level} className={`juba-card relative p-6${current ? 'ring-1 ring-[var(--juba-green,var(--duo-green))]' : ''}`}>
-                    {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--juba-green,var(--duo-green))] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-sm">Current level</span>}
-                    <div className="flex items-start justify-between gap-4">
-                      <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-muted,var(--duo-muted))]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--juba-ink,var(--duo-ink))]">{LEVEL_META[level].title}</h3></div>
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]' : 'bg-[var(--juba-bg,var(--duo-bg))] text-[var(--juba-muted,var(--duo-muted))]'}`}>
-                        {unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}
-                      </div>
-                    </div>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--juba-muted,var(--duo-muted))]">{LEVEL_META[level].desc}</p>
-                    <div className="mt-6 flex items-center justify-between text-sm font-bold text-[var(--juba-ink,var(--duo-ink))]"><span>{lessonCount} lessons</span><span>{progress}%</span></div>
-                    <div role="progressbar" aria-label={`${level} course progress`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.min(100, Math.max(0, progress))} className="mt-2 h-2.5 overflow-hidden rounded-full bg-[var(--juba-bg,var(--duo-bg))]"><div className="h-full rounded-full bg-[var(--juba-green,var(--duo-green))] transition-all" style={{ width: `${Math.min(100, Math.max(0, progress))}%` }} /></div>
-                    {unlocked ? (
-                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] px-5 py-3 font-black text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] transition hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] hover:text-white">
-                        {current ? 'Open learning plan' : 'Explore level'} <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    ) : (
-                      <span className="mt-6 inline-flex items-center gap-2 rounded-[12px] bg-[var(--juba-bg,var(--duo-bg))] px-5 py-3 font-bold text-[var(--juba-muted,var(--duo-muted))]"><LockKeyhole className="h-4 w-4" /> Unlock later</span>
-                    )}
-                  </article>
-                )
-              })}
-            </div>
-          )}
-        </section>
-
-        <section className="juba-card juba-reference-section p-5 sm:p-6">
-          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--juba-ink,var(--duo-ink))]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] underline underline-offset-4">See my journey</Link></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {places.map(({ icon: Icon, title, text }) => <div key={title} className="juba-panel p-4 transition-colors hover:border-[var(--juba-green,var(--duo-green))] hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_8%,transparent)]"><span className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)] text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]" aria-hidden="true"><Icon className="h-5 w-5" /></span><p className="mt-3 font-black text-[var(--juba-ink,var(--duo-ink))]">{title}</p><p className="mt-1 text-sm text-[var(--juba-muted,var(--duo-muted))]">{text}</p></div>)}
-          </div>
-        </section>
-
-        <section className="juba-card p-5 sm:p-6">
-          <div className="flex items-center gap-3"><Sparkles className="h-6 w-6 text-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]" /><h2 className="text-2xl font-black text-[var(--juba-ink,var(--duo-ink))]">The JUBA rhythm</h2></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-4">{['Learn', 'Practice', 'Recall', 'Review'].map((step, i) => <div key={step} className="juba-panel p-4"><span className="text-xs font-bold text-[var(--juba-muted,var(--duo-muted))]">0{i + 1}</span><p className="mt-2 font-black text-[var(--juba-ink,var(--duo-ink))]">{step}</p></div>)}</div>
-        </section>
-      </div>
-    </main>
-  )
+    void load();return ()=>{cancelled=true}
+  },[activeLanguage?.code,reload])
+  const currentLevel=plan?.cefr_level??null
+  const currentIndex=currentLevel?CEFR_LEVELS.indexOf(currentLevel):0
+  const currentUnits=currentLevel?(levelUnits[currentLevel]??[]):[]
+  const currentProgress=useMemo(()=>{
+    if(!currentUnits.length)return 0
+    const scores=currentUnits.map(unit=>journeyUnits[unit.id]?.progress).filter((score):score is number=>typeof score==='number')
+    if(scores.length)return Math.round(scores.reduce((sum,score)=>sum+score,0)/scores.length*100)
+    return Math.round(currentUnits.reduce((sum,unit)=>sum+(competencies[unit.id]??0),0)/currentUnits.length*100)
+  },[competencies,currentUnits,journeyUnits])
+  const totalUnits=CEFR_LEVELS.reduce((sum,level)=>sum+(levelUnits[level]?.length??0),0)
+  const Arrow=rtl?ChevronLeft:ChevronRight
+  return <div className="juba-page-shell reference-courses" dir={rtl?'rtl':'ltr'}>
+    <header className="reference-course-heading"><BookOpen size={40} aria-hidden="true"/><div><h1>{rtl?'الكورسات':'Courses'}</h1><p>{rtl?'تعلّم لغة يمكنك استخدامها فعليًا.':'Learn language you can actually use.'}</p></div><div className="reference-course-heading-actions"><Link href="/plan" className="juba-primary-button">{rtl?'تابع مسارك':'Continue journey'}<Arrow size={16}/></Link><Link href="/assessment" className="juba-secondary-button">{rtl?'حدد مستواي':'Find my level'}</Link></div></header>
+    {loadError&&<div className="reference-course-error" role="alert"><span>{rtl?'تعذر تحميل بعض بيانات التقدم.':'Some progress data could not be loaded.'}</span><button className="juba-secondary-button" onClick={()=>setReload(value=>value+1)} disabled={loading}>{rtl?'إعادة المحاولة':'Retry'}</button></div>}
+    <div className="reference-course-layout"><div className="reference-course-primary">
+      <section className="reference-course-summary" aria-label={rtl?'ملخص التقدم':'Progress summary'}><div><h2>{rtl?'تقدم الكورس':'Course progress'}</h2><strong>{currentLevel??(rtl?'لم يُحدد بعد':'Not set')}</strong><div className="reference-course-track" role="progressbar" aria-label={rtl?'تقدم الكورس الحالي':'Current course progress'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={clamp(currentProgress)}><span style={{width:clamp(currentProgress)+'%'}}/></div><p>{clamp(currentProgress)}%</p></div><div><h2>{rtl?'دروس خطتك':'Plan lessons'}</h2><strong>{loading?'…':lessonCount(plan)}</strong><p>{rtl?'تابع التعلم من خطتك الحالية.':'Continue learning from your current plan.'}</p><Link href="/plan">{rtl?'فتح الخطة':'Open learning plan'}<Arrow size={14}/></Link></div></section>
+      <section className="reference-course-panel" aria-labelledby="course-levels"><div className="reference-course-panel-head"><h2 id="course-levels">{rtl?'المستويات':'Course levels'}</h2><span>CEFR · {CEFR_LEVELS.length}</span></div>{loading?<div className="reference-course-loading" role="status" aria-label={rtl?'جارٍ تحميل الكورسات':'Loading courses'}>{CEFR_LEVELS.map(level=><div key={level} className="reference-course-skeleton" aria-hidden="true"/>)}</div>:CEFR_LEVELS.map((level,index)=>{
+        const unlocked=currentLevel?index<=currentIndex:index===0
+        const current=level===currentLevel
+        const units=levelUnits[level]??[]
+        const journey=units.map(unit=>journeyUnits[unit.id]).filter(Boolean)
+        const totalLessons=journey.reduce((sum,unit)=>sum+(unit?.lessons?.length??0),0)
+        const progress=clamp(current?currentProgress:journey.length?Math.round(journey.reduce((sum,unit)=>sum+(unit?.progress??0),0)/journey.length*100):0)
+        const count=current?Math.max(lessonCount(plan),totalLessons):totalLessons||units.reduce((sum,unit)=>sum+unit.lesson_types.length,0)
+        const meta=(rtl?AR_LEVEL_META:LEVEL_META)[level]
+        return <article className="reference-course-row" key={level} data-current={current}><span className="reference-course-level">{level}</span><div className="reference-course-row-copy"><h3>{meta.title}{current&&<span className="juba-badge">{rtl?'المستوى الحالي':'Current level'}</span>}</h3><p>{meta.desc}</p><div className="reference-course-row-meta"><span>{count} {rtl?'درسًا':'lessons'}</span><span>{progress}%</span></div><div className="reference-course-track" role="progressbar" aria-label={level+' '+(rtl?'تقدم الكورس':'course progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span style={{width:progress+'%'}}/></div></div><div className="reference-course-row-action">{unlocked?<><CheckCircle2 size={18} aria-hidden="true"/><Link className="juba-secondary-button" href={current?'/plan':'/courses/'+level}>{current?(rtl?'فتح الخطة':'Open learning plan'):(rtl?'استكشف المستوى':'Explore level')}<Arrow size={14}/></Link></>:<span className="reference-course-locked"><LockKeyhole size={16}/>{rtl?'يُفتح لاحقًا':'Unlock later'}</span>}</div></article>
+      })}{!loading&&!totalUnits&&<div className="reference-course-empty"><BookOpen size={24}/><p>{rtl?'لا توجد وحدات متاحة لهذه اللغة حاليًا.':'No curriculum units are currently available for this language.'}</p><button className="juba-secondary-button" onClick={()=>setReload(value=>value+1)}>{rtl?'تحديث':'Refresh'}</button></div>}</section>
+    </div><aside className="reference-course-secondary">
+      <section className="reference-course-panel"><div className="reference-course-panel-head"><h2>{rtl?'الممارسة':'Practice'}</h2></div><p className="reference-course-intro">{rtl?'تقدم في مواقف عملية وقوِّ ذاكرتك وافتح الخطوة التالية.':'Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.'}</p>{skills.map(({icon:Icon,title,text,arTitle,arText})=><div className="reference-course-resource" key={title}><Icon size={20} aria-hidden="true"/><div><strong>{rtl?arTitle:title}</strong><p>{rtl?arText:text}</p></div></div>)}</section>
+      <section className="reference-course-panel"><div className="reference-course-panel-head"><h2>{rtl?'مهام من الواقع':'Real-world missions'}</h2><Link href="/plan" aria-label={rtl?'عرض مساري':'See my journey'}><Arrow size={16}/></Link></div>{places.map(({icon:Icon,title,text,arTitle,arText})=><div className="reference-course-resource" key={title}><Icon size={20} aria-hidden="true"/><div><strong>{rtl?arTitle:title}</strong><p>{rtl?arText:text}</p></div></div>)}</section>
+      <section className="reference-course-panel"><div className="reference-course-panel-head"><h2>{rtl?'إيقاع JUBA':'The JUBA rhythm'}</h2></div><ol className="reference-course-rhythm">{(rtl?['تعلّم','مارس','استرجع','راجع']:['Learn','Practice','Recall','Review']).map((step,index)=><li key={step}><span>{String(index+1).padStart(2,'0')}</span>{step}</li>)}</ol></section>
+    </aside></div>
+  </div>
 }
