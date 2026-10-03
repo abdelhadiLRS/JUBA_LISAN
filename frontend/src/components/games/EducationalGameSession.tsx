@@ -19,7 +19,9 @@ function publishResult(saved:GameSessionResult){
   markLearningProgressUpdated()
 }
 export function EducationalGameSession(props:Props){
-  return ARCADE_GAMES.has(props.gameId)?<ArenaGame {...props}/>:<LegacyGameSession {...props}/>
+  const accountId=useAuthStore(s=>s.user?.id)
+  const contextKey=`${accountId}:${props.targetLanguage}:${props.difficulty}:${props.gameId}`
+  return ARCADE_GAMES.has(props.gameId)?<ArenaGame key={contextKey} {...props}/>:<LegacyGameSession key={contextKey} {...props}/>
 }
 
 // Retain the existing question/ordering API and reward flow for other games.
@@ -113,10 +115,13 @@ export function ArenaGame({gameId,targetLanguage,difficulty,arabic,title,onExit,
   const pending=useRef<ArenaMove|null>(null)
   const snapshot=useRef<ArenaState|null>(null)
   const published=useRef('')
+  const clockOffset=useRef(0)
   const key=`juba:arcade:${userId}:${targetLanguage}:${gameId}:${difficulty}`
   const text=(ar:string,en:string)=>arabic?ar:en
   const accept=useCallback((next:ArenaState)=>{
     if(!mounted.current)return
+    const serverTime=(next as ArenaState & {server_time?:number}).server_time
+    if(serverTime!==undefined)clockOffset.current=serverTime*1000-Date.now()
     snapshot.current=next;setState(next);setOrder([]);setLeft(null);setError('')
     try {
       if(next.phase==='finished')sessionStorage.removeItem(key)
@@ -168,7 +173,7 @@ export function ArenaGame({gameId,targetLanguage,difficulty,arabic,title,onExit,
   useEffect(()=>{
     if(!state?.deadline||state.phase!=='playing')return
     const tick=()=>{
-      const remain=Math.max(0,Math.ceil(state.deadline!-Date.now()/1000))
+      const remain=Math.max(0,Math.ceil((state.deadline!*1000-Date.now()-clockOffset.current)/1000))
       setSeconds(remain)
       if(remain===0&&!lock.current&&!pending.current)void send('timeout')
     }
