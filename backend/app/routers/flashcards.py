@@ -66,7 +66,6 @@ async def create_flashcard(request: Request, data: FlashcardCreate, current_user
 @router.post("/bulk", response_model=FlashcardBulkResponse)
 @limiter.limit("60/minute")
 async def create_flashcards_bulk(request: Request, data: FlashcardBulkCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    # Importing already-authored content is not AI generation.
     plan = await _get_active_plan_or_404(db, current_user.id)
     existing = (await db.execute(select(Flashcard.word).where(Flashcard.user_id == current_user.id, Flashcard.study_plan_id == plan.id))).scalars().all()
     words = {_normalize_flashcard_word(word) for word in existing}
@@ -76,7 +75,7 @@ async def create_flashcards_bulk(request: Request, data: FlashcardBulkCreate, cu
         if not normalized or normalized in words:
             continue
         db.add(Flashcard(user_id=current_user.id, study_plan_id=plan.id, word=item.word.strip(), definition=item.definition,
-                        example_sentence=item.example_sentence, translation=item.translation, source=item.source))
+            example_sentence=item.example_sentence, translation=item.translation, source=item.source))
         words.add(normalized)
         created += 1
     await db.commit()
@@ -113,7 +112,7 @@ async def generate_flashcards_endpoint(request: Request, data: FlashcardGenerate
     plan = await _get_active_plan_or_404(db, current_user.id)
     existing = (await db.execute(select(Flashcard.word).where(Flashcard.user_id == current_user.id, Flashcard.study_plan_id == plan.id))).scalars().all()
     words = {_normalize_flashcard_word(word) for word in existing}
-    async with feature_quota(current_user, "flashcards", data.count) as quota:
+    async with feature_quota(current_user, "flashcards", data.count, db=db) as quota:
         try:
             result = await generate_flashcards(topic=data.topic, count=data.count, cefr_level=data.cefr_level,
                 native_language=current_user.native_language, target_language=data.target_language or plan.target_language)
@@ -127,10 +126,10 @@ async def generate_flashcards_endpoint(request: Request, data: FlashcardGenerate
             words.add(normalized)
             unique.append(item)
             db.add(Flashcard(user_id=current_user.id, study_plan_id=plan.id, word=item.word.strip(), definition=item.definition,
-                            example_sentence=item.example_sentence, translation=item.translation))
+                example_sentence=item.example_sentence, translation=item.translation))
         result.flashcards = unique
-        await db.commit()
         quota.charge(len(unique))
+        await quota.commit(db)
     return result
 
 
@@ -145,16 +144,16 @@ async def create_flashcard_from_word(request: Request, data: FlashcardFromWordRe
     cached = next((card for card in existing if _normalize_flashcard_word(card.word) == normalized), None)
     if cached is not None:
         return cached
-    async with feature_quota(current_user, "flashcards"):
+    async with feature_quota(current_user, "flashcards", db=db) as quota:
         try:
             item = await lookup_word(word=data.word.strip(), context=data.context, cefr_level=data.cefr_level,
-                                     native_language=current_user.native_language, target_language=plan.target_language)
+                native_language=current_user.native_language, target_language=plan.target_language)
         except (LLMTimeoutError, LLMUnavailableError, LLMError) as exc:
             raise _generation_error(exc) from exc
         card = Flashcard(user_id=current_user.id, study_plan_id=plan.id, word=item.word, definition=item.definition,
-                        example_sentence=item.example_sentence, translation=item.translation, source="from_text")
+            example_sentence=item.example_sentence, translation=item.translation, source="from_text")
         db.add(card)
-        await db.commit()
+        await quota.commit(db)
         await db.refresh(card)
     return card
 
@@ -162,7 +161,7 @@ async def create_flashcard_from_word(request: Request, data: FlashcardFromWordRe
 @router.get("/vocabulary", response_model=VocabularyListResponse)
 @limiter.limit("60/minute")
 async def get_vocabulary_flashcards(request: Request, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db),
-                                  page: int = Query(1, ge=1), limit: int = Query(10, ge=1, le=100), search: str = Query("")):
+    page: int = Query(1, ge=1), limit: int = Query(10, ge=1, le=100), search: str = Query("")):
     plan = await _get_active_plan_or_404(db, current_user.id)
     filters = [Flashcard.user_id == current_user.id, Flashcard.study_plan_id == plan.id, Flashcard.source == "from_text"]
     if search:
