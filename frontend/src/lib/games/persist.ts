@@ -1,36 +1,15 @@
 import { apiFetch } from '@/lib/api'
+import { completeWithRecovery } from './complete-with-recovery'
 
 export type GameId = 'math' | 'words' | 'quick_choice' | 'context_quest' | 'listen_choose' | 'listening_detective' | 'word_categories' | 'translation_sprint' | 'grammar_duel' | 'spelling' | 'word_scramble' | 'fill_blank' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder' | 'review_mix'
 export type GameLanguage = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh' | 'tr' | 'ru' | 'nl' | 'pl' | 'el' | 'sv' | 'da' | 'no' | 'fi' | 'cs'
 
-/**
- * Map target languages with dedicated CEFR vocabulary banks to the game API.
- * Keep this separate from the UI locale so the interface language never silently
- * becomes the learner's target language.
- */
+/** Map the learner's target language, independently of interface locale. */
 export function gameLanguageForTargetLanguage(targetLanguage?: string | null): GameLanguage {
   const code = String(targetLanguage ?? '').trim().toLowerCase().replace('_', '-')
-  if (code === 'ar' || code.startsWith('ar-')) return 'ar'
-  if (code === 'fr' || code.startsWith('fr-')) return 'fr'
-  if (code === 'en' || code === 'en-gb' || code === 'en-us' || code.startsWith('en-')) return 'en'
-  if (code === 'es' || code.startsWith('es-')) return 'es'
-  if (code === 'de' || code.startsWith('de-')) return 'de'
-  if (code === 'it' || code.startsWith('it-')) return 'it'
-  if (code === 'pt' || code.startsWith('pt-')) return 'pt'
-  if (code === 'ja' || code.startsWith('ja-')) return 'ja'
-  if (code === 'ko' || code.startsWith('ko-')) return 'ko'
-  if (code === 'zh' || code.startsWith('zh-')) return 'zh'
-  if (code === 'tr' || code.startsWith('tr-')) return 'tr'
-  if (code === 'ru' || code.startsWith('ru-')) return 'ru'
-  if (code === 'nl' || code.startsWith('nl-')) return 'nl'
-  if (code === 'pl' || code.startsWith('pl-')) return 'pl'
-  if (code === 'el' || code.startsWith('el-')) return 'el'
-  if (code === 'sv' || code.startsWith('sv-')) return 'sv'
-  if (code === 'da' || code.startsWith('da-')) return 'da'
-  if (code === 'no' || code.startsWith('no-')) return 'no'
-  if (code === 'fi' || code.startsWith('fi-')) return 'fi'
-  if (code === 'cs' || code.startsWith('cs-')) return 'cs'
-  return 'en'
+  const base = code.split('-')[0]
+  const supported:GameLanguage[] = ['ar','fr','en','es','de','it','pt','ja','ko','zh','tr','ru','nl','pl','el','sv','da','no','fi','cs']
+  return supported.includes(base as GameLanguage) ? base as GameLanguage : 'en'
 }
 
 export type ServerGameStats = {
@@ -171,17 +150,11 @@ export async function completeGameSession(
   dailyChallengeDate = '',
   interactionTrace: InteractiveGameTrace[] = [],
 ): Promise<GameSessionResult> {
-  const response = await apiFetch('/api/progress/game-session/complete', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      session_id: sessionId,
-      answers,
-      interaction_trace: interactionTrace,
-      daily_challenge: dailyChallenge,
-      daily_challenge_date: dailyChallengeDate,
-    }),
+  return completeWithRecovery(sessionId, {
+    session_id: sessionId,
+    answers,
+    interaction_trace: interactionTrace,
+    daily_challenge: dailyChallenge,
+    daily_challenge_date: dailyChallengeDate,
   })
-  if (!response.ok) throw new Error(`Game session completion failed: ${response.status}`)
-  return response.json() as Promise<GameSessionResult>
 }
