@@ -518,7 +518,6 @@ async def upload_avatar(
     if len(data) > _MAX_AVATAR_BYTES:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Image too large (max 2 MB)")
     ext = _validate_avatar_bytes(file.content_type, data)
-
     old_path = _avatar_path_from_reference(current_user.avatar)
     if old_path and os.path.exists(old_path):
         os.remove(old_path)
@@ -604,7 +603,6 @@ async def delete_me(
     token = request.cookies.get("refresh_token")
     if token:
         await _delete_refresh_token(redis, token, db)
-    response.delete_cookie("refresh_token")
     response.delete_cookie("refresh_token")
     old_path = _avatar_path_from_reference(current_user.avatar)
     if old_path and os.path.exists(old_path):
