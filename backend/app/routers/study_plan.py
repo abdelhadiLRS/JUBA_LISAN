@@ -110,7 +110,7 @@ async def get_today_lessons(request: Request, current_user: User = Depends(get_c
     pending = sum(1 for item in all_lessons if not item.is_completed and _lesson_slot_index(item, plan.days_per_week) < plan.progress_day)
     def result(lessons):
         return TodayResponse(plan_id=plan_id, cefr_level=plan.cefr_level, lessons=lessons, progress_day=plan.progress_day,
-                             total_days=total_days, pending_count=pending, review_due_count=len(due))
+            total_days=total_days, pending_count=pending, review_due_count=len(due))
     if plan.progress_day >= total_days:
         return result([])
     current_week, current_day = plan.progress_day // plan.days_per_week + 1, plan.progress_day % plan.days_per_week + 1
@@ -143,7 +143,7 @@ async def get_today_lessons(request: Request, current_user: User = Depends(get_c
                 if curriculum:
                     grammar, vocabulary = curriculum.grammar_points, curriculum.vocabulary_set_ids
             try:
-                async with feature_quota(current_user, "lessons"):
+                async with feature_quota(current_user, "lessons", db=db) as quota:
                     content = await generate_lesson(cefr_level=plan.cefr_level, lesson_type=kind, topic=title,
                         week=current_week, day=current_day, unit_id=unit, grammar_points=grammar, vocabulary_set_ids=vocabulary,
                         target_language=plan.target_language, native_language=native)
@@ -159,14 +159,15 @@ async def get_today_lessons(request: Request, current_user: User = Depends(get_c
                     for exercise in exercises:
                         db.add(Exercise(lesson_id=lesson.id, exercise_type=exercise.get("type", "multiple_choice"), question=exercise.get("question", ""),
                             options=exercise.get("options"), correct_answer=exercise.get("correct", ""), explanation=exercise.get("explanation")))
-                    await db.commit()
+                    await quota.commit(db)
                     await db.refresh(lesson)
                     lesson_id = lesson.id
             except IntegrityError:
                 await db.rollback()
                 await db.refresh(plan)
                 await db.refresh(current_user)
-                duplicate = (await db.execute(select(Lesson).where(Lesson.study_plan_id == plan_id, Lesson.week_number == current_week, Lesson.day_number == current_day, Lesson.title == title))).scalar_one_or_none()
+                duplicate = (await db.execute(select(Lesson).where(Lesson.study_plan_id == plan_id,
+                    Lesson.week_number == current_week, Lesson.day_number == current_day, Lesson.title == title))).scalar_one_or_none()
                 if duplicate:
                     lesson_id, completed = duplicate.id, duplicate.is_completed
             except HTTPException as exc:
@@ -298,5 +299,5 @@ async def launch_lesson(request: Request, data: LaunchLessonRequest, current_use
     requested = next((item for section in sections for unit in section.units for item in unit.lessons if item.id == lesson.id), None)
     if requested is None or (not requested.available and not lesson.is_completed):
         raise HTTPException(status_code=409, detail="Lesson is locked")
-    return {"id": lesson.id, "title": lesson.title, "lesson_type": lesson.lesson_type, "unit_id": lesson.unit_id,
-        "week_number": lesson.week_number, "day_number": lesson.day_number, "is_completed": lesson.is_completed, "next_lesson_id": next_lesson}
+    return {"id":lesson.id, "title":lesson.title, "lesson_type":lesson.lesson_type, "unit_id":lesson.unit_id,
+        "week_number":lesson.week_number, "day_number":lesson.day_number, "is_completed":lesson.is_completed, "next_lesson_id":next_lesson}
