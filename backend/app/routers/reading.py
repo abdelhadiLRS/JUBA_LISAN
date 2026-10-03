@@ -6,6 +6,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, R
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
+from app.core.session_factory import current_session_factory
 from app.core.deps import get_current_user, get_active_study_plan, get_redis, require_not_maintenance, require_learner
 from app.core.limiter import limiter
 from app.models.study_plan import StudyPlan
@@ -15,6 +16,7 @@ from app.schemas.reading import (CorrectAnswerOut, QuestionOut, ReadingAttemptOu
     ReadingHistoryResponse, ReadingNextResponse, ReadingSubmitRequest, ReadingSubmitResponse)
 from app.services.reading_service import generate_and_save_exercise, get_available_exercise, get_user_history, submit_attempt
 from app.services.feature_quota_service import reserve, settle
+from app.services.quota_persistence import atomic_generation
 from app.services.generation_lease import release_generation_lock
 from app.utils.db import db_session
 
@@ -28,22 +30,26 @@ def _build_exercise_out(exercise) -> ReadingExerciseOut:
         questions=[QuestionOut(index=q["index"], question=q["question"], options=q["options"]) for q in exercise.questions])
 
 
-async def _background_generate(level: str, target_language: str, lock_key: str, reservation=None, lock_token: str = "") -> None:
-    success = False
+async def _background_generate(level: str, target_language: str, lock_key: str, reservation=None, lock_token: str = "", session_factory=None) -> None:
     try:
-        async with db_session() as db:
-            exercise = await generate_and_save_exercise(level, target_language, db)
-            if exercise is None:
-                raise ValueError("No exercise was saved")
-        if reservation is not None:
-            await settle(reservation, success=True)
-        success = True
+        async with db_session(session_factory) as db:
+            if reservation is not None:
+                async with atomic_generation(db, reservation):
+                    exercise = await generate_and_save_exercise(level, target_language, db)
+                    if exercise is None:
+                        raise ValueError("No exercise was saved")
+            else:
+                await generate_and_save_exercise(level, target_language, db)
     except Exception:
         logger.exception("Reading generation failed")
     finally:
-        if reservation is not None and not success:
-            await settle(reservation, success=False)
-        await release_generation_lock(lock_key, lock_token)
+        try:
+            if reservation is not None and not reservation.committed:
+                await settle(reservation, success=False)
+        except Exception:
+            logger.exception("Reading quota cleanup failed; reservation lease will expire")
+        finally:
+            await release_generation_lock(lock_key, lock_token)
 
 
 @router.get("/next", response_model=ReadingNextResponse)
@@ -78,8 +84,10 @@ async def generate_exercise(request: Request, background_tasks: BackgroundTasks,
     if redis is not None and not await redis.set(key, token, nx=True, ex=300):
         return ReadingGeneratingResponse(status="generating")
     try:
-        reservation = await reserve(current_user, "reading")
-        background_tasks.add_task(_background_generate, level, target, key, reservation, token)
+        await db.commit()  # End preflight read transaction before quota writer.
+        factory = current_session_factory()
+        reservation = await reserve(current_user, "reading", session_factory=factory)
+        background_tasks.add_task(_background_generate, level, target, key, reservation, token, factory)
     except BaseException:
         await release_generation_lock(key, token)
         raise

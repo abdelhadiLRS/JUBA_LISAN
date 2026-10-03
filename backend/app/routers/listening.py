@@ -9,6 +9,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.database import get_db
+from app.core.session_factory import current_session_factory
 from app.core.deps import get_current_user, get_active_study_plan, get_redis, require_not_maintenance, require_learner
 from app.core.limiter import limiter
 from app.models.listening import ListeningExercise
@@ -18,6 +19,7 @@ from app.schemas.listening import (CorrectAnswerOut, ListeningAttemptOut, Listen
     ListeningHistoryResponse, ListeningNextResponse, ListeningSubmitRequest, ListeningSubmitResponse, QuestionOut)
 from app.services.listening_service import generate_and_save_exercise, get_available_exercise, get_user_history, submit_attempt
 from app.services.feature_quota_service import reserve, settle
+from app.services.quota_persistence import atomic_generation
 from app.services.generation_lease import release_generation_lock
 from app.utils.db import db_session
 
@@ -32,22 +34,26 @@ def _build_exercise_out(exercise: ListeningExercise) -> ListeningExerciseOut:
 
 
 async def _background_generate(level: str, target_language: str, tts_service: object, storage_path: str,
-                               lock_key: str, voice: str = "", reservation=None, lock_token: str = "") -> None:
-    success = False
+    lock_key: str, voice: str = "", reservation=None, lock_token: str = "", session_factory=None) -> None:
     try:
-        async with db_session() as db:
-            exercise = await generate_and_save_exercise(level, target_language, db, tts_service, storage_path, voice)
-            if exercise is None:
-                raise ValueError("No exercise was saved")
-        if reservation is not None:
-            await settle(reservation, success=True)
-        success = True
+        async with db_session(session_factory) as db:
+            if reservation is not None:
+                async with atomic_generation(db, reservation):
+                    exercise = await generate_and_save_exercise(level, target_language, db, tts_service, storage_path, voice)
+                    if exercise is None:
+                        raise ValueError("No exercise was saved")
+            else:
+                await generate_and_save_exercise(level, target_language, db, tts_service, storage_path, voice)
     except Exception:
         logger.exception("Listening generation failed")
     finally:
-        if reservation is not None and not success:
-            await settle(reservation, success=False)
-        await release_generation_lock(lock_key, lock_token)
+        try:
+            if reservation is not None and not reservation.committed:
+                await settle(reservation, success=False)
+        except Exception:
+            logger.exception("Listening quota cleanup failed; reservation lease will expire")
+        finally:
+            await release_generation_lock(lock_key, lock_token)
 
 
 @router.get("/next", response_model=ListeningNextResponse)
@@ -85,8 +91,10 @@ async def generate_exercise(request: Request, background_tasks: BackgroundTasks,
     if redis is not None and not await redis.set(key, token, nx=True, ex=300):
         return ListeningGeneratingResponse(status="generating")
     try:
-        reservation = await reserve(current_user, "listening")
-        background_tasks.add_task(_background_generate, level, target, tts_service, settings.AUDIO_STORAGE_PATH, key, voice, reservation, token)
+        await db.commit()
+        factory = current_session_factory()
+        reservation = await reserve(current_user, "listening", session_factory=factory)
+        background_tasks.add_task(_background_generate, level, target, tts_service, settings.AUDIO_STORAGE_PATH, key, voice, reservation, token, factory)
     except BaseException:
         await release_generation_lock(key, token)
         raise
