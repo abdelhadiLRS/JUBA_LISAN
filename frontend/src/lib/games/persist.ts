@@ -158,3 +158,44 @@ export async function completeGameSession(
     daily_challenge_date: dailyChallengeDate,
   })
 }
+
+// Arcade contracts are deliberately separate from legacy quiz/trace scoring.
+export type ArenaMove = {
+  action_id: string
+  version: number
+  kind: 'flip' | 'hide' | 'pair' | 'answer' | 'timeout' | 'continue' | 'leave'
+  value: string
+  order: string[]
+}
+export type ArenaState = {
+  session_id: string
+  game: string
+  version: number
+  phase: 'playing' | 'feedback' | 'finished'
+  index: number
+  total: number
+  lives: number
+  correct: number
+  attempts: number
+  max_moves: number
+  deadline: number | null
+  relaxed: boolean
+  question?: {prompt:string;choices?:string[];tiles?:Array<{id:string;label:string}>}
+  cards?: Array<{id:string;label:string|null;side:'word'|'meaning';opened:boolean;matched:boolean}>
+  feedback: {correct:boolean;answer?:string;meaning?:string}|null
+  result?: GameSessionResult & {won:boolean}
+}
+async function arenaFetch(path:string, body?:unknown):Promise<ArenaState>{
+  const response=await apiFetch(path,body===undefined?undefined:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+  if(!response.ok){
+    let detail=''
+    try{const error=await response.json();if(typeof error.detail==='string')detail=error.detail}catch{}
+    throw new Error(detail||`Arcade request failed: ${response.status}`)
+  }
+  return response.json()
+}
+export function startArena(gameId:string,targetLanguage:string,difficulty:number,relaxed=false){
+  return arenaFetch('/api/progress/game-session/arena',{game_id:gameId,target_language:targetLanguage,difficulty,relaxed})
+}
+export function readArena(id:string){return arenaFetch('/api/progress/game-session/arena/'+encodeURIComponent(id))}
+export function moveArena(id:string,move:ArenaMove){return arenaFetch('/api/progress/game-session/arena/'+encodeURIComponent(id)+'/move',move)}
