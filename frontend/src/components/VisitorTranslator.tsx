@@ -1,304 +1,50 @@
 'use client'
-
-import { useEffect, useState } from 'react'
-import type { FormEvent } from 'react'
-import { useTranslations } from 'next-intl'
-import { ArrowRightLeft, BookOpenCheck, Check, Copy, Languages, Loader2, Volume2, X } from 'lucide-react'
+import {useEffect,useState,useRef} from 'react'
+import type {FormEvent} from 'react'
+import {useTranslations,useLocale} from 'next-intl'
+import {ArrowRightLeft,BookOpenCheck,Check,Copy,Languages,Loader2,Volume2,X} from 'lucide-react'
 import Link from 'next/link'
-import { saveTranslatedWordLocally } from '@/lib/api'
-import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
-
-const LANGUAGES = TARGET_LANGUAGE_CATALOG.map((language) => ({
-  code: language.iso639,
-  label: language.name,
-}))
-const UNIQUE_LANGUAGES = LANGUAGES.filter(
-  (language, index, all) => all.findIndex((item) => item.code === language.code) === index,
-)
-
-function languageLabel(code: string) {
-  return UNIQUE_LANGUAGES.find((language) => language.code === code)?.label ?? code.toUpperCase()
-}
-
-export function VisitorTranslator() {
-  const t = useTranslations('visitorTranslator')
-  const [open, setOpen] = useState(false)
-  const [text, setText] = useState('')
-  const [source, setSource] = useState('auto')
-  const [target, setTarget] = useState('ar')
-  const [translation, setTranslation] = useState('')
-  const [detectedSource, setDetectedSource] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [saved, setSaved] = useState(false)
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (!open) return
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open])
-
-  async function translate(event?: FormEvent) {
-    event?.preventDefault()
-    if (!text.trim()) return
-    setLoading(true)
-    setError('')
-    setSaved(false)
-    try {
-      const response = await fetch('/api/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, source, target }),
-      })
-      const contentType = response.headers.get('content-type') || ''
-      const raw = await response.text()
-      let data: { translation?: unknown; source?: unknown; detail?: unknown; error?: unknown } = {}
-      if (contentType.includes('application/json')) {
-        try {
-          data = JSON.parse(raw) as typeof data
-        } catch {
-          data = {}
-        }
-      }
-      if (!response.ok) {
-        const serverMessage =
-          typeof data.detail === 'string'
-            ? data.detail
-            : typeof data.error === 'string'
-              ? data.error
-              : raw.trim()
-        throw new Error(serverMessage || t('translationFailed'))
-      }
-      if (typeof data.translation !== 'string') {
-        throw new Error(t('translationFailed'))
-      }
-      setTranslation(data.translation)
-      setDetectedSource(typeof data.source === 'string' ? data.source : source)
-    } catch (err) {
-      setTranslation('')
-      setDetectedSource('')
-      setError(err instanceof Error ? err.message : t('translationFailed'))
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  function saveToLearning() {
-    if (!text.trim() || !translation.trim()) return
-    saveTranslatedWordLocally({
-      source: detectedSource || source,
-      target,
-      word: text.trim(),
-      translation: translation.trim(),
-    })
-    setSaved(true)
-  }
-
-  function swapLanguages() {
-    if (source === 'auto') return
-    setSource(target)
-    setTarget(source)
-    setTranslation('')
-    setDetectedSource('')
-    setSaved(false)
-  }
-
-  async function copyTranslation() {
-    if (!translation) return
-    try {
-      await navigator.clipboard?.writeText(translation)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1600)
-    } catch {
-      setCopied(false)
-    }
-  }
-
-  function speakTranslation() {
-    if (!translation || typeof window === 'undefined' || !('speechSynthesis' in window)) return
-    window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(translation)
-    utterance.lang = target
-    window.speechSynthesis.speak(utterance)
-  }
-
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label={t('open')}
-        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-sm transition hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
-      >
-        <Languages className="h-4 w-4" aria-hidden="true" />
-        {t('translate')}
-      </button>
-
-      {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[var(--duo-muted)] p-3 backdrop-blur-sm sm:p-6"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setOpen(false)
-          }}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="visitor-translator-title"
-            aria-describedby="visitor-translator-description"
-            className="w-full max-w-6xl overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-sm"
-          >
-            <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4 sm:px-7">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--duo-green)] text-white">
-                  <Languages className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <div>
-                  <h2 id="visitor-translator-title" className="text-xl font-black tracking-tight text-[var(--duo-ink)] sm:text-2xl">
-                    {t('title')}
-                  </h2>
-                  <p id="visitor-translator-description" className="sr-only">{t('description')}</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label={t('close')}
-                className="rounded-full p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
-              >
-                <X className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </header>
-
-            <div className="border-b border-[var(--duo-line)] px-5 pt-4 sm:px-7">
-              <div className="flex gap-6 text-sm font-bold">
-                <button type="button" className="border-b-2 border-[var(--duo-green)] pb-3 text-[var(--duo-ink)]">
-                  {t('translate')}
-                </button>
-              </div>
-            </div>
-
-            <form onSubmit={translate} className="p-4 sm:p-7">
-              <div className="grid overflow-hidden rounded-[10px] border border-[var(--duo-line)] lg:grid-cols-[1fr_auto_1fr]">
-                <section className="flex min-h-[360px] flex-col bg-[var(--duo-card)]">
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--duo-line)] px-4 py-3 sm:px-5">
-                    <label className="sr-only" htmlFor="visitor-translator-source">{t('sourceLanguage')}</label>
-                    <select
-                      id="visitor-translator-source"
-                      value={source}
-                      onChange={(e) => {
-                        setSource(e.target.value)
-                        setTranslation('')
-                        setDetectedSource('')
-                        setSaved(false)
-                      }}
-                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--duo-ink)] outline-none hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
-                    >
-                      <option value="auto">{t('autoDetect')}</option>
-                      {UNIQUE_LANGUAGES.map((language) => (
-                        <option key={language.code} value={language.code}>{language.label}</option>
-                      ))}
-                    </select>
-                    <span className="text-xs font-medium text-[var(--duo-muted)]">
-                      {detectedSource && source === 'auto' ? `${t('detected')}: ${languageLabel(detectedSource)}` : ''}
-                    </span>
-                  </div>
-                  <textarea
-                    value={text}
-                    onChange={(e) => {
-                      setText(e.target.value)
-                      setSaved(false)
-                    }}
-                    maxLength={2000}
-                    rows={8}
-                    autoFocus
-                    placeholder={t('inputPlaceholder')}
-                    aria-label={t('textToTranslate')}
-                    className="min-h-[255px] flex-1 resize-none bg-transparent px-5 py-5 text-lg leading-8 text-[var(--duo-ink)] outline-none placeholder:text-[var(--duo-muted)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--duo-green)]"
-                  />
-                  <div className="flex items-center justify-between px-5 pb-4 text-xs text-[var(--duo-muted)]">
-                    <span>{text.length}/2000</span>
-                    <span>{source === 'auto' ? t('automaticDetection') : languageLabel(source)}</span>
-                  </div>
-                </section>
-
-                <div className="flex items-center justify-center border-y border-[var(--duo-line)] bg-[var(--duo-bg)] p-3 lg:border-x lg:border-y-0">
-                  <button
-                    type="button"
-                    onClick={swapLanguages}
-                    disabled={source === 'auto' || loading}
-                    aria-label={t('swap')}
-                    className="rounded-full border border-[var(--duo-line)] bg-[var(--duo-card)] p-2.5 text-[var(--duo-ink)] shadow-sm transition hover:scale-105 disabled:opacity-35"
-                  >
-                    <ArrowRightLeft className="h-4 w-4" aria-hidden="true" />
-                  </button>
-                </div>
-
-                <section className="flex min-h-[360px] flex-col bg-[var(--duo-bg)]">
-                  <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-4 py-3 sm:px-5">
-                    <label className="sr-only" htmlFor="visitor-translator-target">{t('targetLanguage')}</label>
-                    <select
-                      id="visitor-translator-target"
-                      value={target}
-                      onChange={(e) => {
-                        setTarget(e.target.value)
-                        setTranslation('')
-                        setSaved(false)
-                      }}
-                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--duo-ink)] outline-none hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
-                    >
-                      {UNIQUE_LANGUAGES.map((language) => (
-                        <option key={language.code} value={language.code}>{language.label}</option>
-                      ))}
-                    </select>
-                    <span className="text-xs text-[var(--duo-muted)]">{languageLabel(target)}</span>
-                  </div>
-                  <div className="flex flex-1 items-start px-5 py-5">
-                    {error ? (
-                      <p className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700" role="alert">{error}</p>
-                    ) : translation ? (
-                      <div className="w-full">
-                        <p className="text-lg leading-8 text-[var(--duo-ink)] sm:text-xl">{translation}</p>
-                        <div className="mt-6 flex flex-wrap items-center gap-2">
-                          <button type="button" onClick={speakTranslation} aria-label="Listen" className="rounded-lg p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:text-black">
-                            <Volume2 className="h-5 w-5" aria-hidden="true" />
-                          </button>
-                          <button type="button" onClick={copyTranslation} aria-label="Copy" className="rounded-lg p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:text-black">
-                            {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Copy className="h-5 w-5" aria-hidden="true" />}
-                          </button>
-                          <button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-lg bg-[var(--duo-card)] px-3 py-2 text-xs font-black text-[var(--duo-ink)] shadow-sm ring-1 ring-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)]">
-                            <BookOpenCheck className="h-4 w-4" aria-hidden="true" />
-                            {saved ? t('savedLocally') : t('learnThis')}
-                          </button>
-                        </div>
-                        {saved && <p className="mt-3 text-xs font-bold text-[var(--duo-ink)]" role="status">{t('savedNote')}</p>}
-                      </div>
-                    ) : (
-                      <p className="text-lg text-[var(--duo-muted)]">{t('translationPlaceholder')}</p>
-                    )}
-                  </div>
-                </section>
-              </div>
-
-              <div className="mt-4 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs text-[var(--duo-muted)]">{t('workflow')}</p>
-                <button
-                  type="submit"
-                  disabled={!text.trim() || loading}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] bg-[var(--duo-green)] px-7 py-3 text-sm font-black text-white transition hover:opacity-90 disabled:opacity-45"
-                >
-                  {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Languages className="h-4 w-4" aria-hidden="true" />}
-                  {loading ? t('translating') : t('translate')}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </>
-  )
+import {apiFetch,saveTranslatedWordLocally} from '@/lib/api'
+import {useAuthStore} from '@/store/auth'
+import {TARGET_LANGUAGE_CATALOG} from '@/lib/target-languages'
+const MAX_CHARS=1000
+const LANGUAGES=TARGET_LANGUAGE_CATALOG.map(language=>({code:language.iso639,label:language.name})).filter((item,index,all)=>all.findIndex(value=>value.code===item.code)===index)
+function languageLabel(code:string){return LANGUAGES.find(item=>item.code===code)?.label??code.toUpperCase()}
+export function VisitorTranslator(){
+ const t=useTranslations('visitorTranslator'),ar=useLocale().startsWith('ar'),token=useAuthStore(s=>s.accessToken)
+ const [open,setOpen]=useState(false),[text,setText]=useState(''),[source,setSource]=useState('auto'),[target,setTarget]=useState('ar')
+ const [translation,setTranslation]=useState(''),[detected,setDetected]=useState(''),[loading,setLoading]=useState(false),[error,setError]=useState('')
+ const [saved,setSaved]=useState(false),[copied,setCopied]=useState(false),[exhausted,setExhausted]=useState(false)
+ const version=useRef(0),lock=useRef(false)
+ useEffect(()=>{version.current++;setTranslation('');setDetected('');setError('');setExhausted(false);setLoading(false)},[token])
+ useEffect(()=>{if(!open)return;const handler=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false)};document.addEventListener('keydown',handler);return()=>document.removeEventListener('keydown',handler)},[open])
+ function reset(){version.current++;setTranslation('');setDetected('');setSaved(false);setError('');setExhausted(false)}
+ async function translate(event?:FormEvent){
+  event?.preventDefault();if(!token||!text.trim()||lock.current||text.length>MAX_CHARS)return
+  lock.current=true;setLoading(true);setError('');setSaved(false);setExhausted(false)
+  const epoch=version.current
+  try{const response=await apiFetch('/api/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,source,target})})
+   const data=await response.json().catch(()=>({}))
+   if(epoch!==version.current)return
+   if(response.status===402){setExhausted(true);throw new Error(ar?'نفدت حصة الترجمة والتصحيح. راجع موعد التجديد أو باقتك.':'Translation and correction allowance reached. Check your reset time or plan.')}
+   if(!response.ok)throw new Error(typeof data.detail==='string'?data.detail:t('translationFailed'))
+   if(typeof data.translation!=='string')throw new Error(t('translationFailed'))
+   setTranslation(data.translation);setDetected(typeof data.source==='string'?data.source:source)
+  }catch(err){if(epoch===version.current){setTranslation('');setDetected('');setError(err instanceof Error?err.message:t('translationFailed'))}}
+  finally{lock.current=false;if(epoch===version.current)setLoading(false)}
+ }
+ function save(){if(!text.trim()||!translation.trim())return;saveTranslatedWordLocally({source:detected||source,target,word:text.trim(),translation:translation.trim()});setSaved(true)}
+ async function copy(){try{await navigator.clipboard.writeText(translation);setCopied(true);setTimeout(()=>setCopied(false),1600)}catch{setCopied(false)}}
+ function speak(){if(!translation||!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const voice=new SpeechSynthesisUtterance(translation);voice.lang=target;window.speechSynthesis.speak(voice)}
+ return <><button type="button" onClick={()=>setOpen(true)} aria-label={t('open')} className="fixed bottom-5 end-5 z-40 inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-3 text-sm font-semibold"><Languages size={16}/>{t('translate')}</button>
+ {open&&<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[var(--duo-muted)] p-3 sm:p-6" onMouseDown={e=>{if(e.target===e.currentTarget)setOpen(false)}}><div role="dialog" aria-modal="true" aria-labelledby="visitor-translator-title" className="w-full max-w-6xl rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-card)]">
+  <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4"><h2 id="visitor-translator-title" className="text-xl font-semibold">{t('title')}</h2><button type="button" onClick={()=>setOpen(false)} aria-label={t('close')} className="min-h-11 min-w-11 p-2"><X size={20}/></button></header>
+  {!token?<div className="p-7"><p>{ar?'سجّل الدخول لاستخدام حصتك المجانية في الترجمة وحفظ الكلمات.':'Sign in to use your free translation allowance and save words.'}</p><Link className="juba-primary-button inline-flex min-h-11 px-5 py-3 mt-4" href="/login">{ar?'تسجيل الدخول':'Sign in'}</Link></div>:<form onSubmit={translate} className="p-4 sm:p-7"><div className="grid overflow-hidden rounded-[10px] border border-[var(--duo-line)] lg:grid-cols-[1fr_auto_1fr]">
+   <section className="flex min-h-[360px] flex-col"><label className="sr-only" htmlFor="visitor-translator-source">{t('sourceLanguage')}</label><select id="visitor-translator-source" value={source} disabled={loading} onChange={e=>{setSource(e.target.value);reset()}} className="min-h-11 border-b border-[var(--duo-line)] bg-transparent px-5 py-3"><option value="auto">{t('autoDetect')}</option>{LANGUAGES.map(item=><option key={item.code} value={item.code}>{item.label}</option>)}</select>
+   <textarea value={text} onChange={e=>{setText(e.target.value);reset()}} maxLength={MAX_CHARS} rows={8} autoFocus disabled={loading} placeholder={t('inputPlaceholder')} aria-label={t('textToTranslate')} className="min-h-[255px] flex-1 resize-none bg-transparent px-5 py-5 text-lg leading-8"/><div className="flex justify-between px-5 pb-4 text-xs"><span>{text.length}/{MAX_CHARS}</span><span>{detected?languageLabel(detected):source==='auto'?t('automaticDetection'):languageLabel(source)}</span></div></section>
+   <div className="flex items-center justify-center border-y border-[var(--duo-line)] bg-[var(--duo-bg)] p-3 lg:border-x lg:border-y-0"><button type="button" disabled={source==='auto'||loading} aria-label={t('swap')} onClick={()=>{if(source!=='auto'){setSource(target);setTarget(source);reset()}} className="min-h-11 min-w-11 rounded-full border border-[var(--duo-line)] bg-[var(--duo-card)] p-2.5"><ArrowRightLeft size={16}/></button></div>
+   <section className="flex min-h-[360px] flex-col bg-[var(--duo-bg)]"><label className="sr-only" htmlFor="visitor-translator-target">{t('targetLanguage')}</label><select id="visitor-translator-target" value={target} disabled={loading} onChange={e=>{setTarget(e.target.value);reset()}} className="min-h-11 border-b border-[var(--duo-line)] bg-transparent px-5 py-3">{LANGUAGES.map(item=><option key={item.code} value={item.code}>{item.label}</option>)}</select>
+    <div className="flex-1 px-5 py-5">{error?<div role="alert"><p className="text-[var(--duo-red)]">{error}</p>{exhausted&&<Link className="underline" href="/settings/subscription">{ar?'الباقة والتجديد':'Plan and reset time'}</Link>}</div>:translation?<><p className="text-lg leading-8">{translation}</p><div className="mt-6 flex flex-wrap gap-2"><button type="button" onClick={speak} aria-label={ar?'استمع':'Listen'} className="min-h-11 p-2"><Volume2 size={20}/></button><button type="button" onClick={()=>void copy()} aria-label={ar?'نسخ':'Copy'} className="min-h-11 p-2">{copied?<Check size={20}/>:<Copy size={20}/>}</button><button type="button" onClick={save} className="inline-flex min-h-11 items-center gap-2 px-3 py-2"><BookOpenCheck size={16}/>{saved?t('savedLocally'):t('learnThis')}</button></div>{saved&&<p role="status" className="mt-3 text-xs">{t('savedNote')}</p>}</>:<p>{t('translationPlaceholder')}</p>}</div></section>
+  </div><div className="mt-4 flex flex-wrap items-center justify-between gap-3"><p className="text-xs">{t('workflow')}</p><button type="submit" disabled={!text.trim()||loading} className="inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-[var(--duo-green)] px-7 py-3 font-semibold text-[var(--duo-card)]">{loading?<Loader2 size={16} className="animate-spin"/>:<Languages size={16}/>} {loading?t('translating'):t('translate')}</button></div></form>}
+ </div></div>}</>
 }
