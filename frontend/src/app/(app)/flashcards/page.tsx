@@ -25,7 +25,7 @@ interface CardData {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-[12px] border border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-[12px] border border-[var(--juba-green-dark,var(--duo-green-dark))] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
   'inline-flex items-center justify-center gap-2 rounded-[12px] border border-[var(--juba-border,var(--duo-line))] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--juba-green,var(--duo-green))_12%,transparent)]'
 
@@ -144,7 +144,7 @@ export default function FlashcardsPage() {
   return (
     <div className="juba-page-shell juba-page-shell juba-mobile-flashcards w-full space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] p-5 shadow-sm sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="rounded-[12px] border border-[var(--juba-border,var(--duo-line))] bg-[var(--juba-card,var(--duo-card))] p-5 shadow-[0_1px_2px_rgba(36,48,32,.025)] sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-[var(--juba-ink,var(--duo-ink))] text-xl font-bold tracking-tight">
             {t('title')}
@@ -153,7 +153,7 @@ export default function FlashcardsPage() {
             {total} {t('total')} ·{' '}
             <span
               className="font-semibold"
-              style={{ color: 'var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))' }}
+              style={{ color: 'var(--juba-green-dark,var(--duo-green-dark))' }}
             >
               {cards.length} {t('due')}
             </span>
@@ -170,7 +170,7 @@ export default function FlashcardsPage() {
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
-            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]' : 'bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]'}`}
+            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-green-dark,var(--duo-green-dark))]' : 'bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--duo-green-dark))]'}`}
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             {t('generateBtn')}
@@ -211,7 +211,7 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-[var(--juba-bg,var(--duo-bg))] border-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))] placeholder:text-[var(--juba-muted,var(--duo-muted))] focus:border-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))] w-full rounded-[12px] border px-4 py-3 text-sm transition-colors focus:outline-none"
+                className="bg-[var(--juba-bg,var(--duo-bg))] border-[var(--juba-border,var(--duo-line))] text-[var(--juba-ink,var(--duo-ink))] placeholder:text-[var(--juba-muted,var(--duo-muted))] focus:border-[var(--juba-green-dark,var(--duo-green-dark))] w-full rounded-[12px] border px-4 py-3 text-sm transition-colors focus:outline-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -253,7 +253,7 @@ export default function FlashcardsPage() {
             <button
               type="submit"
               disabled={generating || !genTopic.trim()}
-              className={`${btnPrimary} w-full bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))]`}
+              className={`${btnPrimary} w-full bg-[var(--juba-green,var(--duo-green))] hover:bg-[var(--juba-green-dark,var(--duo-green-dark))]`}
             >
               {generating ? (
                 <>
@@ -277,7 +277,7 @@ export default function FlashcardsPage() {
           <span
             className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[12px]"
             style={{
-              color: 'var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))',
+              color: 'var(--juba-green-dark,var(--duo-green-dark))',
               background: 'color-mix(in srgb, var(--juba-green,var(--duo-green)) 12%, transparent)',
             }}
           >
@@ -313,7 +313,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     !speakingMode
-                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-sm'
+                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-[0_1px_2px_rgba(36,48,32,.025)]'
                       : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))]'
                   }`}
                 >
@@ -328,7 +328,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     speakingMode
-                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-sm'
+                      ? 'text-[var(--juba-ink,var(--duo-ink))] bg-[white] shadow-[0_1px_2px_rgba(36,48,32,.025)]'
                       : 'text-[var(--juba-muted,var(--duo-muted))] hover:text-[var(--juba-ink,var(--duo-ink))]'
                   }`}
                 >
@@ -341,7 +341,7 @@ export default function FlashcardsPage() {
                 className="h-full rounded-full transition-colors duration-500"
                 style={{
                   width: `${sessionProgress}%`,
-                  background: 'var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))',
+                  background: 'var(--juba-green-dark,var(--duo-green-dark))',
                 }}
               />
             </div>
@@ -351,7 +351,7 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="juba-card cursor-pointer select-none overflow-hidden border border-[var(--juba-border,var(--duo-line))] shadow-sm"
+                className="juba-card cursor-pointer select-none overflow-hidden border border-[var(--juba-border,var(--duo-line))] shadow-[0_1px_2px_rgba(36,48,32,.025)]"
                 onClick={() => setFlipped(!flipped)}
                 role="button"
                 tabIndex={0}
@@ -432,9 +432,9 @@ export default function FlashcardsPage() {
                       key: 'easy',
                       q: 5,
                       style: {
-                        color: 'var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark))',
+                        color: 'var(--juba-green-dark,var(--duo-green-dark))',
                         borderColor:
-                          'color-mix(in srgb, var(--juba-green-dark,var(--juba-green,var(--duo-green)-dark)) 45%, var(--juba-border,var(--duo-line)))',
+                          'color-mix(in srgb, var(--juba-green-dark,var(--duo-green-dark)) 45%, var(--juba-border,var(--duo-line)))',
                       },
                     },
                   ].map(({ key, q, style }) => (
