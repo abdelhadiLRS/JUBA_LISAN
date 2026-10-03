@@ -87,6 +87,7 @@ async def test_interactive_game_session_keeps_solution_server_side(
 async def test_completed_interactive_session_cannot_be_replayed(
     client, test_user, db_session
 ):
+    from app.models.game_session import GameSession
     from tests.conftest import make_study_plan
 
     user, headers = test_user
@@ -110,9 +111,14 @@ async def test_completed_interactive_session_cannot_be_replayed(
     assert started.status_code == 200
     payload = started.json()
 
+    # Build a perfect trace from the server-owned solution, never from public
+    # card fields: the client must not be able to pair cards without playing.
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    pairs = session.questions[0]["interaction"]["solution"]["pairs"]
     cards_by_pair = {}
-    for card in payload["interaction"]["cards"]:
-        cards_by_pair.setdefault(card["pair_key"], []).append(card["id"])
+    for card_id, pair_id in pairs.items():
+        cards_by_pair.setdefault(pair_id, []).append(card_id)
     trace = [
         {"first": ids[0], "second": ids[1]}
         for ids in cards_by_pair.values()

@@ -11,9 +11,11 @@ export function gameLanguageForTargetLanguage(targetLanguage?:string|null):GameL
 export type ServerGameStats={total_xp:number;games_played:number;questions_answered:number;correct_answers:number;best_round_score:number;daily_challenges_completed:number;last_daily_challenge_date:string;current_correct_streak:number;best_correct_streak:number;achievements:string[];skills:Record<string,number>}
 export type GameSessionQuestion={id:string;prompt:string;choices:string[];hint:string;skill:string;difficulty:number;input_mode?:'choice'|'text';audio_text?:string|null;audio_language?:string|null}
 export type GameSessionStartResponse={session_id:string;game_id:string;questions:GameSessionQuestion[];expires_at:string;daily_challenge:boolean;daily_challenge_date:string;interaction?:InteractiveGameChallenge;adaptive_mode?:'new'|'review'|'steady'|'challenge'|'skill_review'|'skill_challenge';effective_difficulty?:number}
+// Public challenge items carry only id and label. Pairing and ordering
+// solutions stay on the server and are validated from the submitted trace.
 export type InteractiveGameChallenge=
- |{type:'memory';cards:Array<{id:string;label:string;pair_key?:string}>}
- |{type:'matching';left:Array<{id:string;label:string;pair_key?:string}>;right:Array<{id:string;label:string;pair_key?:string}>}
+ |{type:'memory';cards:Array<{id:string;label:string}>}
+ |{type:'matching';left:Array<{id:string;label:string}>;right:Array<{id:string;label:string}>}
  |{type:'ordering';items:Array<{id:string;label:string}>}
 export type InteractiveGameTrace={first:string;second:string}|{left:string;right:string}|{order:string[]}
 export type GameSessionResult=ServerGameStats&{round_score:number;round_correct:number;round_questions:number;xp_earned:number;skill_results:Record<string,{correct:number;questions:number;accuracy:number;mastery_before?:number;mastery_after?:number;mastery_delta?:number}>;new_achievements:string[]}
